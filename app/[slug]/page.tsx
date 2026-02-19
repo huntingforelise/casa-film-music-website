@@ -23,7 +23,7 @@ export default async function PostPage({
       <Link href="/" className="hover:underline">
         ← Back to posts
       </Link>
-      {post.image &&(
+      {post.image && (
         <SanityImg
           value={post.image}
           alt={post.title}
