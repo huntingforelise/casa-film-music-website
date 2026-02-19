@@ -17,3 +17,21 @@ export const footerQuery = `
     }
   }
 `;
+
+export const homepageQuery = `
+  *[_type == "homepage"][0]{
+    sections[]{
+      ...,
+      optionOne{
+        title,
+        link,
+        image
+      },
+      optionTwo{
+        title,
+        link,
+        image
+      }
+    }
+  }
+`;

@@ -9,12 +9,12 @@ type Props = {
   height?: number;
 };
 
-export default function SanityImage({
+const SanityImage = ({
   value,
   alt = "",
   width = 800,
   height = 600,
-}: Props) {
+}: Props) => {
   const imageUrl = urlFor(value)
     .width(width)
     .height(height)
@@ -33,3 +33,5 @@ export default function SanityImage({
     />
   );
 }
+
+export default SanityImage; 
