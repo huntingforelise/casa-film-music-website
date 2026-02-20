@@ -1,27 +1,22 @@
 export const headerQuery = `
-  *[_type == "header"][0]{
-    logo,
-    navigation[]{
-      label,
-      url
-    }
-  }
+  *[_id == "header"][0]
 `;
 
 export const footerQuery = `
-  *[_type == "footer"][0]{
-    text,
-    links[]{
-      label,
-      url
-    }
-  }
+  *[_id == "footer"][0]
 `;
 
 export const homepageQuery = `
-  *[_type == "homepage"][0]{
+  *[_id == "homepage"][0]
+`;
+
+export const pageBySlugQuery = `
+  *[_type == "page" && slug.current == $slug][0]{
+    title,
+    slug,
     sections[]{
       ...,
+      image,
       optionOne{
         title,
         link,
@@ -34,4 +29,4 @@ export const homepageQuery = `
       }
     }
   }
-`;
+`

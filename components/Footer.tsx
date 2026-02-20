@@ -1,4 +1,4 @@
-import { footerQuery } from "@/lib/queries";
+import { footerQuery } from "@/lib/sanity/queries";
 import { client } from "@/lib/sanity/client";
 
 const getFooter = async () => {

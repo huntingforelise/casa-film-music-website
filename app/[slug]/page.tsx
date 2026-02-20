@@ -1,39 +1,26 @@
-import { PortableText, type SanityDocument } from "next-sanity";
-import Link from "next/link";
-import SanityImg from "@/components/SanityImage";
+import { pageBySlugQuery } from "@/lib/sanity/queries";
+import SectionRenderer from "@/components/SectionRenderer";
+import { notFound } from "next/navigation";
 import { client } from "@/lib/sanity/client";
 
-const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
+const getPage = async (slug: string) => {
+  return client.fetch(pageBySlugQuery, { slug });
+}
 
-const options = { next: { revalidate: 30 } };
+const  Page = async ({ params }: { params: { slug: string } }) => {
+  const { slug } = await params;
+  if (!slug) return notFound()
 
-export default async function PostPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const post = await client.fetch<SanityDocument>(
-    POST_QUERY,
-    await params,
-    options,
-  );
+  const page = await getPage(slug);
+  if (!page) return notFound();
 
   return (
-    <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
-      <Link href="/" className="hover:underline">
-        ← Back to posts
-      </Link>
-      {post.image && (
-        <SanityImg
-          value={post.image}
-          alt={post.title}
-        />
-      )}
-      <h1 className="text-4xl font-bold mb-8">{post.title}</h1>
-      <div className="prose">
-        <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
-        {Array.isArray(post.body) && <PortableText value={post.body} />}
-      </div>
+    <main>
+      {page.sections?.map((section: any) => (
+        <SectionRenderer key={section._key} section={section} />
+      ))}
     </main>
   );
 }
+
+export default Page;

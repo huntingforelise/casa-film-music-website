@@ -1,4 +1,4 @@
-import { homepageQuery } from "@/lib/queries";
+import { homepageQuery } from "@/lib/sanity/queries";
 import SectionRenderer from "@/components/SectionRenderer";
 import { client } from "@/lib/sanity/client";
 

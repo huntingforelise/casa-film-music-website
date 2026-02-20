@@ -1,5 +1,5 @@
 
-import { headerQuery } from "@/lib/queries";
+import { headerQuery } from "@/lib/sanity/queries";
 import { client } from "@/lib/sanity/client";
 import SanityImage from "./SanityImage";
 import { SanityDocument } from "next-sanity";
