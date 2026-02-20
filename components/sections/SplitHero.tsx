@@ -5,112 +5,81 @@ const SplitHero = ({ section }: any) => {
   return (
     <section
       style={{
-        minHeight: "80vh",
+        flex: 1,
         display: "flex",
-        flexDirection: "column",
       }}
     >
-      {/* Question */}
-      <h1
+      {/* OPTION ONE */}
+      <Link
+        href={section.optionOne.link}
         style={{
-          textAlign: "center",
-          fontSize: "3rem",
-          margin: "40px 0",
+          flex: 1,
+          position: "relative",
+          textDecoration: "none",
+          color: "white",
+          overflow: "hidden",
         }}
       >
-        {section.question}
-      </h1>
+        {/* IMAGE LAYER */}
+        <SanityImage
+          value={section.optionOne.image}
+          alt={section.optionOne.title}
+          fill
+          style={{ objectFit: "cover", position: "absolute", inset: 0 }}
+        />
 
-      {/* Options */}
-      <div style={{ display: "flex", flex: 1 }}>
-        {/* OPTION ONE */}
-        <Link
-          href={section.optionOne.link}
+        {/* TEXT OVERLAY */}
+        <div
           style={{
-            flex: 1,
-            position: "relative",
-            textDecoration: "none",
-            color: "white",
-            overflow: "hidden",
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0,0,0,0.3)",
+            fontSize: "2rem",
+            fontWeight: "bold",
           }}
         >
-          {/* IMAGE LAYER */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              zIndex: 0,
-            }}
-          >
-            <SanityImage
-              value={section.optionOne.image}
-              alt={section.optionOne.title}
-              height={1000}
-            />
-          </div>
+          {section.optionOne.title}
+        </div>
+      </Link>
 
-          {/* TEXT OVERLAY */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              zIndex: 1,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "rgba(0,0,0,0.3)",
-              fontSize: "2rem",
-              fontWeight: "bold",
-            }}
-          >
-            {section.optionOne.title}
-          </div>
-        </Link>
+      {/* OPTION TWO */}
+      <Link
+        href={section.optionTwo.link}
+        style={{
+          flex: 1,
+          position: "relative",
+          textDecoration: "none",
+          color: "white",
+          overflow: "hidden",
+        }}
+      >
+        {/* IMAGE LAYER */}
+        <SanityImage
+          value={section.optionTwo.image}
+          alt={section.optionTwo.title}
+          fill
+          style={{ objectFit: "cover", position: "absolute", inset: 0 }}
+        />
 
-        {/* OPTION TWO */}
-        <Link
-          href={section.optionTwo.link}
+        {/* TEXT OVERLAY */}
+        <div
           style={{
-            flex: 1,
-            position: "relative",
-            textDecoration: "none",
-            color: "white",
-            overflow: "hidden",
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0,0,0,0.3)",
+            fontSize: "2rem",
+            fontWeight: "bold",
           }}
         >
-          {/* IMAGE LAYER */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              zIndex: 0,
-            }}
-          >
-            <SanityImage
-              value={section.optionTwo.image}
-              alt={section.optionTwo.title}
-              height={1000}
-            />
-          </div>
-
-          {/* TEXT OVERLAY */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              zIndex: 1,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "rgba(0,0,0,0.3)",
-              fontSize: "2rem",
-              fontWeight: "bold",
-            }}
-          >
-            {section.optionTwo.title}
-          </div>
-        </Link>
-      </div>
+          {section.optionTwo.title}
+        </div>
+      </Link>
     </section>
   );
 };

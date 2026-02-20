@@ -14,19 +14,24 @@ const Footer = async () => {
     <footer
       style={{
         alignItems: "center",
-        backgroundColor:'turquoise',
-        borderTop: "1px solid #ddd",
+        backgroundColor: "black",
         display: "flex",
         flexDirection: "column",
         gap: "20px",
         padding: "40px",
       }}
     >
-      {footer.text && <p>{footer.text}</p>}
+      {footer.text && (
+        <p style={{ color: "white", textDecoration: "none" }}>{footer.text}</p>
+      )}
 
-      <div style={{ display: "flex", gap: "20px"}}>
+      <div style={{ display: "flex", gap: "20px" }}>
         {footer.links?.map((link: any) => (
-          <a key={link.url} href={link.url}>
+          <a
+            key={link.url}
+            href={link.url}
+            style={{ color: "white", textDecoration: "none" }}
+          >
             {link.label}
           </a>
         ))}
