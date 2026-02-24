@@ -1,6 +1,6 @@
-import { homepageQuery } from "@/lib/sanity/queries";
-import SectionRenderer from "@/components/SectionRenderer";
-import { client } from "@/lib/sanity/client";
+import { homepageQuery } from '@/lib/sanity/queries';
+import SectionRenderer from '@/components/SectionRenderer';
+import { client } from '@/lib/sanity/client';
 
 const getHomepage = async () => {
   return client.fetch(homepageQuery);

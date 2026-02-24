@@ -1,6 +1,6 @@
-import { createImageUrlBuilder } from "@sanity/image-url";
-import { SanityImageSource } from "@sanity/image-url";
-import { client } from "./client";
+import { createImageUrlBuilder } from '@sanity/image-url';
+import { SanityImageSource } from '@sanity/image-url';
+import { client } from './client';
 
 const builder = createImageUrlBuilder(client);
 

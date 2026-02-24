@@ -1,5 +1,5 @@
-import { footerQuery } from "@/lib/sanity/queries";
-import { client } from "@/lib/sanity/client";
+import { footerQuery } from '@/lib/sanity/queries';
+import { client } from '@/lib/sanity/client';
 
 const getFooter = async () => {
   return client.fetch(footerQuery);
@@ -13,25 +13,19 @@ const Footer = async () => {
   return (
     <footer
       style={{
-        alignItems: "center",
-        backgroundColor: "black",
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px",
-        padding: "40px",
+        alignItems: 'center',
+        backgroundColor: 'black',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        padding: '40px',
       }}
     >
-      {footer.text && (
-        <p style={{ color: "white", textDecoration: "none" }}>{footer.text}</p>
-      )}
+      {footer.text && <p style={{ color: 'white', textDecoration: 'none' }}>{footer.text}</p>}
 
-      <div style={{ display: "flex", gap: "20px" }}>
+      <div style={{ display: 'flex', gap: '20px' }}>
         {footer.links?.map((link: any) => (
-          <a
-            key={link.url}
-            href={link.url}
-            style={{ color: "white", textDecoration: "none" }}
-          >
+          <a key={link.url} href={link.url} style={{ color: 'white', textDecoration: 'none' }}>
             {link.label}
           </a>
         ))}

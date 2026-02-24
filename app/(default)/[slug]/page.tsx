@@ -1,8 +1,8 @@
-import { client } from "@/lib/sanity/client";
-import { pageBySlugQuery } from "@/lib/sanity/queries";
-import { PageData } from "@/types/page";
-import SectionRenderer from "@/components/SectionRenderer";
-import { notFound } from "next/navigation";
+import { client } from '@/lib/sanity/client';
+import { pageBySlugQuery } from '@/lib/sanity/queries';
+import { PageData } from '@/types/page';
+import SectionRenderer from '@/components/SectionRenderer';
+import { notFound } from 'next/navigation';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -22,9 +22,7 @@ const Page = async ({ params }: PageProps) => {
 
   return (
     <main>
-      <h1 style={{ textAlign: "center", margin: "60px 0 40px" }}>
-        {page.title}
-      </h1>
+      <h1 style={{ textAlign: 'center', margin: '60px 0 40px' }}>{page.title}</h1>
 
       {page.sections?.map((section) => (
         <SectionRenderer key={section._key} section={section} />

@@ -1,8 +1,8 @@
-import { Section } from "@/types/sections";
+import { Section } from '@/types/sections';
 
-import SplitHero from "./sections/SplitHero";
-import TextSection from "./sections/TextSection";
-import ImageSection from "./sections/ImageSection";
+import SplitHero from './sections/SplitHero';
+import TextSection from './sections/TextSection';
+import ImageSection from './sections/ImageSection';
 
 interface Props {
   section: Section;
@@ -10,13 +10,13 @@ interface Props {
 
 const SectionRenderer = ({ section }: Props) => {
   switch (section._type) {
-    case "splitHeroSection":
+    case 'splitHeroSection':
       return <SplitHero section={section} />;
 
-    case "textSection":
+    case 'textSection':
       return <TextSection section={section} />;
 
-    case "imageSection":
+    case 'imageSection':
       return <ImageSection section={section} />;
 
     default:

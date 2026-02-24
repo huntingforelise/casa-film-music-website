@@ -1,16 +1,16 @@
-import { SanityImage } from "./sanity";
+import { SanityImage } from './sanity';
 
 /* ---------- Portable text ---------- */
 
 export interface PortableTextSpan {
   _key: string;
-  _type: "span";
+  _type: 'span';
   text: string;
 }
 
 export interface PortableTextBlock {
   _key: string;
-  _type: "block";
+  _type: 'block';
   children: PortableTextSpan[];
 }
 
@@ -18,20 +18,20 @@ export interface PortableTextBlock {
 
 export interface TextSection {
   _key: string;
-  _type: "textSection";
+  _type: 'textSection';
   content: PortableTextBlock[];
 }
 
 export interface ImageSection {
   _key: string;
-  _type: "imageSection";
+  _type: 'imageSection';
   image: SanityImage;
   caption?: string;
 }
 
 export interface SplitHeroSection {
   _key: string;
-  _type: "splitHeroSection";
+  _type: 'splitHeroSection';
 
   optionOne: {
     title: string;

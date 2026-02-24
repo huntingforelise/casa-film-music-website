@@ -1,35 +1,35 @@
-import { SplitHeroSection } from "@/types/sections";
-import Link from "next/link";
-import SanityImage from "../SanityImage";
+import { SplitHeroSection } from '@/types/sections';
+import Link from 'next/link';
+import SanityImage from '../SanityImage';
 
 interface Props {
   section: SplitHeroSection;
 }
 
 const overlayStyle: React.CSSProperties = {
-  position: "absolute",
+  position: 'absolute',
   inset: 0,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "white",
-  fontSize: "2rem",
-  fontWeight: "bold",
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: 'white',
+  fontSize: '2rem',
+  fontWeight: 'bold',
   zIndex: 2,
 };
 
 const SplitHero = ({ section }: Props) => {
   return (
-    <section style={{ flex: 1, display: "flex", minHeight: "100vh" }}>
+    <section style={{ flex: 1, display: 'flex', minHeight: '100vh' }}>
       {/* OPTION ONE */}
       <Link
         href={section.optionOne.link}
-        style={{ flex: 1, position: "relative", overflow: "hidden" }}
+        style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
       >
         <SanityImage
           value={section.optionOne.image}
           fill
-          style={{ objectFit: "cover", zIndex: 1 }}
+          style={{ objectFit: 'cover', zIndex: 1 }}
         />
 
         <div style={overlayStyle}>{section.optionOne.title}</div>
@@ -38,12 +38,12 @@ const SplitHero = ({ section }: Props) => {
       {/* OPTION TWO */}
       <Link
         href={section.optionTwo.link}
-        style={{ flex: 1, position: "relative", overflow: "hidden" }}
+        style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
       >
         <SanityImage
           value={section.optionTwo.image}
           fill
-          style={{ objectFit: "cover", zIndex: 1 }}
+          style={{ objectFit: 'cover', zIndex: 1 }}
         />
 
         <div style={overlayStyle}>{section.optionTwo.title}</div>

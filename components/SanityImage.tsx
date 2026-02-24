@@ -1,6 +1,6 @@
-import Image from "next/image";
-import { SanityImageSource } from "@sanity/image-url";
-import { urlFor } from "@/lib/sanity/image";
+import Image from 'next/image';
+import { SanityImageSource } from '@sanity/image-url';
+import { urlFor } from '@/lib/sanity/image';
 
 export type SanityImageProps = {
   value: SanityImageSource;
@@ -14,30 +14,23 @@ export type SanityImageProps = {
 
 const SanityImage = ({
   value,
-  alt = "",
+  alt = '',
   width,
   height,
   fill = false,
   className,
   style,
 }: SanityImageProps) => {
-  let builder = urlFor(value).auto("format").quality(90);
+  let builder = urlFor(value).auto('format').quality(90);
 
   if (!fill && width && height) {
-    builder = builder.width(width).height(height).fit("max");
+    builder = builder.width(width).height(height).fit('max');
   }
 
   const imageUrl = builder.url();
 
   return fill ? (
-    <Image
-      src={imageUrl}
-      alt={alt}
-      fill
-      className={className}
-      style={style}
-      sizes="100vw"
-    />
+    <Image src={imageUrl} alt={alt} fill className={className} style={style} sizes="100vw" />
   ) : (
     <Image
       src={imageUrl}
