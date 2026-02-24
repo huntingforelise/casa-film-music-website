@@ -21,28 +21,14 @@ export const metadata: Metadata = {
 
 const RootLayout = ({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) => {
+}) => {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        style={{
-          margin: 0,
-          display: "flex",
-          flexDirection: "column",
-          minHeight: "100vh", // full viewport
-        }}
-      >
-        <Header />
-        <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          {children} 
-        </main>
-        <Footer />
-      </body>
+      <body>{children}</body>
     </html>
   );
-};
+}
 
 export default RootLayout;

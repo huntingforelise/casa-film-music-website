@@ -1,12 +1,27 @@
 import Link from "next/link";
-import SanityImage from "@/components/SanityImage";
+import SanityImage, { SanityImageProps } from "@/components/SanityImage";
 
-const SplitHero = ({ section }: any) => {
+type SplitHeroProps = {
+  section: {
+    optionOne: {
+      link: string;
+      title: string;
+      image: SanityImageProps;
+    };
+    optionTwo: {
+      link: string;
+      title: string;
+      image: SanityImageProps;
+    };
+  };
+};
+
+const SplitHero = ({ section }: SplitHeroProps) => {
   return (
     <section
       style={{
-        flex: 1,
         display: "flex",
+        minHeight: "100vh", 
       }}
     >
       {/* OPTION ONE */}

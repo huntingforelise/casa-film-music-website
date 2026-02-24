@@ -14,19 +14,6 @@ export const pageBySlugQuery = `
   *[_type == "page" && slug.current == $slug][0]{
     title,
     slug,
-    sections[]{
-      ...,
-      image,
-      optionOne{
-        title,
-        link,
-        image
-      },
-      optionTwo{
-        title,
-        link,
-        image
-      }
-    }
+    sections[]
   }
 `

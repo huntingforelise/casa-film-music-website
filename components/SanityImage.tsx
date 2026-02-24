@@ -2,7 +2,7 @@ import Image from "next/image";
 import { SanityImageSource } from "@sanity/image-url";
 import { urlFor } from "@/lib/sanity/image";
 
-type Props = {
+export type SanityImageProps = {
   value: SanityImageSource;
   alt?: string;
   width?: number;
@@ -20,7 +20,7 @@ const SanityImage = ({
   fill = false,
   className,
   style,
-}: Props) => {
+}: SanityImageProps) => {
   const imageUrl = urlFor(value)
     .width(width)
     .height(height)
