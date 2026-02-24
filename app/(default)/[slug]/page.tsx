@@ -1,23 +1,19 @@
+import { client } from "@/lib/sanity/client";
 import { pageBySlugQuery } from "@/lib/sanity/queries";
+import { PageData } from "@/types/page";
 import SectionRenderer from "@/components/SectionRenderer";
 import { notFound } from "next/navigation";
-import { client } from "@/lib/sanity/client";
 
-type PageData = {
-  title: string;
-  sections: any[];
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+const getPage = async (slug: string): Promise<PageData | null> => {
+  return client.fetch(pageBySlugQuery, { slug });
 };
 
-const getPage = async (slug: string) => {
-  return client.fetch<PageData>(pageBySlugQuery, { slug });
-};
-
-const Page = async ({
-  params,
-}: {
-  params: Promise<{ slug: string }>; 
-}) => {
-  const { slug } = await params; 
+const Page = async ({ params }: PageProps) => {
+  const { slug } = await params;
 
   if (!slug) return notFound();
 
@@ -30,7 +26,7 @@ const Page = async ({
         {page.title}
       </h1>
 
-      {page.sections?.map((section: any) => (
+      {page.sections?.map((section) => (
         <SectionRenderer key={section._key} section={section} />
       ))}
     </main>

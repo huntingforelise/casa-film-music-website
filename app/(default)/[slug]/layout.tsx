@@ -1,11 +1,11 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export default function DefaultLayout({
+const DefaultLayout = ({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) => {
   return (
     <>
       <Header />
@@ -14,3 +14,5 @@ export default function DefaultLayout({
     </>
   );
 }
+
+export default DefaultLayout;

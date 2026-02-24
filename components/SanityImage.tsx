@@ -7,27 +7,27 @@ export type SanityImageProps = {
   alt?: string;
   width?: number;
   height?: number;
-  fill?: boolean; // optional fill mode
-  className?: string; // optional className for styling
-  style?: React.CSSProperties; // optional inline styles
+  fill?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
 };
 
 const SanityImage = ({
   value,
   alt = "",
-  width = 800,
-  height = 600,
+  width,
+  height,
   fill = false,
   className,
   style,
 }: SanityImageProps) => {
-  const imageUrl = urlFor(value)
-    .width(width)
-    .height(height)
-    .fit("max")
-    .auto("format")
-    .quality(90)
-    .url();
+  let builder = urlFor(value).auto("format").quality(90);
+
+  if (!fill && width && height) {
+    builder = builder.width(width).height(height).fit("max");
+  }
+
+  const imageUrl = builder.url();
 
   return fill ? (
     <Image
@@ -36,14 +36,14 @@ const SanityImage = ({
       fill
       className={className}
       style={style}
-      sizes="(max-width: 768px) 100vw, 1200px"
+      sizes="100vw"
     />
   ) : (
     <Image
       src={imageUrl}
       alt={alt}
-      width={width}
-      height={height}
+      width={width ?? 800}
+      height={height ?? 600}
       className={className}
       style={style}
       sizes="(max-width: 768px) 100vw, 1200px"

@@ -1,11 +1,11 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export default function OverlayLayout({
+const OverlayLayout = ({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) => {
   return (
     <>
       <Header variant="overlay" />
@@ -14,3 +14,5 @@ export default function OverlayLayout({
     </>
   );
 }
+
+export default OverlayLayout;
