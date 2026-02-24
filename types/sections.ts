@@ -29,6 +29,14 @@ export interface ImageSection {
   caption?: string;
 }
 
+export interface TextImageSection {
+  _key: string;
+  _type: 'textImageSection';
+  text: PortableTextBlock[];
+  image: SanityImage;
+  reverse?: boolean;
+}
+
 export interface SplitHeroSection {
   _key: string;
   _type: 'splitHeroSection';
@@ -48,4 +56,4 @@ export interface SplitHeroSection {
 
 /* ---------- UNION ---------- */
 
-export type Section = TextSection | ImageSection | SplitHeroSection;
+export type Section = TextSection | ImageSection | TextImageSection | SplitHeroSection;
