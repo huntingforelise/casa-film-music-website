@@ -37,12 +37,7 @@ const Header = async ({ variant = "default" }: HeaderProps) => {
     >
       {header.logo && (
         <Link href="/">
-            <SanityImage
-              value={header.logo}
-              alt="Logo"
-              width={120}
-              height={60}
-            />
+          <SanityImage value={header.logo} alt="Logo" width={120} height={60} />
         </Link>
       )}
 

@@ -16,4 +16,4 @@ export const pageBySlugQuery = `
     slug,
     sections[]
   }
-`
+`;

@@ -8,10 +8,7 @@ interface Props {
 const ImageSection = ({ section }: Props) => {
   return (
     <section style={{ padding: "40px 20px" }}>
-      <SanityImage
-        value={section.image}
-        alt={section.caption}
-      />
+      <SanityImage value={section.image} alt={section.caption} />
       {section.caption && <p>{section.caption}</p>}
     </section>
   );

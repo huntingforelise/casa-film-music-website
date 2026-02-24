@@ -3,7 +3,7 @@ import { client } from "@/lib/sanity/client";
 
 const getFooter = async () => {
   return client.fetch(footerQuery);
-}
+};
 
 const Footer = async () => {
   const footer = await getFooter();
@@ -38,6 +38,6 @@ const Footer = async () => {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

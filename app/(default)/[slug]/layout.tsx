@@ -1,11 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const DefaultLayout = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Header />
@@ -13,6 +9,6 @@ const DefaultLayout = ({
       <Footer />
     </>
   );
-}
+};
 
 export default DefaultLayout;

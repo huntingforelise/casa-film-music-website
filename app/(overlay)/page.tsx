@@ -4,7 +4,7 @@ import { client } from "@/lib/sanity/client";
 
 const getHomepage = async () => {
   return client.fetch(homepageQuery);
-}
+};
 
 const Home = async () => {
   const homepage = await getHomepage();
@@ -18,6 +18,6 @@ const Home = async () => {
       ))}
     </>
   );
-}
+};
 
 export default Home;
