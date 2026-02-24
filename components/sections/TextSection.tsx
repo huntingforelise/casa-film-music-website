@@ -16,7 +16,7 @@ const TextSection = ({ section }: Props) => {
   if (!section.content) return null;
 
   return (
-    <section style={{ padding: '40px 20px' }}>
+    <section style={{ padding: '40px 0px' }}>
       <PortableText value={section.content} components={components} />
     </section>
   );

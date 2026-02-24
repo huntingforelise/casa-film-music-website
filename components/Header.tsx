@@ -30,9 +30,8 @@ const Header = async ({ variant = 'default' }: HeaderProps) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        background: isOverlay ? 'rgba(255,255,255,0.1)' : 'white',
+        background: isOverlay ? 'rgba(255,255,255,0.1)' : 'pink',
         backdropFilter: isOverlay ? 'blur(10px)' : 'none',
-        borderBottom: isOverlay ? 'none' : '1px solid #ddd',
       }}
     >
       {header.logo && (
