@@ -22,7 +22,7 @@ type FooterData = {
 const socialIconSrc: Record<SocialPlatform, string> = {
   facebook: 'https://cdn.simpleicons.org/facebook/1A1A1A',
   instagram: 'https://cdn.simpleicons.org/instagram/1A1A1A',
-  linkedin: 'https://cdn.simpleicons.org/linkedin/1A1A1A',
+  linkedin: '/icons/linkedin.svg',
   youtube: 'https://cdn.simpleicons.org/youtube/1A1A1A',
 };
 
@@ -119,11 +119,13 @@ const Footer = async () => {
                   >
                     {link.label ?? link.url}
                   </Link>
-                ) : null
+                ) : null,
               )}
             </div>
             {footer.legalAdvice && (
-              <p className="text-sm leading-relaxed tracking-tight text-text/80">{footer.legalAdvice}</p>
+              <p className="text-sm leading-relaxed tracking-tight text-text/80">
+                {footer.legalAdvice}
+              </p>
             )}
           </div>
         </div>
