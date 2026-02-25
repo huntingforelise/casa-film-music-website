@@ -1,9 +1,14 @@
 import { homepageQuery } from '@/lib/sanity/queries';
 import SectionRenderer from '@/components/SectionRenderer';
 import { client } from '@/lib/sanity/client';
+import { Section } from '@/types/sections';
+
+type HomePageData = {
+  sections?: Section[];
+};
 
 const getHomepage = async () => {
-  return client.fetch(homepageQuery);
+  return client.fetch<HomePageData>(homepageQuery);
 };
 
 const Home = async () => {
@@ -13,7 +18,7 @@ const Home = async () => {
 
   return (
     <>
-      {homepage.sections?.map((section: any) => (
+      {homepage.sections?.map((section) => (
         <SectionRenderer key={section._key} section={section} />
       ))}
     </>

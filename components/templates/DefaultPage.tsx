@@ -7,11 +7,11 @@ export type TemplateProps = {
 
 const DefaultPage = ({ page }: TemplateProps) => {
   return (
-    <main className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto bg-green-50 py-8">
-      <h1 className="text-center text-4xl sm:text-5xl font-bold leading-tight mb-4 text-foreground font-sans relative inline-block">
+    <main className="mx-auto w-full max-w-6xl px-6 py-12 md:py-16 lg:py-24">
+      <h1 className="font-display text-4xl font-semibold tracking-tight text-text md:text-5xl">
         {page.title}
-        <span className="block h-1 w-240 mx-auto mt-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></span>
       </h1>
+      <div className="mt-6 border-t border-border" />
 
       {page.sections?.map((section) => (
         <SectionRenderer key={section._key} section={section} />

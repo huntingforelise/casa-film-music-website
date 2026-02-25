@@ -1,8 +1,19 @@
 import { footerQuery } from '@/lib/sanity/queries';
 import { client } from '@/lib/sanity/client';
+import Link from 'next/link';
+
+type FooterLink = {
+  label: string;
+  url: string;
+};
+
+type FooterData = {
+  text?: string;
+  links?: FooterLink[];
+};
 
 const getFooter = async () => {
-  return client.fetch(footerQuery);
+  return client.fetch<FooterData>(footerQuery);
 };
 
 const Footer = async () => {
@@ -11,24 +22,21 @@ const Footer = async () => {
   if (!footer) return null;
 
   return (
-    <footer
-      style={{
-        alignItems: 'center',
-        backgroundColor: 'black',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-        padding: '40px',
-      }}
-    >
-      {footer.text && <p style={{ color: 'white', textDecoration: 'none' }}>{footer.text}</p>}
+    <footer className="border-t border-border bg-surface">
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-5 px-6 py-12">
+        {footer.text && <p className="text-sm tracking-tight text-text/80">{footer.text}</p>}
 
-      <div style={{ display: 'flex', gap: '20px' }}>
-        {footer.links?.map((link: any) => (
-          <a key={link.url} href={link.url} style={{ color: 'white', textDecoration: 'none' }}>
-            {link.label}
-          </a>
-        ))}
+        <div className="flex flex-wrap justify-center gap-6">
+          {footer.links?.map((link) => (
+            <Link
+              key={link.url}
+              href={link.url}
+              className="text-sm tracking-tight text-text transition hover:text-accent"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
       </div>
     </footer>
   );

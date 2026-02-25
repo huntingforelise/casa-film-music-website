@@ -12,9 +12,10 @@ const overlayStyle: React.CSSProperties = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color: 'white',
+  color: '#f4f4f5',
   fontSize: '2rem',
   fontWeight: 'bold',
+  textShadow: '0 2px 16px rgba(9,9,11,0.5)',
   zIndex: 2,
 };
 
