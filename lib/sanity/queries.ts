@@ -3,7 +3,21 @@ export const headerQuery = `
 `;
 
 export const footerQuery = `
-  *[_id == "footer"][0]
+  *[_id == "footer"][0]{
+    socialLinks[]{
+      platform,
+      url
+    },
+    phoneNumbers,
+    email,
+    legalAdvice,
+    legalLinks[]{
+      label,
+      url
+    },
+    developerCreditLabel,
+    developerCreditUrl
+  }
 `;
 
 export const homepageQuery = `
