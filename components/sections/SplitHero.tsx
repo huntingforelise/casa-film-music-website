@@ -29,7 +29,7 @@ const SplitHero = ({ section }: Props) => {
       >
         <SanityImage
           value={section.optionOne.image}
-          fill
+          mode="fill"
           style={{ objectFit: 'cover', zIndex: 1 }}
         />
 
@@ -43,7 +43,7 @@ const SplitHero = ({ section }: Props) => {
       >
         <SanityImage
           value={section.optionTwo.image}
-          fill
+          mode="fill"
           style={{ objectFit: 'cover', zIndex: 1 }}
         />
 

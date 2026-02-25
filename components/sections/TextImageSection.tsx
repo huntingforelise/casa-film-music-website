@@ -16,8 +16,15 @@ const TextImageSection = ({ section }: Props) => {
       <div className="flex-1">
         <PortableText value={section.text} />
       </div>
-      <div className="flex-1">
-        <SanityImage value={section.image} alt="About image" />
+      <div className="flex-1 w-full">
+        <SanityImage
+          value={section.image}
+          alt={section.image.alt ?? ''}
+          mode="fill-container"
+          containerClassName="h-72 md:h-[28rem] w-full rounded-2xl"
+          className="object-cover"
+          sizes="(min-width: 768px) 50vw, 100vw"
+        />
       </div>
     </div>
   );
