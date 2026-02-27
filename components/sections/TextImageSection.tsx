@@ -1,6 +1,7 @@
 import { TextImageSection as TextImageSectionType } from '@/types/sections';
 import { PortableText } from '@portabletext/react';
 import SanityImage from '../SanityImage';
+import { portableTextComponents } from '@/components/portableTextComponents';
 
 interface Props {
   section: TextImageSectionType;
@@ -14,7 +15,7 @@ const TextImageSection = ({ section }: Props) => {
       }`}
     >
       <div className="flex-1">
-        <PortableText value={section.text} />
+        <PortableText value={section.text} components={portableTextComponents} />
       </div>
       <div className="flex-1 w-full">
         <SanityImage

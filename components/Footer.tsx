@@ -14,7 +14,7 @@ type FooterData = {
   phoneNumbers?: string[];
   email?: string;
   legalAdvice?: string;
-  legalLinks?: { label?: string; url?: string }[];
+  otherLinks?: { label?: string; url?: string }[];
   developerCreditLabel?: string;
   developerCreditUrl?: string;
 };
@@ -108,9 +108,9 @@ const Footer = async () => {
           </div>
 
           <div className="space-y-4">
-            <p className="text-sm font-medium uppercase tracking-tight text-text/70">Legal</p>
+            <p className="text-sm font-medium uppercase tracking-tight text-text/70">Other</p>
             <div className="flex flex-col gap-3">
-              {footer.legalLinks?.map((link) =>
+              {footer.otherLinks?.map((link) =>
                 link.url ? (
                   <Link
                     key={`${link.label ?? 'link'}-${link.url}`}

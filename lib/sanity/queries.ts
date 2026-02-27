@@ -11,7 +11,7 @@ export const footerQuery = `
     phoneNumbers,
     email,
     legalAdvice,
-    legalLinks[]{
+    otherLinks[]{
       label,
       url
     },
