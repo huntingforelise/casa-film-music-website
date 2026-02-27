@@ -1,5 +1,6 @@
 import SectionRenderer from '../SectionRenderer';
 import { Page } from '@/types/page';
+import ContactForm from '../ContactForm';
 
 export type TemplateProps = {
   page: Page<'contact'>;
@@ -16,6 +17,8 @@ const ContactPage = ({ page }: TemplateProps) => {
       {page.sections?.map((section) => (
         <SectionRenderer key={section._key} section={section} />
       ))}
+
+      <ContactForm />
     </main>
   );
 };
