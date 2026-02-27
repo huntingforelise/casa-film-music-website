@@ -4,11 +4,15 @@ import SanityImage from './SanityImage';
 import Link from 'next/link';
 import { SanityImage as SanityImageType } from '@/types/sanity';
 import HeaderHamburgerMenu from './HeaderHamburgerMenu';
-import HeaderNavLinks from './HeaderNavLinks';
+import HeaderMenuLinks from './HeaderMenuLinks';
 
 type NavigationItem = {
   label: string;
   url: string;
+  subLinks?: {
+    label: string;
+    url: string;
+  }[];
 };
 
 type HeaderData = {
@@ -34,13 +38,13 @@ const Header = async () => {
               alt="Logo"
               width={120}
               height={60}
-              className="h-auto w-20 sm:w-24 "
+              className="h-auto w-20 sm:w-24"
             />
           </Link>
         )}
 
         <nav className="hidden sm:block">
-          <HeaderNavLinks
+          <HeaderMenuLinks
             navigation={header.navigation}
             containerClassName="flex items-center gap-6"
             itemClassName="text-sm tracking-tight"

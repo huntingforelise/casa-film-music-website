@@ -1,5 +1,15 @@
 export const headerQuery = `
-  *[_id == "header"][0]
+  *[_id == "header"][0]{
+    logo,
+    navigation[]{
+      label,
+      url,
+      subLinks[]{
+        label,
+        url
+      }
+    }
+  }
 `;
 
 export const footerQuery = `

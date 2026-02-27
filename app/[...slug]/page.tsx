@@ -8,7 +8,7 @@ import BookingPage from '@/components/templates/BookingPage';
 import ContactPage from '@/components/templates/ContactPage';
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string[] }>;
 }
 
 const getPage = async (slug: string): Promise<PageData | null> => {
@@ -17,9 +17,11 @@ const getPage = async (slug: string): Promise<PageData | null> => {
 
 const Page = async ({ params }: PageProps) => {
   const { slug } = await params;
-  if (!slug) return notFound();
+  if (!slug?.length) return notFound();
 
-  const page = await getPage(slug);
+  const slugPath = slug.join('/');
+
+  const page = await getPage(slugPath);
   if (!page) return notFound();
 
   switch (page.template) {

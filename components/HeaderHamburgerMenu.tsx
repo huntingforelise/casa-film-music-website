@@ -1,8 +1,14 @@
-import HeaderNavLinks from './HeaderNavLinks';
+'use client';
+
+import HeaderMenuLinks from './HeaderMenuLinks';
 
 type NavigationItem = {
   label: string;
   url: string;
+  subLinks?: {
+    label: string;
+    url: string;
+  }[];
 };
 
 type HeaderHamburgerMenuProps = {
@@ -20,8 +26,9 @@ const HeaderHamburgerMenu = ({ navigation }: HeaderHamburgerMenuProps) => {
         </span>
       </summary>
       <nav className="absolute right-0 top-full z-50 mt-2 w-56 rounded-2xl border border-border bg-bg p-4 shadow-[0_18px_48px_rgba(0,0,0,0.18)]">
-        <HeaderNavLinks
+        <HeaderMenuLinks
           navigation={navigation}
+          mobile
           containerClassName="flex flex-col gap-4"
           itemClassName="text-sm tracking-tight"
           keyPrefix="mobile-"
