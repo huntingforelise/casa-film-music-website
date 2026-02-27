@@ -31,11 +31,6 @@ body {
   font-family: var(--theme-font-sans), Helvetica, Arial, sans-serif;
 }
 
-code,
-pre {
-  font-family: var(--theme-font-mono), monospace;
-}
-
 .prose {
   color: var(--theme-text);
 }

@@ -8,7 +8,9 @@ export const portableTextComponents: PortableTextComponents = {
     h2: ({ children }) => (
       <h2 className="mb-4 mt-8 font-display text-3xl font-medium tracking-tight text-text">{children}</h2>
     ),
-    h3: ({ children }) => <h3 className="mb-3 mt-6 text-xl font-medium tracking-tight text-text">{children}</h3>,
+    h3: ({ children }) => (
+      <h3 className="mb-3 mt-6 font-display text-xl font-medium tracking-tight text-text">{children}</h3>
+    ),
     normal: ({ children }) => <p className="mb-4 text-base leading-relaxed text-text">{children}</p>,
   },
   list: {
