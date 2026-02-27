@@ -3,6 +3,8 @@ import { client } from '@/lib/sanity/client';
 import SanityImage from './SanityImage';
 import Link from 'next/link';
 import { SanityImage as SanityImageType } from '@/types/sanity';
+import HeaderHamburgerMenu from './HeaderHamburgerMenu';
+import HeaderNavLinks from './HeaderNavLinks';
 
 type NavigationItem = {
   label: string;
@@ -24,24 +26,28 @@ const Header = async () => {
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-border bg-surface/75 backdrop-blur-md">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
         {header.logo && (
           <Link href="/" className="shrink-0">
-            <SanityImage value={header.logo} alt="Logo" width={120} height={60} />
+            <SanityImage
+              value={header.logo}
+              alt="Logo"
+              width={120}
+              height={60}
+              className="h-auto w-20 sm:w-24 "
+            />
           </Link>
         )}
 
-        <nav className="flex items-center gap-6">
-          {header.navigation?.map((item) => (
-            <Link
-              key={item.url}
-              href={item.url}
-              className="text-sm tracking-tight text-text transition hover:text-accent"
-            >
-              {item.label}
-            </Link>
-          ))}
+        <nav className="hidden sm:block">
+          <HeaderNavLinks
+            navigation={header.navigation}
+            containerClassName="flex items-center gap-6"
+            itemClassName="text-sm tracking-tight"
+          />
         </nav>
+
+        <HeaderHamburgerMenu navigation={header.navigation} />
       </div>
     </header>
   );
