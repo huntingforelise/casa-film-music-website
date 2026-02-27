@@ -2,15 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-type NavigationItem = {
-  label: string;
-  url: string;
-  subLinks?: {
-    label: string;
-    url: string;
-  }[];
-};
+import {
+  DEFAULT_ACTIVE_LINK_CLASS,
+  DEFAULT_INACTIVE_LINK_CLASS,
+  DEFAULT_SUB_LINK_INACTIVE_CLASS,
+} from '@/lib/header/constants';
+import { NavigationItem } from '@/types/header';
+import { isExternalUrl, normalizeInternalPath } from '@/lib/header/utils';
 
 type HeaderMenuLinksProps = {
   navigation?: NavigationItem[];
@@ -22,22 +20,13 @@ type HeaderMenuLinksProps = {
   keyPrefix?: string;
 };
 
-const normalizeInternalPath = (path: string) => {
-  const clean = path.split('?')[0].split('#')[0];
-  const prefixed = clean.startsWith('/') ? clean : `/${clean}`;
-  if (prefixed.length > 1 && prefixed.endsWith('/')) return prefixed.slice(0, -1);
-  return prefixed;
-};
-
-const isExternalUrl = (url: string) => /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(url);
-
 const HeaderMenuLinks = ({
   navigation,
   mobile = false,
   containerClassName = '',
   itemClassName = '',
-  activeClassName = 'text-accent',
-  inactiveClassName = 'text-text hover:text-accent',
+  activeClassName = DEFAULT_ACTIVE_LINK_CLASS,
+  inactiveClassName = DEFAULT_INACTIVE_LINK_CLASS,
   keyPrefix = '',
 }: HeaderMenuLinksProps) => {
   const pathname = usePathname();
@@ -78,7 +67,7 @@ const HeaderMenuLinks = ({
                       key={`${keyPrefix}${item.url}-${subLink.url}`}
                       href={subHref}
                       className={`text-sm transition ${
-                        subIsActive ? activeClassName : 'text-text/80 hover:text-accent'
+                        subIsActive ? activeClassName : DEFAULT_SUB_LINK_INACTIVE_CLASS
                       }`}
                     >
                       {subLink.label}

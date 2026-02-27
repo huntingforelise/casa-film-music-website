@@ -1,6 +1,6 @@
 import { PortableText } from '@portabletext/react';
 import { TextSection as TextSectionType } from '@/types/sections';
-import { portableTextComponents } from '@/components/portableTextComponents';
+import { portableTextComponents } from '../portableTextComponents';
 
 interface Props {
   section: TextSectionType;

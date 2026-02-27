@@ -2,23 +2,9 @@ import { headerQuery } from '@/lib/sanity/queries';
 import { client } from '@/lib/sanity/client';
 import SanityImage from './SanityImage';
 import Link from 'next/link';
-import { SanityImage as SanityImageType } from '@/types/sanity';
 import HeaderHamburgerMenu from './HeaderHamburgerMenu';
 import HeaderMenuLinks from './HeaderMenuLinks';
-
-type NavigationItem = {
-  label: string;
-  url: string;
-  subLinks?: {
-    label: string;
-    url: string;
-  }[];
-};
-
-type HeaderData = {
-  logo?: SanityImageType;
-  navigation?: NavigationItem[];
-};
+import { HeaderData } from '@/types/header';
 
 const getHeader = async () => {
   return client.fetch<HeaderData>(headerQuery);

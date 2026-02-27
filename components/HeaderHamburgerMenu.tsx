@@ -1,15 +1,8 @@
 'use client';
 
 import HeaderMenuLinks from './HeaderMenuLinks';
-
-type NavigationItem = {
-  label: string;
-  url: string;
-  subLinks?: {
-    label: string;
-    url: string;
-  }[];
-};
+import { HAMBURGER_MENU_PANEL_CLASS } from '@/lib/header/constants';
+import { NavigationItem } from '@/types/header';
 
 type HeaderHamburgerMenuProps = {
   navigation?: NavigationItem[];
@@ -25,7 +18,7 @@ const HeaderHamburgerMenu = ({ navigation }: HeaderHamburgerMenuProps) => {
           <span className="absolute left-0 top-[14px] block h-0.5 w-4 bg-current" />
         </span>
       </summary>
-      <nav className="absolute right-0 top-full z-50 mt-2 w-56 rounded-2xl border border-border bg-bg p-4 shadow-[0_18px_48px_rgba(0,0,0,0.18)]">
+      <nav className={HAMBURGER_MENU_PANEL_CLASS}>
         <HeaderMenuLinks
           navigation={navigation}
           mobile
