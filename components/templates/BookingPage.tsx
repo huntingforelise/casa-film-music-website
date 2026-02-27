@@ -7,7 +7,7 @@ export type TemplateProps = {
 
 const BookingPage = ({ page }: TemplateProps) => {
   return (
-    <main className="mx-auto w-full max-w-6xl px-6 py-12 md:py-16 lg:py-24">
+    <main className="mx-auto w-full max-w-6xl px-6 pb-12 pt-28 md:pb-16 md:pt-32 lg:pb-24 lg:pt-36">
       <h1 className="font-display text-4xl font-semibold tracking-tight text-text md:text-5xl">
         {page.title}
       </h1>

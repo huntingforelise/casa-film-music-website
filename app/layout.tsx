@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist_Mono, Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -25,7 +27,11 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={`${inter.variable} ${playfairDisplay.variable} ${geistMono.variable}`}>
-      <body className="font-sans bg-bg text-text">{children}</body>
+      <body className="font-sans bg-bg text-text">
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 };
