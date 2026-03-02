@@ -7,11 +7,9 @@ export type TemplateProps = {
 
 const DefaultPage = ({ page }: TemplateProps) => {
   return (
-    <main className="mx-auto w-full max-w-6xl px-6 pb-12 pt-28 md:pb-16 md:pt-32 lg:pb-24 lg:pt-36">
-      <h1 className="font-display text-4xl font-semibold tracking-tight text-text md:text-5xl">
-        {page.title}
-      </h1>
-      <div className="mt-6 border-t border-border" />
+    <main className="layout-container page-shell">
+      <h1 className="page-title">{page.title}</h1>
+      <div className="section-divider" />
 
       {page.sections?.map((section) => (
         <SectionRenderer key={section._key} section={section} />

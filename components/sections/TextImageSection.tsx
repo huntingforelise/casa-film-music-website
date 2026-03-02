@@ -10,7 +10,7 @@ interface Props {
 const TextImageSection = ({ section }: Props) => {
   return (
     <div
-      className={`flex flex-col md:flex-row items-center gap-6 my-12 ${
+      className={`section-spacing flex flex-col items-center gap-6 md:flex-row ${
         section.reverse ? 'md:flex-row-reverse' : ''
       }`}
     >

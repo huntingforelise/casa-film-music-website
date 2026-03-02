@@ -10,7 +10,7 @@ const TextSection = ({ section }: Props) => {
   if (!section.content) return null;
 
   return (
-    <section className="py-8">
+    <section className="section-spacing">
       <PortableText value={section.content} components={portableTextComponents} />
     </section>
   );

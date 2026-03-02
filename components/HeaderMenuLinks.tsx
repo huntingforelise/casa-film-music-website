@@ -101,7 +101,7 @@ const HeaderMenuLinks = ({
                         key={`${keyPrefix}${item.url}-${subLink.url}`}
                         href={subHref}
                         className={`text-sm tracking-tight transition ${
-                          subIsActive ? activeClassName : 'text-text hover:text-accent'
+                          subIsActive ? activeClassName : DEFAULT_INACTIVE_LINK_CLASS
                         }`}
                       >
                         {subLink.label}

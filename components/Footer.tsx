@@ -91,7 +91,7 @@ const Footer = async () => {
                 <Link
                   key={phone}
                   href={toTelHref(phone)}
-                  className="text-sm tracking-tight text-text transition hover:text-accent"
+                  className="text-link text-sm tracking-tight"
                 >
                   {phone}
                 </Link>
@@ -99,7 +99,7 @@ const Footer = async () => {
               {footer.email && (
                 <Link
                   href={`mailto:${footer.email}`}
-                  className="text-sm tracking-tight text-text transition hover:text-accent"
+                  className="text-link text-sm tracking-tight"
                 >
                   {footer.email}
                 </Link>
@@ -115,7 +115,7 @@ const Footer = async () => {
                   <Link
                     key={`${link.label ?? 'link'}-${link.url}`}
                     href={link.url}
-                    className="text-sm tracking-tight text-text transition hover:text-accent"
+                    className="text-link text-sm tracking-tight"
                   >
                     {link.label ?? link.url}
                   </Link>
@@ -138,7 +138,7 @@ const Footer = async () => {
                 href={footer.developerCreditUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="text-text underline decoration-border underline-offset-4 transition hover:text-accent"
+                className="rich-link text-text"
               >
                 {footer.developerCreditLabel || 'D·EV'}
               </Link>

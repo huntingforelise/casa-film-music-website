@@ -7,7 +7,7 @@ interface Props {
 
 const ImageSection = ({ section }: Props) => {
   return (
-    <section className="px-6 py-12 md:py-16 lg:py-24">
+    <section className="section-spacing-wide px-6">
       <div className="mx-auto max-w-6xl">
         <SanityImage
           value={section.image}
@@ -17,7 +17,7 @@ const ImageSection = ({ section }: Props) => {
           className="object-cover"
           sizes="(min-width: 1024px) 72rem, 100vw"
         />
-        {section.caption && <p className="pt-3 text-sm tracking-tight text-text/70">{section.caption}</p>}
+        {section.caption && <p className="pt-4 text-sm tracking-tight text-text/70">{section.caption}</p>}
       </div>
     </section>
   );

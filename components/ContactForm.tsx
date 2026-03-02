@@ -49,11 +49,11 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="py-8">
+    <section className="section-spacing">
       <h2 className="font-display text-3xl font-medium tracking-tight text-text">Contact Form</h2>
 
-      <form className="mt-6 grid gap-5" onSubmit={handleSubmit} noValidate>
-        <div className="grid gap-5 md:grid-cols-2">
+      <form className="mt-6 grid gap-6" onSubmit={handleSubmit} noValidate>
+        <div className="grid gap-6 md:grid-cols-2">
           <label className="grid gap-2 text-sm tracking-tight text-text/80">
             Name
             <input
@@ -61,7 +61,7 @@ const ContactForm = () => {
               type="text"
               required
               autoComplete="name"
-              className="rounded-xl border border-border bg-bg px-4 py-3 text-base text-text outline-none transition focus:border-accent"
+              className="input-base"
             />
           </label>
 
@@ -72,7 +72,7 @@ const ContactForm = () => {
               type="email"
               required
               autoComplete="email"
-              className="rounded-xl border border-border bg-bg px-4 py-3 text-base text-text outline-none transition focus:border-accent"
+              className="input-base"
             />
           </label>
         </div>
@@ -83,7 +83,7 @@ const ContactForm = () => {
             name="subject"
             type="text"
             required
-            className="rounded-xl border border-border bg-bg px-4 py-3 text-base text-text outline-none transition focus:border-accent"
+            className="input-base"
           />
         </label>
 
@@ -93,7 +93,7 @@ const ContactForm = () => {
             name="message"
             required
             rows={6}
-            className="resize-y rounded-xl border border-border bg-bg px-4 py-3 text-base text-text outline-none transition focus:border-accent"
+            className="input-base resize-y"
           />
         </label>
 
@@ -110,7 +110,7 @@ const ContactForm = () => {
           <button
             type="submit"
             disabled={status === 'submitting'}
-            className="rounded-full bg-accent px-6 py-3 text-sm font-medium tracking-tight text-bg transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+            className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
           >
             {status === 'submitting' ? 'Sending...' : 'Send message'}
           </button>
