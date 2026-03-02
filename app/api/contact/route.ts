@@ -1,49 +1,19 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { supabase } from '@/lib/supabase/client';
 
-type ContactPayload = {
-  name?: string;
-  email?: string;
-  subject?: string;
-  message?: string;
-  website?: string;
-};
-
-const isEmail = (value: string) => /.+@.+\..+/.test(value);
-
-export const POST = async (request: Request) => {
-  let body: ContactPayload;
-
+export async function POST(req: NextRequest) {
   try {
-    body = (await request.json()) as ContactPayload;
+    const { name, email, message, website } = await req.json();
+
+    // Honeypot spam check
+    if (website) return NextResponse.json({ ok: false, error: 'Bot detected' }, { status: 400 });
+
+    const { error } = await supabase.from('contacts').insert([{ name, email, message }]);
+
+    if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+
+    return NextResponse.json({ ok: true });
   } catch {
-    return NextResponse.json({ ok: false, error: 'Invalid request body.' }, { status: 400 });
+    return NextResponse.json({ ok: false, error: 'Server error' }, { status: 500 });
   }
-
-  const name = (body.name || '').trim();
-  const email = (body.email || '').trim();
-  const subject = (body.subject || '').trim();
-  const message = (body.message || '').trim();
-  const website = (body.website || '').trim();
-
-  if (website) {
-    return NextResponse.json({ ok: true }, { status: 200 });
-  }
-
-  if (!name || !email || !subject || !message) {
-    return NextResponse.json({ ok: false, error: 'Please fill in all required fields.' }, { status: 400 });
-  }
-
-  if (!isEmail(email)) {
-    return NextResponse.json({ ok: false, error: 'Please provide a valid email address.' }, { status: 400 });
-  }
-
-  console.log('[ContactFormSubmission]', {
-    name,
-    email,
-    subject,
-    message,
-    submittedAt: new Date().toISOString(),
-  });
-
-  return NextResponse.json({ ok: true }, { status: 200 });
-};
+}

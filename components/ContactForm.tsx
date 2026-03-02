@@ -19,7 +19,6 @@ const ContactForm = () => {
     const payload = {
       name: String(formData.get('name') || '').trim(),
       email: String(formData.get('email') || '').trim(),
-      subject: String(formData.get('subject') || '').trim(),
       message: String(formData.get('message') || '').trim(),
       website: String(formData.get('website') || '').trim(),
     };
@@ -56,45 +55,18 @@ const ContactForm = () => {
         <div className="grid gap-6 md:grid-cols-2">
           <label className="grid gap-2 text-sm tracking-tight text-text/80">
             Name
-            <input
-              name="name"
-              type="text"
-              required
-              autoComplete="name"
-              className="input-base"
-            />
+            <input name="name" type="text" required autoComplete="name" className="input-base" />
           </label>
 
           <label className="grid gap-2 text-sm tracking-tight text-text/80">
             Email
-            <input
-              name="email"
-              type="email"
-              required
-              autoComplete="email"
-              className="input-base"
-            />
+            <input name="email" type="email" required autoComplete="email" className="input-base" />
           </label>
         </div>
 
         <label className="grid gap-2 text-sm tracking-tight text-text/80">
-          Subject
-          <input
-            name="subject"
-            type="text"
-            required
-            className="input-base"
-          />
-        </label>
-
-        <label className="grid gap-2 text-sm tracking-tight text-text/80">
           Message
-          <textarea
-            name="message"
-            required
-            rows={6}
-            className="input-base resize-y"
-          />
+          <textarea name="message" required rows={6} className="input-base resize-y" />
         </label>
 
         <input
