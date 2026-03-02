@@ -4,6 +4,7 @@ import SplitHero from './sections/SplitHero';
 import TextSection from './sections/TextSection';
 import ImageSection from './sections/ImageSection';
 import TextImageSection from './sections/TextImageSection';
+import CtaSection from './sections/CtaSection';
 
 interface Props {
   section: Section;
@@ -22,6 +23,9 @@ const SectionRenderer = ({ section }: Props) => {
 
     case 'textImageSection':
       return <TextImageSection section={section} />;
+
+    case 'ctaSection':
+      return <CtaSection section={section} />;
 
     default:
       return null;

@@ -158,6 +158,52 @@ body {
   opacity: 0.9;
 }
 
+.cta-shell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-start;
+  border: 1px solid var(--theme-border);
+  border-radius: 1.5rem;
+  padding: var(--space-4);
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.75), rgb(234 234 234 / 0.8));
+}
+
+.cta-text {
+  font-family: var(--theme-font-display), serif;
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--theme-text);
+}
+
+.cta-button {
+  border-radius: 9999px;
+  border: 1px solid var(--theme-text);
+  color: var(--theme-text);
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.cta-button:hover {
+  background-color: var(--theme-text);
+  color: var(--theme-bg);
+}
+
+@media (min-width: 768px) {
+  .cta-shell {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-6);
+  }
+}
+
 .input-base {
   width: 100%;
   border-radius: 0.75rem;

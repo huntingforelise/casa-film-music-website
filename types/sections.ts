@@ -48,6 +48,14 @@ export interface TextImageSection {
   reverse?: boolean;
 }
 
+export interface CtaSection {
+  _key: string;
+  _type: 'ctaSection';
+  text?: string;
+  buttonLabel?: string;
+  buttonLink?: string;
+}
+
 export interface SplitHeroSection {
   _key: string;
   _type: 'splitHeroSection';
@@ -67,4 +75,4 @@ export interface SplitHeroSection {
 
 /* ---------- UNION ---------- */
 
-export type Section = TextSection | ImageSection | TextImageSection | SplitHeroSection;
+export type Section = TextSection | ImageSection | TextImageSection | CtaSection | SplitHeroSection;
