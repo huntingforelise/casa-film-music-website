@@ -97,11 +97,13 @@ export interface SplitHeroSection {
   optionOne: {
     title: string;
     link: string;
+    subtitle: string;
   };
 
   optionTwo: {
     title: string;
     link: string;
+    subtitle: string;
   };
 }
 
