@@ -20,10 +20,10 @@ type FooterData = {
 };
 
 const socialIconSrc: Record<SocialPlatform, string> = {
-  facebook: 'https://cdn.simpleicons.org/facebook/1A1A1A',
-  instagram: 'https://cdn.simpleicons.org/instagram/1A1A1A',
+  facebook: 'https://cdn.simpleicons.org/facebook/2A3023',
+  instagram: 'https://cdn.simpleicons.org/instagram/2A3023',
   linkedin: '/icons/linkedin.svg',
-  youtube: 'https://cdn.simpleicons.org/youtube/1A1A1A',
+  youtube: 'https://cdn.simpleicons.org/youtube/2A3023',
 };
 
 const socialIconAlt: Record<SocialPlatform, string> = {
@@ -97,10 +97,7 @@ const Footer = async () => {
                 </Link>
               ))}
               {footer.email && (
-                <Link
-                  href={`mailto:${footer.email}`}
-                  className="text-link text-sm tracking-tight"
-                >
+                <Link href={`mailto:${footer.email}`} className="text-link text-sm tracking-tight">
                   {footer.email}
                 </Link>
               )}
