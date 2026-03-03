@@ -91,17 +91,17 @@ export interface CtaSection {
 export interface SplitHeroSection {
   _key: string;
   _type: 'splitHeroSection';
+  question?: string;
+  image: SanityImage;
 
   optionOne: {
     title: string;
     link: string;
-    image: SanityImage;
   };
 
   optionTwo: {
     title: string;
     link: string;
-    image: SanityImage;
   };
 }
 
