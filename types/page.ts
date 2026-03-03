@@ -8,8 +8,6 @@ export interface BasePage {
   _type: 'page';
   title: string;
   slug: SanitySlug;
-  videoUrl?: string;
-  videoTitle?: string;
   sections: Section[];
 }
 

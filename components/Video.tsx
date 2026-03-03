@@ -2,6 +2,9 @@ type VideoProps = {
   src: string;
   title?: string;
   loading?: 'lazy' | 'eager';
+  mode?: 'aspect' | 'fill';
+  containerClassName?: string;
+  zoom?: number;
 };
 
 const getEmbedUrl = (url: string) => {
@@ -28,22 +31,27 @@ const getEmbedUrl = (url: string) => {
   }
 };
 
-const Video = ({ src, title = 'Embedded video', loading = 'lazy' }: VideoProps) => {
+const Video = ({
+  src,
+  title = 'Embedded video',
+  loading = 'lazy',
+  mode = 'aspect',
+  containerClassName,
+  zoom = 1,
+}: VideoProps) => {
   const embedUrl = getEmbedUrl(src);
 
   return (
-    <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+    <div
+      className={`relative w-full overflow-hidden ${mode === 'fill' ? 'h-full' : 'aspect-video'}${
+        containerClassName ? ` ${containerClassName}` : ''
+      }`}
+    >
       <iframe
         src={embedUrl}
         loading={loading}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          border: 0,
-        }}
+        className="absolute inset-0 h-full w-full border-0"
+        style={zoom === 1 ? undefined : {transform: `scale(${zoom})`, transformOrigin: 'center'}}
         allow="autoplay; fullscreen; picture-in-picture"
         referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen

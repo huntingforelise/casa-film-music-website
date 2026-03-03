@@ -40,6 +40,46 @@ export interface ImageSection {
   caption?: string;
 }
 
+export interface PhotoItem {
+  _key?: string;
+  _type: 'photoItem';
+  image?: SanityImage;
+  caption?: string;
+}
+
+export interface VideoItem {
+  _key?: string;
+  _type: 'videoItem';
+  url?: string;
+  title?: string;
+  caption?: string;
+}
+
+export interface MediaGridSection {
+  _key: string;
+  _type: 'mediaGridSection';
+  title?: string;
+  intro?: string;
+  mediaType: 'photo' | 'video';
+  layoutVariant?: 'auto' | 'compact' | 'hero';
+  columns?: '2' | '3' | '4';
+  photos?: PhotoItem[];
+  videos?: VideoItem[];
+}
+
+export interface MediaShowcaseSection {
+  _key: string;
+  _type: 'mediaShowcaseSection';
+  title?: string;
+  intro?: string;
+  mediaType: 'photo' | 'video';
+  layoutVariant?: 'auto' | 'compact' | 'hero';
+  featuredPhoto?: PhotoItem;
+  featuredVideo?: VideoItem;
+  photos?: PhotoItem[];
+  videos?: VideoItem[];
+}
+
 export interface CtaSection {
   _key: string;
   _type: 'ctaSection';
@@ -67,4 +107,10 @@ export interface SplitHeroSection {
 
 /* ---------- UNION ---------- */
 
-export type Section = TextSection | ImageSection | CtaSection | SplitHeroSection;
+export type Section =
+  | TextSection
+  | ImageSection
+  | CtaSection
+  | SplitHeroSection
+  | MediaGridSection
+  | MediaShowcaseSection;
