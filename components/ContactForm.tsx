@@ -1,26 +1,63 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { useReducer } from 'react';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
+interface FormState {
+  name: string;
+  email: string;
+  message: string;
+  website: string; // honeypot
+  status: Status;
+  feedback: string;
+}
+
+type Action =
+  | { type: 'SET_FIELD'; field: keyof Omit<FormState, 'status' | 'feedback'>; value: string }
+  | { type: 'SET_STATUS'; status: Status; feedback?: string }
+  | { type: 'RESET' };
+
+const initialState: FormState = {
+  name: '',
+  email: '',
+  message: '',
+  website: '',
+  status: 'idle',
+  feedback: '',
+};
+
+const reducer = (state: FormState, action: Action): FormState => {
+  switch (action.type) {
+    case 'SET_FIELD':
+      return { ...state, [action.field]: action.value };
+    case 'SET_STATUS':
+      return { ...state, status: action.status, feedback: action.feedback || '' };
+    case 'RESET':
+      return initialState;
+    default:
+      return state;
+  }
+};
+
 const ContactForm = () => {
-  const [status, setStatus] = useState<Status>('idle');
-  const [message, setMessage] = useState('');
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const isSubmitting = state.status === 'submitting';
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const isFormValid =
+    state.name.trim() !== '' && state.email.trim() !== '' && state.message.trim() !== '';
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setStatus('submitting');
-    setMessage('');
+    if (!isFormValid || isSubmitting) return;
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
+    dispatch({ type: 'SET_STATUS', status: 'submitting', feedback: '' });
 
     const payload = {
-      name: String(formData.get('name') || '').trim(),
-      email: String(formData.get('email') || '').trim(),
-      message: String(formData.get('message') || '').trim(),
-      website: String(formData.get('website') || '').trim(),
+      name: state.name.trim(),
+      email: state.email.trim(),
+      message: state.message.trim(),
+      website: state.website.trim(),
     };
 
     try {
@@ -30,42 +67,78 @@ const ContactForm = () => {
         body: JSON.stringify(payload),
       });
 
-      const result = (await response.json()) as { error?: string; ok?: boolean };
+      const result = (await response.json()) as { ok?: boolean; error?: string };
 
       if (!response.ok || !result.ok) {
-        setStatus('error');
-        setMessage(result.error || 'Something went wrong. Please try again.');
+        dispatch({
+          type: 'SET_STATUS',
+          status: 'error',
+          feedback: result.error || 'Something went wrong. Please try again.',
+        });
         return;
       }
 
-      form.reset();
-      setStatus('success');
-      setMessage('Thanks, your message has been sent.');
+      dispatch({ type: 'RESET' });
+      dispatch({
+        type: 'SET_STATUS',
+        status: 'success',
+        feedback: 'Thanks, your message has been sent.',
+      });
     } catch {
-      setStatus('error');
-      setMessage('Network error. Please try again.');
+      dispatch({
+        type: 'SET_STATUS',
+        status: 'error',
+        feedback: 'Network error. Please try again.',
+      });
     }
   };
 
   return (
-    <form className="grid gap-6" onSubmit={handleSubmit} noValidate>
+    <form className="grid gap-6" onSubmit={handleSubmit} noValidate aria-busy={isSubmitting}>
       <div className="grid gap-6 md:grid-cols-2">
         <label className="grid gap-2 text-sm tracking-tight text-text/80">
           Name
-          <input name="name" type="text" required autoComplete="name" className="input-base" />
+          <input
+            name="name"
+            type="text"
+            required
+            autoComplete="name"
+            className="input-base"
+            value={state.name}
+            onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'name', value: e.target.value })}
+            disabled={isSubmitting}
+          />
         </label>
 
         <label className="grid gap-2 text-sm tracking-tight text-text/80">
           Email
-          <input name="email" type="email" required autoComplete="email" className="input-base" />
+          <input
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            className="input-base"
+            value={state.email}
+            onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'email', value: e.target.value })}
+            disabled={isSubmitting}
+          />
         </label>
       </div>
 
       <label className="grid gap-2 text-sm tracking-tight text-text/80">
         Message
-        <textarea name="message" required rows={6} className="input-base resize-y" />
+        <textarea
+          name="message"
+          required
+          rows={6}
+          className="input-base resize-y"
+          value={state.message}
+          onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'message', value: e.target.value })}
+          disabled={isSubmitting}
+        />
       </label>
 
+      {/* Honeypot */}
       <input
         name="website"
         type="text"
@@ -73,22 +146,27 @@ const ContactForm = () => {
         autoComplete="off"
         aria-hidden="true"
         className="hidden"
+        value={state.website}
+        onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'website', value: e.target.value })}
+        disabled={isSubmitting}
       />
 
       <div className="flex items-center gap-4">
         <button
           type="submit"
-          disabled={status === 'submitting'}
+          disabled={isSubmitting || !isFormValid}
           className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {status === 'submitting' ? 'Sending...' : 'Send message'}
+          {isSubmitting ? 'Sending...' : 'Send message'}
         </button>
 
-        {message && (
+        {state.feedback && (
           <p
-            className={`text-sm tracking-tight ${status === 'error' ? 'text-red-700' : 'text-text/80'}`}
+            className={`text-sm tracking-tight ${
+              state.status === 'error' ? 'text-red-700' : 'text-text/80'
+            }`}
           >
-            {message}
+            {state.feedback}
           </p>
         )}
       </div>
