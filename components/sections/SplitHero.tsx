@@ -56,9 +56,11 @@ const SplitHero = ({ section }: Props) => {
               <span className="block font-display text-2xl tracking-tight text-[rgb(255_250_245)] md:text-4xl">
                 {option.title}
               </span>
-              <span className="block pt-2 text-xs font-medium uppercase tracking-[0.18em] text-[rgb(255_250_245/0.82)] md:pt-3 md:text-sm">
-                {option.subtitle}
-              </span>
+              {!!option.subtitle && (
+                <span className="block pt-2 text-xs font-medium uppercase tracking-[0.18em] text-[rgb(255_250_245/0.82)] md:pt-3 md:text-sm">
+                  {option.subtitle}
+                </span>
+              )}
             </div>
           </Link>
         ))}
