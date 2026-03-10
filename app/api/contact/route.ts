@@ -46,7 +46,7 @@ export const POST = async (req: NextRequest) => {
       to: process.env.RESEND_TO!,
       replyTo: cleanedEmail,
       subject: `New Contact Form Submission from ${cleanedName}`,
-      react: ContactEmail({
+      react: await ContactEmail({
         name: cleanedName,
         email: cleanedEmail,
         message: cleanedMessage,
