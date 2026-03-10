@@ -9,8 +9,8 @@ import {
   BookingSettings,
   BookingTravelRegion,
 } from '@/types/booking';
-import { BookingFormValues, SetField } from './types';
-import { formatEuro } from './helpers';
+import { BookingFormValues, SetField } from '@/lib/booking/types';
+import { formatEuro } from '@/lib/booking/helpers';
 
 interface EventDetailsStepProps {
   eventTypes: BookingEventType[];

@@ -2,23 +2,18 @@
 
 import { useMemo, useState } from 'react';
 import { BookingBundleSuggestion, BookingEnquiryPayload, BookingSettings } from '@/types/booking';
-import { withBookingDefaults } from '@/lib/booking/defaults';
+import { getDefaultValues, withBookingDefaults } from '@/lib/booking/defaults';
 import { getBundleSuggestions } from '@/lib/booking/bundles';
-import {
-  BookingFormValues,
-  SetField,
-  Status,
-  TOTAL_STEPS,
-  getDefaultValues,
-} from './BookingEnquiryForm/types';
+import { BookingFormValues, SetField, Status } from '@/lib/booking/types';
+import { TOTAL_STEPS } from '@/lib/booking/constants';
 import {
   EventDetailsStep,
   ServicesStep,
   BundleSelectionStep,
   AddOnsStep,
   SummaryStep,
-} from './BookingEnquiryForm/steps';
-import { isValidEmail } from './BookingEnquiryForm/helpers';
+} from './BookingSteps';
+import { isValidEmail } from '@/lib/booking/helpers';
 
 interface Props {
   settings?: BookingSettings | null;

@@ -1,5 +1,3 @@
-import { BookingSettings } from '@/types/booking'
-
 export type Status = 'idle' | 'submitting' | 'success' | 'error'
 
 export type BookingFormValues = {
@@ -19,26 +17,6 @@ export type BookingFormValues = {
   phone: string
   website: string
 }
-
-export const TOTAL_STEPS = 5
-
-export const getDefaultValues = (config: BookingSettings): BookingFormValues => ({
-  eventType: config.eventTypes[0]?.value ?? '',
-  eventDate: '',
-  startTime: '',
-  durationHours: 10,
-  guestCount: 80,
-  venue: '',
-  travelRegion: config.travelRegions[0]?.value ?? '',
-  services: [],
-  bundleCode: '',
-  addOns: [],
-  notes: '',
-  name: '',
-  email: '',
-  phone: '',
-  website: '',
-})
 
 export type SetField = <K extends keyof BookingFormValues>(
   field: K,

@@ -1,6 +1,6 @@
 import SectionRenderer from '../SectionRenderer';
 import { Page } from '@/types/page';
-import BookingEnquiryForm from '../BookingEnquiryForm';
+import BookingEnquiryForm from '../BookingForm';
 import { client } from '@/lib/sanity/client';
 import { bookingSettingsQuery } from '@/lib/sanity/queries';
 import { BookingSettings } from '@/types/booking';

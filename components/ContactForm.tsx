@@ -1,51 +1,15 @@
 'use client';
 
 import { useReducer } from 'react';
-
-type Status = 'idle' | 'submitting' | 'success' | 'error';
-
-interface FormState {
-  name: string;
-  email: string;
-  message: string;
-  website: string; // honeypot
-  status: Status;
-  feedback: string;
-}
-
-type Action =
-  | { type: 'SET_FIELD'; field: keyof Omit<FormState, 'status' | 'feedback'>; value: string }
-  | { type: 'SET_STATUS'; status: Status; feedback?: string }
-  | { type: 'RESET' };
-
-const initialState: FormState = {
-  name: '',
-  email: '',
-  message: '',
-  website: '',
-  status: 'idle',
-  feedback: '',
-};
-
-const reducer = (state: FormState, action: Action): FormState => {
-  switch (action.type) {
-    case 'SET_FIELD':
-      return { ...state, [action.field]: action.value };
-    case 'SET_STATUS':
-      return { ...state, status: action.status, feedback: action.feedback || '' };
-    case 'RESET':
-      return initialState;
-    default:
-      return state;
-  }
-};
+import { contactFormReducer } from '@/lib/contactForm/reducer';
+import { initialFormState } from '@/lib/contactForm/state';
+import { isContactFormValid } from '@/lib/contactForm/helpers';
 
 const ContactForm = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(contactFormReducer, initialFormState);
   const isSubmitting = state.status === 'submitting';
 
-  const isFormValid =
-    state.name.trim() !== '' && state.email.trim() !== '' && state.message.trim() !== '';
+  const isFormValid = isContactFormValid(state);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
