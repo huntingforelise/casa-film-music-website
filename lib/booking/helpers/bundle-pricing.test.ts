@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import type { BookingBundle } from '../../../types/booking';
+import type { BookingBundle } from '@/types/booking';
 import { getBundlePriceDetails } from './bundle-pricing';
 
 const stubFormatPrice = (value?: number) => (typeof value === 'number' ? `${value}` : null);
@@ -12,18 +12,17 @@ const baseBundle: BookingBundle = {
 };
 
 describe('getBundlePriceDetails', () => {
-  it('builds a starting price when only startingPrice is provided', () => {
+  it('returns a single row for the starting price when only that value exists', () => {
     const details = getBundlePriceDetails(
       { ...baseBundle, startingPrice: 120 },
       { bundleStartingPricePrefix: 'From' },
       { formatPrice: stubFormatPrice },
     );
 
-    expect(details.startingPriceLabel).toBe('From 120');
-    expect(details.originalPriceLabel).toBeUndefined();
+    expect(details.priceRows).toEqual([{ label: 'From 120', isStrikethrough: false }]);
     expect(details.hasPrimaryPrice).toBe(true);
     expect(details.priceNote).toBeUndefined();
-    expect(details.showOriginalAsStrikethrough).toBe(false);
+    expect(details.hasPriceLine).toBe(true);
   });
 
   it('uses the regular prefix when only the original price is available', () => {
@@ -33,22 +32,22 @@ describe('getBundlePriceDetails', () => {
       { formatPrice: stubFormatPrice },
     );
 
-    expect(details.originalPriceLabel).toBe('Regularly 200');
-    expect(details.startingPriceLabel).toBeUndefined();
+    expect(details.priceRows).toEqual([{ label: 'Regularly 200', isStrikethrough: false }]);
     expect(details.hasPrimaryPrice).toBe(true);
-    expect(details.showOriginalAsStrikethrough).toBe(false);
+    expect(details.priceNote).toBeUndefined();
   });
 
-  it('marks the original price as strikethrough when a starting price exists', () => {
+  it('shows both prices and strikethroughs the original amount when a starting price exists', () => {
     const details = getBundlePriceDetails(
       { ...baseBundle, startingPrice: 110, originalPrice: 150 },
       { bundleStartingPricePrefix: 'From', bundleOriginalPricePrefix: 'Instead of' },
       { formatPrice: stubFormatPrice },
     );
 
-    expect(details.startingPriceLabel).toBe('From 110');
-    expect(details.originalPriceLabel).toBe('Instead of 150');
-    expect(details.showOriginalAsStrikethrough).toBe(true);
+    expect(details.priceRows).toEqual([
+      { label: 'From 110', isStrikethrough: false },
+      { label: 'Instead of 150', isStrikethrough: true },
+    ]);
     expect(details.hasPrimaryPrice).toBe(true);
   });
 
@@ -61,11 +60,13 @@ describe('getBundlePriceDetails', () => {
 
     expect(details.priceNote).toBe('Price on request');
     expect(details.hasPrimaryPrice).toBe(false);
+    expect(details.priceRows).toEqual([]);
     expect(details.hasPriceLine).toBe(true);
   });
 
   it('returns false for hasPriceLine when there is no price or note', () => {
     const details = getBundlePriceDetails(baseBundle, {}, { formatPrice: stubFormatPrice });
     expect(details.hasPriceLine).toBe(false);
+    expect(details.priceRows).toEqual([]);
   });
 });

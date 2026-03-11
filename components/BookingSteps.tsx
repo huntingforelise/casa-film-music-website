@@ -228,14 +228,10 @@ export const BundleSelectionStep = ({
               ? (copy.bundleSelectedLabel ?? '')
               : (copy.bundleSelectLabel ?? '');
 
-            const {
-              priceNote,
-              hasPriceLine,
-              hasPrimaryPrice,
-              startingPriceLabel,
-              originalPriceLabel,
-              showOriginalAsStrikethrough,
-            } = getBundlePriceDetails(suggestion.bundle, copy);
+            const { priceNote, hasPriceLine, hasPrimaryPrice, priceRows } = getBundlePriceDetails(
+              suggestion.bundle,
+              copy,
+            );
 
             const includesLine =
               includedTitles && copy.bundleIncludesLabel
@@ -268,20 +264,20 @@ export const BundleSelectionStep = ({
 
                 {hasPriceLine && (
                   <p className="pt-2 text-sm font-medium text-text/85">
-                    {hasPrimaryPrice &&
-                      (showOriginalAsStrikethrough && originalPriceLabel ? (
-                        <span className="flex flex-wrap items-baseline gap-2">
-                          {startingPriceLabel && <span>{startingPriceLabel}</span>}
-                          <span className="line-through text-text/70">{originalPriceLabel}</span>
-                        </span>
-                      ) : (
-                        <>
-                          {startingPriceLabel && <span>{startingPriceLabel}</span>}
-                          {!startingPriceLabel && originalPriceLabel && (
-                            <span>{originalPriceLabel}</span>
-                          )}
-                        </>
-                      ))}
+                    {hasPrimaryPrice && priceRows.length > 0 && (
+                      <span className="flex flex-wrap items-baseline gap-2">
+                        {priceRows.map((row, index) => (
+                          <span
+                            key={`${row.label}-${index}`}
+                            className={
+                              row.isStrikethrough ? 'line-through text-text/70' : undefined
+                            }
+                          >
+                            {row.label}
+                          </span>
+                        ))}
+                      </span>
+                    )}
                   </p>
                 )}
 

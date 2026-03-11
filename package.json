@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx --fix",
     "format": "prettier --write .",
     "test:bundle-pricing": "vitest run lib/booking/helpers/bundle-pricing.test.ts",
-    "test": "npm run test:bundle-pricing"
+    "test": "vitest run"
   },
   "dependencies": {
     "@react-email/components": "^1.0.8",

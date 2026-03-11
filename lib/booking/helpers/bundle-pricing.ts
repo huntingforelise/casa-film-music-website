@@ -1,15 +1,18 @@
-import type { BookingBundle, BookingFormCopy } from '../../../types/booking';
+import type { BookingBundle, BookingFormCopy } from '@/types/booking';
 import { formatEuro } from './formatters';
 
 type PriceFormatter = (value?: number) => string | null;
 
+export interface BundlePriceRow {
+  label: string;
+  isStrikethrough: boolean;
+}
+
 export interface BundlePriceDetails {
   hasPriceLine: boolean;
   hasPrimaryPrice: boolean;
-  startingPriceLabel?: string;
-  originalPriceLabel?: string;
+  priceRows: BundlePriceRow[];
   priceNote?: string;
-  showOriginalAsStrikethrough: boolean;
 }
 
 interface BundlePriceOptions {
@@ -37,15 +40,21 @@ export const getBundlePriceDetails = (
     ? formatPriceLabel(originalPricePrefix, originalPrice)
     : undefined;
 
-  const hasPrimaryPrice = Boolean(startingPriceLabel || originalPriceLabel);
+  const priceRows: BundlePriceRow[] = [];
+  if (startingPriceLabel) {
+    priceRows.push({ label: startingPriceLabel, isStrikethrough: false });
+  }
+  if (originalPriceLabel) {
+    priceRows.push({ label: originalPriceLabel, isStrikethrough: Boolean(startingPriceLabel) });
+  }
+
+  const hasPrimaryPrice = priceRows.length > 0;
   const priceNote = bundle.priceNote;
 
   return {
     hasPriceLine: hasPrimaryPrice || Boolean(priceNote),
     hasPrimaryPrice,
-    startingPriceLabel,
-    originalPriceLabel,
+    priceRows,
     priceNote,
-    showOriginalAsStrikethrough: Boolean(startingPriceLabel && originalPriceLabel),
   };
 };
