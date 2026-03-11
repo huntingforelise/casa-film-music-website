@@ -20,11 +20,13 @@ export const footerQuery = `
     },
     phoneNumbers,
     email,
-    legalAdvice,
     otherLinks[]{
       label,
       url
     },
+    ctaHeading,
+    contactHeading,
+    developerCreditText,
     developerCreditLabel,
     developerCreditUrl
   }
