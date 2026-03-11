@@ -1,5 +1,6 @@
 import SectionRenderer from '../SectionRenderer';
 import SanityImage from '../SanityImage';
+import HeroScrollButton from '../HeroScrollButton';
 import { Page } from '@/types/page';
 import { HeroSection } from '@/types/sections';
 
@@ -16,6 +17,8 @@ const DefaultPage = ({ page }: TemplateProps) => {
   const bodySections = heroSection
     ? sections.filter((section) => section !== heroSection)
     : sections;
+  const sanitizedSlug = page.slug?.current?.replace(/[^a-zA-Z0-9-_]/g, '-') ?? 'page';
+  const contentAnchorId = `page-content-${sanitizedSlug}`;
 
   return (
     <main className="bg-bg text-text">
@@ -32,7 +35,7 @@ const DefaultPage = ({ page }: TemplateProps) => {
           <div className="absolute inset-0 bg-gradient-to-br from-surface to-surface/70" />
         )}
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/80"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/80"
           aria-hidden
         />
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center text-white">
@@ -40,9 +43,10 @@ const DefaultPage = ({ page }: TemplateProps) => {
             {page.title}
           </h1>
         </div>
+        <HeroScrollButton targetId={contentAnchorId} />
       </section>
 
-      <section className="page-shell pt-0">
+      <section id={contentAnchorId} className="page-shell pt-0">
         <div className="layout-container">
           {bodySections.map((section) => (
             <SectionRenderer key={section._key} section={section} />
