@@ -14,7 +14,7 @@ const CtaSection = ({ section }: Props) => {
     : '';
 
   return (
-    <section className="section-spacing-wide">
+    <section className="section-spacing-wide layout-container">
       <div className="cta-shell">
         {section.text && <p className="cta-text">{section.text}</p>}
 

@@ -7,17 +7,16 @@ interface Props {
 
 const ImageSection = ({ section }: Props) => {
   return (
-    <section className="section-spacing-wide px-6">
+    <section className="section-spacing-wide layout-container">
       <div className="mx-auto max-w-6xl">
         <SanityImage
           value={section.image}
-          alt={section.caption ?? section.image.alt ?? ''}
+          alt={section.image.alt ?? ''}
           mode="fill-container"
           containerClassName="h-80 md:h-[36rem] w-full"
           className="object-cover"
           sizes="(min-width: 1024px) 72rem, 100vw"
         />
-        {section.caption && <p className="pt-4 text-sm tracking-tight text-text/70">{section.caption}</p>}
       </div>
     </section>
   );

@@ -6,6 +6,7 @@ import ImageSection from './sections/ImageSection';
 import CtaSection from './sections/CtaSection';
 import MediaGridSection from './sections/MediaGridSection';
 import MediaShowcaseSection from './sections/MediaShowcaseSection';
+import TestimonialSection from './sections/TestimonialSection';
 
 interface Props {
   section: Section;
@@ -30,6 +31,9 @@ const SectionRenderer = ({ section }: Props) => {
 
     case 'mediaShowcaseSection':
       return <MediaShowcaseSection section={section} />;
+
+    case 'testimonialSection':
+      return <TestimonialSection section={section} />;
 
     default:
       return null;

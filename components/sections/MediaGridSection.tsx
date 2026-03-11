@@ -1,4 +1,4 @@
-import {MediaGridSection as MediaGridSectionType} from '@/types/sections';
+import { MediaGridSection as MediaGridSectionType } from '@/types/sections';
 import MediaItemContent from '../MediaItemContent';
 
 interface Props {
@@ -17,8 +17,8 @@ const getColumnClasses = (columns: MediaGridSectionType['columns']) => {
   }
 };
 
-const MediaGridSection = ({section}: Props) => {
-  const items = section.mediaType === 'video' ? section.videos ?? [] : section.photos ?? [];
+const MediaGridSection = ({ section }: Props) => {
+  const items = section.mediaType === 'video' ? (section.videos ?? []) : (section.photos ?? []);
   if (!items.length) return null;
   const isSingleItem = items.length === 1;
   const singleItemVariant = section.layoutVariant ?? 'auto';
@@ -43,18 +43,24 @@ const MediaGridSection = ({section}: Props) => {
       : '(min-width: 1280px) 80rem, (min-width: 768px) 80vw, 100vw';
 
   return (
-    <section className="section-spacing-wide px-6">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6">
+    <section className="section-spacing-wide">
+      <div className="layout-container flex flex-col gap-6">
         {(section.title || section.intro) && (
           <header className="max-w-3xl">
             {section.title && (
-              <h2 className="font-display text-3xl tracking-tight text-text md:text-4xl">{section.title}</h2>
+              <h2 className="font-display text-3xl tracking-tight text-text md:text-4xl">
+                {section.title}
+              </h2>
             )}
-            {section.intro && <p className="pt-3 text-base leading-relaxed text-text/80">{section.intro}</p>}
+            {section.intro && (
+              <p className="pt-3 text-base leading-relaxed text-text/80">{section.intro}</p>
+            )}
           </header>
         )}
 
-        <div className={`grid gap-4 ${isSingleItem ? 'grid-cols-1' : getColumnClasses(section.columns)}`}>
+        <div
+          className={`grid gap-4 ${isSingleItem ? 'grid-cols-1' : getColumnClasses(section.columns)}`}
+        >
           {items.map((item, index) => (
             <figure
               key={item._key ?? `${section.mediaType}-${index}`}

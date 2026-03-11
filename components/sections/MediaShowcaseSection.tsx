@@ -30,8 +30,8 @@ const MediaShowcaseSection = ({section}: Props) => {
   if (!featuredItem) return null;
 
   return (
-    <section className="section-spacing-wide px-6">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6">
+    <section className="section-spacing-wide">
+      <div className="layout-container flex flex-col gap-6">
         {(section.title || section.intro) && (
           <header className="max-w-3xl">
             {section.title && (

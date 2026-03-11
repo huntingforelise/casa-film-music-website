@@ -47,11 +47,9 @@ const DefaultPage = ({ page }: TemplateProps) => {
       </section>
 
       <section id={contentAnchorId} className="page-shell pt-0">
-        <div className="layout-container">
-          {bodySections.map((section) => (
-            <SectionRenderer key={section._key} section={section} />
-          ))}
-        </div>
+        {bodySections.map((section) => (
+          <SectionRenderer key={section._key} section={section} />
+        ))}
       </section>
     </main>
   );

@@ -37,7 +37,6 @@ export interface ImageSection {
   _key: string;
   _type: 'imageSection';
   image: SanityImage;
-  caption?: string;
 }
 
 export interface PhotoItem {
@@ -78,6 +77,23 @@ export interface MediaShowcaseSection {
   featuredVideo?: VideoItem;
   photos?: PhotoItem[];
   videos?: VideoItem[];
+}
+
+export interface TestimonialCard {
+  _key?: string;
+  _type: 'testimonialCard';
+  quote: string;
+  author: string;
+  role?: string;
+  image?: SanityImage;
+}
+
+export interface TestimonialSection {
+  _key: string;
+  _type: 'testimonialSection';
+  title: string;
+  intro?: string;
+  cards: TestimonialCard[];
 }
 
 export interface CtaSection {
@@ -123,4 +139,5 @@ export type Section =
   | SplitHeroSection
   | MediaGridSection
   | MediaShowcaseSection
+  | TestimonialSection
   | HeroSection;

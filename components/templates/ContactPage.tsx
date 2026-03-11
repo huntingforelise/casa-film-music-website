@@ -8,15 +8,19 @@ export type TemplateProps = {
 
 const ContactPage = ({ page }: TemplateProps) => {
   return (
-    <main className="layout-container page-shell">
-      <h1 className="page-title">{page.title}</h1>
-      <div className="section-divider" />
+    <main className="page-shell">
+      <div className="layout-container">
+        <h1 className="page-title">{page.title}</h1>
+        <div className="section-divider" />
+      </div>
 
       {page.sections?.map((section) => (
         <SectionRenderer key={section._key} section={section} />
       ))}
 
-      <ContactForm />
+      <div className="layout-container">
+        <ContactForm />
+      </div>
     </main>
   );
 };

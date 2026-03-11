@@ -10,7 +10,7 @@ const TextSection = ({ section }: Props) => {
   if (!section.content) return null;
 
   return (
-    <section className="section-spacing">
+    <section className="section-spacing layout-container">
       <PortableText value={section.content} components={portableTextComponents} />
     </section>
   );
