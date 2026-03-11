@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .js,.ts,.tsx --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test:bundle-pricing": "node -e \"const { rmSync } = require('node:fs'); rmSync('.test-output', { recursive: true, force: true });\" && tsc -p tsconfig.test.json && node --test .test-output/lib/booking/helpers/bundle-pricing.test.js",
+    "test": "npm run test:bundle-pricing"
   },
   "dependencies": {
     "@react-email/components": "^1.0.8",

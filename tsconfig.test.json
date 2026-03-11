@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": ".test-output",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES2022",
+    "rootDir": "."
+  },
+  "include": ["lib/booking/helpers/bundle-pricing.ts", "lib/booking/helpers/bundle-pricing.test.ts"],
+  "exclude": ["node_modules"]
+}

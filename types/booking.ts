@@ -3,7 +3,6 @@ export interface BookingEventType {
   _key?: string;
   value: string;
   title: string;
-  description?: string;
 }
 
 // TODO not being used
@@ -49,9 +48,57 @@ export interface BookingTravelRegion {
   feeNote?: string;
 }
 
-export interface BookingSettings {
-  _id?: string;
-  _type?: 'bookingSettings';
+export interface BookingFormCopy {
+  eventTypeLabel?: string;
+  eventDateLabel?: string;
+  startTimeLabel?: string;
+  durationLabel?: string;
+  guestCountLabel?: string;
+  travelRegionLabel?: string;
+  venueLabel?: string;
+  venuePlaceholder?: string;
+  serviceFromLabel?: string;
+  priceOnRequestText?: string;
+  bundleIntro?: string;
+  bundleNoSuggestions?: string;
+  bundleSelectLabel?: string;
+  bundleSelectedLabel?: string;
+  bundleAddMissingLabel?: string;
+  bundleIncludesLabel?: string;
+  bundleStartingPricePrefix?: string;
+  bundleOriginalPricePrefix?: string;
+  bundleRegularPricePrefix?: string;
+  addOnsEmptyText?: string;
+  summaryTitle?: string;
+  summarySubtitle?: string;
+  summaryNoneSelectedText?: string;
+  summaryNotProvidedText?: string;
+  summaryNoPackageText?: string;
+  summaryLabelEvent?: string;
+  summaryLabelDate?: string;
+  summaryLabelTime?: string;
+  summaryLabelDuration?: string;
+  summaryLabelGuests?: string;
+  summaryLabelVenue?: string;
+  summaryLabelTravel?: string;
+  summaryLabelServices?: string;
+  summaryLabelPackage?: string;
+  summaryLabelAddOns?: string;
+  summaryContactNameLabel?: string;
+  summaryContactEmailLabel?: string;
+  summaryContactPhoneLabel?: string;
+  summaryNotesLabel?: string;
+  buttonBackText?: string;
+  buttonContinueText?: string;
+  buttonSubmitText?: string;
+  buttonSubmittingText?: string;
+  feedbackNetworkErrorText?: string;
+  feedbackGenericErrorText?: string;
+  feedbackPersistedText?: string;
+  feedbackNotPersistedText?: string;
+}
+
+export interface BookingFormSettings {
   introTitle: string;
   introText: string;
   disclaimer: string;
@@ -60,6 +107,12 @@ export interface BookingSettings {
   bundles: BookingBundle[];
   addOns: BookingAddOn[];
   travelRegions: BookingTravelRegion[];
+}
+
+export interface BookingForm extends BookingFormSettings {
+  _id?: string;
+  _type?: 'bookingSettings';
+  copy?: BookingFormCopy;
 }
 
 export interface BookingBundleSuggestion {

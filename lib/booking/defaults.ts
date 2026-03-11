@@ -1,7 +1,7 @@
-import { BookingSettings } from '@/types/booking';
+import { BookingFormSettings } from '@/types/booking';
 import { BookingFormValues } from './types';
 
-const emptyBookingSettings: BookingSettings = {
+const emptyBookingSettings: BookingFormSettings = {
   introTitle: '',
   introText: '',
   disclaimer: '',
@@ -12,10 +12,10 @@ const emptyBookingSettings: BookingSettings = {
   travelRegions: [],
 };
 
-export const withBookingDefaults = (settings?: BookingSettings | null): BookingSettings => {
+export const withBookingDefaults = (settings?: BookingFormSettings | null): BookingFormSettings => {
   return settings ?? emptyBookingSettings;
 };
-export const getDefaultValues = (config: BookingSettings): BookingFormValues => ({
+export const getDefaultValues = (config: BookingFormSettings): BookingFormValues => ({
   eventType: config.eventTypes[0]?.value ?? '',
   eventDate: '',
   startTime: '',

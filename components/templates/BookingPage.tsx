@@ -1,17 +1,17 @@
 import SectionRenderer from '../SectionRenderer';
 import { Page } from '@/types/page';
-import BookingEnquiryForm from '../BookingForm';
+import BookingForm from '../BookingForm';
 import { client } from '@/lib/sanity/client';
 import { bookingSettingsQuery } from '@/lib/sanity/queries';
-import { BookingSettings } from '@/types/booking';
+import { BookingForm as BookingFormType } from '@/types/booking';
 
-export type TemplateProps = {
+export type BookingProps = {
   page: Page<'booking'>;
 };
 
-const getBookingSettings = async () => client.fetch<BookingSettings | null>(bookingSettingsQuery);
+const getBookingSettings = async () => client.fetch<BookingFormType | null>(bookingSettingsQuery);
 
-const BookingPage = async ({ page }: TemplateProps) => {
+const BookingPage = async ({ page }: BookingProps) => {
   const bookingSettings = await getBookingSettings();
 
   return (
@@ -23,7 +23,7 @@ const BookingPage = async ({ page }: TemplateProps) => {
         <SectionRenderer key={section._key} section={section} />
       ))}
 
-      <BookingEnquiryForm settings={bookingSettings} />
+      <BookingForm settings={bookingSettings} />
     </main>
   );
 };

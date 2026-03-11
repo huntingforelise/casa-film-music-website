@@ -1,4 +1,4 @@
-import { BookingBundle, BookingBundleSuggestion, BookingSettings } from '@/types/booking';
+import { BookingBundle, BookingBundleSuggestion, BookingFormSettings } from '@/types/booking';
 
 const getBundleSuggestion = (
   bundle: BookingBundle,
@@ -16,7 +16,7 @@ const getBundleSuggestion = (
 };
 
 export const getBundleSuggestions = (
-  settings: BookingSettings,
+  settings: BookingFormSettings,
   selectedServices: string[],
 ): BookingBundleSuggestion[] => {
   if (!selectedServices.length) return [];

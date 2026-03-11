@@ -1,7 +1,8 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { BookingBundleSuggestion, BookingEnquiryPayload, BookingSettings } from '@/types/booking';
+import { BookingBundleSuggestion, BookingEnquiryPayload, BookingFormCopy } from '@/types/booking';
+import type { BookingForm } from '@/types/booking';
 import { getDefaultValues, withBookingDefaults } from '@/lib/booking/defaults';
 import { getBundleSuggestions } from '@/lib/booking/bundles';
 import { BookingFormValues, SetField, Status } from '@/lib/booking/types';
@@ -16,10 +17,10 @@ import {
 import { isValidEmail } from '@/lib/booking/helpers';
 
 interface Props {
-  settings?: BookingSettings | null;
+  settings?: BookingForm | null;
 }
 
-const BookingEnquiryForm = ({ settings }: Props) => {
+const BookingForm = ({ settings }: Props) => {
   const config = useMemo(() => withBookingDefaults(settings), [settings]);
   const [step, setStep] = useState(1);
   const defaultValues = useMemo(() => getDefaultValues(config), [config]);
@@ -27,6 +28,7 @@ const BookingEnquiryForm = ({ settings }: Props) => {
   const values = useMemo(() => ({ ...defaultValues, ...overrides }), [defaultValues, overrides]);
   const [status, setStatus] = useState<Status>('idle');
   const [feedback, setFeedback] = useState('');
+  const copy = useMemo<BookingFormCopy>(() => settings?.copy ?? {}, [settings]);
 
   const bundleSuggestions = useMemo(
     () => getBundleSuggestions(config, values.services),
@@ -115,6 +117,12 @@ const BookingEnquiryForm = ({ settings }: Props) => {
   };
 
   const applyBundle = (suggestion: BookingBundleSuggestion) => {
+    const isSameBundle = values.bundleCode === suggestion.bundle.code;
+    if (isSameBundle) {
+      setField('bundleCode', '');
+      return;
+    }
+
     const mergedServices = Array.from(new Set([...values.services, ...suggestion.missingServices]));
     setOverrides((prev) => ({
       ...prev,
@@ -122,8 +130,6 @@ const BookingEnquiryForm = ({ settings }: Props) => {
       bundleCode: suggestion.bundle.code,
     }));
   };
-
-  const clearBundle = () => setField('bundleCode', '');
 
   const stepIsValid = useMemo(() => {
     if (step === 1) {
@@ -187,21 +193,21 @@ const BookingEnquiryForm = ({ settings }: Props) => {
       };
       if (!response.ok || !result.ok) {
         setStatus('error');
-        setFeedback(result.error || 'Could not submit your enquiry. Please try again.');
+        setFeedback(result.error ?? copy.feedbackGenericErrorText ?? '');
         return;
       }
 
       setStatus('success');
-      setFeedback(
+      const successMessage =
         result.persisted === false
-          ? 'Thanks, your enquiry has been sent. We will contact you shortly.'
-          : 'Thanks, your enquiry has been sent and saved.',
-      );
+          ? (copy.feedbackNotPersistedText ?? '')
+          : (copy.feedbackPersistedText ?? '');
+      setFeedback(successMessage);
       setOverrides({});
       setStep(1);
     } catch {
       setStatus('error');
-      setFeedback('Network error. Please try again.');
+      setFeedback(copy.feedbackNetworkErrorText ?? '');
     }
   };
 
@@ -232,6 +238,7 @@ const BookingEnquiryForm = ({ settings }: Props) => {
               travelRegions={config.travelRegions}
               values={values}
               setField={setField}
+              copy={copy}
             />
           )}
 
@@ -240,6 +247,7 @@ const BookingEnquiryForm = ({ settings }: Props) => {
               services={config.services}
               selectedServices={values.services}
               toggleService={toggleService}
+              copy={copy}
             />
           )}
 
@@ -248,8 +256,8 @@ const BookingEnquiryForm = ({ settings }: Props) => {
               bundleSuggestions={bundleSuggestions}
               selectedBundleCode={values.bundleCode}
               applyBundle={applyBundle}
-              clearBundle={clearBundle}
               servicesByValue={servicesByValue}
+              copy={copy}
             />
           )}
 
@@ -258,6 +266,7 @@ const BookingEnquiryForm = ({ settings }: Props) => {
               availableAddOns={availableAddOns}
               selectedAddOns={values.addOns}
               toggleAddOn={toggleAddOn}
+              copy={copy}
             />
           )}
 
@@ -271,6 +280,7 @@ const BookingEnquiryForm = ({ settings }: Props) => {
               selectedAddOnTitles={selectedAddOnTitles}
               activeBundle={activeBundle}
               setField={setField}
+              copy={copy}
             />
           )}
 
@@ -282,7 +292,7 @@ const BookingEnquiryForm = ({ settings }: Props) => {
                 onClick={goBack}
                 disabled={step === 1 || status === 'submitting'}
               >
-                Back
+                {copy.buttonBackText ?? ''}
               </button>
 
               {step < TOTAL_STEPS ? (
@@ -292,7 +302,7 @@ const BookingEnquiryForm = ({ settings }: Props) => {
                   onClick={goNext}
                   disabled={!stepIsValid || status === 'submitting'}
                 >
-                  Continue
+                  {copy.buttonContinueText ?? ''}
                 </button>
               ) : (
                 <button
@@ -300,7 +310,9 @@ const BookingEnquiryForm = ({ settings }: Props) => {
                   className="btn-primary disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={!stepIsValid || status === 'submitting'}
                 >
-                  {status === 'submitting' ? 'Submitting...' : 'Send Enquiry'}
+                  {status === 'submitting'
+                    ? (copy.buttonSubmittingText ?? '')
+                    : (copy.buttonSubmitText ?? '')}
                 </button>
               )}
             </div>
@@ -317,4 +329,4 @@ const BookingEnquiryForm = ({ settings }: Props) => {
   );
 };
 
-export default BookingEnquiryForm;
+export default BookingForm;
