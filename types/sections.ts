@@ -88,6 +88,13 @@ export interface CtaSection {
   buttonLink?: string;
 }
 
+export interface HeroSection {
+  _key: string;
+  _type: 'heroSection';
+  image: SanityImage;
+  caption?: string;
+}
+
 export interface SplitHeroSection {
   _key: string;
   _type: 'splitHeroSection';
@@ -115,4 +122,5 @@ export type Section =
   | CtaSection
   | SplitHeroSection
   | MediaGridSection
-  | MediaShowcaseSection;
+  | MediaShowcaseSection
+  | HeroSection;
