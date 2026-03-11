@@ -2,14 +2,14 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  --theme-bg: #f8f1e8;
-  --theme-text: #2f261f;
-  --theme-surface: #efe3d6;
-  --theme-accent: #a86b57;
-  --theme-border: #d8c6b5;
+  --theme-bg: #faf9f7;
+  --theme-text: #1a1a1a;
+  --theme-surface: #f2efe9;
+  --theme-accent: #9f5f4b;
+  --theme-border: #e5e2dc;
 
   --theme-font-sans: var(--font-inter);
-  --theme-font-display: var(--font-playfair);
+  --theme-font-display: var(--font-montserrat);
   --theme-font-mono: var(--font-geist-mono);
 
   /* 8px spacing scale */
@@ -90,21 +90,21 @@ body {
 }
 
 .page-shell {
-  padding-top: 7rem;
+  padding-top: var(--space-3);
   padding-bottom: var(--space-6);
 }
 
 @media (min-width: 768px) {
   .page-shell {
-    padding-top: 8rem;
+    padding-top: var(--space-4);
     padding-bottom: var(--space-8);
   }
 }
 
 @media (min-width: 1024px) {
   .page-shell {
-    padding-top: 9rem;
-    padding-bottom: var(--space-12);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-10);
   }
 }
 
