@@ -139,3 +139,17 @@ export const pageBySlugQuery = `
     template
   }
 `;
+
+export const contactFormQuery = `
+  *[_id == "contactForm"][0]{
+    title,
+    nameLabel,
+    emailLabel,
+    messageLabel,
+    submitLabel,
+    submittingLabel,
+    feedbackSuccess,
+    feedbackError,
+    feedbackNetworkError
+  }
+`;
