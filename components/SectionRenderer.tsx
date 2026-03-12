@@ -3,6 +3,7 @@ import { Section } from '@/types/sections';
 import SplitHero from './sections/SplitHero';
 import TextSection from './sections/TextSection';
 import ImageSection from './sections/ImageSection';
+import MediaTextSection from './sections/MediaTextSection';
 import CtaSection from './sections/CtaSection';
 import MediaGridSection from './sections/MediaGridSection';
 import MediaShowcaseSection from './sections/MediaShowcaseSection';
@@ -22,6 +23,9 @@ const SectionRenderer = ({ section }: Props) => {
 
     case 'imageSection':
       return <ImageSection section={section} />;
+
+    case 'mediaTextSection':
+      return <MediaTextSection section={section} />;
 
     case 'ctaSection':
       return <CtaSection section={section} />;

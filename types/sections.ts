@@ -54,6 +54,18 @@ export interface VideoItem {
   caption?: string;
 }
 
+export interface MediaTextSection {
+  _key: string;
+  _type: 'mediaTextSection';
+  title?: string;
+  content: PortableTextBlock[];
+  mediaType?: 'photo' | 'video';
+  image?: SanityImage;
+  video?: VideoItem;
+  mediaPosition?: 'left' | 'right';
+  mediaOrientation?: 'portrait' | 'landscape';
+}
+
 export interface MediaGridSection {
   _key: string;
   _type: 'mediaGridSection';
@@ -134,6 +146,7 @@ export interface SplitHeroSection {
 
 export type Section =
   | TextSection
+  | MediaTextSection
   | ImageSection
   | CtaSection
   | SplitHeroSection
