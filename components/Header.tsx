@@ -25,6 +25,7 @@ const Header = async () => {
               width={120}
               height={60}
               className="h-auto w-20 sm:w-24"
+              loading="eager"
             />
           </Link>
         )}

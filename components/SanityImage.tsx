@@ -12,6 +12,7 @@ export type SanityImageProps = {
   mode?: ImageLayoutMode;
   sizes?: string;
   priority?: boolean;
+  loading?: 'lazy' | 'eager';
   className?: string;
   containerClassName?: string;
   style?: React.CSSProperties;
@@ -28,6 +29,7 @@ const SanityImage = ({
   className,
   containerClassName,
   style,
+  loading,
 }: SanityImageProps) => {
   const isFillMode = mode === 'fill' || mode === 'fill-container' || mode === 'screen';
   let builder = urlFor(value).auto('format').quality(90);
@@ -52,6 +54,7 @@ const SanityImage = ({
         fill
         sizes={sizes}
         priority={priority}
+        loading={loading}
         className={className}
         style={style}
       />
@@ -70,6 +73,7 @@ const SanityImage = ({
           fill
           sizes={sizes}
           priority={priority}
+          loading={loading}
           className={className}
           style={style}
         />
@@ -85,6 +89,7 @@ const SanityImage = ({
       height={height ?? 800}
       sizes={sizes}
       priority={priority}
+      loading={loading}
       className={className}
       style={style}
     />

@@ -30,6 +30,7 @@ const DefaultPage = ({ page }: TemplateProps) => {
             mode="screen"
             priority
             className="absolute inset-0 h-full w-full object-cover"
+            loading="eager"
           />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-surface to-surface/70" />
