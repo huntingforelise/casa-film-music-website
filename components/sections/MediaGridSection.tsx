@@ -20,27 +20,6 @@ const getColumnClasses = (columns: MediaGridSectionType['columns']) => {
 const MediaGridSection = ({ section }: Props) => {
   const items = section.mediaType === 'video' ? (section.videos ?? []) : (section.photos ?? []);
   if (!items.length) return null;
-  const isSingleItem = items.length === 1;
-  const singleItemVariant = section.layoutVariant ?? 'auto';
-
-  const singleItemCardClass =
-    singleItemVariant === 'compact'
-      ? 'mx-auto w-full max-w-3xl'
-      : singleItemVariant === 'hero'
-        ? 'w-full'
-        : 'mx-auto w-full max-w-5xl';
-
-  const singleItemMediaClass =
-    singleItemVariant === 'compact'
-      ? 'h-72 w-full md:h-[30rem]'
-      : singleItemVariant === 'hero'
-        ? 'h-[60svh] w-full md:h-[72svh]'
-        : 'h-80 w-full md:h-[38rem]';
-
-  const singleItemSizes =
-    singleItemVariant === 'compact'
-      ? '(min-width: 1024px) 48rem, (min-width: 768px) 70vw, 100vw'
-      : '(min-width: 1280px) 80rem, (min-width: 768px) 80vw, 100vw';
 
   return (
     <section className="section-spacing-wide">
@@ -58,25 +37,17 @@ const MediaGridSection = ({ section }: Props) => {
           </header>
         )}
 
-        <div
-          className={`grid gap-4 ${isSingleItem ? 'grid-cols-1' : getColumnClasses(section.columns)}`}
-        >
+        <div className={`grid gap-4 ${getColumnClasses(section.columns)}`}>
           {items.map((item, index) => (
             <figure
               key={item._key ?? `${section.mediaType}-${index}`}
-              className={`surface-radius overflow-hidden border border-border bg-surface/30${
-                isSingleItem ? ` ${singleItemCardClass}` : ''
-              }`}
+              className={`surface-radius overflow-hidden border border-border bg-surface/30`}
             >
               <MediaItemContent
                 mediaType={section.mediaType}
                 item={item}
-                imageContainerClassName={isSingleItem ? singleItemMediaClass : 'h-72 w-full'}
-                imageSizes={
-                  isSingleItem
-                    ? singleItemSizes
-                    : '(min-width: 1280px) 24rem, (min-width: 768px) 50vw, 100vw'
-                }
+                imageContainerClassName={'h-72 w-full'}
+                imageSizes={'(min-width: 1280px) 24rem, (min-width: 768px) 50vw, 100vw'}
               />
               {item.caption && (
                 <figcaption className="border-t border-border px-4 py-3 text-sm tracking-tight text-text/80">
