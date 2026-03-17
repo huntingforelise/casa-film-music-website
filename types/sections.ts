@@ -72,7 +72,7 @@ export interface MediaGridSection {
   title?: string;
   intro?: string;
   mediaType: 'photo' | 'video';
-  layoutVariant?: 'auto' | 'compact' | 'hero';
+  mediaOrientation?: 'portrait' | 'landscape';
   columns?: '2' | '3' | '4';
   photos?: PhotoItem[];
   videos?: VideoItem[];
@@ -84,7 +84,7 @@ export interface MediaShowcaseSection {
   title?: string;
   intro?: string;
   mediaType: 'photo' | 'video';
-  layoutVariant?: 'auto' | 'compact' | 'hero';
+  mediaOrientation?: 'portrait' | 'landscape';
   featuredPhoto?: PhotoItem;
   featuredVideo?: VideoItem;
   photos?: PhotoItem[];
@@ -142,6 +142,20 @@ export interface SplitHeroSection {
   };
 }
 
+export interface PhotoMosaicSection {
+  _type: 'photoMosaicSection';
+  title?: string;
+  slotA?: PhotoItem;
+  slotB?: PhotoItem;
+  slotC?: PhotoItem;
+  slotD?: PhotoItem;
+  slotE?: PhotoItem;
+  slotF?: PhotoItem;
+  slotG?: PhotoItem;
+  slotH?: PhotoItem;
+  slotI?: PhotoItem;
+}
+
 /* ---------- UNION ---------- */
 
 export type Section =
@@ -153,4 +167,5 @@ export type Section =
   | MediaGridSection
   | MediaShowcaseSection
   | TestimonialSection
-  | HeroSection;
+  | HeroSection
+  | PhotoMosaicSection;

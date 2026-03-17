@@ -40,25 +40,32 @@ const Video = ({
   zoom = 1,
 }: VideoProps) => {
   const embedUrl = getEmbedUrl(src);
-
-  return (
-    <div
-      className={`relative w-full overflow-hidden ${mode === 'fill' ? 'h-full' : 'aspect-video'}${
-        containerClassName ? ` ${containerClassName}` : ''
-      }`}
-    >
-      <iframe
-        src={embedUrl}
-        loading={loading}
-        className="absolute inset-0 h-full w-full border-0"
-        style={zoom === 1 ? undefined : {transform: `scale(${zoom})`, transformOrigin: 'center'}}
-        allow="autoplay; fullscreen; picture-in-picture"
-        referrerPolicy="strict-origin-when-cross-origin"
-        allowFullScreen
-        title={title}
-      />
-    </div>
+  const commonClass = 'absolute inset-0 h-full w-full border-0';
+  const iframeStyle =
+    zoom === 1 ? undefined : { transform: `scale(${zoom})`, transformOrigin: 'center' };
+  const iframe = (
+    <iframe
+      src={embedUrl}
+      title={title}
+      loading={loading}
+      className={commonClass}
+      style={iframeStyle}
+      allow="autoplay; fullscreen; picture-in-picture"
+      referrerPolicy="strict-origin-when-cross-origin"
+    />
   );
+
+  if (mode === 'fill') {
+    const fillClass = ['relative h-full w-full overflow-hidden', containerClassName]
+      .filter(Boolean)
+      .join(' ');
+    return <div className={fillClass}>{iframe}</div>;
+  }
+
+  const aspectClass = ['relative aspect-video w-full overflow-hidden', containerClassName]
+    .filter(Boolean)
+    .join(' ');
+  return <div className={aspectClass}>{iframe}</div>;
 };
 
 export default Video;

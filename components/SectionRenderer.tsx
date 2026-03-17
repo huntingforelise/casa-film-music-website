@@ -8,6 +8,7 @@ import CtaSection from './sections/CtaSection';
 import MediaGridSection from './sections/MediaGridSection';
 import MediaShowcaseSection from './sections/MediaShowcaseSection';
 import TestimonialSection from './sections/TestimonialSection';
+import PhotoMosaicSection from './sections/PhotoMosaicSection';
 
 interface Props {
   section: Section;
@@ -38,6 +39,9 @@ const SectionRenderer = ({ section }: Props) => {
 
     case 'testimonialSection':
       return <TestimonialSection section={section} />;
+
+    case 'photoMosaicSection':
+      return <PhotoMosaicSection section={section} />;
 
     default:
       return null;

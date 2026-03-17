@@ -153,3 +153,19 @@ export const contactFormQuery = `
     feedbackNetworkError
   }
 `;
+
+export const photoMosaicSectionQuery = `
+  _type == "photoMosaicSection" => {
+    _type,
+    title,
+    slotA{ image, caption },
+    slotB{ image, caption },
+    slotC{ image, caption },
+    slotD{ image, caption },
+    slotE{ image, caption },
+    slotF{ image, caption },
+    slotG{ image, caption },
+    slotH{ image, caption },
+    slotI{ image, caption }
+  }
+`;
