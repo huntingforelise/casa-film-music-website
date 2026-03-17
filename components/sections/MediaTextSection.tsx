@@ -2,33 +2,50 @@ import { PortableText } from '@portabletext/react';
 import SanityImage from '../SanityImage';
 import Video from '../Video';
 import { MediaTextSection as MediaTextSectionType } from '@/types/sections';
+import { MediaOrientation } from '@/types/media';
 import { portableTextComponents } from '../portableTextComponents';
+import { LANDSCAPE_ASPECT_CLASS, PORTRAIT_ASPECT_CLASS } from '@/components/media/mediaLayout';
 
 interface Props {
   section: MediaTextSectionType;
 }
 
-const getAspectClass = (section: MediaTextSectionType) => {
-  if (section.mediaOrientation === 'portrait') return 'aspect-[9/16]';
-  return 'aspect-video';
+type LayoutClasses = {
+  grid: string;
+  textOrder: string;
+  mediaOrder: string;
+  mediaWidth: string;
+  aspect: string;
+  sizes: string;
 };
 
-const getMediaWidthClass = (section: MediaTextSectionType) => {
-  if (section.mediaOrientation === 'portrait') {
-    return 'mx-auto w-full max-w-[24rem]';
-  }
+const getLayoutClasses = (orientation: MediaOrientation, mediaOnLeft: boolean): LayoutClasses => {
+  const isPortrait = orientation === 'portrait';
 
-  return 'w-full';
+  return {
+    grid: isPortrait
+      ? 'grid gap-8 md:grid-cols-2 md:items-center lg:grid-cols-[1.15fr_0.85fr]'
+      : 'grid gap-8 md:grid-cols-2 md:items-center',
+
+    textOrder: mediaOnLeft ? 'md:order-2' : 'md:order-1',
+    mediaOrder: mediaOnLeft ? 'md:order-1' : 'md:order-2',
+
+    mediaWidth: isPortrait
+      ? [
+          'w-full max-w-[20rem] mx-auto',
+          'lg:max-w-[22rem]',
+          mediaOnLeft ? 'xl:mr-auto xl:ml-0' : 'xl:ml-auto xl:mr-0',
+          'xl:max-w-[24rem]',
+        ].join(' ')
+      : 'w-full',
+
+    aspect: isPortrait ? PORTRAIT_ASPECT_CLASS : LANDSCAPE_ASPECT_CLASS,
+
+    sizes: isPortrait
+      ? '(min-width: 1280px) 24rem, (min-width: 768px) 20rem, 100vw'
+      : '(min-width: 768px) 50vw, 100vw',
+  };
 };
-
-const getMediaSizes = (section: MediaTextSectionType) => {
-  if (section.mediaOrientation === 'portrait') {
-    return '(min-width: 1024px) 24rem, 100vw';
-  }
-
-  return '(min-width: 1024px) 36rem, 100vw';
-};
-
 const MediaTextSection = ({ section }: Props) => {
   const shouldShowVideo = section.mediaType === 'video' && section.video?.url;
   const shouldShowImage = section.mediaType !== 'video' && section.image;
@@ -37,18 +54,18 @@ const MediaTextSection = ({ section }: Props) => {
     return null;
   }
 
+  const orientation = section.mediaOrientation ?? 'landscape';
   const mediaOnLeft = section.mediaPosition === 'left';
-  const textOrderClass = mediaOnLeft ? 'lg:order-2' : 'lg:order-1';
-  const mediaOrderClass = mediaOnLeft ? 'lg:order-1' : 'lg:order-2';
 
-  const aspectClass = getAspectClass(section);
-  const mediaWidthClass = getMediaWidthClass(section);
-  const mediaSizes = getMediaSizes(section);
+  const { grid, textOrder, mediaOrder, mediaWidth, aspect, sizes } = getLayoutClasses(
+    orientation,
+    mediaOnLeft,
+  );
 
   return (
     <section className="section-spacing layout-container">
-      <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-        <div className={`${textOrderClass} min-w-0`}>
+      <div className={grid}>
+        <div className={`${textOrder} min-w-0`}>
           {section.title && <h2 className="page-title">{section.title}</h2>}
 
           <div className="prose max-w-none text-text">
@@ -56,17 +73,17 @@ const MediaTextSection = ({ section }: Props) => {
           </div>
         </div>
 
-        <div className={`${mediaOrderClass} min-w-0`}>
-          <div className={mediaWidthClass}>
+        <div className={`${mediaOrder} min-w-0`}>
+          <div className={mediaWidth}>
             <div
-              className={`relative w-full overflow-hidden rounded-[var(--radius-surface)] border border-[var(--theme-border)] bg-surface shadow-2xl shadow-black/20 ${aspectClass}`}
+              className={`relative w-full overflow-hidden rounded-[var(--radius-surface)] border border-[var(--theme-border)] bg-surface shadow-2xl shadow-black/20 ${aspect}`}
             >
               {shouldShowImage && (
                 <SanityImage
                   value={section.image!}
                   alt={section.image?.alt ?? section.title ?? 'Embedded image'}
                   mode="fill"
-                  sizes={mediaSizes}
+                  sizes={sizes}
                   className="h-full w-full object-cover"
                 />
               )}

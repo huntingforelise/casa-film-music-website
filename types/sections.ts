@@ -1,4 +1,5 @@
 import { SanityImage } from './sanity';
+import type { MediaOrientation, MediaType, PhotoItem, VideoItem } from './media';
 
 /* ---------- Portable text ---------- */
 
@@ -39,55 +40,36 @@ export interface ImageSection {
   image: SanityImage;
 }
 
-export interface PhotoItem {
-  _key?: string;
-  _type: 'photoItem';
-  image?: SanityImage;
-  caption?: string;
-}
-
-export interface VideoItem {
-  _key?: string;
-  _type: 'videoItem';
-  url?: string;
-  title?: string;
-  caption?: string;
-}
-
 export interface MediaTextSection {
   _key: string;
   _type: 'mediaTextSection';
   title?: string;
   content: PortableTextBlock[];
-  mediaType?: 'photo' | 'video';
+  mediaType?: MediaType;
   image?: SanityImage;
   video?: VideoItem;
   mediaPosition?: 'left' | 'right';
-  mediaOrientation?: 'portrait' | 'landscape';
+  mediaOrientation?: MediaOrientation;
 }
 
-export interface MediaGridSection {
+export interface MediaRowSection {
   _key: string;
-  _type: 'mediaGridSection';
+  _type: 'mediaRowSection';
   title?: string;
   intro?: string;
-  mediaType: 'photo' | 'video';
-  mediaOrientation?: 'portrait' | 'landscape';
-  columns?: '2' | '3' | '4';
+  mediaType: MediaType;
+  mediaOrientation?: MediaOrientation;
   photos?: PhotoItem[];
   videos?: VideoItem[];
 }
 
-export interface MediaShowcaseSection {
+export interface VideoShowcaseSection {
   _key: string;
-  _type: 'mediaShowcaseSection';
+  _type: 'videoShowcaseSection';
   title?: string;
   intro?: string;
-  mediaType: 'photo' | 'video';
-  mediaOrientation?: 'portrait' | 'landscape';
-  featuredPhoto?: PhotoItem;
+  mediaOrientation?: MediaOrientation;
   featuredVideo?: VideoItem;
-  photos?: PhotoItem[];
   videos?: VideoItem[];
 }
 
@@ -120,7 +102,6 @@ export interface HeroSection {
   _key: string;
   _type: 'heroSection';
   image: SanityImage;
-  caption?: string;
 }
 
 export interface SplitHeroSection {
@@ -164,8 +145,8 @@ export type Section =
   | ImageSection
   | CtaSection
   | SplitHeroSection
-  | MediaGridSection
-  | MediaShowcaseSection
+  | MediaRowSection
+  | VideoShowcaseSection
   | TestimonialSection
   | HeroSection
   | PhotoMosaicSection;

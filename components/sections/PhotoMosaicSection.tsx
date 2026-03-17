@@ -1,4 +1,6 @@
-import { PhotoItem, PhotoMosaicSection as PhotoMosaicSectionType } from '@/types/sections';
+import { PhotoItem } from '@/types/media';
+import { PhotoMosaicSection as PhotoMosaicSectionType } from '@/types/sections';
+import { LANDSCAPE_ASPECT_CLASS, PORTRAIT_ASPECT_CLASS } from '@/components/media/mediaLayout';
 import SanityImage from '../SanityImage';
 
 type GridLayout = {
@@ -34,8 +36,10 @@ const GRID_SLOTS: Record<SlotKey, GridLayout> = {
   slotI: { colStart: 3, rowStart: 5, colSpan: 2, rowSpan: 2 },
 };
 
-const gridClassName =
+const desktopGridClassName =
   'grid grid-cols-4 gap-4 auto-rows-[120px] sm:auto-rows-[140px] md:auto-rows-[160px] lg:auto-rows-[180px] xl:auto-rows-[220px]';
+
+const PORTRAIT_SLOTS: SlotKey[] = ['slotB', 'slotC', 'slotD', 'slotF', 'slotG', 'slotH'];
 
 const hasImage = (
   entry: [SlotKey, PhotoItem | undefined],
@@ -48,11 +52,15 @@ const getVisibleCount = (imageCount: number) => {
   return Math.min(imageCount, 3);
 };
 
+const getMobileAspectClass = (slot: SlotKey) =>
+  PORTRAIT_SLOTS.includes(slot) ? PORTRAIT_ASPECT_CLASS : LANDSCAPE_ASPECT_CLASS;
+
 const PhotoMosaicSection = ({ section }: { section: PhotoMosaicSectionType }) => {
   const slotEntries: Array<[SlotKey, PhotoItem | undefined]> = SLOT_KEYS.map((key) => [
     key,
     section[key],
   ]);
+
   const filledEntries = slotEntries.filter(hasImage);
 
   if (!filledEntries.length) return null;
@@ -65,27 +73,46 @@ const PhotoMosaicSection = ({ section }: { section: PhotoMosaicSectionType }) =>
       <div className="space-y-6">
         {section.title && <h2 className="text-2xl font-semibold">{section.title}</h2>}
 
-        <div className={gridClassName}>
-          {visibleEntries.map(([key, item]) => {
-            const layout = GRID_SLOTS[key];
+        <div className="hidden md:block">
+          <div className={desktopGridClassName}>
+            {visibleEntries.map(([key, item]) => {
+              const layout = GRID_SLOTS[key];
 
-            return (
-              <div
-                key={key}
-                className="relative overflow-hidden rounded-2xl"
-                style={{
-                  gridColumn: `${layout.colStart} / span ${layout.colSpan}`,
-                  gridRow: `${layout.rowStart} / span ${layout.rowSpan}`,
-                }}
-              >
-                <SanityImage
-                  value={item.image}
-                  alt={item.image?.alt || item.caption || ''}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            );
-          })}
+              return (
+                <div
+                  key={key}
+                  className="relative overflow-hidden rounded-2xl"
+                  style={{
+                    gridColumn: `${layout.colStart} / span ${layout.colSpan}`,
+                    gridRow: `${layout.rowStart} / span ${layout.rowSpan}`,
+                  }}
+                >
+                  <SanityImage
+                    value={item.image}
+                    alt={item.image?.alt || ''}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="space-y-4 md:hidden">
+          {visibleEntries.map(([key, item]) => (
+            <div
+              key={`mobile-${key}`}
+              className={`relative overflow-hidden rounded-2xl bg-neutral-100 ${getMobileAspectClass(
+                key,
+              )}`}
+            >
+              <SanityImage
+                value={item.image}
+                alt={item.image?.alt || ''}
+                className="h-full w-full object-cover"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>

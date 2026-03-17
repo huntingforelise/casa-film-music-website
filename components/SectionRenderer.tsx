@@ -5,10 +5,10 @@ import TextSection from './sections/TextSection';
 import ImageSection from './sections/ImageSection';
 import MediaTextSection from './sections/MediaTextSection';
 import CtaSection from './sections/CtaSection';
-import MediaGridSection from './sections/MediaGridSection';
-import MediaShowcaseSection from './sections/MediaShowcaseSection';
+import MediaRowSection from './sections/MediaRowSection';
 import TestimonialSection from './sections/TestimonialSection';
 import PhotoMosaicSection from './sections/PhotoMosaicSection';
+import VideoShowcaseSection from './sections/VideoShowcaseSection';
 
 interface Props {
   section: Section;
@@ -31,11 +31,11 @@ const SectionRenderer = ({ section }: Props) => {
     case 'ctaSection':
       return <CtaSection section={section} />;
 
-    case 'mediaGridSection':
-      return <MediaGridSection section={section} />;
+    case 'mediaRowSection':
+      return <MediaRowSection section={section} />;
 
-    case 'mediaShowcaseSection':
-      return <MediaShowcaseSection section={section} />;
+    case 'videoShowcaseSection':
+      return <VideoShowcaseSection section={section} />;
 
     case 'testimonialSection':
       return <TestimonialSection section={section} />;

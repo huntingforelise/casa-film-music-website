@@ -1,3 +1,6 @@
+import { LANDSCAPE_ASPECT_CLASS } from '@/components/media/mediaLayout';
+import clsx from 'clsx';
+
 type VideoProps = {
   src: string;
   title?: string;
@@ -40,32 +43,47 @@ const Video = ({
   zoom = 1,
 }: VideoProps) => {
   const embedUrl = getEmbedUrl(src);
-  const commonClass = 'absolute inset-0 h-full w-full border-0';
-  const iframeStyle =
-    zoom === 1 ? undefined : { transform: `scale(${zoom})`, transformOrigin: 'center' };
-  const iframe = (
-    <iframe
-      src={embedUrl}
-      title={title}
-      loading={loading}
-      className={commonClass}
-      style={iframeStyle}
-      allow="autoplay; fullscreen; picture-in-picture"
-      referrerPolicy="strict-origin-when-cross-origin"
-    />
-  );
 
   if (mode === 'fill') {
-    const fillClass = ['relative h-full w-full overflow-hidden', containerClassName]
-      .filter(Boolean)
-      .join(' ');
-    return <div className={fillClass}>{iframe}</div>;
+    return (
+      <div className={clsx('relative h-full w-full overflow-hidden', containerClassName)}>
+        <iframe
+          src={embedUrl}
+          title={title}
+          loading={loading}
+          className="absolute left-1/2 top-1/2 border-0"
+          style={{
+            width: `${100 * zoom}%`,
+            height: `${100 * zoom}%`,
+            minWidth: '100%',
+            minHeight: '100%',
+            transform: 'translate(-50%, -50%)',
+          }}
+          allow="autoplay; fullscreen; picture-in-picture"
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
+      </div>
+    );
   }
 
-  const aspectClass = ['relative aspect-video w-full overflow-hidden', containerClassName]
-    .filter(Boolean)
-    .join(' ');
-  return <div className={aspectClass}>{iframe}</div>;
+  return (
+    <div
+      className={clsx(
+        'relative w-full overflow-hidden',
+        LANDSCAPE_ASPECT_CLASS,
+        containerClassName,
+      )}
+    >
+      <iframe
+        src={embedUrl}
+        title={title}
+        loading={loading}
+        className="absolute inset-0 h-full w-full border-0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        referrerPolicy="strict-origin-when-cross-origin"
+      />
+    </div>
+  );
 };
 
 export default Video;
