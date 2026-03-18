@@ -1,11 +1,13 @@
 import { VideoShowcaseSection as VideoShowcaseSectionType } from '@/types/sections';
 import { MediaOrientation } from '@/types/media';
 import MediaCard from '@/components/media/MediaCard';
-import { LANDSCAPE_ASPECT_CLASS, PORTRAIT_ASPECT_CLASS } from '../media/mediaLayout';
+import { mediaAspectClassMap } from '../../lib/media/mediaLayout';
+import SectionShell from './SectionShell';
+import clsx from 'clsx';
 
-interface Props {
+type Props = {
   section: VideoShowcaseSectionType;
-}
+};
 
 const SUPPORTING_VIDEO_COUNTS: Record<MediaOrientation, number> = {
   landscape: 2,
@@ -23,79 +25,65 @@ const VideoShowcaseSection = ({ section }: Props) => {
   }
 
   const renderLandscapeLayout = () => (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:items-stretch">
-      <figure className="surface-radius overflow-hidden border border-border bg-surface/30">
-        <div className={LANDSCAPE_ASPECT_CLASS}>
-          <MediaCard
-            mediaType="video"
-            item={featuredVideo}
-            orientation="landscape"
-            className="h-full"
-            useMediaAspectClass={false}
-            videoMode="fill"
-            videoContainerClassName="h-full w-full"
-          />
-        </div>
+    <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:grid-rows-2">
+      <figure className="surface-radius overflow-hidden border border-border bg-surface/30 lg:row-span-2">
+        <MediaCard
+          mediaType="video"
+          item={featuredVideo}
+          orientation={orientation}
+          className="h-full"
+        />
       </figure>
 
-      <div className="grid gap-4 lg:grid-rows-2 lg:h-full">
-        {supportingVideos.map((video, index) => (
-          <figure
-            key={video._key ?? `${video.url ?? 'video'}-${index}`}
-            className="surface-radius overflow-hidden border border-border bg-surface/30 lg:h-full"
-          >
-            <div className="h-full min-h-0">
-              <MediaCard
-                mediaType="video"
-                item={video}
-                orientation="landscape"
-                className="h-full"
-                useMediaAspectClass={false}
-                videoMode="fill"
-                videoContainerClassName="h-full w-full"
-                videoZoom={1.08}
-              />
-            </div>
-          </figure>
-        ))}
-      </div>
+      {supportingVideos.map((video, index) => (
+        <figure
+          key={video._key ?? `${video.url ?? 'video'}-${index}`}
+          className="surface-radius overflow-hidden border border-border bg-surface/30 "
+        >
+          <MediaCard
+            mediaType="video"
+            item={video}
+            orientation={orientation}
+            className="h-full"
+            videoZoom={1.08}
+          />
+        </figure>
+      ))}
     </div>
   );
 
   const renderPortraitLayout = () => (
     <div className="grid gap-4 md:grid-cols-2 md:items-stretch">
-      <figure className="surface-radius overflow-hidden border border-border bg-surface/30">
-        <div className={PORTRAIT_ASPECT_CLASS}>
-          <MediaCard
-            mediaType="video"
-            item={featuredVideo}
-            orientation="portrait"
-            className="h-full"
-            useMediaAspectClass={false}
-            videoMode="fill"
-            videoContainerClassName="h-full w-full"
-          />
-        </div>
+      <figure
+        className={clsx(
+          'surface-radius overflow-hidden border border-border bg-surface/30',
+          mediaAspectClassMap[orientation],
+        )}
+      >
+        <MediaCard
+          mediaType="video"
+          item={featuredVideo}
+          orientation={orientation}
+          className="h-full"
+        />
       </figure>
 
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 md:grid-rows-2 md:h-full">
         {supportingVideos.map((video, index) => (
           <figure
             key={video._key ?? `${video.url ?? 'video'}-${index}`}
-            className="surface-radius overflow-hidden border border-border bg-surface/30 md:h-full"
+            className={clsx(
+              'surface-radius overflow-hidden border border-border bg-surface/30 md:h-full ',
+              mediaAspectClassMap[orientation],
+            )}
           >
-            <div className="h-full min-h-0">
-              <MediaCard
-                mediaType="video"
-                item={video}
-                orientation="portrait"
-                className="h-full"
-                useMediaAspectClass={false}
-                videoMode="fill"
-                videoContainerClassName="h-full w-full"
-                videoZoom={1.08}
-              />
-            </div>
+            <MediaCard
+              mediaType="video"
+              item={video}
+              orientation={orientation}
+              className="h-full"
+              videoZoom={1.08}
+            />
           </figure>
         ))}
       </div>
@@ -103,8 +91,8 @@ const VideoShowcaseSection = ({ section }: Props) => {
   );
 
   return (
-    <section className="section-spacing-wide">
-      <div className="layout-container flex flex-col gap-6">
+    <SectionShell>
+      <div className="flex flex-col gap-6">
         {(section.title || section.intro) && (
           <header className="max-w-3xl">
             {section.title && (
@@ -120,7 +108,7 @@ const VideoShowcaseSection = ({ section }: Props) => {
 
         {orientation === 'portrait' ? renderPortraitLayout() : renderLandscapeLayout()}
       </div>
-    </section>
+    </SectionShell>
   );
 };
 

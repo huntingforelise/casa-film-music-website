@@ -1,6 +1,6 @@
 import { headerQuery } from '@/lib/sanity/queries';
 import { client } from '@/lib/sanity/client';
-import SanityImage from './SanityImage';
+import SanityImage from './media/SanityImage';
 import Link from 'next/link';
 import HeaderHamburgerMenu from './HeaderHamburgerMenu';
 import HeaderMenuLinks from './HeaderMenuLinks';

@@ -1,6 +1,7 @@
 import { PortableText } from '@portabletext/react';
 import { TextSection as TextSectionType } from '@/types/sections';
 import { portableTextComponents } from '../portableTextComponents';
+import SectionShell from './SectionShell';
 
 interface Props {
   section: TextSectionType;
@@ -10,9 +11,9 @@ const TextSection = ({ section }: Props) => {
   if (!section.content) return null;
 
   return (
-    <section className="section-spacing layout-container">
+    <SectionShell>
       <PortableText value={section.content} components={portableTextComponents} />
-    </section>
+    </SectionShell>
   );
 };
 

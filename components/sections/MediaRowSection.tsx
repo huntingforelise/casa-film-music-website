@@ -1,34 +1,50 @@
 import { MediaRowSection as MediaRowSectionType } from '@/types/sections';
-import MediaRow from '../media/MediaRow';
+import type { MediaOrientation, MediaType, PhotoItem, VideoItem } from '@/types/media';
+import type { CSSProperties } from 'react';
+import MediaCard from '../media/MediaCard';
+import SectionShell from './SectionShell';
+
+type MediaRowItems = PhotoItem[] | VideoItem[];
 
 interface Props {
   section: MediaRowSectionType;
 }
 
 const MediaRowSection = ({ section }: Props) => {
-  const orientation = section.mediaOrientation ?? 'portrait';
-  const mediaType = section.mediaType ?? 'photo';
-  const items = mediaType === 'photo' ? section.photos ?? [] : section.videos ?? [];
+  const orientation: MediaOrientation = section.mediaOrientation ?? 'portrait';
+  const mediaType: MediaType = section.mediaType ?? 'photo';
+  const items: MediaRowItems =
+    mediaType === 'photo' ? (section.photos ?? []) : (section.videos ?? []);
 
   if (!items.length) return null;
 
-  return (
-    <section className="section-spacing-wide">
-      <div className="layout-container flex flex-col gap-6">
-        {(section.title || section.intro) && (
-          <header className="max-w-3xl">
-            {section.title && (
-              <h2 className="font-display text-3xl tracking-tight text-text md:text-4xl">
-                {section.title}
-              </h2>
-            )}
-            {section.intro && <p className="pt-3 text-base leading-relaxed text-text/80">{section.intro}</p>}
-          </header>
-        )}
+  const columnCount = Math.max(1, Math.min(items.length, 4));
+  const gridStyle = { '--media-row-columns': columnCount } as CSSProperties;
 
-        <MediaRow orientation={orientation} mediaType={mediaType} items={items} />
+  return (
+    <SectionShell>
+      <div className="grid media-row-grid gap-4 sm:gap-5 md:gap-6" style={gridStyle}>
+        {items.map((item, index) => {
+          const key = item._key ?? `${mediaType}-${index}`;
+
+          return mediaType === 'photo' ? (
+            <MediaCard
+              key={key}
+              mediaType="photo"
+              item={item as PhotoItem}
+              orientation={orientation}
+            />
+          ) : (
+            <MediaCard
+              key={key}
+              mediaType="video"
+              item={item as VideoItem}
+              orientation={orientation}
+            />
+          );
+        })}
       </div>
-    </section>
+    </SectionShell>
   );
 };
 

@@ -89,6 +89,28 @@ body {
   padding-inline: var(--space-3);
 }
 
+.media-row-grid {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+  .media-row-grid {
+    grid-template-columns: repeat(min(var(--media-row-columns, 2), 2), minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .media-row-grid {
+    grid-template-columns: repeat(min(var(--media-row-columns, 3), 3), minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .media-row-grid {
+    grid-template-columns: repeat(min(var(--media-row-columns, 4), 4), minmax(0, 1fr));
+  }
+}
+
 .page-shell {
   padding-top: var(--space-3);
   padding-bottom: var(--space-6);

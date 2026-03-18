@@ -34,31 +34,23 @@ export interface TextSection {
   content: PortableTextBlock[];
 }
 
-export interface ImageSection {
-  _key: string;
-  _type: 'imageSection';
-  image: SanityImage;
-}
-
 export interface MediaTextSection {
   _key: string;
   _type: 'mediaTextSection';
   title?: string;
   content: PortableTextBlock[];
-  mediaType?: MediaType;
+  mediaType: MediaType;
   image?: SanityImage;
   video?: VideoItem;
-  mediaPosition?: 'left' | 'right';
-  mediaOrientation?: MediaOrientation;
+  mediaPosition: 'left' | 'right';
+  mediaOrientation: MediaOrientation;
 }
 
 export interface MediaRowSection {
   _key: string;
   _type: 'mediaRowSection';
-  title?: string;
-  intro?: string;
   mediaType: MediaType;
-  mediaOrientation?: MediaOrientation;
+  mediaOrientation: MediaOrientation;
   photos?: PhotoItem[];
   videos?: VideoItem[];
 }
@@ -78,8 +70,6 @@ export interface TestimonialCard {
   _type: 'testimonialCard';
   quote: string;
   author: string;
-  role?: string;
-  image?: SanityImage;
 }
 
 export interface TestimonialSection {
@@ -125,7 +115,6 @@ export interface SplitHeroSection {
 
 export interface PhotoMosaicSection {
   _type: 'photoMosaicSection';
-  title?: string;
   slotA?: PhotoItem;
   slotB?: PhotoItem;
   slotC?: PhotoItem;
@@ -142,7 +131,6 @@ export interface PhotoMosaicSection {
 export type Section =
   | TextSection
   | MediaTextSection
-  | ImageSection
   | CtaSection
   | SplitHeroSection
   | MediaRowSection

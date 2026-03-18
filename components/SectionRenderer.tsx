@@ -1,8 +1,7 @@
 import { Section } from '@/types/sections';
 
-import SplitHero from './sections/SplitHero';
+import SplitHeroSection from './sections/SplitHeroSection';
 import TextSection from './sections/TextSection';
-import ImageSection from './sections/ImageSection';
 import MediaTextSection from './sections/MediaTextSection';
 import CtaSection from './sections/CtaSection';
 import MediaRowSection from './sections/MediaRowSection';
@@ -17,13 +16,10 @@ interface Props {
 const SectionRenderer = ({ section }: Props) => {
   switch (section._type) {
     case 'splitHeroSection':
-      return <SplitHero section={section} />;
+      return <SplitHeroSection section={section} />;
 
     case 'textSection':
       return <TextSection section={section} />;
-
-    case 'imageSection':
-      return <ImageSection section={section} />;
 
     case 'mediaTextSection':
       return <MediaTextSection section={section} />;

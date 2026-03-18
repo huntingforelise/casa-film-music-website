@@ -1,15 +1,15 @@
-import { SplitHeroSection } from '@/types/sections';
+import { SplitHeroSection as SplitHeroSectionType } from '@/types/sections';
 import Link from 'next/link';
-import SanityImage from '../SanityImage';
+import SanityImage from '../media/SanityImage';
 
 interface Props {
-  section: SplitHeroSection;
+  section: SplitHeroSectionType;
 }
 
 const RIGHT_HALF_OVERLAY_OPACITY = 0.34;
 const BASE_OVERLAY_OPACITY = 0.22;
 
-const SplitHero = ({ section }: Props) => {
+const SplitHeroSection = ({ section }: Props) => {
   const image = section.image;
   const options = [section.optionOne, section.optionTwo];
 
@@ -69,4 +69,4 @@ const SplitHero = ({ section }: Props) => {
   );
 };
 
-export default SplitHero;
+export default SplitHeroSection;

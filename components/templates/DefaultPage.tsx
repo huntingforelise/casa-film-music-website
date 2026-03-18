@@ -1,5 +1,5 @@
 import SectionRenderer from '../SectionRenderer';
-import SanityImage from '../SanityImage';
+import SanityImage from '../media/SanityImage';
 import HeroScrollButton from '../HeroScrollButton';
 import { Page } from '@/types/page';
 import { HeroSection } from '@/types/sections';
@@ -27,7 +27,7 @@ const DefaultPage = ({ page }: TemplateProps) => {
           <SanityImage
             value={heroSection.image}
             alt={heroSection.image.alt ?? `${page.title} hero image`}
-            mode="screen"
+            mode="fill"
             priority
             className="absolute inset-0 h-full w-full object-cover"
             loading="eager"

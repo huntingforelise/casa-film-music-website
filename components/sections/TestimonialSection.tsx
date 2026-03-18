@@ -1,5 +1,5 @@
-import SanityImage from '../SanityImage';
 import type { TestimonialSection } from '@/types/sections';
+import SectionShell from './SectionShell';
 
 interface Props {
   section: TestimonialSection;
@@ -9,7 +9,7 @@ const TestimonialSection = ({ section }: Props) => {
   const cards = section.cards ?? [];
 
   return (
-    <section className="section-spacing-wide bg-surface/40 layout-container">
+    <SectionShell className="bg-surface/40">
       <div className="flex flex-col gap-3">
         <p className="text-3xl font-display tracking-tight text-text">{section.title}</p>
         {section.intro && (
@@ -24,24 +24,10 @@ const TestimonialSection = ({ section }: Props) => {
                 key={card._key ?? `${card.author}-${card.quote?.slice(0, 10)}`}
                 className="snap-start min-w-[18rem] flex-1 shrink-0 rounded-3xl border border-border bg-bg/40 p-6 shadow-lg ring-1 ring-transparent transition hover:border-accent/60 hover:ring-accent/30"
               >
-                {card.image && (
-                  <div className="overflow-hidden rounded-2xl">
-                    <SanityImage
-                      value={card.image}
-                      alt={card.image.alt ?? card.author}
-                      mode="fill-container"
-                      className="h-40 w-full object-cover"
-                      containerClassName="h-40 w-full"
-                    />
-                  </div>
-                )}
                 <div className="flex flex-col justify-between gap-6 h-full py-4">
                   <p className="text-base italic leading-relaxed text-text/80">{card.quote}</p>
                   <div>
                     <p className="text-sm font-semibold text-text">{card.author}</p>
-                    {card.role && (
-                      <p className="text-xs uppercase tracking-[0.4em] text-text/60">{card.role}</p>
-                    )}
                   </div>
                 </div>
               </article>
@@ -49,7 +35,7 @@ const TestimonialSection = ({ section }: Props) => {
           </div>
         </div>
       )}
-    </section>
+    </SectionShell>
   );
 };
 

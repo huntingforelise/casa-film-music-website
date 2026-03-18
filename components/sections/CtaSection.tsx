@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { CtaSection as CtaSectionType } from '@/types/sections';
 import { isExternalUrl, normalizeInternalPath } from '@/lib/header/utils';
+import SectionShell from './SectionShell';
 
 interface Props {
   section: CtaSectionType;
@@ -14,7 +15,7 @@ const CtaSection = ({ section }: Props) => {
     : '';
 
   return (
-    <section className="section-spacing-wide layout-container">
+    <SectionShell>
       <div className="cta-shell">
         {section.text && <p className="cta-text">{section.text}</p>}
 
@@ -29,7 +30,7 @@ const CtaSection = ({ section }: Props) => {
           </Link>
         )}
       </div>
-    </section>
+    </SectionShell>
   );
 };
 
