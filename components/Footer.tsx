@@ -53,7 +53,7 @@ const Footer = async () => {
         {footer.ctaHeading && (
           <p className="mb-6 text-2xl font-display text-text">{footer.ctaHeading}</p>
         )}
-        <div className="grid gap-10 md:grid-cols-2">
+        <div className="grid gap-10 grid-cols-1 md:grid-cols-2">
           <div className="space-y-2 text-text/90">
             {(footer.phoneNumbers?.length || footer.email) && (
               <>
@@ -75,7 +75,7 @@ const Footer = async () => {
               </>
             )}
           </div>
-          <div className="flex min-h-full flex-col justify-between gap-8 items-end text-right">
+          <div className="flex min-h-full flex-col justify-between gap-8 items-start text-left md:items-end md:text-right">
             <div className="space-y-3">
               <div className="flex flex-col gap-3">
                 {footer.otherLinks?.map((link) =>
@@ -83,7 +83,7 @@ const Footer = async () => {
                     <Link
                       key={`${link.label ?? 'link'}-${link.url}`}
                       href={link.url}
-                      className="text-link text-sm tracking-tight text-right"
+                      className="text-link text-sm tracking-tight md:text-right text-left"
                     >
                       {link.label ?? link.url}
                     </Link>
@@ -93,7 +93,7 @@ const Footer = async () => {
             </div>
             {footer.socialLinks?.length ? (
               <div className="space-y-2">
-                <div className="flex items-center gap-4 justify-end">
+                <div className="flex w-full flex-wrap items-center gap-4 justify-start md:justify-end">
                   {footer.socialLinks.map((social) => {
                     if (!isSupportedPlatform(social.platform)) return null;
 
