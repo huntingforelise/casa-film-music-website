@@ -1,5 +1,6 @@
 'use client';
 
+import { FocusEvent, MouseEvent, useCallback, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -18,6 +19,7 @@ type HeaderMenuLinksProps = {
   activeClassName?: string;
   inactiveClassName?: string;
   keyPrefix?: string;
+  onLinkClick?: () => void;
 };
 
 const HeaderMenuLinks = ({
@@ -28,9 +30,33 @@ const HeaderMenuLinks = ({
   activeClassName = DEFAULT_ACTIVE_LINK_CLASS,
   inactiveClassName = DEFAULT_INACTIVE_LINK_CLASS,
   keyPrefix = '',
+  onLinkClick,
 }: HeaderMenuLinksProps) => {
   const pathname = usePathname();
   const currentPath = normalizeInternalPath(pathname || '/');
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const closeTimerRef = useRef<number | undefined>(undefined);
+
+  const cancelClose = useCallback(() => {
+    if (closeTimerRef.current) {
+      window.clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = undefined;
+    }
+  }, []);
+
+  const scheduleClose = useCallback(() => {
+    cancelClose();
+    closeTimerRef.current = window.setTimeout(() => {
+      setOpenDropdown(null);
+      closeTimerRef.current = undefined;
+    }, 200);
+  }, [cancelClose]);
+
+  const handleLinkClick = useCallback(() => {
+    cancelClose();
+    onLinkClick?.();
+    setOpenDropdown(null);
+  }, [cancelClose, onLinkClick]);
 
   return (
     <div className={containerClassName}>
@@ -52,6 +78,7 @@ const HeaderMenuLinks = ({
               <Link
                 href={href}
                 className={`${itemClassName} transition ${parentIsActive ? activeClassName : inactiveClassName}`}
+                onClick={handleLinkClick}
               >
                 {item.label}
               </Link>
@@ -69,6 +96,7 @@ const HeaderMenuLinks = ({
                       className={`text-sm transition ${
                         subIsActive ? activeClassName : DEFAULT_SUB_LINK_INACTIVE_CLASS
                       }`}
+                      onClick={handleLinkClick}
                     >
                       {subLink.label}
                     </Link>
@@ -80,16 +108,50 @@ const HeaderMenuLinks = ({
         }
 
         if (!mobile && hasSubLinks) {
+          const isDropdownOpen = openDropdown === item.url;
+          const handleMouseEnter = () => {
+            cancelClose();
+            setOpenDropdown(item.url);
+          };
+          const handleMouseLeave = (event: MouseEvent<HTMLDivElement>) => {
+            const relatedTarget = event.relatedTarget as Node | null;
+            if (relatedTarget && event.currentTarget.contains(relatedTarget)) {
+              return;
+            }
+            scheduleClose();
+          };
+          const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
+            const relatedTarget = event.relatedTarget as Node | null;
+            if (relatedTarget && event.currentTarget.contains(relatedTarget)) {
+              return;
+            }
+            setOpenDropdown((prev) => (prev === item.url ? null : prev));
+          };
+
+          const dropdownClasses = `absolute right-0 top-full z-50 mt-3 min-w-64 rounded-2xl border border-border bg-bg p-4 transition shadow-[0_18px_48px_rgba(0,0,0,0.18)] ${
+            isDropdownOpen
+              ? 'visible opacity-100 pointer-events-auto'
+              : 'invisible opacity-0 pointer-events-none'
+          }`;
+
           return (
-            <div key={`${keyPrefix}${item.url}`} className="group relative">
+            <div
+              key={`${keyPrefix}${item.url}`}
+              className="relative"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onFocus={handleMouseEnter}
+              onBlur={handleBlur}
+            >
               <Link
                 href={href}
                 className={`${itemClassName} transition ${parentIsActive ? activeClassName : inactiveClassName}`}
+                onClick={handleLinkClick}
               >
                 {item.label}
               </Link>
 
-              <div className="invisible absolute right-0 top-full z-50 mt-3 min-w-64 rounded-2xl border border-border bg-bg p-4 opacity-0 shadow-[0_18px_48px_rgba(0,0,0,0.18)] transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+              <div className={dropdownClasses}>
                 <div className="flex flex-col gap-3">
                   {subLinks.map((subLink) => {
                     const subExternal = isExternalUrl(subLink.url);
@@ -103,6 +165,7 @@ const HeaderMenuLinks = ({
                         className={`text-sm tracking-tight transition ${
                           subIsActive ? activeClassName : DEFAULT_INACTIVE_LINK_CLASS
                         }`}
+                        onClick={handleLinkClick}
                       >
                         {subLink.label}
                       </Link>
@@ -119,6 +182,7 @@ const HeaderMenuLinks = ({
             key={`${keyPrefix}${item.url}`}
             href={href}
             className={`${itemClassName} transition ${parentIsActive ? activeClassName : inactiveClassName}`}
+            onClick={handleLinkClick}
           >
             {item.label}
           </Link>
