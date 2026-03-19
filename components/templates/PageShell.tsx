@@ -50,9 +50,7 @@ const FullScreenHero = ({
       aria-hidden
     />
     <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center">
-      <h1 className="font-display text-4xl tracking-tight text-white sm:text-5xl lg:text-6xl">
-        {pageTitle}
-      </h1>
+      <h1 className="page-title text-white md:text-[3rem]">{pageTitle}</h1>
     </div>
     <HeroScrollButton targetId={contentAnchorId} />
   </section>
@@ -65,30 +63,27 @@ const StandardHero = ({
   heroSection?: HeroSection;
   pageTitle: string;
 }) => (
-  <section className="relative min-h-[50vh] h-[60vh] max-h-[70vh] w-full overflow-hidden">
+  <section className="relative h-[60vh] min-h-[50vh] max-h-[70vh] w-full overflow-hidden">
     {renderBackground(heroSection, `${pageTitle} hero image`)}
     <div
       className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80"
       aria-hidden
     />
     <div className="absolute inset-0 z-10 flex items-center justify-center px-6 text-center">
-      <h1 className="font-display text-3xl tracking-tight text-white sm:text-4xl lg:text-5xl">
-        {pageTitle}
-      </h1>
+      <h1 className="page-title text-white md:text-[3rem]">{pageTitle}</h1>
     </div>
   </section>
 );
 
-const CompactHero = () => null;
+const CompactHero = () => <div aria-hidden="true" className="h-[70px] sm:h-[88px] lg:h-[96px]" />;
 
-const getSanitizedSlug = (slug?: string) =>
-  slug?.replace(/[^a-zA-Z0-9-_]/g, '-') ?? 'page';
+const getSanitizedSlug = (slug?: string) => slug?.replace(/[^a-zA-Z0-9-_]/g, '-') ?? 'page';
 
 const PageShell = ({
   page,
   heroSection,
   heroVariant,
-  contentClassName = 'page-shell pt-0',
+  contentClassName = 'page-shell',
   children,
 }: Props) => {
   const sanitizedSlug = getSanitizedSlug(page.slug?.current);

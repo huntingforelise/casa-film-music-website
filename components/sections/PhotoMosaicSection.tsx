@@ -1,7 +1,7 @@
 import { PhotoItem } from '@/types/media';
 import { PhotoMosaicSection as PhotoMosaicSectionType } from '@/types/sections';
 import SanityImage from '../media/SanityImage';
-import { getVisibleCount, GRID_SLOTS, hasImage, PORTRAIT_SLOTS } from '@/lib/media/mosaic';
+import { getVisibleCount, GRID_SLOTS, hasImage, PORTRAIT_SLOTS } from '@/lib/media/photoMosaic';
 import { clsx } from 'clsx';
 import { mediaAspectClassMap } from '../../lib/media/mediaLayout';
 import SectionShell from './SectionShell';

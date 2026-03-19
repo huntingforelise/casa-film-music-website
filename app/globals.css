@@ -12,22 +12,21 @@
   --theme-font-display: var(--font-montserrat);
   --theme-font-mono: var(--font-geist-mono);
 
-  /* 8px spacing scale */
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
   --space-4: 2rem;
+  --space-5: 2.5rem;
   --space-6: 3rem;
   --space-8: 4rem;
+  --space-10: 5rem;
   --space-12: 6rem;
 
-  /* Type scale */
   --text-body: 1rem;
   --text-h3: 1.25rem;
   --text-h2: 1.875rem;
   --text-h1: 3rem;
 
-  /* Shared corner radii */
   --radius-surface: 1rem;
 }
 
@@ -43,14 +42,47 @@
   --font-mono: var(--theme-font-mono);
 }
 
+html {
+  background: var(--theme-bg);
+}
+
 body {
+  min-height: 100vh;
   background: var(--theme-bg);
   color: var(--theme-text);
   font-family: var(--theme-font-sans), Helvetica, Arial, sans-serif;
 }
 
+/* Typography plugin theme */
 .prose {
-  color: var(--theme-text);
+  --tw-prose-body: var(--theme-text);
+  --tw-prose-headings: var(--theme-text);
+  --tw-prose-links: var(--theme-accent);
+  --tw-prose-bold: var(--theme-text);
+  --tw-prose-counters: var(--theme-text);
+  --tw-prose-bullets: var(--theme-border);
+  --tw-prose-hr: var(--theme-border);
+  --tw-prose-quotes: var(--theme-text);
+  --tw-prose-quote-borders: var(--theme-border);
+  --tw-prose-captions: rgb(255 255 255 / 0.7);
+  --tw-prose-code: var(--theme-text);
+  --tw-prose-pre-code: var(--theme-text);
+  --tw-prose-pre-bg: rgb(255 255 255 / 0.04);
+  --tw-prose-th-borders: var(--theme-border);
+  --tw-prose-td-borders: rgb(255 255 255 / 0.12);
+}
+
+/* Semantic layout helpers */
+.layout-container {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+.page-shell {
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-6);
 }
 
 .section-spacing {
@@ -62,6 +94,11 @@ body {
 }
 
 @media (min-width: 768px) {
+  .page-shell {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-8);
+  }
+
   .section-spacing {
     padding-block: var(--space-6);
   }
@@ -72,61 +109,17 @@ body {
 }
 
 @media (min-width: 1024px) {
+  .page-shell {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-10);
+  }
+
   .section-spacing {
     padding-block: var(--space-8);
   }
 
   .section-spacing-wide {
     padding-block: var(--space-12);
-  }
-}
-
-/* Shared semantic utilities */
-.layout-container {
-  width: 100%;
-  max-width: 72rem;
-  margin-inline: auto;
-  padding-inline: var(--space-3);
-}
-
-.media-row-grid {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-
-@media (min-width: 640px) {
-  .media-row-grid {
-    grid-template-columns: repeat(min(var(--media-row-columns, 2), 2), minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 768px) {
-  .media-row-grid {
-    grid-template-columns: repeat(min(var(--media-row-columns, 3), 3), minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1024px) {
-  .media-row-grid {
-    grid-template-columns: repeat(min(var(--media-row-columns, 4), 4), minmax(0, 1fr));
-  }
-}
-
-.page-shell {
-  padding-top: var(--space-3);
-  padding-bottom: var(--space-6);
-}
-
-@media (min-width: 768px) {
-  .page-shell {
-    padding-top: var(--space-4);
-    padding-bottom: var(--space-8);
-  }
-}
-
-@media (min-width: 1024px) {
-  .page-shell {
-    padding-top: var(--space-5);
-    padding-bottom: var(--space-10);
   }
 }
 
@@ -137,6 +130,7 @@ body {
   letter-spacing: -0.02em;
   line-height: 1.1;
   color: var(--theme-text);
+  text-transform: uppercase;
 }
 
 @media (min-width: 768px) {
@@ -148,6 +142,10 @@ body {
 .section-divider {
   margin-top: var(--space-3);
   border-top: 1px solid var(--theme-border);
+}
+
+.surface-radius {
+  border-radius: var(--radius-surface);
 }
 
 .text-link {
@@ -183,10 +181,6 @@ body {
   opacity: 0.9;
 }
 
-.surface-radius {
-  border-radius: var(--radius-surface);
-}
-
 .cta-shell {
   display: flex;
   flex-direction: column;
@@ -216,7 +210,8 @@ body {
   letter-spacing: -0.01em;
   transition:
     background-color 0.2s ease,
-    color 0.2s ease;
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .cta-button:hover {
@@ -309,7 +304,9 @@ body {
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-color: var(--theme-border);
-  transition: color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
 }
 
 .rich-link:hover {

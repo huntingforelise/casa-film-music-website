@@ -1,8 +1,7 @@
 import { MediaRowSection as MediaRowSectionType } from '@/types/sections';
 import type { MediaOrientation, MediaType, PhotoItem, VideoItem } from '@/types/media';
-import type { CSSProperties } from 'react';
 import MediaCard from '../media/MediaCard';
-import SectionShell from './SectionShell';
+import { getMediaRowGridClass } from '@/lib/media/mediaRow';
 
 type MediaRowItems = PhotoItem[] | VideoItem[];
 
@@ -19,11 +18,11 @@ const MediaRowSection = ({ section }: Props) => {
   if (!items.length) return null;
 
   const columnCount = Math.max(1, Math.min(items.length, 4));
-  const gridStyle = { '--media-row-columns': columnCount } as CSSProperties;
+  const gridClassName = getMediaRowGridClass(columnCount);
 
   return (
-    <SectionShell>
-      <div className="grid media-row-grid gap-4 sm:gap-5 md:gap-6" style={gridStyle}>
+    <section className="section-spacing layout-container">
+      <div className={`grid ${gridClassName} gap-4 sm:gap-5 md:gap-6`}>
         {items.map((item, index) => {
           const key = item._key ?? `${mediaType}-${index}`;
 
@@ -44,7 +43,7 @@ const MediaRowSection = ({ section }: Props) => {
           );
         })}
       </div>
-    </SectionShell>
+    </section>
   );
 };
 
