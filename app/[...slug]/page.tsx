@@ -2,10 +2,9 @@ import { client } from '@/lib/sanity/client';
 import { pageBySlugQuery } from '@/lib/sanity/queries';
 import { PageData } from '@/types/page';
 import { notFound } from 'next/navigation';
-import DefaultPage from '@/components/templates/DefaultPage';
-import AboutPage from '@/components/templates/AboutPage';
-import BookingPage from '@/components/templates/BookingPage';
-import ContactPage from '@/components/templates/ContactPage';
+import FullScreenHeroPage from '@/components/templates/FullScreenHeroPage';
+import StandardHeroPage from '@/components/templates/StandardHeroPage';
+import CompactHeroPage from '@/components/templates/CompactHeroPage';
 
 interface PageProps {
   params: Promise<{ slug: string[] }>;
@@ -25,18 +24,15 @@ const Page = async ({ params }: PageProps) => {
   if (!page) return notFound();
 
   switch (page.template) {
-    case 'about':
-      return <AboutPage page={page} />;
+    case 'fullScreenHero':
+      return <FullScreenHeroPage page={page} />;
 
-    case 'booking':
-      return <BookingPage page={page} />;
+    case 'compactHero':
+      return <CompactHeroPage page={page} />;
 
-    case 'contact':
-      return <ContactPage page={page} />;
-
-    case 'default':
+    case 'standardHero':
     default:
-      return <DefaultPage page={page} />;
+      return <StandardHeroPage page={page} />;
   }
 };
 

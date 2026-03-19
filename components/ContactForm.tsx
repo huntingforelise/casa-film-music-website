@@ -74,7 +74,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
 
   return (
     <section className="section-spacing-wide">
-      <div className="surface-radius border border-border bg-surface/30 p-6 md:p-8">
+      <div className="surface-radius border border-border bg-surface p-6 md:p-8">
         <header className="pb-6">
           <h2 className="pt-2 font-display text-3xl tracking-tight text-text md:text-4xl">
             {titleLabel}

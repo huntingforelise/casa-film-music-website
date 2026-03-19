@@ -1,7 +1,7 @@
 import { Section } from './sections';
 import { SanitySlug } from './sanity';
 
-export type PageTemplate = 'about' | 'booking' | 'contact' | 'default';
+export type PageTemplate = 'standardHero' | 'compactHero' | 'fullScreenHero';
 
 export interface BasePage {
   _id: string;

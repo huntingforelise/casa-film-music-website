@@ -114,6 +114,7 @@ export interface SplitHeroSection {
 }
 
 export interface PhotoMosaicSection {
+  _key: string;
   _type: 'photoMosaicSection';
   slotA?: PhotoItem;
   slotB?: PhotoItem;
