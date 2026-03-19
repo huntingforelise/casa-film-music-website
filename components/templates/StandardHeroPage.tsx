@@ -12,10 +12,6 @@ const StandardHeroPage = ({ page }: TemplateProps) => {
 
   return (
     <PageShell page={page} heroVariant="standard" heroSection={heroSection}>
-      <div className="layout-container">
-        <div className="section-divider" />
-      </div>
-
       {bodySections.map((section) => (
         <SectionRenderer key={section._key} section={section} />
       ))}

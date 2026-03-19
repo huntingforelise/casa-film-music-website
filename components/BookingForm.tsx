@@ -218,7 +218,7 @@ const BookingForm = ({ settings }: Props) => {
           <p className="text-xs font-medium uppercase tracking-[0.16em] text-text/60">
             Step {step} of {TOTAL_STEPS}
           </p>
-          <h2 className="pt-2 font-display text-3xl tracking-tight text-text md:text-4xl">
+          <h2 className="pt-2 font-display text-3xl tracking-tight md:text-4xl">
             {config.introTitle}
           </h2>
           <p className="pt-3 max-w-3xl text-sm leading-relaxed text-text/80 md:text-base">

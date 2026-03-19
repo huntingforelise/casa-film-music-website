@@ -110,7 +110,7 @@ const PageShell = ({
   };
 
   return (
-    <main className="bg-bg text-text">
+    <main className="bg-bg">
       {renderHeroVariant()}
       <section id={contentAnchorId} className={contentClassName}>
         {children}

@@ -128,7 +128,7 @@ const HeaderMenuLinks = ({
             setOpenDropdown((prev) => (prev === item.url ? null : prev));
           };
 
-          const dropdownClasses = `absolute right-0 top-full z-50 mt-3 min-w-64 rounded-2xl border border-border bg-bg p-4 transition shadow-[0_18px_48px_rgba(0,0,0,0.18)] ${
+          const dropdownClasses = `absolute right-0 z-50 mt-7 min-w-64 rounded-2xl border border-border bg-surface p-4 transition shadow-[0_18px_48px_rgba(0,0,0,0.18)] ${
             isDropdownOpen
               ? 'visible opacity-100 pointer-events-auto'
               : 'invisible opacity-0 pointer-events-none'
@@ -152,7 +152,7 @@ const HeaderMenuLinks = ({
               </Link>
 
               <div className={dropdownClasses}>
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3 ">
                   {subLinks.map((subLink) => {
                     const subExternal = isExternalUrl(subLink.url);
                     const subHref = subExternal ? subLink.url : normalizeInternalPath(subLink.url);
@@ -162,7 +162,7 @@ const HeaderMenuLinks = ({
                       <Link
                         key={`${keyPrefix}${item.url}-${subLink.url}`}
                         href={subHref}
-                        className={`text-sm tracking-tight transition ${
+                        className={`text-sm tracking-tight transition text-right ${
                           subIsActive ? activeClassName : DEFAULT_INACTIVE_LINK_CLASS
                         }`}
                         onClick={handleLinkClick}

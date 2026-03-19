@@ -50,16 +50,12 @@ const Footer = async () => {
   return (
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto w-full max-w-6xl px-6 py-12">
-        {footer.ctaHeading && (
-          <p className="mb-6 text-2xl font-display text-text">{footer.ctaHeading}</p>
-        )}
+        {footer.ctaHeading && <p className="mb-6 text-2xl font-display">{footer.ctaHeading}</p>}
         <div className="grid gap-10 grid-cols-1 md:grid-cols-2">
-          <div className="space-y-2 text-text/90">
+          <div className="space-y-2">
             {(footer.phoneNumbers?.length || footer.email) && (
               <>
-                <p className="text-lg font-medium text-text/70">
-                  {footer.contactHeading ?? 'Contact'}
-                </p>
+                <p className="text-lg font-medium">{footer.contactHeading ?? 'Contact'}</p>
                 <div className="flex flex-col gap-3 text-sm tracking-tight">
                   {footer.phoneNumbers?.map((phone) => (
                     <Link key={phone} href={toTelHref(phone)} className="text-link">
@@ -137,7 +133,7 @@ const Footer = async () => {
                 href={footer.developerCreditUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="rich-link text-text"
+                className="rich-link"
               >
                 {footer.developerCreditLabel || 'D·EV'}
               </Link>

@@ -39,9 +39,9 @@ const MediaTextSection = ({ section }: Props) => {
     <SectionShell>
       <div className={grid}>
         <div className={`${textOrder} min-w-0`}>
-          {section.title && <h2 className="page-title">{section.title}</h2>}
+          {section.title && <h2 className="section-title">{section.title}</h2>}
 
-          <div className="prose max-w-none text-text">
+          <div className="prose max-w-none">
             <PortableText value={section.content} components={portableTextComponents} />
           </div>
         </div>

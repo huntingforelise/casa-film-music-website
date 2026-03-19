@@ -178,7 +178,7 @@ export const ServicesStep = ({
               onChange={() => toggleService(service.value)}
             />
             <span className="grid gap-1">
-              <span className="font-display text-xl tracking-tight text-text">{service.title}</span>
+              <span className="font-display text-xl tracking-tight">{service.title}</span>
               {service.description && (
                 <span className="text-sm text-text/70">{service.description}</span>
               )}
@@ -246,7 +246,7 @@ export const BundleSelectionStep = ({
                 }`}
               >
                 <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="font-display text-2xl tracking-tight text-text">
+                  <h3 className="font-display text-2xl tracking-tight">
                     {suggestion.bundle.title}
                   </h3>
                   {suggestion.bundle.highlightLabel && (
@@ -367,7 +367,7 @@ export const AddOnsStep = ({
                 onChange={() => toggleAddOn(addOn.code)}
               />
               <span className="grid gap-1">
-                <span className="font-display text-xl tracking-tight text-text">{addOn.title}</span>
+                <span className="font-display text-xl tracking-tight">{addOn.title}</span>
                 {addOn.description && (
                   <span className="text-sm text-text/70">{addOn.description}</span>
                 )}
@@ -423,7 +423,7 @@ export const SummaryStep = ({
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
       <div className="surface-radius border border-border bg-bg/60 p-5">
-        <h3 className="font-display text-2xl tracking-tight text-text">
+        <h3 className="font-display text-2xl tracking-tight">
           {copy.summaryTitle ?? ''}
         </h3>
         {copy.summarySubtitle && (
