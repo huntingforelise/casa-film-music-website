@@ -30,17 +30,21 @@ const CompactHeroPage = async ({ page }: TemplateProps) => {
       page={page}
       heroVariant="compact"
       heroSection={heroSection}
-      contentClassName="layout-container page-shell"
+      contentClassName="page-shell"
     >
-      <h1 className="page-title">{page.title}</h1>
-      <div className="section-divider" />
+      <div className="layout-container">
+        <h1 className="page-title">{page.title}</h1>
+        <div className="section-divider" />
+      </div>
 
       {bodySections.map((section) => (
         <SectionRenderer key={section._key} section={section} />
       ))}
 
-      {pageTitle === 'contact' && <ContactForm copy={contactFormCopy} />}
-      {pageTitle === 'booking' && <BookingForm settings={bookingSettings} />}
+      <div className="layout-container">
+        {pageTitle === 'contact' && <ContactForm copy={contactFormCopy} />}
+        {pageTitle === 'booking' && <BookingForm settings={bookingSettings} />}
+      </div>
     </PageShell>
   );
 };
