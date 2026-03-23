@@ -13,12 +13,23 @@ import {
 } from '@/types/booking';
 import { BookingFormValues, SetField } from '@/lib/booking/types';
 import { formatEuro, getBundlePriceDetails } from '@/lib/booking/helpers';
-import { PRICE_SEPARATOR } from '@/lib/booking/constants';
-import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
-import { ChevronDown } from 'lucide-react';
+import {
+  PRICE_SEPARATOR,
+  TIME_OPTION_START_MINUTES,
+  TIME_OPTION_END_MINUTES,
+  TIME_OPTION_STEP_MINUTES,
+  GUEST_COUNT_MIN,
+  GUEST_COUNT_STEP,
+} from '@/lib/booking/constants';
+import FormListbox from './FormListBox';
+import { buildTimeOptions } from '@/lib/booking/helpers/dateTime';
+import FormDatePicker from './FormDatePicker';
 
-const GUEST_COUNT_STEP = 5;
-const GUEST_COUNT_MIN = 1;
+const timeOptions = buildTimeOptions(
+  TIME_OPTION_START_MINUTES,
+  TIME_OPTION_END_MINUTES,
+  TIME_OPTION_STEP_MINUTES,
+);
 
 interface EventDetailsStepProps {
   eventTypes: BookingEventType[];
@@ -66,57 +77,34 @@ export const EventDetailsStep = ({
 
   return (
     <div className="grid gap-5 md:grid-cols-2">
-      <Listbox value={values.eventType} onChange={(value) => setField('eventType', value)}>
-        {({ open }) => (
-          <div className="grid gap-2 text-sm tracking-tight text-text/80">
-            <Label>{eventTypeLabel ?? ''}</Label>
+      <FormListbox
+        label={eventTypeLabel ?? ''}
+        value={values.eventType}
+        placeholder="Select an event type"
+        onChange={(value) => setField('eventType', value)}
+        options={eventTypes.map((eventType) => ({
+          value: eventType.value,
+          label: eventType.title,
+        }))}
+      />
 
-            <div className="relative">
-              <ListboxButton
-                className="input-base flex w-full items-center justify-between gap-3 text-left"
-                style={{ borderColor: open ? 'var(--theme-accent)' : undefined }}
-              >
-                <span className="truncate">
-                  {eventTypes.find((eventType) => eventType.value === values.eventType)?.title ?? ''}
-                </span>
-                <ChevronDown className="h-5 w-5 shrink-0 text-text/50" />
-              </ListboxButton>
+      <FormDatePicker
+        label={eventDateLabel ?? ''}
+        value={values.eventDate}
+        placeholder="Select a date"
+        onChange={(value) => setField('eventDate', value)}
+      />
 
-              <ListboxOptions className="surface-radius absolute z-20 mt-2 max-h-60 w-full overflow-auto border border-border bg-bg/95 p-1 shadow-lg backdrop-blur-sm focus:outline-none">
-                {eventTypes.map((eventType) => (
-                  <ListboxOption
-                    key={eventType.value}
-                    value={eventType.value}
-                    className="cursor-pointer rounded-md px-4 py-2 text-sm text-text/85 transition hover:bg-accent/15 data-[focus]:bg-accent/15 data-[selected]:bg-accent/20"
-                  >
-                    {eventType.title}
-                  </ListboxOption>
-                ))}
-              </ListboxOptions>
-            </div>
-          </div>
-        )}
-      </Listbox>
-
-      <label className="grid gap-2 text-sm tracking-tight text-text/80">
-        {eventDateLabel ?? ''}
-        <input
-          className="input-base"
-          type="date"
-          value={values.eventDate}
-          onChange={(event) => setField('eventDate', event.target.value)}
-        />
-      </label>
-
-      <label className="grid gap-2 text-sm tracking-tight text-text/80">
-        {startTimeLabel ?? ''}
-        <input
-          className="input-base"
-          type="time"
-          value={values.startTime}
-          onChange={(event) => setField('startTime', event.target.value)}
-        />
-      </label>
+      <FormListbox
+        label={startTimeLabel ?? ''}
+        value={values.startTime}
+        placeholder="Select a time"
+        onChange={(value) => setField('startTime', value)}
+        options={timeOptions.map((time) => ({
+          value: time,
+          label: time,
+        }))}
+      />
 
       <div className="grid gap-2 text-sm tracking-tight text-text/80">
         <label>{durationLabel ?? ''}</label>
@@ -185,37 +173,16 @@ export const EventDetailsStep = ({
         </div>
       </div>
 
-      <Listbox value={values.travelRegion} onChange={(value) => setField('travelRegion', value)}>
-        {({ open }) => (
-          <div className="grid gap-2 text-sm tracking-tight text-text/80">
-            <Label>{travelRegionLabel ?? ''}</Label>
-
-            <div className="relative">
-              <ListboxButton
-                className="input-base flex w-full items-center justify-between gap-3 text-left"
-                style={{ borderColor: open ? 'var(--theme-accent)' : undefined }}
-              >
-                <span className="truncate">
-                  {travelRegions.find((region) => region.value === values.travelRegion)?.title ?? ''}
-                </span>
-                <ChevronDown className="h-5 w-5 shrink-0 text-text/50" />
-              </ListboxButton>
-
-              <ListboxOptions className="surface-radius absolute z-20 mt-2 max-h-60 w-full overflow-auto border border-border bg-bg/95 p-1 shadow-lg backdrop-blur-sm focus:outline-none">
-                {travelRegions.map((region) => (
-                  <ListboxOption
-                    key={region.value}
-                    value={region.value}
-                    className="cursor-pointer rounded-md px-4 py-2 text-sm text-text/85 transition hover:bg-accent/15 data-[focus]:bg-accent/15 data-[selected]:bg-accent/20"
-                  >
-                    {region.title}
-                  </ListboxOption>
-                ))}
-              </ListboxOptions>
-            </div>
-          </div>
-        )}
-      </Listbox>
+      <FormListbox
+        label={travelRegionLabel ?? ''}
+        value={values.travelRegion}
+        placeholder="Select a travel region"
+        onChange={(value) => setField('travelRegion', value)}
+        options={travelRegions.map((region) => ({
+          value: region.value,
+          label: region.title,
+        }))}
+      />
 
       <label className="grid gap-2 text-sm tracking-tight text-text/80 md:col-span-2">
         {venueLabel ?? ''}

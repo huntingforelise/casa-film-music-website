@@ -76,9 +76,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
     <section className="section-spacing-wide">
       <div className="surface-radius border border-border bg-surface p-6 md:p-8">
         <header className="pb-6">
-          <h2 className="pt-2 font-display text-3xl tracking-tight md:text-4xl">
-            {titleLabel}
-          </h2>
+          <h2 className="pt-2 font-display text-3xl tracking-tight md:text-4xl">{titleLabel}</h2>
         </header>
         <form className="grid gap-6" onSubmit={handleSubmit} noValidate aria-busy={isSubmitting}>
           <div className="grid gap-6 md:grid-cols-2">

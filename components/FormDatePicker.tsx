@@ -1,0 +1,55 @@
+'use client';
+
+import { formatDateLabel, formatDateValue, parseDateString } from '@/lib/booking/helpers/dateTime';
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { CalendarDays } from 'lucide-react';
+import { DayPicker } from 'react-day-picker';
+
+type FormDatePickerProps = {
+  label: string;
+  value: string;
+  placeholder?: string;
+  onChange: (value: string) => void;
+};
+
+export default function FormDatePicker({
+  label,
+  value,
+  placeholder = 'Select a date',
+  onChange,
+}: FormDatePickerProps) {
+  const selectedDate = parseDateString(value);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return (
+    <Popover className="relative">
+      {({ open, close }) => (
+        <div className="grid gap-2 text-sm tracking-tight text-text/80">
+          <label>{label}</label>
+
+          <PopoverButton
+            className="input-base flex w-full items-center justify-between gap-3 text-left"
+            style={{ borderColor: open ? 'var(--theme-accent)' : undefined }}
+          >
+            <span className="truncate">{value ? formatDateLabel(value) : placeholder}</span>
+            <CalendarDays className="h-5 w-5 shrink-0 text-text/50" />
+          </PopoverButton>
+
+          <PopoverPanel className="surface-radius absolute left-0 top-full z-20 mt-2 border border-border bg-bg/95 p-3 shadow-lg backdrop-blur-sm">
+            <DayPicker
+              mode="single"
+              selected={selectedDate}
+              onSelect={(date) => {
+                if (!date) return;
+                onChange(formatDateValue(date));
+                close();
+              }}
+              disabled={{ before: today }}
+            />
+          </PopoverPanel>
+        </div>
+      )}
+    </Popover>
+  );
+}
