@@ -32,13 +32,13 @@ const FormListbox = ({
           <div className="relative">
             <ListboxButton
               className="input-base flex w-full items-center justify-between gap-3 text-left"
-              style={{ borderColor: open ? 'var(--theme-accent)' : undefined }}
+              data-open={open ? 'true' : undefined}
             >
               <span className="truncate">{selectedLabel || placeholder}</span>
               <ChevronDown className="h-5 w-5 shrink-0 text-text/50" />
             </ListboxButton>
 
-            <ListboxOptions className="booking-dropdown booking-scrollbar surface-radius absolute left-0 top-full z-20 mt-2 max-h-60 w-full overflow-auto border border-border bg-bg/95 p-1 shadow-lg backdrop-blur-sm focus:outline-none">
+            <ListboxOptions className="booking-dropdown booking-scrollbar surface-radius absolute left-0 top-full z-20 mt-2 max-h-60 w-full overflow-auto p-1 focus:outline-none">
               {options.map((option) => (
                 <ListboxOption
                   key={option.value}

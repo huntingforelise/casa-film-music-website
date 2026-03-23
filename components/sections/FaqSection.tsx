@@ -41,7 +41,7 @@ const FaqSection = ({ section }: Props) => {
           return (
             <article
               key={item._key}
-              className="rounded-3xl border border-border bg-surface shadow-[0_20px_50px_rgba(0,0,0,0.45)]"
+              className="surface-card rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.45)]"
             >
               <button
                 type="button"

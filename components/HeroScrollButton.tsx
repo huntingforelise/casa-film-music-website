@@ -19,7 +19,7 @@ const HeroScrollButton = ({ targetId }: HeroScrollButtonProps) => {
       type="button"
       aria-label="Scroll to page content"
       onClick={handleClick}
-      className="absolute z-20 bottom-6 left-1/2 -translate-x-1/2 rounded-full border border-white/60 bg-white/10 p-3 text-white shadow-[0_0_30px_rgba(0,0,0,0.4)] transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+      className="hero-scroll-button"
     >
       <span className="sr-only">Scroll to page content</span>
       <svg

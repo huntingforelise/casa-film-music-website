@@ -26,7 +26,7 @@ const VideoShowcaseSection = ({ section }: Props) => {
 
   const renderLandscapeLayout = () => (
     <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:grid-rows-2">
-      <figure className="surface-radius overflow-hidden border border-border bg-surface/30 lg:row-span-2">
+      <figure className="surface-card surface-card--muted surface-radius overflow-hidden lg:row-span-2">
         <MediaCard
           mediaType="video"
           item={featuredVideo}
@@ -36,10 +36,10 @@ const VideoShowcaseSection = ({ section }: Props) => {
       </figure>
 
       {supportingVideos.map((video, index) => (
-        <figure
-          key={video._key ?? `${video.url ?? 'video'}-${index}`}
-          className="surface-radius overflow-hidden border border-border bg-surface/30 "
-        >
+          <figure
+            key={video._key ?? `${video.url ?? 'video'}-${index}`}
+            className="surface-card surface-card--muted surface-radius overflow-hidden"
+          >
           <MediaCard
             mediaType="video"
             item={video}
@@ -56,7 +56,7 @@ const VideoShowcaseSection = ({ section }: Props) => {
     <div className="grid gap-4 md:grid-cols-2 md:items-stretch">
       <figure
         className={clsx(
-          'surface-radius overflow-hidden border border-border bg-surface/30',
+          'surface-card surface-card--muted surface-radius overflow-hidden',
           mediaAspectClassMap[orientation],
         )}
       >
@@ -70,13 +70,13 @@ const VideoShowcaseSection = ({ section }: Props) => {
 
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 md:grid-rows-2 md:h-full">
         {supportingVideos.map((video, index) => (
-          <figure
-            key={video._key ?? `${video.url ?? 'video'}-${index}`}
-            className={clsx(
-              'surface-radius overflow-hidden border border-border bg-surface/30 md:h-full ',
-              mediaAspectClassMap[orientation],
-            )}
-          >
+            <figure
+              key={video._key ?? `${video.url ?? 'video'}-${index}`}
+              className={clsx(
+                'surface-card surface-card--muted surface-radius overflow-hidden md:h-full',
+                mediaAspectClassMap[orientation],
+              )}
+            >
             <MediaCard
               mediaType="video"
               item={video}

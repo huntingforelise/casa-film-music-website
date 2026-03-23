@@ -110,12 +110,10 @@ export const EventDetailsStep = ({
         <label>{durationLabel ?? ''}</label>
 
         <div
-          className="input-base flex items-center justify-between h-10 focus-within:border-accent"
+          className="input-base form-counter flex items-center justify-between h-10 focus-within:border-accent"
           onFocus={() => setDurationIsFocused(true)}
           onBlur={handleDurationBlur}
-          style={{
-            borderColor: durationIsFocused ? 'var(--theme-accent)' : 'var(--theme-border)',
-          }}
+          data-active={durationIsFocused ? 'true' : undefined}
         >
           <button
             type="button"
@@ -141,12 +139,10 @@ export const EventDetailsStep = ({
         <label>{guestCountLabel ?? ''}</label>
 
         <div
-          className="input-base flex items-center justify-between h-10 focus-within:border-accent"
+          className="input-base form-counter flex items-center justify-between h-10 focus-within:border-accent"
           onFocus={() => setGuestCountIsFocused(true)}
           onBlur={handleGuestBlur}
-          style={{
-            borderColor: guestCountIsFocused ? 'var(--theme-accent)' : 'var(--theme-border)',
-          }}
+          data-active={guestCountIsFocused ? 'true' : undefined}
         >
           <button
             type="button"
@@ -234,10 +230,8 @@ export const ServicesStep = ({
         return (
           <label
             key={service.value}
-            className={`surface-radius flex cursor-pointer items-start gap-3 border p-4 transition ${
-              checked
-                ? 'border-accent bg-accent/10'
-                : 'border-border bg-bg/60 hover:border-accent/50'
+            className={`surface-card surface-card--ghost surface-radius flex cursor-pointer items-start gap-3 p-4 transition ${
+              checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
             }`}
           >
             <input
@@ -310,8 +304,8 @@ export const BundleSelectionStep = ({
             return (
               <article
                 key={suggestion.bundle.code}
-                className={`surface-radius border p-4 md:p-5 ${
-                  selected ? 'border-accent bg-accent/10' : 'border-border bg-bg/60'
+                className={`surface-card surface-card--ghost surface-radius p-4 md:p-5 transition ${
+                  selected ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
                 }`}
               >
                 <div className="flex flex-wrap items-center gap-2">
@@ -423,10 +417,8 @@ export const AddOnsStep = ({
           return (
             <label
               key={addOn.code}
-              className={`surface-radius flex cursor-pointer items-start gap-3 border p-4 transition ${
-                checked
-                  ? 'border-accent bg-accent/10'
-                  : 'border-border bg-bg/60 hover:border-accent/50'
+              className={`surface-card surface-card--ghost surface-radius flex cursor-pointer items-start gap-3 p-4 transition ${
+                checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
               }`}
             >
               <input
@@ -491,7 +483,7 @@ export const SummaryStep = ({
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-      <div className="surface-radius border border-border bg-bg/60 p-5">
+      <div className="surface-card surface-card--ghost surface-radius p-5">
         <h3 className="font-display text-2xl tracking-tight">{copy.summaryTitle ?? ''}</h3>
         {copy.summarySubtitle && (
           <p className="pt-1 text-sm text-text/75">{copy.summarySubtitle}</p>

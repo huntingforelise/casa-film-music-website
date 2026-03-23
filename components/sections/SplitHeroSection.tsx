@@ -22,17 +22,11 @@ const SplitHeroSection = ({ section }: Props) => {
         className="object-cover"
       />
 
-      <div
-        className="pointer-events-none absolute inset-0 bg-[rgb(47_38_31)]"
-        style={{ opacity: BASE_OVERLAY_OPACITY }}
-      />
+      <div className="hero-overlay hero-overlay--base" />
 
-      <div
-        className="pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-[rgb(47_38_31)]"
-        style={{ opacity: RIGHT_HALF_OVERLAY_OPACITY }}
-      />
+      <div className="hero-overlay hero-overlay--right" />
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[rgb(47_38_31/0.5)] to-transparent" />
+      <div className="hero-overlay hero-overlay--gradient" />
 
       {/* {!!section.question && (
         <div className="pointer-events-none absolute left-1/2 top-28 z-20 -translate-x-1/2 px-4 text-center md:top-36">

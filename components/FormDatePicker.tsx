@@ -30,13 +30,13 @@ export default function FormDatePicker({
 
           <PopoverButton
             className="input-base flex w-full items-center justify-between gap-3 text-left"
-            style={{ borderColor: open ? 'var(--theme-accent)' : undefined }}
+            data-open={open ? 'true' : undefined}
           >
             <span className="truncate">{value ? formatDateLabel(value) : placeholder}</span>
             <CalendarDays className="h-5 w-5 shrink-0 text-text/50" />
           </PopoverButton>
 
-          <PopoverPanel className="surface-radius absolute left-0 top-full z-20 mt-2 border border-border bg-bg/95 p-3 shadow-lg backdrop-blur-sm">
+          <PopoverPanel className="surface-radius absolute left-0 top-full z-20 mt-2 booking-dropdown p-3">
             <DayPicker
               mode="single"
               selected={selectedDate}
