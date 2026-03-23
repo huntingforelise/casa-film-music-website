@@ -18,7 +18,7 @@ type FooterData = {
   developerCreditLabel?: string;
   developerCreditUrl?: string;
   ctaHeading?: string;
-  contactHeading?: string;
+  ctaText?: string;
 };
 
 const socialIconSrc: Record<SocialPlatform, string> = {
@@ -50,12 +50,16 @@ const Footer = async () => {
   return (
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto w-full max-w-6xl px-6 py-12">
-        {footer.ctaHeading && <p className="mb-6 text-2xl font-display">{footer.ctaHeading}</p>}
+        {footer.ctaHeading && <p className="mb-2 text-2xl font-display ">{footer.ctaHeading}</p>}
+        <Link href="/quote">
+          {footer.ctaText && (
+            <p className="mb-6 text-lg font-medium text-link-muted">{footer.ctaText}</p>
+          )}
+        </Link>
         <div className="grid gap-10 grid-cols-1 md:grid-cols-2">
           <div className="space-y-2">
             {(footer.phoneNumbers?.length || footer.email) && (
               <>
-                <p className="text-lg font-medium">{footer.contactHeading ?? 'Contact'}</p>
                 <div className="flex flex-col gap-3 text-sm tracking-tight">
                   {footer.phoneNumbers?.map((phone) => (
                     <Link key={phone} href={toTelHref(phone)} className="text-link">

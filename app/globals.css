@@ -204,6 +204,10 @@ body::-webkit-scrollbar-thumb:hover {
   color: var(--theme-accent);
 }
 
+.text-muted {
+  color: var(--theme-text-muted);
+}
+
 .btn-primary {
   border-radius: var(--radius-pill);
   background: var(--theme-accent);

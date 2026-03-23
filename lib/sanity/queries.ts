@@ -25,7 +25,7 @@ export const footerQuery = `
       url
     },
     ctaHeading,
-    contactHeading,
+    ctaText,
     developerCreditText,
     developerCreditLabel,
     developerCreditUrl
