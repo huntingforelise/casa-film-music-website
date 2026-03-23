@@ -1,5 +1,6 @@
 'use client';
 
+import { FocusEvent, useState } from 'react';
 import {
   BookingAddOn,
   BookingBundle,
@@ -13,6 +14,11 @@ import {
 import { BookingFormValues, SetField } from '@/lib/booking/types';
 import { formatEuro, getBundlePriceDetails } from '@/lib/booking/helpers';
 import { PRICE_SEPARATOR } from '@/lib/booking/constants';
+import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
+import { ChevronDown } from 'lucide-react';
+
+const GUEST_COUNT_STEP = 5;
+const GUEST_COUNT_MIN = 1;
 
 interface EventDetailsStepProps {
   eventTypes: BookingEventType[];
@@ -40,22 +46,57 @@ export const EventDetailsStep = ({
     venuePlaceholder,
   } = copy;
 
+  const [durationIsFocused, setDurationIsFocused] = useState(false);
+  const [guestCountIsFocused, setGuestCountIsFocused] = useState(false);
+
+  const shouldRetainFocus = (event: FocusEvent<HTMLDivElement>) => {
+    const relatedTarget = event.relatedTarget as Node | null;
+    return relatedTarget && event.currentTarget.contains(relatedTarget);
+  };
+
+  const handleDurationBlur = (event: FocusEvent<HTMLDivElement>) => {
+    if (shouldRetainFocus(event)) return;
+    setDurationIsFocused(false);
+  };
+
+  const handleGuestBlur = (event: FocusEvent<HTMLDivElement>) => {
+    if (shouldRetainFocus(event)) return;
+    setGuestCountIsFocused(false);
+  };
+
   return (
     <div className="grid gap-5 md:grid-cols-2">
-      <label className="grid gap-2 text-sm tracking-tight text-text/80">
-        {eventTypeLabel ?? ''}
-        <select
-          className="input-base"
-          value={values.eventType}
-          onChange={(event) => setField('eventType', event.target.value)}
-        >
-          {eventTypes.map((eventType) => (
-            <option key={eventType.value} value={eventType.value}>
-              {eventType.title}
-            </option>
-          ))}
-        </select>
-      </label>
+      <Listbox value={values.eventType} onChange={(value) => setField('eventType', value)}>
+        {({ open }) => (
+          <div className="grid gap-2 text-sm tracking-tight text-text/80">
+            <Label>{eventTypeLabel ?? ''}</Label>
+
+            <div className="relative">
+              <ListboxButton
+                className="input-base flex w-full items-center justify-between gap-3 text-left"
+                style={{ borderColor: open ? 'var(--theme-accent)' : undefined }}
+              >
+                <span className="truncate">
+                  {eventTypes.find((eventType) => eventType.value === values.eventType)?.title ?? ''}
+                </span>
+                <ChevronDown className="h-5 w-5 shrink-0 text-text/50" />
+              </ListboxButton>
+
+              <ListboxOptions className="surface-radius absolute z-20 mt-2 max-h-60 w-full overflow-auto border border-border bg-bg/95 p-1 shadow-lg backdrop-blur-sm focus:outline-none">
+                {eventTypes.map((eventType) => (
+                  <ListboxOption
+                    key={eventType.value}
+                    value={eventType.value}
+                    className="cursor-pointer rounded-md px-4 py-2 text-sm text-text/85 transition hover:bg-accent/15 data-[focus]:bg-accent/15 data-[selected]:bg-accent/20"
+                  >
+                    {eventType.title}
+                  </ListboxOption>
+                ))}
+              </ListboxOptions>
+            </div>
+          </div>
+        )}
+      </Listbox>
 
       <label className="grid gap-2 text-sm tracking-tight text-text/80">
         {eventDateLabel ?? ''}
@@ -77,43 +118,104 @@ export const EventDetailsStep = ({
         />
       </label>
 
-      <label className="grid gap-2 text-sm tracking-tight text-text/80">
-        {durationLabel ?? ''}
-        <input
-          className="input-base"
-          type="number"
-          min={1}
-          max={24}
-          value={values.durationHours}
-          onChange={(event) => setField('durationHours', Number(event.target.value || 0))}
-        />
-      </label>
+      <div className="grid gap-2 text-sm tracking-tight text-text/80">
+        <label>{durationLabel ?? ''}</label>
 
-      <label className="grid gap-2 text-sm tracking-tight text-text/80">
-        {guestCountLabel ?? ''}
-        <input
-          className="input-base"
-          type="number"
-          min={1}
-          value={values.guestCount}
-          onChange={(event) => setField('guestCount', Number(event.target.value || 0))}
-        />
-      </label>
-
-      <label className="grid gap-2 text-sm tracking-tight text-text/80">
-        {travelRegionLabel ?? ''}
-        <select
-          className="input-base"
-          value={values.travelRegion}
-          onChange={(event) => setField('travelRegion', event.target.value)}
+        <div
+          className="input-base flex items-center justify-between h-10 focus-within:border-accent"
+          onFocus={() => setDurationIsFocused(true)}
+          onBlur={handleDurationBlur}
+          style={{
+            borderColor: durationIsFocused ? 'var(--theme-accent)' : 'var(--theme-border)',
+          }}
         >
-          {travelRegions.map((band) => (
-            <option key={band.value} value={band.value}>
-              {band.title}
-            </option>
-          ))}
-        </select>
-      </label>
+          <button
+            type="button"
+            onClick={() => setField('durationHours', Math.max(1, values.durationHours - 1))}
+            className="text-xl text-text/60 hover:text-text"
+          >
+            −
+          </button>
+
+          <span>{values.durationHours}</span>
+
+          <button
+            type="button"
+            onClick={() => setField('durationHours', Math.min(24, values.durationHours + 1))}
+            className="text-xl text-text/60 hover:text-text"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <div className="grid gap-2 text-sm tracking-tight text-text/80">
+        <label>{guestCountLabel ?? ''}</label>
+
+        <div
+          className="input-base flex items-center justify-between h-10 focus-within:border-accent"
+          onFocus={() => setGuestCountIsFocused(true)}
+          onBlur={handleGuestBlur}
+          style={{
+            borderColor: guestCountIsFocused ? 'var(--theme-accent)' : 'var(--theme-border)',
+          }}
+        >
+          <button
+            type="button"
+            onClick={() =>
+              setField(
+                'guestCount',
+                Math.max(GUEST_COUNT_MIN, values.guestCount - GUEST_COUNT_STEP),
+              )
+            }
+            className="text-xl text-text/60 hover:text-text"
+          >
+            −
+          </button>
+
+          <span>{values.guestCount}</span>
+
+          <button
+            type="button"
+            onClick={() => setField('guestCount', values.guestCount + GUEST_COUNT_STEP)}
+            className="text-xl text-text/60 hover:text-text"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <Listbox value={values.travelRegion} onChange={(value) => setField('travelRegion', value)}>
+        {({ open }) => (
+          <div className="grid gap-2 text-sm tracking-tight text-text/80">
+            <Label>{travelRegionLabel ?? ''}</Label>
+
+            <div className="relative">
+              <ListboxButton
+                className="input-base flex w-full items-center justify-between gap-3 text-left"
+                style={{ borderColor: open ? 'var(--theme-accent)' : undefined }}
+              >
+                <span className="truncate">
+                  {travelRegions.find((region) => region.value === values.travelRegion)?.title ?? ''}
+                </span>
+                <ChevronDown className="h-5 w-5 shrink-0 text-text/50" />
+              </ListboxButton>
+
+              <ListboxOptions className="surface-radius absolute z-20 mt-2 max-h-60 w-full overflow-auto border border-border bg-bg/95 p-1 shadow-lg backdrop-blur-sm focus:outline-none">
+                {travelRegions.map((region) => (
+                  <ListboxOption
+                    key={region.value}
+                    value={region.value}
+                    className="cursor-pointer rounded-md px-4 py-2 text-sm text-text/85 transition hover:bg-accent/15 data-[focus]:bg-accent/15 data-[selected]:bg-accent/20"
+                  >
+                    {region.title}
+                  </ListboxOption>
+                ))}
+              </ListboxOptions>
+            </div>
+          </div>
+        )}
+      </Listbox>
 
       <label className="grid gap-2 text-sm tracking-tight text-text/80 md:col-span-2">
         {venueLabel ?? ''}
@@ -423,9 +525,7 @@ export const SummaryStep = ({
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
       <div className="surface-radius border border-border bg-bg/60 p-5">
-        <h3 className="font-display text-2xl tracking-tight">
-          {copy.summaryTitle ?? ''}
-        </h3>
+        <h3 className="font-display text-2xl tracking-tight">{copy.summaryTitle ?? ''}</h3>
         {copy.summarySubtitle && (
           <p className="pt-1 text-sm text-text/75">{copy.summarySubtitle}</p>
         )}

@@ -38,6 +38,8 @@
 
   /* Radius */
   --radius-surface: 1rem;
+  --radius-input: 0.75rem;
+  --radius-pill: 9999px;
 }
 
 /* Tailwind tokens */
@@ -56,6 +58,7 @@
 /* Base */
 html {
   background: var(--theme-bg);
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -177,7 +180,7 @@ body {
 }
 
 .btn-primary {
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   background: var(--theme-accent);
   color: var(--theme-button-text);
   padding: var(--space-1) var(--space-3);
@@ -212,7 +215,7 @@ body {
 }
 
 .cta-button {
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   border: 1px solid var(--theme-text);
   color: var(--theme-text);
   padding: var(--space-1) var(--space-3);
@@ -243,7 +246,7 @@ body {
 /* Inputs */
 .input-base {
   width: 100%;
-  border-radius: 0.75rem;
+  border-radius: var(--radius-input);
   border: 1px solid var(--theme-border);
   background: var(--theme-bg);
   color: var(--theme-text);
@@ -253,7 +256,9 @@ body {
   transition: border-color 0.2s ease;
 }
 
-.input-base:focus {
+.input-base:focus,
+.input-base:focus-visible,
+.input-base:focus-within {
   border-color: var(--theme-accent);
 }
 
