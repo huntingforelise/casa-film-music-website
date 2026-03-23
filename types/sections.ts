@@ -80,6 +80,21 @@ export interface TestimonialSection {
   cards: TestimonialCard[];
 }
 
+export interface FaqItem {
+  _key: string;
+  _type: 'faqItem';
+  question: string;
+  answer: PortableTextBlock[];
+}
+
+export interface FaqSection {
+  _key: string;
+  _type: 'faqSection';
+  title?: string;
+  intro?: string;
+  items: FaqItem[];
+}
+
 export interface CtaSection {
   _key: string;
   _type: 'ctaSection';
@@ -137,5 +152,6 @@ export type Section =
   | MediaRowSection
   | VideoShowcaseSection
   | TestimonialSection
+  | FaqSection
   | HeroSection
   | PhotoMosaicSection;

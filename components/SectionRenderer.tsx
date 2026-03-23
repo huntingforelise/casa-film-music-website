@@ -5,9 +5,10 @@ import TextSection from './sections/TextSection';
 import MediaTextSection from './sections/MediaTextSection';
 import CtaSection from './sections/CtaSection';
 import MediaRowSection from './sections/MediaRowSection';
-import TestimonialSection from './sections/TestimonialSection';
-import PhotoMosaicSection from './sections/PhotoMosaicSection';
 import VideoShowcaseSection from './sections/VideoShowcaseSection';
+import TestimonialSection from './sections/TestimonialSection';
+import FaqSection from './sections/FaqSection';
+import PhotoMosaicSection from './sections/PhotoMosaicSection';
 
 interface Props {
   section: Section;
@@ -35,6 +36,9 @@ const SectionRenderer = ({ section }: Props) => {
 
     case 'testimonialSection':
       return <TestimonialSection section={section} />;
+
+    case 'faqSection':
+      return <FaqSection section={section} />;
 
     case 'photoMosaicSection':
       return <PhotoMosaicSection section={section} />;

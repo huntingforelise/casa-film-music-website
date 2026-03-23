@@ -21,8 +21,6 @@ const CompactHeroPage = async ({ page }: TemplateProps) => {
   const contactFormCopy = await getContactForm();
   const bookingSettings = await getBookingSettings();
 
-  const pageTitle = page.title === 'Contact' ? 'contact' : 'booking';
-
   const { heroSection, bodySections } = splitPageSections(page.sections);
 
   return (
@@ -42,8 +40,8 @@ const CompactHeroPage = async ({ page }: TemplateProps) => {
       ))}
 
       <div className="layout-container">
-        {pageTitle === 'contact' && <ContactForm copy={contactFormCopy} />}
-        {pageTitle === 'booking' && <BookingForm settings={bookingSettings} />}
+        {page.title === 'Contact' && <ContactForm copy={contactFormCopy} />}
+        {page.title === 'Get a quote' && <BookingForm settings={bookingSettings} />}
       </div>
     </PageShell>
   );
