@@ -17,15 +17,13 @@ const spacingClassMap: Record<SectionShellVariant, string | undefined> = {
 };
 
 const SectionShell = ({
-  variant = 'default',
+  variant = 'wide',
   container = true,
   className,
   children,
 }: SectionShellProps) => {
   return (
-    <section
-      className={clsx(spacingClassMap[variant], container && 'layout-container', className)}
-    >
+    <section className={clsx(spacingClassMap[variant], container && 'layout-container', className)}>
       {children}
     </section>
   );

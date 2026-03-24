@@ -6,9 +6,6 @@ interface Props {
   section: SplitHeroSectionType;
 }
 
-const RIGHT_HALF_OVERLAY_OPACITY = 0.34;
-const BASE_OVERLAY_OPACITY = 0.22;
-
 const SplitHeroSection = ({ section }: Props) => {
   const image = section.image;
   const options = [section.optionOne, section.optionTwo];

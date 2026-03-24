@@ -79,13 +79,7 @@ const CompactHero = () => <div aria-hidden="true" className="h-[70px] sm:h-[88px
 
 const getSanitizedSlug = (slug?: string) => slug?.replace(/[^a-zA-Z0-9-_]/g, '-') ?? 'page';
 
-const PageShell = ({
-  page,
-  heroSection,
-  heroVariant,
-  contentClassName = 'page-shell',
-  children,
-}: Props) => {
+const PageShell = ({ page, heroSection, heroVariant, children }: Props) => {
   const sanitizedSlug = getSanitizedSlug(page.slug?.current);
   const contentAnchorId = `page-content-${sanitizedSlug}`;
 
@@ -112,7 +106,7 @@ const PageShell = ({
   return (
     <main className="bg-bg">
       {renderHeroVariant()}
-      <section id={contentAnchorId} className={contentClassName}>
+      <section id={contentAnchorId} className="page-shell">
         {children}
       </section>
     </main>

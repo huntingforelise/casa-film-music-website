@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import SectionRenderer from '../SectionRenderer';
 import PageShell from './PageShell';
 import { splitPageSections } from '../../lib/sectionUtils';
@@ -12,8 +13,10 @@ const StandardHeroPage = ({ page }: TemplateProps) => {
 
   return (
     <PageShell page={page} heroVariant="standard" heroSection={heroSection}>
-      {bodySections.map((section) => (
-        <SectionRenderer key={section._key} section={section} />
+      {bodySections.map((section, index) => (
+        <div key={section._key} className={clsx(index % 2 === 1 && 'bg-surface')}>
+          <SectionRenderer section={section} />
+        </div>
       ))}
     </PageShell>
   );

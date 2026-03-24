@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import SectionRenderer from '../SectionRenderer';
 import { Page } from '@/types/page';
 import PageShell from './PageShell';
@@ -12,8 +13,10 @@ const FullScreenHeroPage = ({ page }: TemplateProps) => {
 
   return (
     <PageShell page={page} heroVariant="fullScreen" heroSection={heroSection}>
-      {bodySections.map((section) => (
-        <SectionRenderer key={section._key} section={section} />
+      {bodySections.map((section, index) => (
+        <div key={section._key} className={clsx(index % 2 === 1 && 'bg-surface')}>
+          <SectionRenderer section={section} />
+        </div>
       ))}
     </PageShell>
   );
