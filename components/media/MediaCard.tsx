@@ -31,7 +31,7 @@ const MediaCard = (props: MediaCardProps) => {
   const { mediaType, orientation, className, videoZoom = 1, videoLoading, sizes } = props;
 
   const containerClass = clsx(
-    'relative overflow-hidden rounded-2xl',
+    'relative overflow-hidden',
     mediaAspectClassMap[orientation],
     getBackground(mediaType),
     className,

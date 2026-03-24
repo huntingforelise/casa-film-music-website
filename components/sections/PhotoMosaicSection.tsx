@@ -55,7 +55,7 @@ const PhotoMosaicSection = ({ section }: { section: PhotoMosaicSectionType }) =>
             return (
               <div
                 key={key}
-                className="relative overflow-hidden rounded-2xl"
+                className="relative overflow-hidden"
                 style={{
                   gridColumn: `${layout.colStart} / span ${layout.colSpan}`,
                   gridRow: `${layout.rowStart} / span ${layout.rowSpan}`,
@@ -77,7 +77,7 @@ const PhotoMosaicSection = ({ section }: { section: PhotoMosaicSectionType }) =>
           <div
             key={`mobile-${key}`}
             className={clsx(
-              'relative overflow-hidden rounded-2xl',
+              'relative overflow-hidden',
               PORTRAIT_SLOTS.includes(key)
                 ? mediaAspectClassMap['portrait']
                 : mediaAspectClassMap['landscape'],
