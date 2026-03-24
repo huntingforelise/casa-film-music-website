@@ -221,7 +221,7 @@ const BookingForm = ({ settings }: Props) => {
           <h2 className="pt-2 font-display text-3xl tracking-tight md:text-4xl">
             {config.introTitle}
           </h2>
-          <p className="pt-3 max-w-3xl text-sm leading-relaxed text-text/80 md:text-base">
+          <p className="pt-3 max-w-3xl text-sm leading-relaxed text-80 md:text-base">
             {config.introText}
           </p>
         </header>

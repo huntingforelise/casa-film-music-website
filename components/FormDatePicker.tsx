@@ -25,7 +25,7 @@ export default function FormDatePicker({
   return (
     <Popover className="relative">
       {({ open, close }) => (
-        <div className="grid gap-2 text-sm tracking-tight text-text/80">
+        <div className="grid gap-2 text-sm tracking-tight text-80">
           <label>{label}</label>
 
           <PopoverButton

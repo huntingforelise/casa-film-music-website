@@ -106,7 +106,7 @@ export const EventDetailsStep = ({
         }))}
       />
 
-      <div className="grid gap-2 text-sm tracking-tight text-text/80">
+      <div className="grid gap-2 text-sm tracking-tight text-80">
         <label>{durationLabel ?? ''}</label>
 
         <div
@@ -135,7 +135,7 @@ export const EventDetailsStep = ({
         </div>
       </div>
 
-      <div className="grid gap-2 text-sm tracking-tight text-text/80">
+      <div className="grid gap-2 text-sm tracking-tight text-80">
         <label>{guestCountLabel ?? ''}</label>
 
         <div
@@ -180,7 +180,7 @@ export const EventDetailsStep = ({
         }))}
       />
 
-      <label className="grid gap-2 text-sm tracking-tight text-text/80 md:col-span-2">
+      <label className="grid gap-2 text-sm tracking-tight text-80 md:col-span-2">
         {venueLabel ?? ''}
         <input
           className="input-base"
@@ -243,11 +243,9 @@ export const ServicesStep = ({
             <span className="grid gap-1">
               <span className="font-display text-xl tracking-tight">{service.title}</span>
               {service.description && (
-                <span className="text-sm text-text/70">{service.description}</span>
+                <span className="text-sm text-muted">{service.description}</span>
               )}
-              {displayPrice && (
-                <span className="text-sm font-medium text-text/80">{displayPrice}</span>
-              )}
+              {displayPrice && <span className="text-sm font-medium text-80">{displayPrice}</span>}
             </span>
           </label>
         );
@@ -313,7 +311,7 @@ export const BundleSelectionStep = ({
                     {suggestion.bundle.title}
                   </h3>
                   {suggestion.bundle.highlightLabel && (
-                    <span className="surface-radius border border-accent/40 bg-accent/15 px-2 py-0.5 text-xs uppercase tracking-[0.12em] text-text/80">
+                    <span className="surface-radius border border-accent/40 bg-accent/15 px-2 py-0.5 text-xs uppercase tracking-[0.12em] text-80">
                       {suggestion.bundle.highlightLabel}
                     </span>
                   )}
@@ -332,9 +330,7 @@ export const BundleSelectionStep = ({
                         {priceRows.map((row, index) => (
                           <span
                             key={`${row.label}-${index}`}
-                            className={
-                              row.isStrikethrough ? 'line-through text-text/70' : undefined
-                            }
+                            className={row.isStrikethrough ? 'line-through text-muted' : undefined}
                           >
                             {row.label}
                           </span>
@@ -345,7 +341,7 @@ export const BundleSelectionStep = ({
                 )}
 
                 {priceNote && hasPrimaryPrice && (
-                  <p className="pt-2 text-sm text-text/70">{priceNote}</p>
+                  <p className="pt-2 text-sm text-muted">{priceNote}</p>
                 )}
 
                 {suggestion.isEligible ? (
@@ -375,7 +371,7 @@ export const BundleSelectionStep = ({
             );
           })
         : copy.bundleNoSuggestions && (
-            <p className="text-sm text-text/70">{copy.bundleNoSuggestions}</p>
+            <p className="text-sm text-muted">{copy.bundleNoSuggestions}</p>
           )}
     </div>
   );
@@ -430,15 +426,15 @@ export const AddOnsStep = ({
               <span className="grid gap-1">
                 <span className="font-display text-xl tracking-tight">{addOn.title}</span>
                 {addOn.description && (
-                  <span className="text-sm text-text/70">{addOn.description}</span>
+                  <span className="text-sm text-muted">{addOn.description}</span>
                 )}
-                <span className="text-sm font-medium text-text/80">{displayPrice}</span>
+                <span className="text-sm font-medium text-80">{displayPrice}</span>
               </span>
             </label>
           );
         })
       ) : copy.addOnsEmptyText ? (
-        <p className="text-sm text-text/70">{copy.addOnsEmptyText}</p>
+        <p className="text-sm text-muted">{copy.addOnsEmptyText}</p>
       ) : null}
     </div>
   );
@@ -506,7 +502,7 @@ export const SummaryStep = ({
       </div>
 
       <div className="grid gap-4">
-        <label className="grid gap-2 text-sm tracking-tight text-text/80">
+        <label className="grid gap-2 text-sm tracking-tight text-80">
           {copy.summaryContactNameLabel ?? ''}
           <input
             className="input-base"
@@ -515,7 +511,7 @@ export const SummaryStep = ({
             onChange={(event) => setField('name', event.target.value)}
           />
         </label>
-        <label className="grid gap-2 text-sm tracking-tight text-text/80">
+        <label className="grid gap-2 text-sm tracking-tight text-80">
           {copy.summaryContactEmailLabel ?? ''}
           <input
             className="input-base"
@@ -524,7 +520,7 @@ export const SummaryStep = ({
             onChange={(event) => setField('email', event.target.value)}
           />
         </label>
-        <label className="grid gap-2 text-sm tracking-tight text-text/80">
+        <label className="grid gap-2 text-sm tracking-tight text-80">
           {copy.summaryContactPhoneLabel ?? ''}
           <input
             className="input-base"
@@ -533,7 +529,7 @@ export const SummaryStep = ({
             onChange={(event) => setField('phone', event.target.value)}
           />
         </label>
-        <label className="grid gap-2 text-sm tracking-tight text-text/80">
+        <label className="grid gap-2 text-sm tracking-tight text-80">
           {copy.summaryNotesLabel ?? ''}
           <textarea
             className="input-base resize-y"

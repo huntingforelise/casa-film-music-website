@@ -26,7 +26,7 @@ const FormListbox = ({
   return (
     <Listbox value={value} onChange={onChange}>
       {({ open }) => (
-        <div className="grid gap-2 text-sm tracking-tight text-text/80">
+        <div className="grid gap-2 text-sm tracking-tight text-80">
           <Label>{label}</Label>
 
           <div className="relative">

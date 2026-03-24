@@ -130,7 +130,7 @@ const Footer = async () => {
         </div>
 
         <div className="mt-10 border-t border-border pt-5">
-          <p className="text-xs tracking-tight text-text/70">
+          <p className="text-xs tracking-tight text-muted">
             {footer.developerCreditText ?? 'Site created by'}{' '}
             {footer.developerCreditUrl ? (
               <Link

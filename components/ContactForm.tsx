@@ -80,7 +80,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
         </header>
         <form className="grid gap-6" onSubmit={handleSubmit} noValidate aria-busy={isSubmitting}>
           <div className="grid gap-6 md:grid-cols-2">
-            <label className="grid gap-2 text-sm tracking-tight text-text/80">
+            <label className="grid gap-2 text-sm tracking-tight text-80">
               {nameLabel}
               <input
                 name="name"
@@ -96,7 +96,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
               />
             </label>
 
-            <label className="grid gap-2 text-sm tracking-tight text-text/80">
+            <label className="grid gap-2 text-sm tracking-tight text-80">
               {emailLabel}
               <input
                 name="email"
@@ -113,7 +113,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
             </label>
           </div>
 
-          <label className="grid gap-2 text-sm tracking-tight text-text/80">
+          <label className="grid gap-2 text-sm tracking-tight text-80">
             {messageLabel}
             <textarea
               name="message"
@@ -155,7 +155,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
             {state.feedback && (
               <p
                 className={`text-sm tracking-tight ${
-                  state.status === 'error' ? 'text-red-700' : 'text-text/80'
+                  state.status === 'error' ? 'text-red-700' : 'text-80'
                 }`}
               >
                 {state.feedback}

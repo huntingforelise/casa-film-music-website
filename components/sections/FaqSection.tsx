@@ -30,7 +30,7 @@ const FaqSection = ({ section }: Props) => {
       <div className="flex flex-col gap-3">
         {section.title && <p className="text-3xl font-display tracking-tight">{section.title}</p>}
         {section.intro && (
-          <p className="max-w-3xl text-base leading-relaxed text-text/70">{section.intro}</p>
+          <p className="max-w-3xl text-base leading-relaxed text-muted">{section.intro}</p>
         )}
       </div>
       <div className="mt-8 space-y-4">
@@ -55,7 +55,7 @@ const FaqSection = ({ section }: Props) => {
               </button>
               <div
                 id={answerId}
-                className={clsx('px-6 pb-6 text-base leading-relaxed text-text/70 transition', {
+                className={clsx('px-6 pb-6 text-base leading-relaxed text-muted transition', {
                   hidden: !isOpen,
                 })}
               >

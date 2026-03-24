@@ -36,10 +36,10 @@ const VideoShowcaseSection = ({ section }: Props) => {
       </figure>
 
       {supportingVideos.map((video, index) => (
-          <figure
-            key={video._key ?? `${video.url ?? 'video'}-${index}`}
-            className="surface-card surface-card--muted surface-radius overflow-hidden"
-          >
+        <figure
+          key={video._key ?? `${video.url ?? 'video'}-${index}`}
+          className="surface-card surface-card--muted surface-radius overflow-hidden"
+        >
           <MediaCard
             mediaType="video"
             item={video}
@@ -70,13 +70,13 @@ const VideoShowcaseSection = ({ section }: Props) => {
 
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 md:grid-rows-2 md:h-full">
         {supportingVideos.map((video, index) => (
-            <figure
-              key={video._key ?? `${video.url ?? 'video'}-${index}`}
-              className={clsx(
-                'surface-card surface-card--muted surface-radius overflow-hidden md:h-full',
-                mediaAspectClassMap[orientation],
-              )}
-            >
+          <figure
+            key={video._key ?? `${video.url ?? 'video'}-${index}`}
+            className={clsx(
+              'surface-card surface-card--muted surface-radius overflow-hidden md:h-full',
+              mediaAspectClassMap[orientation],
+            )}
+          >
             <MediaCard
               mediaType="video"
               item={video}
@@ -96,12 +96,10 @@ const VideoShowcaseSection = ({ section }: Props) => {
         {(section.title || section.intro) && (
           <header className="max-w-3xl">
             {section.title && (
-              <h2 className="font-display text-3xl tracking-tight md:text-4xl">
-                {section.title}
-              </h2>
+              <h2 className="font-display text-3xl tracking-tight md:text-4xl">{section.title}</h2>
             )}
             {section.intro && (
-              <p className="pt-3 text-base leading-relaxed text-text/80">{section.intro}</p>
+              <p className="pt-3 text-base leading-relaxed text-80">{section.intro}</p>
             )}
           </header>
         )}

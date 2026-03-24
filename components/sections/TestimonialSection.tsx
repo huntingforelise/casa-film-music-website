@@ -12,9 +12,7 @@ const TestimonialSection = ({ section }: Props) => {
     <SectionShell>
       <div className="flex flex-col gap-3">
         <p className="text-3xl font-display tracking-tight">{section.title}</p>
-        {section.intro && (
-          <p className="max-w-2xl text-base leading-relaxed text-text/70">{section.intro}</p>
-        )}
+        {section.intro && <p className="max-w-2xl text-base leading-relaxed ">{section.intro}</p>}
       </div>
       {cards.length > 0 && (
         <div className="mt-8">
@@ -25,7 +23,7 @@ const TestimonialSection = ({ section }: Props) => {
                 className="snap-start min-w-[18rem] flex-1 shrink-0 surface-card surface-card--ghost-light rounded-3xl p-6 shadow-lg ring-1 ring-transparent transition hover:border-accent/60 hover:ring-accent/30"
               >
                 <div className="flex flex-col justify-between gap-6 h-full py-4">
-                  <p className="text-base italic leading-relaxed text-text/80">{card.quote}</p>
+                  <p className="text-base italic leading-relaxed text-80">{card.quote}</p>
                   <div>
                     <p className="text-sm font-semibold">{card.author}</p>
                   </div>
