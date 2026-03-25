@@ -5,6 +5,7 @@ import HeroScrollButton from '../HeroScrollButton';
 
 import { HeroSection } from '@/types/sections';
 import { Page, PageTemplate } from '@/types/page';
+import { getSanitizedSlug } from '@/lib/pageUtils';
 
 export type HeroVariant = 'fullScreen' | 'standard' | 'compact';
 
@@ -50,7 +51,7 @@ const FullScreenHero = ({
       aria-hidden
     />
     <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center">
-      <h1 className="page-title text-white md:text-[3rem]">{pageTitle}</h1>
+      <h1 className="page-title">{pageTitle}</h1>
     </div>
     <HeroScrollButton targetId={contentAnchorId} />
   </section>
@@ -70,14 +71,12 @@ const StandardHero = ({
       aria-hidden
     />
     <div className="absolute inset-0 z-10 flex items-center justify-center px-6 text-center">
-      <h1 className="page-title text-white md:text-[3rem]">{pageTitle}</h1>
+      <h1 className="page-title">{pageTitle}</h1>
     </div>
   </section>
 );
 
 const CompactHero = () => <div aria-hidden="true" className="h-[70px] sm:h-[88px] lg:h-[96px]" />;
-
-const getSanitizedSlug = (slug?: string) => slug?.replace(/[^a-zA-Z0-9-_]/g, '-') ?? 'page';
 
 const PageShell = ({ page, heroSection, heroVariant, children }: Props) => {
   const sanitizedSlug = getSanitizedSlug(page.slug?.current);
@@ -104,7 +103,7 @@ const PageShell = ({ page, heroSection, heroVariant, children }: Props) => {
   };
 
   return (
-    <main className="bg-bg">
+    <main>
       {renderHeroVariant()}
       <section id={contentAnchorId} className="page-shell">
         {children}

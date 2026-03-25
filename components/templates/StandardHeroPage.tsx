@@ -10,11 +10,18 @@ export type TemplateProps = {
 
 const StandardHeroPage = ({ page }: TemplateProps) => {
   const { heroSection, bodySections } = splitPageSections(page.sections);
+  const totalSections = bodySections.length;
+  const hasEvenSectionCount = totalSections % 2 === 0;
 
   return (
     <PageShell page={page} heroVariant="standard" heroSection={heroSection}>
       {bodySections.map((section, index) => (
-        <div key={section._key} className={clsx(index % 2 === 1 && 'bg-surface')}>
+        <div
+          key={section._key}
+          className={clsx(
+            index % 2 === 1 && !(hasEvenSectionCount && index === totalSections - 1) && 'bg-surface',
+          )}
+        >
           <SectionRenderer section={section} />
         </div>
       ))}

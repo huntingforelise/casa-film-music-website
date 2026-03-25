@@ -48,12 +48,12 @@ const Footer = async () => {
   if (!footer) return null;
 
   return (
-    <footer className="border-t border-border bg-surface">
+    <footer className="border-t border-[var(--color-stone)] bg-[var(--color-obsidian)] text-[var(--theme-text-inverse)]">
       <div className="mx-auto w-full max-w-6xl px-6 py-12">
-        {footer.ctaHeading && <p className="mb-2 text-2xl font-display ">{footer.ctaHeading}</p>}
+        {footer.ctaHeading && <p className="mb-2 text-2xl font-display">{footer.ctaHeading}</p>}
         <Link href="/quote">
           {footer.ctaText && (
-            <p className="mb-6 text-lg font-medium text-link-muted">{footer.ctaText}</p>
+            <p className="mb-6 text-lg font-medium text-link-muted-inverse">{footer.ctaText}</p>
           )}
         </Link>
         <div className="grid gap-10 grid-cols-1 md:grid-cols-2">
@@ -130,7 +130,7 @@ const Footer = async () => {
         </div>
 
         <div className="mt-10 border-t border-border pt-5">
-          <p className="text-xs tracking-tight text-muted">
+          <p className="text-xs tracking-tight text-muted-inverse">
             {footer.developerCreditText ?? 'Site created by'}{' '}
             {footer.developerCreditUrl ? (
               <Link

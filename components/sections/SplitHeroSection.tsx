@@ -38,19 +38,15 @@ const SplitHeroSection = ({ section }: Props) => {
           <Link
             key={`${option.link}-${index}`}
             href={option.link}
-            className={`group relative flex items-end justify-center px-4 py-20 text-center${
-              index === 0 ? ' border-r border-[rgb(255_250_245/0.25)]' : ''
+            className={`group split-hero-option relative flex items-end justify-center px-4 py-20 text-center${
+              index === 0 ? ' split-hero-option--divider' : ''
             }`}
           >
-            <div className="absolute inset-0 bg-[rgb(255_250_245/0)] transition-colors duration-300 group-hover:bg-[rgb(255_250_245/0.08)]" />
-            <div className="surface-radius relative mb-6 border border-[rgb(255_250_245/0.38)] bg-[rgb(47_38_31/0.28)] px-5 py-3 backdrop-blur-sm transition duration-300 group-hover:-translate-y-1 group-hover:bg-[rgb(47_38_31/0.44)] md:mb-10 md:px-8 md:py-4">
-              <span className="block font-display text-2xl tracking-tight text-[rgb(255_250_245)] md:text-4xl">
-                {option.title}
-              </span>
+            <div className="split-hero-option-backdrop" aria-hidden="true" />
+            <div className="surface-radius split-hero-option-card relative mb-6 px-5 py-3 md:mb-10 md:px-8 md:py-4 transition duration-300 group-hover:-translate-y-1 backdrop-blur-sm">
+              <span className="split-hero-option-title">{option.title}</span>
               {!!option.subtitle && (
-                <span className="block pt-2 text-xs font-medium uppercase tracking-[0.18em] text-[rgb(255_250_245/0.82)] md:pt-3 md:text-sm">
-                  {option.subtitle}
-                </span>
+                <span className="split-hero-option-subtitle">{option.subtitle}</span>
               )}
             </div>
           </Link>

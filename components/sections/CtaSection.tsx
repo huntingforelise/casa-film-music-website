@@ -18,7 +18,6 @@ const CtaSection = ({ section }: Props) => {
   return (
     <SectionShell>
       <div className="cta-shell">
-        <span className="cta-shell__flare" aria-hidden="true" />
         <div className="cta-shell__grid">
           <div className="cta-shell__text-block">
             {section.text && <p className="cta-text">{section.text}</p>}
@@ -26,7 +25,6 @@ const CtaSection = ({ section }: Props) => {
 
           {href && section.buttonLabel && (
             <div className="cta-shell__actions">
-              <span className="cta-shell__badge" aria-hidden="true" />
               <Link
                 href={href}
                 className="cta-button"

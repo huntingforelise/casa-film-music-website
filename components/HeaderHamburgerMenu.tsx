@@ -31,7 +31,7 @@ const HeaderHamburgerMenu = ({ navigation }: HeaderHamburgerMenuProps) => {
           navigation={navigation}
           mobile
           containerClassName="flex flex-col gap-4"
-          itemClassName="text-sm tracking-tight"
+          itemClassName="text-sm uppercase tracking-[0.35em]"
           keyPrefix="mobile-"
           onLinkClick={handleLinkClick}
         />
