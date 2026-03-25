@@ -15,7 +15,7 @@ const Header = async () => {
   if (!header) return null;
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-border bg-surface/75 backdrop-blur-md uppercase">
+    <header className="fixed top-0 z-50 w-full border-b border-border bg-surface/85 backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
         {header.logo && (
           <Link href="/" className="shrink-0">
@@ -24,8 +24,9 @@ const Header = async () => {
               alt="Logo"
               width={120}
               height={60}
-              className="h-auto w-20 sm:w-24 invert"
+              className="h-auto w-20 sm:w-24"
               loading="eager"
+              priority
             />
           </Link>
         )}
@@ -34,7 +35,7 @@ const Header = async () => {
           <HeaderMenuLinks
             navigation={header.navigation}
             containerClassName="flex items-center gap-6"
-            itemClassName="text-sm uppercase tracking-[0.35em]"
+            itemClassName="text-sm uppercase md:tracking-[0.15em] lg:tracking-[0.35em]"
           />
         </nav>
 

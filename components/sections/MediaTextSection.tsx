@@ -41,7 +41,7 @@ const MediaTextSection = ({ section }: Props) => {
         <div className={`${textOrder} min-w-0`}>
           {section.title && <h2 className="section-title">{section.title}</h2>}
 
-          <div className="prose max-w-none">
+          <div className="max-w-none">
             <PortableText value={section.content} components={portableTextComponents} />
           </div>
         </div>

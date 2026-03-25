@@ -212,7 +212,7 @@ const BookingForm = ({ settings }: Props) => {
   };
 
   return (
-    <section className="section-spacing-wide">
+    <section className="sm:pb-8 md:pb-16 lg:pb-24">
       <div className="surface-card surface-radius p-6 md:p-8">
         <header className="pb-6">
           <p className="text-xs font-medium uppercase tracking-[0.16em] text-text/60">
