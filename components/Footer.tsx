@@ -22,10 +22,10 @@ type FooterData = {
 };
 
 const socialIconSrc: Record<SocialPlatform, string> = {
-  facebook: 'https://cdn.simpleicons.org/facebook/2A3023',
-  instagram: 'https://cdn.simpleicons.org/instagram/2A3023',
+  facebook: 'https://cdn.simpleicons.org/facebook/F6F3EE',
+  instagram: 'https://cdn.simpleicons.org/instagram/F6F3EE',
   linkedin: '/icons/linkedin.svg',
-  youtube: 'https://cdn.simpleicons.org/youtube/2A3023',
+  youtube: 'https://cdn.simpleicons.org/youtube/F6F3EE',
 };
 
 const socialIconAlt: Record<SocialPlatform, string> = {
@@ -48,12 +48,14 @@ const Footer = async () => {
   if (!footer) return null;
 
   return (
-    <footer className="border-t border-[var(--color-stone)] bg-[var(--color-obsidian)] text-[var(--theme-text-inverse)]">
+    <footer className="border-t border-[color-mix(in_srgb,var(--color-stone)_70%,var(--color-champagne)_30%)] bg-[var(--color-obsidian)] text-[var(--theme-text-inverse)]">
       <div className="mx-auto w-full max-w-6xl px-6 py-12">
         {footer.ctaHeading && <p className="mb-2 text-2xl font-display">{footer.ctaHeading}</p>}
         <Link href="/quote">
           {footer.ctaText && (
-            <p className="mb-6 text-lg font-medium text-link-muted-inverse">{footer.ctaText}</p>
+            <p className="mb-6 text-lg font-medium text-[color-mix(in_srgb,var(--color-warm-ivory)_78%,var(--color-champagne)_22%)] transition-colors hover:text-[var(--color-warm-ivory)]">
+              {footer.ctaText}
+            </p>
           )}
         </Link>
         <div className="grid gap-10 grid-cols-1 md:grid-cols-2">
@@ -103,12 +105,12 @@ const Footer = async () => {
                         href={social.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-bg transition hover:border-accent hover:bg-accent/10"
+                        className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--color-warm-ivory)_18%,transparent_82%)] bg-[color-mix(in_srgb,var(--color-warm-ivory)_6%,transparent_94%)] text-[var(--theme-text-inverse)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-200 ease-out hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--color-champagne)_55%,var(--color-warm-ivory)_45%)] hover:bg-[color-mix(in_srgb,var(--color-champagne)_14%,transparent_86%)] hover:text-[var(--color-warm-ivory)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--color-champagne)_65%,var(--color-warm-ivory)_35%)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-obsidian)]"
                         aria-label={socialIconAlt[social.platform]}
                         title={socialIconAlt[social.platform]}
                       >
                         <span
-                          className="h-4 w-4 bg-text"
+                          className="h-4 w-4 bg-current transition-transform duration-200 group-hover:scale-105"
                           style={{
                             maskImage: `url(${socialIconSrc[social.platform]})`,
                             WebkitMaskImage: `url(${socialIconSrc[social.platform]})`,
