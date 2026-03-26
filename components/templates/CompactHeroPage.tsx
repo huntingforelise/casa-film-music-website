@@ -34,7 +34,7 @@ const CompactHeroPage = async ({ page }: TemplateProps) => {
         <SectionRenderer key={section._key} section={section} />
       ))}
 
-      <div className="layout-container">
+      <div>
         {page.title === 'Contact' && <ContactForm copy={contactFormCopy} />}
         {page.title === 'Get a quote' && <BookingForm settings={bookingSettings} />}
       </div>

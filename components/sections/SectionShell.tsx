@@ -4,10 +4,11 @@ import type { ReactNode } from 'react';
 type SectionShellVariant = 'default' | 'wide' | 'none';
 
 interface SectionShellProps {
+  children: ReactNode;
   variant?: SectionShellVariant;
   container?: boolean;
   className?: string;
-  children: ReactNode;
+  id?: string;
 }
 
 const spacingClassMap: Record<SectionShellVariant, string | undefined> = {
@@ -17,13 +18,17 @@ const spacingClassMap: Record<SectionShellVariant, string | undefined> = {
 };
 
 const SectionShell = ({
-  variant = 'wide',
+  variant = 'default',
   container = true,
   className,
   children,
+  id,
 }: SectionShellProps) => {
   return (
-    <section className={clsx(spacingClassMap[variant], container && 'layout-container', className)}>
+    <section
+      id={id}
+      className={clsx(spacingClassMap[variant], container && 'layout-container', className)}
+    >
       {children}
     </section>
   );

@@ -2,6 +2,7 @@ import { MediaRowSection as MediaRowSectionType } from '@/types/sections';
 import type { MediaOrientation, MediaType, PhotoItem, VideoItem } from '@/types/media';
 import MediaCard from '../media/MediaCard';
 import { getMediaRowGridClass } from '@/lib/media/mediaRow';
+import SectionShell from './SectionShell';
 
 type MediaRowItems = PhotoItem[] | VideoItem[];
 
@@ -21,7 +22,7 @@ const MediaRowSection = ({ section }: Props) => {
   const gridClassName = getMediaRowGridClass(columnCount);
 
   return (
-    <section className="section-spacing layout-container">
+    <SectionShell>
       <div className={`grid ${gridClassName} gap-4 sm:gap-5 md:gap-6`}>
         {items.map((item, index) => {
           const key = item._key ?? `${mediaType}-${index}`;
@@ -43,7 +44,7 @@ const MediaRowSection = ({ section }: Props) => {
           );
         })}
       </div>
-    </section>
+    </SectionShell>
   );
 };
 

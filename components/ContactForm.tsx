@@ -5,6 +5,7 @@ import { contactFormReducer } from '@/lib/contactForm/reducer';
 import { initialFormState } from '@/lib/contactForm/state';
 import { isContactFormValid } from '@/lib/contactForm/helpers';
 import { ContactFormCopy } from '@/types/contactForm';
+import SectionShell from './sections/SectionShell';
 
 type ContactFormProps = {
   copy?: ContactFormCopy | null;
@@ -73,7 +74,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
   };
 
   return (
-    <section className="sm:pb-8 md:pb-16 lg:pb-24">
+    <SectionShell variant="none" className="sm:pb-8 md:pb-16 lg:pb-24">
       <div className="surface-card surface-radius p-6 md:p-8">
         <header className="pb-6">
           <h2 className="pt-2 font-display text-3xl tracking-tight md:text-4xl">{titleLabel}</h2>
@@ -164,7 +165,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
           </div>
         </form>
       </div>
-    </section>
+    </SectionShell>
   );
 };
 

@@ -39,7 +39,7 @@ const MediaTextSection = ({ section }: Props) => {
   );
 
   return (
-    <SectionShell>
+    <SectionShell variant="wide">
       {showTitleAboveGrid && <h2 className="section-title">{section.title}</h2>}
 
       <div className={grid}>
