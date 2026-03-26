@@ -58,6 +58,10 @@ const HeaderMenuLinks = ({
     setOpenDropdown(null);
   }, [cancelClose, onLinkClick]);
 
+  const isNodeTarget = (target: EventTarget | null): target is Node => {
+    return target instanceof Node;
+  };
+
   return (
     <div className={containerClassName}>
       {navigation?.map((item) => {
@@ -114,15 +118,15 @@ const HeaderMenuLinks = ({
             setOpenDropdown(item.url);
           };
           const handleMouseLeave = (event: MouseEvent<HTMLDivElement>) => {
-            const relatedTarget = event.relatedTarget as Node | null;
-            if (relatedTarget && event.currentTarget.contains(relatedTarget)) {
+            const relatedTarget = event.relatedTarget;
+            if (isNodeTarget(relatedTarget) && event.currentTarget.contains(relatedTarget)) {
               return;
             }
             scheduleClose();
           };
           const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
-            const relatedTarget = event.relatedTarget as Node | null;
-            if (relatedTarget && event.currentTarget.contains(relatedTarget)) {
+            const relatedTarget = event.relatedTarget;
+            if (isNodeTarget(relatedTarget) && event.currentTarget.contains(relatedTarget)) {
               return;
             }
             setOpenDropdown((prev) => (prev === item.url ? null : prev));
