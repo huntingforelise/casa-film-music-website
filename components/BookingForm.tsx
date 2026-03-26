@@ -288,7 +288,7 @@ const BookingForm = ({ settings }: Props) => {
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                className="cta-button disabled:cursor-not-allowed disabled:opacity-50"
+                className="btn-secondary disabled:opacity-50"
                 onClick={goBack}
                 disabled={step === 1 || status === 'submitting'}
               >
@@ -298,7 +298,7 @@ const BookingForm = ({ settings }: Props) => {
               {step < TOTAL_STEPS ? (
                 <button
                   type="button"
-                  className="btn-primary disabled:cursor-not-allowed disabled:opacity-50"
+                  className="btn-primary disabled:opacity-50"
                   onClick={goNext}
                   disabled={!stepIsValid || status === 'submitting'}
                 >

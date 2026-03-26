@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
 import { CtaSection as CtaSectionType } from '@/types/sections';
 import { isExternalUrl, normalizeInternalPath } from '@/lib/header/utils';
 import SectionShell from './SectionShell';
@@ -14,27 +13,42 @@ const CtaSection = ({ section }: Props) => {
       ? section.buttonLink
       : normalizeInternalPath(section.buttonLink)
     : '';
+  const isExternal = href ? isExternalUrl(href) : false;
+  const text = section.text?.trim();
+
+  if (!text && !href) {
+    return null;
+  }
 
   return (
-    <SectionShell>
-      <div className="cta-shell">
-        <div className="cta-shell__grid">
-          <div className="cta-shell__text-block">
-            {section.text && <p className="cta-text">{section.text}</p>}
+    <SectionShell variant="default">
+      <div className="surface-card surface-card--glass relative overflow-hidden rounded-[2rem] px-6 py-8 shadow-[0_24px_80px_rgba(18,18,18,0.08)] transition duration-300 motion-safe:hover:-translate-y-0.5 sm:px-8 lg:px-10">
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,154,106,0.18),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(18,18,18,0.08),transparent_38%)]"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent"
+          aria-hidden="true"
+        />
+        <div className="relative grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+          <div className="max-w-3xl space-y-4">
+            {text && (
+              <p className="max-w-2xl font-display text-2xl leading-tight tracking-tight text-text sm:text-3xl lg:text-4xl">
+                {text}
+              </p>
+            )}
           </div>
 
           {href && section.buttonLabel && (
-            <div className="cta-shell__actions">
+            <div className="lg:flex lg:h-full lg:items-end lg:border-l lg:border-border/60 lg:pl-10">
               <Link
                 href={href}
-                className="cta-button"
-                target={isExternalUrl(href) ? '_blank' : undefined}
-                rel={isExternalUrl(href) ? 'noopener noreferrer' : undefined}
+                className="btn-primary self-start whitespace-nowrap"
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
               >
-                <span className="cta-button-label">{section.buttonLabel}</span>
-                <span className="cta-button-icon" aria-hidden="true">
-                  <ChevronRight size={20} />
-                </span>
+                {section.buttonLabel}
               </Link>
             </div>
           )}

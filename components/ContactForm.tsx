@@ -147,7 +147,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
             <button
               type="submit"
               disabled={isSubmitting || !isFormValid}
-              className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
+              className="btn-primary disabled:opacity-60"
             >
               {isSubmitting ? submittingLabel : submitLabel}
             </button>

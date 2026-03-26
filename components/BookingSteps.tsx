@@ -355,7 +355,7 @@ export const BundleSelectionStep = ({
                 ) : (
                   <button
                     type="button"
-                    className="cta-button mt-4"
+                    className="btn-secondary mt-4"
                     onClick={() => applyBundle(suggestion)}
                   >
                     {copy.bundleAddMissingLabel && (
