@@ -15,7 +15,7 @@ const Header = async () => {
   if (!header) return null;
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-border bg-surface/85 backdrop-blur-md">
+    <header className="fixed top-0 z-50 w-full border-b border-[color-mix(in_srgb,var(--color-champagne)_14%,var(--theme-border)_86%)] bg-[color-mix(in_srgb,var(--theme-bg)_92%,var(--theme-surface)_8%)] shadow-[0_8px_24px_rgba(18,18,18,0.05)] backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
         {header.logo && (
           <Link href="/" className="shrink-0">

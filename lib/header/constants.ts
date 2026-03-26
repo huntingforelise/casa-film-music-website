@@ -5,4 +5,4 @@ export const DEFAULT_INACTIVE_LINK_CLASS = 'text-link';
 export const DEFAULT_SUB_LINK_INACTIVE_CLASS = 'text-link-muted';
 
 export const HAMBURGER_MENU_PANEL_CLASS =
-  'absolute right-0 top-full z-50 mt-2 mr-2 w-56 rounded-2xl border border-border bg-surface p-4 shadow-[0_18px_48px_rgba(0,0,0,0.18)]';
+  'absolute right-0 top-full z-50 mt-2 mr-2 w-56 rounded-2xl border border-[color-mix(in_srgb,var(--color-champagne)_12%,var(--theme-border)_88%)] bg-[color-mix(in_srgb,var(--theme-bg)_94%,var(--theme-surface)_6%)] p-4 shadow-[0_18px_36px_rgba(18,18,18,0.12)] backdrop-blur-md';
