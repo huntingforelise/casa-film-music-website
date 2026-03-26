@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import type { ReactNode } from 'react';
 
-type SectionShellVariant = 'default' | 'wide' | 'none';
+type SectionShellVariant = 'default' | 'bottom' | 'wide' | 'none';
 
 interface SectionShellProps {
   children: ReactNode;
@@ -13,6 +13,7 @@ interface SectionShellProps {
 
 const spacingClassMap: Record<SectionShellVariant, string | undefined> = {
   default: 'section-spacing',
+  bottom: 'section-spacing-bottom',
   wide: 'section-spacing-wide',
   none: undefined,
 };

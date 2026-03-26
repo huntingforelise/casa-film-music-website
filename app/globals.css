@@ -150,6 +150,22 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
+.section-spacing-bottom {
+  padding-bottom: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .section-spacing-bottom {
+    padding-bottom: var(--space-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-spacing-bottom {
+    padding-bottom: var(--space-12);
+  }
+}
+
 .section-spacing-wide {
   padding-block: var(--space-8);
 }

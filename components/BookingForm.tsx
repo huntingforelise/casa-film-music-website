@@ -213,7 +213,7 @@ const BookingForm = ({ settings }: Props) => {
   };
 
   return (
-    <SectionShell variant="none">
+    <SectionShell variant="bottom">
       <div className="surface-card surface-radius p-6 md:p-8">
         <header className="pb-6">
           <p className="text-xs font-medium uppercase tracking-[0.16em] text-text/60">
