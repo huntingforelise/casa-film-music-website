@@ -2,8 +2,8 @@ import { PortableText } from '@portabletext/react';
 import MediaCard from '../media/MediaCard';
 import { MediaTextSection as MediaTextSectionType } from '@/types/sections';
 import { portableTextComponents } from '../portableTextComponents';
-import { getLayoutClasses } from '@/lib/media/mediaText';
-import type { MediaOrientation, PhotoItem, VideoItem } from '@/types/media';
+import { getLayoutClasses, shouldShowTitleAboveGrid } from '@/lib/media/mediaText';
+import type { MediaOrientation, PhotoItem, PortraitMediaSize, VideoItem } from '@/types/media';
 import SectionShell from './SectionShell';
 
 interface Props {
@@ -13,6 +13,8 @@ interface Props {
 const MediaTextSection = ({ section }: Props) => {
   const orientation: MediaOrientation = section.mediaOrientation ?? 'landscape';
   const mediaOnLeft = section.mediaPosition === 'left';
+  const portraitMediaSize: PortraitMediaSize = section.portraitMediaSize ?? 'large';
+  const showTitleAboveGrid = !!section.title && shouldShowTitleAboveGrid(orientation, portraitMediaSize);
 
   const photoItem: PhotoItem | undefined = section.image
     ? {
@@ -30,43 +32,44 @@ const MediaTextSection = ({ section }: Props) => {
     return null;
   }
 
-  const { grid, textOrder, mediaOrder, mediaWidth, sizes } = getLayoutClasses(
+  const { grid, textOrder, mediaOrder, sizes } = getLayoutClasses(
     orientation,
     mediaOnLeft,
+    portraitMediaSize,
   );
 
   return (
     <SectionShell>
-      <div className={grid}>
-        <div className={`${textOrder} min-w-0`}>
-          {section.title && <h2 className="section-title">{section.title}</h2>}
+      {showTitleAboveGrid && <h2 className="section-title">{section.title}</h2>}
 
-          <div className="max-w-none">
-            <PortableText value={section.content} components={portableTextComponents} />
-          </div>
+      <div className={grid}>
+        <div className={`${textOrder} min-w-0 max-w-prose`}>
+          {!showTitleAboveGrid && section.title && (
+            <h2 className="section-title">{section.title}</h2>
+          )}
+
+          <PortableText value={section.content} components={portableTextComponents} />
         </div>
 
         <div className={`${mediaOrder} min-w-0`}>
-          <div className={mediaWidth}>
-            {section.mediaType === 'photo' && photoItem?.image ? (
-              <MediaCard
-                mediaType="photo"
-                item={photoItem}
-                orientation={orientation}
-                className="h-full w-full border border-[var(--theme-border)] bg-surface shadow-2xl shadow-black/20"
-                sizes={sizes}
-              />
-            ) : section.mediaType === 'video' && videoItem?.url ? (
-              <MediaCard
-                mediaType="video"
-                item={videoItem}
-                orientation={orientation}
-                className="h-full w-full border border-[var(--theme-border)] bg-surface shadow-2xl shadow-black/20"
-                sizes={sizes}
-                videoLoading="lazy"
-              />
-            ) : null}
-          </div>
+          {section.mediaType === 'photo' && photoItem?.image ? (
+            <MediaCard
+              mediaType="photo"
+              item={photoItem}
+              orientation={orientation}
+              className="h-full w-full border border-[var(--theme-border)] bg-surface shadow-2xl shadow-black/20"
+              sizes={sizes}
+            />
+          ) : section.mediaType === 'video' && videoItem?.url ? (
+            <MediaCard
+              mediaType="video"
+              item={videoItem}
+              orientation={orientation}
+              className="h-full w-full border border-[var(--theme-border)] bg-surface shadow-2xl shadow-black/20"
+              sizes={sizes}
+              videoLoading="lazy"
+            />
+          ) : null}
         </div>
       </div>
     </SectionShell>

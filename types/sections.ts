@@ -1,5 +1,11 @@
 import { SanityImage } from './sanity';
-import type { MediaOrientation, MediaType, PhotoItem, VideoItem } from './media';
+import type {
+  MediaOrientation,
+  MediaType,
+  PhotoItem,
+  PortraitMediaSize,
+  VideoItem,
+} from './media';
 
 /* ---------- Portable text ---------- */
 
@@ -44,6 +50,7 @@ export interface MediaTextSection {
   video?: VideoItem;
   mediaPosition: 'left' | 'right';
   mediaOrientation: MediaOrientation;
+  portraitMediaSize?: PortraitMediaSize;
 }
 
 export interface MediaRowSection {
