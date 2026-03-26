@@ -77,11 +77,11 @@ const ContactForm = ({ copy }: ContactFormProps) => {
     <SectionShell variant="bottom">
       <div className="surface-card surface-radius p-6 md:p-8">
         <header className="pb-6">
-          <h2 className="pt-2 font-display text-3xl tracking-tight md:text-4xl">{titleLabel}</h2>
+          <h2 className="section-heading pt-2">{titleLabel}</h2>
         </header>
         <form className="grid gap-6" onSubmit={handleSubmit} noValidate aria-busy={isSubmitting}>
           <div className="grid gap-6 md:grid-cols-2">
-            <label className="grid gap-2 text-sm tracking-tight text-80">
+            <label className="form-field">
               {nameLabel}
               <input
                 name="name"
@@ -97,7 +97,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
               />
             </label>
 
-            <label className="grid gap-2 text-sm tracking-tight text-80">
+            <label className="form-field">
               {emailLabel}
               <input
                 name="email"
@@ -114,7 +114,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
             </label>
           </div>
 
-          <label className="grid gap-2 text-sm tracking-tight text-80">
+          <label className="form-field">
             {messageLabel}
             <textarea
               name="message"
@@ -148,7 +148,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
             <button
               type="submit"
               disabled={isSubmitting || !isFormValid}
-              className="btn-primary disabled:opacity-60"
+              className="btn-primary"
             >
               {isSubmitting ? submittingLabel : submitLabel}
             </button>

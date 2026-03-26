@@ -11,8 +11,8 @@ const TestimonialSection = ({ section }: Props) => {
   return (
     <SectionShell id="testimonials">
       <div className="flex flex-col gap-3">
-        <p className="text-3xl font-display tracking-tight">{section.title}</p>
-        {section.intro && <p className="max-w-2xl text-base leading-relaxed ">{section.intro}</p>}
+        <h2 className="section-heading">{section.title}</h2>
+        {section.intro && <p className="section-copy max-w-2xl">{section.intro}</p>}
       </div>
       {cards.length > 0 && (
         <div className="mt-8">

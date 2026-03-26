@@ -31,7 +31,6 @@
   --theme-text-muted: var(--color-muted-light);
   --theme-text-link-hover: var(--color-link-hover);
   --theme-button-text: var(--color-warm-ivory);
-  --theme-pre-bg: color-mix(in srgb, var(--theme-bg) 90%, transparent 10%);
   --theme-text-inverse: var(--color-warm-ivory);
 
   /* Fonts */
@@ -229,8 +228,58 @@ body::-webkit-scrollbar-thumb:hover {
   border-top: 1px solid var(--theme-border);
 }
 
-/* UI */
 @layer components {
+  .section-heading {
+    font-family: var(--theme-font-display);
+    font-size: clamp(1.875rem, 3vw, 2.25rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  @media (min-width: 768px) {
+    .section-heading {
+      font-size: clamp(2.25rem, 3vw, 2.75rem);
+    }
+  }
+
+  .section-copy {
+    font-size: var(--text-body);
+    line-height: var(--line-height-body);
+  }
+
+  .form-field {
+    display: grid;
+    gap: var(--space-1);
+    font-size: 0.875rem;
+    letter-spacing: -0.01em;
+    color: var(--theme-text-80);
+  }
+
+  .form-trigger {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    text-align: left;
+  }
+
+  .form-counter {
+    display: flex;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .booking-choice-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    cursor: pointer;
+    padding: var(--space-2);
+  }
+
   .surface-card {
     --surface-card-border-color: var(--theme-border);
     --surface-card-bg-color: var(--theme-surface);
@@ -403,15 +452,6 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .text-link-muted:hover {
-  color: var(--theme-accent);
-}
-
-.text-link-muted-inverse {
-  color: var(--color-muted-dark);
-  transition: color 0.2s ease;
-}
-
-.text-link-muted-inverse:hover {
   color: var(--theme-accent);
 }
 

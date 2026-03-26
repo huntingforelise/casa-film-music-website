@@ -106,11 +106,11 @@ export const EventDetailsStep = ({
         }))}
       />
 
-      <div className="grid gap-2 text-sm tracking-tight text-80">
+      <div className="form-field">
         <label>{durationLabel ?? ''}</label>
 
         <div
-          className="input-base form-counter flex items-center justify-between h-10 focus-within:border-accent"
+          className="input-base form-counter"
           onFocus={() => setDurationIsFocused(true)}
           onBlur={handleDurationBlur}
           data-active={durationIsFocused ? 'true' : undefined}
@@ -135,11 +135,11 @@ export const EventDetailsStep = ({
         </div>
       </div>
 
-      <div className="grid gap-2 text-sm tracking-tight text-80">
+      <div className="form-field">
         <label>{guestCountLabel ?? ''}</label>
 
         <div
-          className="input-base form-counter flex items-center justify-between h-10 focus-within:border-accent"
+          className="input-base form-counter"
           onFocus={() => setGuestCountIsFocused(true)}
           onBlur={handleGuestBlur}
           data-active={guestCountIsFocused ? 'true' : undefined}
@@ -180,7 +180,7 @@ export const EventDetailsStep = ({
         }))}
       />
 
-      <label className="grid gap-2 text-sm tracking-tight text-80 md:col-span-2">
+      <label className="form-field md:col-span-2">
         {venueLabel ?? ''}
         <input
           className="input-base"
@@ -227,13 +227,13 @@ export const ServicesStep = ({
         const displayPrice =
           priceParts.length > 0 ? priceParts.join(PRICE_SEPARATOR) : onRequestText;
 
-        return (
-          <label
-            key={service.value}
-            className={`surface-card surface-card--ghost surface-radius flex cursor-pointer items-start gap-3 p-4 transition ${
-              checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
-            }`}
-          >
+          return (
+            <label
+              key={service.value}
+              className={`surface-card surface-card--ghost surface-radius booking-choice-card ${
+                checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
+              }`}
+            >
             <input
               type="checkbox"
               className="mt-1"
@@ -413,7 +413,7 @@ export const AddOnsStep = ({
           return (
             <label
               key={addOn.code}
-              className={`surface-card surface-card--ghost surface-radius flex cursor-pointer items-start gap-3 p-4 transition ${
+              className={`surface-card surface-card--ghost surface-radius booking-choice-card ${
                 checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
               }`}
             >
@@ -502,7 +502,7 @@ export const SummaryStep = ({
       </div>
 
       <div className="grid gap-4">
-        <label className="grid gap-2 text-sm tracking-tight text-80">
+        <label className="form-field">
           {copy.summaryContactNameLabel ?? ''}
           <input
             className="input-base"
@@ -511,7 +511,7 @@ export const SummaryStep = ({
             onChange={(event) => setField('name', event.target.value)}
           />
         </label>
-        <label className="grid gap-2 text-sm tracking-tight text-80">
+        <label className="form-field">
           {copy.summaryContactEmailLabel ?? ''}
           <input
             className="input-base"
@@ -520,7 +520,7 @@ export const SummaryStep = ({
             onChange={(event) => setField('email', event.target.value)}
           />
         </label>
-        <label className="grid gap-2 text-sm tracking-tight text-80">
+        <label className="form-field">
           {copy.summaryContactPhoneLabel ?? ''}
           <input
             className="input-base"
@@ -529,7 +529,7 @@ export const SummaryStep = ({
             onChange={(event) => setField('phone', event.target.value)}
           />
         </label>
-        <label className="grid gap-2 text-sm tracking-tight text-80">
+        <label className="form-field">
           {copy.summaryNotesLabel ?? ''}
           <textarea
             className="input-base resize-y"

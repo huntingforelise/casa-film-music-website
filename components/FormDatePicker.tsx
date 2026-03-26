@@ -25,11 +25,11 @@ export default function FormDatePicker({
   return (
     <Popover className="relative">
       {({ open, close }) => (
-        <div className="grid gap-2 text-sm tracking-tight text-80">
+        <div className="form-field">
           <label>{label}</label>
 
           <PopoverButton
-            className="input-base flex w-full items-center justify-between gap-3 text-left"
+            className="input-base form-trigger"
             data-open={open ? 'true' : undefined}
           >
             <span className="truncate">{value ? formatDateLabel(value) : placeholder}</span>

@@ -219,12 +219,8 @@ const BookingForm = ({ settings }: Props) => {
           <p className="text-xs font-medium uppercase tracking-[0.16em] text-text/60">
             Step {step} of {TOTAL_STEPS}
           </p>
-          <h2 className="pt-2 font-display text-3xl tracking-tight md:text-4xl">
-            {config.introTitle}
-          </h2>
-          <p className="pt-3 max-w-3xl text-sm leading-relaxed text-80 md:text-base">
-            {config.introText}
-          </p>
+          <h2 className="section-heading pt-2">{config.introTitle}</h2>
+          <p className="section-copy text-80 pt-3 text-sm md:text-base">{config.introText}</p>
         </header>
 
         <form
@@ -289,7 +285,7 @@ const BookingForm = ({ settings }: Props) => {
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                className="btn-secondary disabled:opacity-50"
+                className="btn-secondary"
                 onClick={goBack}
                 disabled={step === 1 || status === 'submitting'}
               >
@@ -299,7 +295,7 @@ const BookingForm = ({ settings }: Props) => {
               {step < TOTAL_STEPS ? (
                 <button
                   type="button"
-                  className="btn-primary disabled:opacity-50"
+                  className="btn-primary"
                   onClick={goNext}
                   disabled={!stepIsValid || status === 'submitting'}
                 >
@@ -308,7 +304,7 @@ const BookingForm = ({ settings }: Props) => {
               ) : (
                 <button
                   type="submit"
-                  className="btn-primary disabled:cursor-not-allowed disabled:opacity-50"
+                  className="btn-primary"
                   disabled={!stepIsValid || status === 'submitting'}
                 >
                   {status === 'submitting'

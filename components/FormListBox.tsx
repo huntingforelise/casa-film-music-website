@@ -26,12 +26,12 @@ const FormListbox = ({
   return (
     <Listbox value={value} onChange={onChange}>
       {({ open }) => (
-        <div className="grid gap-2 text-sm tracking-tight text-80">
+        <div className="form-field">
           <Label>{label}</Label>
 
           <div className="relative">
             <ListboxButton
-              className="input-base flex w-full items-center justify-between gap-3 text-left"
+              className="input-base form-trigger"
               data-open={open ? 'true' : undefined}
             >
               <span className="truncate">{selectedLabel || placeholder}</span>

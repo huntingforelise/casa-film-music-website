@@ -13,7 +13,6 @@ type Props = {
   page: Page<PageTemplate>;
   heroVariant: HeroVariant;
   heroSection?: HeroSection;
-  contentClassName?: string;
   children: ReactNode;
 };
 

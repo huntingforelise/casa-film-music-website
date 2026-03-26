@@ -28,9 +28,9 @@ const FaqSection = ({ section }: Props) => {
   return (
     <SectionShell className="bg-surface/30">
       <div className="flex flex-col gap-3">
-        {section.title && <p className="text-3xl font-display tracking-tight">{section.title}</p>}
+        {section.title && <h2 className="section-heading">{section.title}</h2>}
         {section.intro && (
-          <p className="max-w-3xl text-base leading-relaxed text-muted">{section.intro}</p>
+          <p className="section-copy max-w-3xl text-muted">{section.intro}</p>
         )}
       </div>
       <div className="mt-8 space-y-4">

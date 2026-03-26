@@ -96,10 +96,10 @@ const VideoShowcaseSection = ({ section }: Props) => {
         {(section.title || section.intro) && (
           <header className="max-w-3xl">
             {section.title && (
-              <h2 className="font-display text-3xl tracking-tight md:text-4xl">{section.title}</h2>
+              <h2 className="section-heading">{section.title}</h2>
             )}
             {section.intro && (
-              <p className="pt-3 text-base leading-relaxed text-80">{section.intro}</p>
+              <p className="section-copy text-80 pt-3">{section.intro}</p>
             )}
           </header>
         )}

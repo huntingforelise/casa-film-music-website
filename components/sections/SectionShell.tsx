@@ -1,35 +1,24 @@
 import clsx from 'clsx';
 import type { ReactNode } from 'react';
 
-type SectionShellVariant = 'default' | 'bottom' | 'wide' | 'none';
+type SectionShellVariant = 'default' | 'bottom' | 'wide';
 
 interface SectionShellProps {
   children: ReactNode;
   variant?: SectionShellVariant;
-  container?: boolean;
   className?: string;
   id?: string;
 }
 
-const spacingClassMap: Record<SectionShellVariant, string | undefined> = {
+const spacingClassMap: Record<SectionShellVariant, string> = {
   default: 'section-spacing',
   bottom: 'section-spacing-bottom',
   wide: 'section-spacing-wide',
-  none: undefined,
 };
 
-const SectionShell = ({
-  variant = 'default',
-  container = true,
-  className,
-  children,
-  id,
-}: SectionShellProps) => {
+const SectionShell = ({ variant = 'default', className, children, id }: SectionShellProps) => {
   return (
-    <section
-      id={id}
-      className={clsx(spacingClassMap[variant], container && 'layout-container', className)}
-    >
+    <section id={id} className={clsx(spacingClassMap[variant], 'layout-container', className)}>
       {children}
     </section>
   );
