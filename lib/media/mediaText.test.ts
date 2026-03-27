@@ -1,67 +1,59 @@
 import { describe, expect, it } from 'vitest';
 
-import { getLayoutClasses, shouldShowTitleAboveGrid } from './mediaText';
+import { getLayoutClasses, isSmallMediaLayout, shouldShowTitleAboveGrid } from './mediaText';
 
 describe('getLayoutClasses', () => {
-  it('keeps portrait layouts as two-column grids at all sizes', () => {
-    const smallPhotoLeft = getLayoutClasses('portrait', true, 'small', 'photo');
-    const standardPhotoLeft = getLayoutClasses('portrait', true, 'standard', 'photo');
-    const largePhotoLeft = getLayoutClasses('portrait', true, 'large', 'photo');
-    const smallVideoLeft = getLayoutClasses('portrait', true, 'small', 'video');
-    const standardVideoLeft = getLayoutClasses('portrait', true, 'standard', 'video');
-    const largeVideoLeft = getLayoutClasses('portrait', true, 'large', 'video');
+  it('stacks portrait layouts on mobile and switches to two columns at md', () => {
+    const smallLeft = getLayoutClasses('portrait', true, 'small');
+    const standardLeft = getLayoutClasses('portrait', true, 'standard');
+    const largeLeft = getLayoutClasses('portrait', true, 'large');
+    const smallRight = getLayoutClasses('portrait', false, 'small');
 
-    expect(smallPhotoLeft.grid).toContain('grid-cols-[');
-    expect(smallPhotoLeft.grid).toContain('0.55fr');
-    expect(smallPhotoLeft.grid).toContain('1.45fr');
-    expect(standardPhotoLeft.grid).toContain('0.8fr');
-    expect(standardPhotoLeft.grid).toContain('1.2fr');
-    expect(largePhotoLeft.grid).toContain('0.95fr');
-    expect(largePhotoLeft.grid).toContain('1.05fr');
-    expect(smallVideoLeft.grid).toContain('0.55fr');
-    expect(smallVideoLeft.grid).toContain('1.45fr');
-    expect(standardVideoLeft.grid).toContain('0.8fr');
-    expect(standardVideoLeft.grid).toContain('1.2fr');
-    expect(largeVideoLeft.grid).toContain('0.95fr');
-    expect(largeVideoLeft.grid).toContain('1.05fr');
+    expect(smallLeft.grid).toContain('grid-cols-1');
+    expect(smallLeft.grid).toContain('md:[grid-template-columns:var(--media-text-cols)]');
+    expect(smallLeft.textOrder).toBe('md:order-2');
+    expect(smallLeft.mediaOrder).toBe('md:order-1');
+    expect(smallLeft.style['--media-text-cols']).toBe('minmax(0,0.6fr) minmax(0,1.4fr)');
+    expect(standardLeft.style['--media-text-cols']).toBe('minmax(0,0.8fr) minmax(0,1.2fr)');
+    expect(largeLeft.style['--media-text-cols']).toBe('minmax(0,1fr) minmax(0,1fr)');
+    expect(smallLeft.sizes).toContain('26vw');
+    expect(standardLeft.sizes).toContain('36vw');
+    expect(largeLeft.sizes).toContain('44vw');
+    expect(smallRight.textOrder).toBe('md:order-1');
+    expect(smallRight.mediaOrder).toBe('md:order-2');
+    expect(smallRight.style['--media-text-cols']).toBe('minmax(0,1.4fr) minmax(0,0.6fr)');
   });
 
-  it('keeps landscape layouts as two-column grids too', () => {
-    const smallLandscapePhotoLeft = getLayoutClasses('landscape', true, 'large', 'photo', 'small');
-    const smallLandscapePhotoRight = getLayoutClasses('landscape', false, 'large', 'photo', 'small');
-    const largeLandscapePhotoLeft = getLayoutClasses('landscape', true, 'large', 'photo', 'large');
-    const largeLandscapePhotoRight = getLayoutClasses('landscape', false, 'large', 'photo', 'large');
-    const smallLandscapeVideoLeft = getLayoutClasses('landscape', true, 'large', 'video', 'small');
-    const smallLandscapeVideoRight = getLayoutClasses('landscape', false, 'large', 'video', 'small');
-    const largeLandscapeVideoLeft = getLayoutClasses('landscape', true, 'large', 'video', 'large');
-    const largeLandscapeVideoRight = getLayoutClasses('landscape', false, 'large', 'video', 'large');
+  it('stacks landscape layouts on mobile and switches to two columns at md', () => {
+    const smallLeft = getLayoutClasses('landscape', true, 'standard', 'small');
+    const smallRight = getLayoutClasses('landscape', false, 'standard', 'small');
+    const largeLeft = getLayoutClasses('landscape', true, 'standard', 'large');
+    const largeRight = getLayoutClasses('landscape', false, 'standard', 'large');
 
-    expect(smallLandscapePhotoLeft.grid).toContain('0.7fr');
-    expect(smallLandscapePhotoLeft.grid).toContain('1.3fr');
-    expect(smallLandscapePhotoRight.grid).toContain('1.3fr');
-    expect(smallLandscapePhotoRight.grid).toContain('0.7fr');
-    expect(largeLandscapePhotoLeft.grid).toContain('1.1fr');
-    expect(largeLandscapePhotoLeft.grid).toContain('0.9fr');
-    expect(largeLandscapePhotoRight.grid).toContain('0.9fr');
-    expect(largeLandscapePhotoRight.grid).toContain('1.1fr');
-    expect(smallLandscapeVideoLeft.grid).toContain('0.9fr');
-    expect(smallLandscapeVideoLeft.grid).toContain('1.1fr');
-    expect(smallLandscapeVideoRight.grid).toContain('1.1fr');
-    expect(smallLandscapeVideoRight.grid).toContain('0.9fr');
-    expect(largeLandscapeVideoLeft.grid).toContain('1.2fr');
-    expect(largeLandscapeVideoLeft.grid).toContain('0.8fr');
-    expect(largeLandscapeVideoRight.grid).toContain('0.8fr');
-    expect(largeLandscapeVideoRight.grid).toContain('1.2fr');
+    expect(smallLeft.grid).toContain('grid-cols-1');
+    expect(smallLeft.grid).toContain('md:[grid-template-columns:var(--media-text-cols)]');
+    expect(smallLeft.textOrder).toBe('md:order-2');
+    expect(smallLeft.mediaOrder).toBe('md:order-1');
+    expect(smallLeft.style['--media-text-cols']).toBe('minmax(0,0.75fr) minmax(0,1.25fr)');
+    expect(smallRight.style['--media-text-cols']).toBe('minmax(0,1.25fr) minmax(0,0.75fr)');
+    expect(largeLeft.style['--media-text-cols']).toBe('minmax(0,1.1fr) minmax(0,0.9fr)');
+    expect(largeRight.style['--media-text-cols']).toBe('minmax(0,0.9fr) minmax(0,1.1fr)');
+    expect(smallLeft.sizes).toContain('32vw');
+    expect(largeLeft.sizes).toContain('48vw');
   });
 
   it('keeps the portrait sizes aligned with the size choice', () => {
-    expect(getLayoutClasses('portrait', false).sizes).toContain('16vw');
-    expect(getLayoutClasses('portrait', false, 'small', 'photo').sizes).toContain('10vw');
-    expect(getLayoutClasses('portrait', false, 'standard', 'photo').sizes).toContain('16vw');
-    expect(getLayoutClasses('portrait', false, 'large', 'photo').sizes).toContain('22vw');
-    expect(getLayoutClasses('portrait', false, 'small', 'video').sizes).toContain('10vw');
-    expect(getLayoutClasses('portrait', false, 'standard', 'video').sizes).toContain('16vw');
-    expect(getLayoutClasses('portrait', false, 'large', 'video').sizes).toContain('22vw');
+    expect(getLayoutClasses('portrait', false).sizes).toContain('40vw');
+    expect(getLayoutClasses('portrait', false, 'small').sizes).toContain('30vw');
+    expect(getLayoutClasses('portrait', false, 'standard').sizes).toContain('40vw');
+    expect(getLayoutClasses('portrait', false, 'large').sizes).toContain('48vw');
+  });
+
+  it('treats small media as right-aligned only', () => {
+    expect(isSmallMediaLayout('landscape', 'standard', 'small')).toBe(true);
+    expect(isSmallMediaLayout('portrait', 'small', 'large')).toBe(true);
+    expect(isSmallMediaLayout('landscape', 'standard', 'large')).toBe(false);
+    expect(isSmallMediaLayout('portrait', 'standard', 'large')).toBe(false);
   });
 
   it('shows the title above the grid only for landscape or portrait small', () => {

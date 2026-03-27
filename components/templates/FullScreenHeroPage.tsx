@@ -11,16 +11,13 @@ export type TemplateProps = {
 const FullScreenHeroPage = ({ page }: TemplateProps) => {
   const { heroSection, bodySections } = splitPageSections(page.sections);
   const totalSections = bodySections.length;
-  const hasEvenSectionCount = totalSections % 2 === 0;
 
   return (
     <PageShell page={page} heroVariant="fullScreen" heroSection={heroSection}>
       {bodySections.map((section, index) => (
         <div
           key={section._key}
-          className={clsx(
-            index % 2 === 1 && !(hasEvenSectionCount && index === totalSections - 1) && 'bg-surface',
-          )}
+          className={clsx(index % 2 === 1 && index !== totalSections - 1 && 'bg-surface')}
         >
           <SectionRenderer section={section} />
         </div>

@@ -47,7 +47,8 @@ const MediaCard = (props: MediaCardProps) => {
         <SanityImage
           value={props.item.image}
           alt={altText}
-          className="absolute inset-0 h-full w-full object-cover"
+          mode="fill"
+          className="object-cover"
           sizes={sizes}
         />
       </article>
@@ -57,14 +58,13 @@ const MediaCard = (props: MediaCardProps) => {
   if (!props.item.url) return null;
 
   return (
-    <article className={containerClass}>
-      <Video
-        src={props.item.url}
-        title={props.item.title ?? 'Embedded video'}
-        zoom={videoZoom}
-        loading={videoLoading}
-      />
-    </article>
+    <Video
+      src={props.item.url}
+      title={props.item.title ?? 'Embedded video'}
+      zoom={videoZoom}
+      loading={videoLoading}
+      containerClassName={containerClass}
+    />
   );
 };
 

@@ -1,135 +1,81 @@
 import type {
   LandscapeMediaSize,
   MediaOrientation,
-  MediaType,
   PortraitMediaSize,
 } from '@/types/media';
+import type { CSSProperties } from 'react';
 
 type MediaTextLayoutClasses = {
   grid: string;
+  style: MediaTextLayoutStyle;
   textOrder: string;
   mediaOrder: string;
   sizes: string;
 };
 
-const LANDSCAPE_LAYOUTS: Record<
-  MediaType,
-  Record<LandscapeMediaSize, Record<'left' | 'right', { grid: string; sizes: string }>>
-> = {
-  photo: {
-    small: {
-      left: {
-        grid: 'grid grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 40vw, (min-width: 768px) 36vw, 100vw',
-      },
-      right: {
-        grid: 'grid grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 40vw, (min-width: 768px) 36vw, 100vw',
-      },
+type MediaTextLayoutStyle = CSSProperties & {
+  ['--media-text-cols']?: string;
+};
+
+type MediaTextLayoutSpec = {
+  mediaColumns: string;
+  textColumns: string;
+  sizes: string;
+};
+
+const RESPONSIVE_GRID_CLASS =
+  'grid grid-cols-1 gap-8 md:[grid-template-columns:var(--media-text-cols)] md:items-center md:gap-8 xl:gap-12';
+
+const buildSizes = (desktopWidth: number, tabletWidth: number) =>
+  `(min-width: 1280px) ${desktopWidth}vw, (min-width: 768px) ${tabletWidth}vw, 100vw`;
+
+const buildLayoutClasses = (
+  spec: MediaTextLayoutSpec,
+  mediaOnLeft: boolean,
+): MediaTextLayoutClasses => {
+  const columns = mediaOnLeft
+    ? `${spec.mediaColumns} ${spec.textColumns}`
+    : `${spec.textColumns} ${spec.mediaColumns}`;
+
+  return {
+    grid: RESPONSIVE_GRID_CLASS,
+    style: {
+      ['--media-text-cols']: columns,
     },
-    large: {
-      left: {
-        grid: 'grid grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 54vw, (min-width: 768px) 48vw, 100vw',
-      },
-      right: {
-        grid: 'grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 54vw, (min-width: 768px) 48vw, 100vw',
-      },
-    },
+    textOrder: mediaOnLeft ? 'md:order-2' : 'md:order-1',
+    mediaOrder: mediaOnLeft ? 'md:order-1' : 'md:order-2',
+    sizes: spec.sizes,
+  };
+};
+
+const LANDSCAPE_LAYOUTS: Record<LandscapeMediaSize, MediaTextLayoutSpec> = {
+  small: {
+    mediaColumns: 'minmax(0,0.75fr)',
+    textColumns: 'minmax(0,1.25fr)',
+    sizes: buildSizes(32, 36),
   },
-  video: {
-    small: {
-      left: {
-        grid: 'grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 46vw, (min-width: 768px) 42vw, 100vw',
-      },
-      right: {
-        grid: 'grid grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 46vw, (min-width: 768px) 42vw, 100vw',
-      },
-    },
-    large: {
-      left: {
-        grid: 'grid grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 58vw, (min-width: 768px) 52vw, 100vw',
-      },
-      right: {
-        grid: 'grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 58vw, (min-width: 768px) 52vw, 100vw',
-      },
-    },
+  large: {
+    mediaColumns: 'minmax(0,1.1fr)',
+    textColumns: 'minmax(0,0.9fr)',
+    sizes: buildSizes(48, 52),
   },
 };
 
-//TODO check if needed because repetition
-const PORTRAIT_LAYOUTS: Record<
-  MediaType,
-  Record<PortraitMediaSize, Record<'left' | 'right', { grid: string; sizes: string }>>
-> = {
-  photo: {
-    small: {
-      left: {
-        grid: 'grid grid-cols-[minmax(0,0.55fr)_minmax(0,1.45fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 12vw, (min-width: 768px) 10vw, 100vw',
-      },
-      right: {
-        grid: 'grid grid-cols-[minmax(0,1.45fr)_minmax(0,0.55fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 12vw, (min-width: 768px) 10vw, 100vw',
-      },
-    },
-    standard: {
-      left: {
-        grid: 'grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 18vw, (min-width: 768px) 16vw, 100vw',
-      },
-      right: {
-        grid: 'grid grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 18vw, (min-width: 768px) 16vw, 100vw',
-      },
-    },
-    large: {
-      left: {
-        grid: 'grid grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 24vw, (min-width: 768px) 22vw, 100vw',
-      },
-      right: {
-        grid: 'grid grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 24vw, (min-width: 768px) 22vw, 100vw',
-      },
-    },
+const PORTRAIT_LAYOUTS: Record<PortraitMediaSize, MediaTextLayoutSpec> = {
+  small: {
+    mediaColumns: 'minmax(0,0.6fr)',
+    textColumns: 'minmax(0,1.4fr)',
+    sizes: buildSizes(26, 30),
   },
-  video: {
-    small: {
-      left: {
-        grid: 'grid grid-cols-[minmax(0,0.55fr)_minmax(0,1.45fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 12vw, (min-width: 768px) 10vw, 100vw',
-      },
-      right: {
-        grid: 'grid grid-cols-[minmax(0,1.45fr)_minmax(0,0.55fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 12vw, (min-width: 768px) 10vw, 100vw',
-      },
-    },
-    standard: {
-      left: {
-        grid: 'grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 18vw, (min-width: 768px) 16vw, 100vw',
-      },
-      right: {
-        grid: 'grid grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 18vw, (min-width: 768px) 16vw, 100vw',
-      },
-    },
-    large: {
-      left: {
-        grid: 'grid grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 24vw, (min-width: 768px) 22vw, 100vw',
-      },
-      right: {
-        grid: 'grid grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-6 items-center md:gap-8 xl:gap-12',
-        sizes: '(min-width: 1280px) 24vw, (min-width: 768px) 22vw, 100vw',
-      },
-    },
+  standard: {
+    mediaColumns: 'minmax(0,0.8fr)',
+    textColumns: 'minmax(0,1.2fr)',
+    sizes: buildSizes(36, 40),
+  },
+  large: {
+    mediaColumns: 'minmax(0,1fr)',
+    textColumns: 'minmax(0,1fr)',
+    sizes: buildSizes(44, 48),
   },
 };
 
@@ -137,29 +83,20 @@ export const getLayoutClasses = (
   orientation: MediaOrientation,
   mediaOnLeft: boolean,
   portraitMediaSize: PortraitMediaSize = 'standard',
-  mediaType: MediaType = 'photo',
   landscapeMediaSize: LandscapeMediaSize = 'large',
 ): MediaTextLayoutClasses => {
-  const placement = mediaOnLeft ? 'left' : 'right';
-  const textOrder = mediaOnLeft ? 'order-2' : 'order-1';
-  const mediaOrder = mediaOnLeft ? 'order-1' : 'order-2';
-
   if (orientation === 'landscape') {
-    return {
-      grid: LANDSCAPE_LAYOUTS[mediaType][landscapeMediaSize][placement].grid,
-      textOrder,
-      mediaOrder,
-      sizes: LANDSCAPE_LAYOUTS[mediaType][landscapeMediaSize][placement].sizes,
-    };
+    return buildLayoutClasses(LANDSCAPE_LAYOUTS[landscapeMediaSize], mediaOnLeft);
   }
 
-  return {
-    grid: PORTRAIT_LAYOUTS[mediaType][portraitMediaSize][placement].grid,
-    textOrder,
-    mediaOrder,
-    sizes: PORTRAIT_LAYOUTS[mediaType][portraitMediaSize][placement].sizes,
-  };
+  return buildLayoutClasses(PORTRAIT_LAYOUTS[portraitMediaSize], mediaOnLeft);
 };
+
+export const isSmallMediaLayout = (
+  orientation: MediaOrientation,
+  portraitMediaSize: PortraitMediaSize,
+  landscapeMediaSize: LandscapeMediaSize,
+) => (orientation === 'landscape' ? landscapeMediaSize === 'small' : portraitMediaSize === 'small');
 
 export const shouldShowTitleAboveGrid = (
   orientation: MediaOrientation,
