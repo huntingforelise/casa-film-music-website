@@ -575,13 +575,29 @@ body::-webkit-scrollbar-thumb:hover {
   padding: var(--space-1) var(--space-2);
   font-size: var(--text-body);
   outline: none;
-  transition: border-color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .input-base:focus,
 .input-base:focus-visible,
 .input-base:focus-within {
   border-color: var(--theme-accent);
+}
+
+.input-base:-webkit-autofill,
+.input-base:-webkit-autofill:hover,
+.input-base:-webkit-autofill:focus,
+.input-base:-webkit-autofill:active {
+  -webkit-appearance: none;
+  -webkit-box-shadow: 0 0 0 1000px var(--theme-bg) inset !important;
+  box-shadow: 0 0 0 1000px var(--theme-bg) inset !important;
+  background-color: var(--theme-bg) !important;
+  background-clip: content-box !important;
+  -webkit-text-fill-color: var(--theme-text) !important;
+  caret-color: var(--theme-text);
+  transition: background-color 9999s ease-out 0s;
 }
 
 .input-base[data-open='true'],
