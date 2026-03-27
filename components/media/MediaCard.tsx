@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import SanityImage from '@/components/media/SanityImage';
 import Video from '@/components/media/Video';
 import { MediaOrientation, PhotoItem, VideoItem } from '@/types/media';
-import { mediaAspectClassMap } from '../../lib/media/mediaLayout';
+import { getMediaAspectClass } from '../../lib/media/mediaLayout';
 
 interface BaseProps {
   orientation: MediaOrientation;
@@ -32,7 +32,7 @@ const MediaCard = (props: MediaCardProps) => {
 
   const containerClass = clsx(
     'relative overflow-hidden',
-    mediaAspectClassMap[orientation],
+    getMediaAspectClass(mediaType, orientation),
     getBackground(mediaType),
     className,
   );

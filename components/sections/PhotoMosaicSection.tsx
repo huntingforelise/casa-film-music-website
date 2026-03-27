@@ -3,7 +3,7 @@ import { PhotoMosaicSection as PhotoMosaicSectionType } from '@/types/sections';
 import SanityImage from '../media/SanityImage';
 import { getVisibleCount, GRID_SLOTS, hasImage, PORTRAIT_SLOTS } from '@/lib/media/photoMosaic';
 import { clsx } from 'clsx';
-import { mediaAspectClassMap } from '../../lib/media/mediaLayout';
+import { getMediaAspectClass } from '../../lib/media/mediaLayout';
 import SectionShell from './SectionShell';
 
 export type SlotKey =
@@ -79,8 +79,8 @@ const PhotoMosaicSection = ({ section }: { section: PhotoMosaicSectionType }) =>
             className={clsx(
               'relative overflow-hidden',
               PORTRAIT_SLOTS.includes(key)
-                ? mediaAspectClassMap['portrait']
-                : mediaAspectClassMap['landscape'],
+                ? getMediaAspectClass('photo', 'portrait')
+                : getMediaAspectClass('photo', 'landscape'),
             )}
           >
             <SanityImage

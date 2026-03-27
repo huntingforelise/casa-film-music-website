@@ -2,6 +2,7 @@ import { SanityImage } from './sanity';
 
 export type MediaOrientation = 'portrait' | 'landscape';
 export type MediaType = 'photo' | 'video';
+export type LandscapeMediaSize = 'small' | 'large';
 export type PortraitMediaSize = 'small' | 'standard' | 'large';
 
 export interface BaseMediaItem {

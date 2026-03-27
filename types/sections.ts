@@ -1,6 +1,7 @@
 import { SanityImage } from './sanity';
 import type {
   MediaOrientation,
+  LandscapeMediaSize,
   MediaType,
   PhotoItem,
   PortraitMediaSize,
@@ -50,6 +51,7 @@ export interface MediaTextSection {
   video?: VideoItem;
   mediaPosition: 'left' | 'right';
   mediaOrientation: MediaOrientation;
+  landscapeMediaSize?: LandscapeMediaSize;
   portraitMediaSize?: PortraitMediaSize;
 }
 

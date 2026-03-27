@@ -1,7 +1,7 @@
 import { VideoShowcaseSection as VideoShowcaseSectionType } from '@/types/sections';
 import { MediaOrientation } from '@/types/media';
 import MediaCard from '@/components/media/MediaCard';
-import { mediaAspectClassMap } from '../../lib/media/mediaLayout';
+import { getMediaAspectClass } from '../../lib/media/mediaLayout';
 import SectionShell from './SectionShell';
 import clsx from 'clsx';
 
@@ -57,7 +57,7 @@ const VideoShowcaseSection = ({ section }: Props) => {
       <figure
         className={clsx(
           'surface-card surface-card--muted overflow-hidden',
-          mediaAspectClassMap[orientation],
+          getMediaAspectClass('video', orientation),
         )}
       >
         <MediaCard
@@ -74,7 +74,7 @@ const VideoShowcaseSection = ({ section }: Props) => {
             key={video._key ?? `${video.url ?? 'video'}-${index}`}
             className={clsx(
               'surface-card surface-card--muted overflow-hidden md:h-full',
-              mediaAspectClassMap[orientation],
+              getMediaAspectClass('video', orientation),
             )}
           >
             <MediaCard

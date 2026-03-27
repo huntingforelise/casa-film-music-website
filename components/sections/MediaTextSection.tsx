@@ -3,7 +3,14 @@ import MediaCard from '../media/MediaCard';
 import { MediaTextSection as MediaTextSectionType } from '@/types/sections';
 import { portableTextComponents } from '../portableTextComponents';
 import { getLayoutClasses, shouldShowTitleAboveGrid } from '@/lib/media/mediaText';
-import type { MediaOrientation, PhotoItem, PortraitMediaSize, VideoItem } from '@/types/media';
+import type {
+  LandscapeMediaSize,
+  MediaOrientation,
+  MediaType,
+  PhotoItem,
+  PortraitMediaSize,
+  VideoItem,
+} from '@/types/media';
 import SectionShell from './SectionShell';
 
 interface Props {
@@ -12,8 +19,10 @@ interface Props {
 
 const MediaTextSection = ({ section }: Props) => {
   const orientation: MediaOrientation = section.mediaOrientation ?? 'landscape';
+  const mediaType: MediaType = section.mediaType;
   const mediaOnLeft = section.mediaPosition === 'left';
-  const portraitMediaSize: PortraitMediaSize = section.portraitMediaSize ?? 'large';
+  const landscapeMediaSize: LandscapeMediaSize = section.landscapeMediaSize ?? 'large';
+  const portraitMediaSize: PortraitMediaSize = section.portraitMediaSize ?? 'standard';
   const showTitleAboveGrid = !!section.title && shouldShowTitleAboveGrid(orientation, portraitMediaSize);
 
   const photoItem: PhotoItem | undefined = section.image
@@ -36,6 +45,8 @@ const MediaTextSection = ({ section }: Props) => {
     orientation,
     mediaOnLeft,
     portraitMediaSize,
+    mediaType,
+    landscapeMediaSize,
   );
 
   return (
