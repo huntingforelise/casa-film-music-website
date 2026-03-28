@@ -3,6 +3,7 @@ import { Section } from '@/types/sections';
 import SplitHeroSection from './sections/SplitHeroSection';
 import TextSection from './sections/TextSection';
 import TwoColumnTextSection from './sections/TwoColumnTextSection';
+import QuoteSection from './sections/QuoteSection';
 import MediaTextSection from './sections/MediaTextSection';
 import CtaSection from './sections/CtaSection';
 import MediaRowSection from './sections/MediaRowSection';
@@ -25,6 +26,9 @@ const SectionRenderer = ({ section }: Props) => {
 
     case 'twoColumnTextSection':
       return <TwoColumnTextSection section={section} />;
+
+    case 'quoteSection':
+      return <QuoteSection section={section} />;
 
     case 'mediaTextSection':
       return <MediaTextSection section={section} />;

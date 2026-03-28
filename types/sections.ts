@@ -48,6 +48,14 @@ export interface TwoColumnTextSection {
   rightContent: PortableTextBlock[];
 }
 
+export interface QuoteSection {
+  _key: string;
+  _type: 'quoteSection';
+  quote: string;
+  author: string;
+  year: number;
+}
+
 export interface MediaTextSection {
   _key: string;
   _type: 'mediaTextSection';
@@ -163,6 +171,7 @@ export interface PhotoMosaicSection {
 export type Section =
   | TextSection
   | TwoColumnTextSection
+  | QuoteSection
   | MediaTextSection
   | CtaSection
   | SplitHeroSection
