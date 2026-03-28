@@ -1,7 +1,7 @@
 import { MediaRowSection as MediaRowSectionType } from '@/types/sections';
 import type { MediaOrientation, MediaType, PhotoItem, VideoItem } from '@/types/media';
 import MediaCard from '../media/MediaCard';
-import { getMediaRowGridClass } from '@/lib/media/mediaRow';
+import { getMediaRowGridClass, getMediaRowSizes } from '@/lib/media/mediaRow';
 import SectionShell from './SectionShell';
 
 type MediaRowItems = PhotoItem[] | VideoItem[];
@@ -26,6 +26,7 @@ const MediaRowSection = ({ section }: Props) => {
 
   const columnCount = Math.max(1, Math.min(items.length, 4));
   const gridClassName = getMediaRowGridClass(columnCount);
+  const sizes = getMediaRowSizes(columnCount);
 
   return (
     <SectionShell>
@@ -39,6 +40,7 @@ const MediaRowSection = ({ section }: Props) => {
               mediaType="photo"
               item={item as PhotoItem}
               orientation={orientation}
+              sizes={sizes}
             />
           ) : (
             <MediaCard
