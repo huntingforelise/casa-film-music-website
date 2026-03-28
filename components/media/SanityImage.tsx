@@ -25,7 +25,7 @@ const SanityImage = ({
   sizes = '100vw',
   priority = false,
   className,
-  loading,
+  loading = 'lazy',
 }: SanityImageProps) => {
   const isFillMode = mode === 'fill';
 

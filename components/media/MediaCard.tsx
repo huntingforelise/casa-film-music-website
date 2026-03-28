@@ -8,7 +8,6 @@ interface BaseProps {
   orientation: MediaOrientation;
   className?: string;
   videoZoom?: number;
-  videoLoading?: 'lazy' | 'eager';
   sizes?: string;
 }
 
@@ -28,7 +27,7 @@ const getBackground = (mediaType: MediaCardProps['mediaType']) =>
   mediaType === 'photo' ? 'bg-neutral-100' : 'bg-surface';
 
 const MediaCard = (props: MediaCardProps) => {
-  const { mediaType, orientation, className, videoZoom = 1, videoLoading, sizes } = props;
+  const { mediaType, orientation, className, videoZoom = 1, sizes } = props;
 
   const containerClass = clsx(
     'relative overflow-hidden',
@@ -62,7 +61,6 @@ const MediaCard = (props: MediaCardProps) => {
       src={props.item.url}
       title={props.item.title ?? 'Embedded video'}
       zoom={videoZoom}
-      loading={videoLoading}
       containerClassName={containerClass}
     />
   );

@@ -4,18 +4,11 @@ import { getEmbedUrl } from '@/lib/media/video';
 type VideoProps = {
   src: string;
   title?: string;
-  loading?: 'lazy' | 'eager';
   containerClassName?: string;
   zoom?: number;
 };
 
-const Video = ({
-  src,
-  title = 'Embedded video',
-  loading = 'lazy',
-  containerClassName,
-  zoom = 1,
-}: VideoProps) => {
+const Video = ({ src, title = 'Embedded video', containerClassName, zoom = 1 }: VideoProps) => {
   const embedUrl = getEmbedUrl(src);
 
   return (
@@ -23,7 +16,7 @@ const Video = ({
       <iframe
         src={embedUrl}
         title={title}
-        loading={loading}
+        loading="lazy"
         className="absolute left-1/2 top-1/2 border-0"
         style={{
           width: `${100 * zoom}%`,

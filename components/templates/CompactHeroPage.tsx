@@ -23,6 +23,8 @@ const CompactHeroPage = async ({ page }: TemplateProps) => {
 
   const { heroSection, bodySections } = splitPageSections(page.sections);
 
+  const slug = page.slug.current;
+
   return (
     <PageShell page={page} heroVariant="compact" heroSection={heroSection}>
       <div className="layout-container">
@@ -35,8 +37,8 @@ const CompactHeroPage = async ({ page }: TemplateProps) => {
       ))}
 
       <div>
-        {page.title === 'Contact' && <ContactForm copy={contactFormCopy} />}
-        {page.title === 'Get a quote' && <BookingForm settings={bookingSettings} />}
+        {slug === 'contact' && <ContactForm copy={contactFormCopy} />}
+        {slug === 'quote' && <BookingForm settings={bookingSettings} />}
       </div>
     </PageShell>
   );

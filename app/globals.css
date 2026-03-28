@@ -195,6 +195,7 @@ body::-webkit-scrollbar-thumb:hover {
 .hero-title--compact {
   font-size: clamp(2.25rem, 2.9vw, 3.75rem);
   letter-spacing: 0.05em;
+  max-width: 100%;
 }
 
 .hero-title--standard {
@@ -441,6 +442,7 @@ body::-webkit-scrollbar-thumb:hover {
     color: color-mix(in srgb, var(--color-warm-ivory) 75%, transparent 25%);
   }
 }
+
 .surface-radius {
   border-radius: var(--radius-surface);
 }

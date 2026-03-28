@@ -77,7 +77,6 @@ const MediaTextSection = ({ section }: Props) => {
               orientation={orientation}
               className="h-full w-full border border-[var(--theme-border)] bg-surface shadow-2xl shadow-black/20"
               sizes={sizes}
-              videoLoading="lazy"
             />
           ) : null}
         </div>
