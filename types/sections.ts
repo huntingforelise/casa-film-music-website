@@ -2,7 +2,6 @@ import { SanityImage } from './sanity';
 import type {
   MediaOrientation,
   LandscapeMediaSize,
-  MediaType,
   PhotoItem,
   PortraitMediaSize,
   VideoItem,
@@ -56,37 +55,51 @@ export interface QuoteSection {
   year: number;
 }
 
-export interface MediaTextSection {
+type BaseMediaTextSection = {
   _key: string;
   _type: 'mediaTextSection';
   title?: string;
   content: PortableTextBlock[];
-  mediaType: MediaType;
-  image?: SanityImage;
-  video?: VideoItem;
   mediaPosition: 'left' | 'right';
   mediaOrientation: MediaOrientation;
   landscapeMediaSize?: LandscapeMediaSize;
   portraitMediaSize?: PortraitMediaSize;
-}
+};
 
-export interface MediaRowSection {
+export type MediaTextSection =
+  | (BaseMediaTextSection & {
+      mediaType: 'photo';
+      image: SanityImage;
+    })
+  | (BaseMediaTextSection & {
+      mediaType: 'video';
+      video: VideoItem;
+    });
+
+type BaseMediaRowSection = {
   _key: string;
   _type: 'mediaRowSection';
-  mediaType: MediaType;
   mediaOrientation: MediaOrientation;
-  photos?: PhotoItem[];
-  videos?: VideoItem[];
-}
+};
+
+export type MediaRowSection =
+  | (BaseMediaRowSection & {
+      mediaType: 'photo';
+      photos: PhotoItem[];
+    })
+  | (BaseMediaRowSection & {
+      mediaType: 'video';
+      videos: VideoItem[];
+    });
 
 export interface VideoShowcaseSection {
   _key: string;
   _type: 'videoShowcaseSection';
   title?: string;
   intro?: string;
-  mediaOrientation?: MediaOrientation;
-  featuredVideo?: VideoItem;
-  videos?: VideoItem[];
+  mediaOrientation: MediaOrientation;
+  featuredVideo: VideoItem;
+  videos: VideoItem[];
 }
 
 export interface TestimonialCard {

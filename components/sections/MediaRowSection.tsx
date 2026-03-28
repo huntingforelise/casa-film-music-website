@@ -14,7 +14,13 @@ const MediaRowSection = ({ section }: Props) => {
   const orientation: MediaOrientation = section.mediaOrientation ?? 'portrait';
   const mediaType: MediaType = section.mediaType ?? 'photo';
   const items: MediaRowItems =
-    mediaType === 'photo' ? (section.photos ?? []) : (section.videos ?? []);
+    mediaType === 'photo'
+      ? section.mediaType === 'photo'
+        ? section.photos
+        : []
+      : section.mediaType === 'video'
+        ? section.videos
+        : [];
 
   if (!items.length) return null;
 

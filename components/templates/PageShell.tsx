@@ -21,7 +21,7 @@ const getFallbackBackground = () => (
 );
 
 const renderBackground = (heroSection?: HeroSection, altText?: string) =>
-  heroSection ? (
+  heroSection?.image ? (
     <SanityImage
       value={heroSection.image}
       alt={heroSection.image.alt ?? altText ?? 'Hero image'}

@@ -13,13 +13,13 @@ export interface BaseMediaItem {
 
 export interface PhotoItem extends BaseMediaItem {
   _type?: 'photoItem';
-  image?: SanityImage;
+  image: SanityImage;
   alt: string;
 }
 
 export interface VideoItem extends BaseMediaItem {
   _type?: 'videoItem';
-  url?: string;
+  url: string;
 }
 
 export type MediaItem = PhotoItem | VideoItem;
