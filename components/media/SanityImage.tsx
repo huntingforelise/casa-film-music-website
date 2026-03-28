@@ -6,7 +6,7 @@ type ImageLayoutMode = 'intrinsic' | 'fill';
 
 type SanityImageProps = {
   value: SanityImageSource;
-  alt?: string;
+  alt: string;
   width?: number;
   height?: number;
   mode?: ImageLayoutMode;
@@ -18,7 +18,7 @@ type SanityImageProps = {
 
 const SanityImage = ({
   value,
-  alt = '',
+  alt,
   width,
   height,
   mode = 'intrinsic',

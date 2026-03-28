@@ -14,7 +14,7 @@ export interface BaseMediaItem {
 export interface PhotoItem extends BaseMediaItem {
   _type?: 'photoItem';
   image?: SanityImage;
-  alt?: string;
+  alt: string;
 }
 
 export interface VideoItem extends BaseMediaItem {

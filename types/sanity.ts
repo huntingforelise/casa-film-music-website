@@ -11,5 +11,5 @@ export interface SanityImageAsset {
 export interface SanityImage {
   _type: 'image';
   asset: SanityImageAsset;
-  alt?: string;
+  alt: string;
 }

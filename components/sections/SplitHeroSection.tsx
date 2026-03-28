@@ -16,6 +16,8 @@ const SplitHeroSection = ({ section }: Props) => {
         value={image}
         alt={image.alt ?? section.question ?? ''}
         mode="fill"
+        priority
+        loading="eager"
         className="object-cover"
       />
 
@@ -38,7 +40,7 @@ const SplitHeroSection = ({ section }: Props) => {
           <Link
             key={`${option.link}-${index}`}
             href={option.link}
-            className={`group split-hero-option relative flex items-end justify-center px-4 py-20 text-center${
+            className={`group split-hero-option flex items-end justify-center px-4 py-20 text-center${
               index === 0 ? ' split-hero-option--divider' : ''
             }`}
           >
