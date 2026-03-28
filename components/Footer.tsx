@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { client } from '@/lib/sanity/client';
 import { footerQuery } from '@/lib/sanity/queries';
+import CookieSettingsButton from './CookieSettingsButton';
 
 type SocialPlatform = 'facebook' | 'instagram' | 'linkedin' | 'youtube';
 
@@ -19,6 +20,10 @@ type FooterData = {
   developerCreditUrl?: string;
   ctaHeading?: string;
   ctaText?: string;
+};
+
+type FooterProps = {
+  cookieSettingsLabel?: string;
 };
 
 const socialIconSrc: Record<SocialPlatform, string> = {
@@ -43,7 +48,7 @@ const toTelHref = (phone: string) => `tel:${phone.replace(/[^+\d]/g, '')}`;
 const isSupportedPlatform = (value: string): value is SocialPlatform =>
   value === 'facebook' || value === 'instagram' || value === 'linkedin' || value === 'youtube';
 
-const Footer = async () => {
+const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
   const footer = await getFooter();
   if (!footer) return null;
 
@@ -132,22 +137,25 @@ const Footer = async () => {
         </div>
 
         <div className="mt-10 border-t border-border pt-5">
-          <p className="text-xs tracking-tight text-muted-inverse">
-            {footer.developerCreditText ?? 'Site created by'}{' '}
-            {footer.developerCreditUrl ? (
-              <Link
-                href={footer.developerCreditUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="rich-link"
-              >
-                {footer.developerCreditLabel || 'D·EV'}
-              </Link>
-            ) : (
-              footer.developerCreditLabel || 'D·EV'
-            )}
-            .
-          </p>
+          <div className="flex flex-col gap-3 text-xs tracking-tight text-muted-inverse sm:flex-row sm:items-center sm:justify-between">
+            <p>
+              {footer.developerCreditText ?? 'Site created by'}{' '}
+              {footer.developerCreditUrl ? (
+                <Link
+                  href={footer.developerCreditUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rich-link"
+                >
+                  {footer.developerCreditLabel || 'D·EV'}
+                </Link>
+              ) : (
+                footer.developerCreditLabel || 'D·EV'
+              )}
+              .
+            </p>
+            <CookieSettingsButton label={cookieSettingsLabel} />
+          </div>
         </div>
       </div>
     </footer>

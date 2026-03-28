@@ -1,5 +1,15 @@
+'use client';
+
 import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 import { getEmbedUrl } from '@/lib/media/video';
+import type { ConsentState } from '@/lib/cookie-consent';
+import {
+  COOKIE_CONSENT_CHANGE_EVENT,
+  getConsentFromDocumentCookie,
+  setConsentCookie,
+} from '@/lib/cookie-consent';
+import VideoConsentGate from './VideoConsentGate';
 
 type VideoProps = {
   src: string;
@@ -10,6 +20,38 @@ type VideoProps = {
 
 const Video = ({ src, title = 'Embedded video', containerClassName, zoom = 1 }: VideoProps) => {
   const embedUrl = getEmbedUrl(src);
+  const [consent, setConsent] = useState<ConsentState | null>(null);
+
+  const isVimeoEmbed = embedUrl.startsWith('https://player.vimeo.com/');
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      setConsent(getConsentFromDocumentCookie());
+    });
+
+    const handleConsentChange = () => {
+      setConsent(getConsentFromDocumentCookie());
+    };
+
+    window.addEventListener(COOKIE_CONSENT_CHANGE_EVENT, handleConsentChange);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener(COOKIE_CONSENT_CHANGE_EVENT, handleConsentChange);
+    };
+  }, []);
+
+  if (isVimeoEmbed && consent !== 'accepted') {
+    return (
+      <VideoConsentGate
+        className={containerClassName}
+        onEnable={() => {
+          setConsentCookie('accepted');
+          setConsent('accepted');
+        }}
+      />
+    );
+  }
 
   return (
     <div className={clsx('relative h-full w-full overflow-hidden', containerClassName)}>

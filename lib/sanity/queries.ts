@@ -32,6 +32,21 @@ export const footerQuery = `
   }
 `;
 
+export const cookieBannerQuery = `
+  *[_id == "cookieBanner"][0]{
+    eyebrow,
+    heading,
+    body,
+    essentialButtonLabel,
+    acceptButtonLabel,
+    cookieSettingsLabel,
+    videoBlockedEyebrow,
+    videoBlockedHeading,
+    videoBlockedBody,
+    videoBlockedButtonLabel
+  }
+`;
+
 export const homepageQuery = `
   *[_id == "homepage"][0]
 `;

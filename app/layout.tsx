@@ -3,6 +3,9 @@ import { Geist_Mono, Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import CookieBanner from '@/components/CookieBanner';
+import CookieBannerProvider from '@/components/CookieBannerContext';
+import { getCookieBanner } from '@/lib/sanity/cookieBanner';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -24,7 +27,9 @@ export const metadata: Metadata = {
   description: 'Your photo, video and music production partner in the heart of Europe.',
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  const cookieBanner = await getCookieBanner();
+
   return (
     <html
       lang="en"
@@ -32,8 +37,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     >
       <body className="font-sans bg-bg text-text">
         <Header />
-        {children}
-        <Footer />
+        <CookieBannerProvider copy={cookieBanner}>
+          {children}
+          <Footer cookieSettingsLabel={cookieBanner?.cookieSettingsLabel} />
+          <CookieBanner />
+        </CookieBannerProvider>
       </body>
     </html>
   );
