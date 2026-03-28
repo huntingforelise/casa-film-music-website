@@ -26,7 +26,7 @@ const CompactHeroPage = async ({ page }: TemplateProps) => {
   return (
     <PageShell page={page} heroVariant="compact" heroSection={heroSection}>
       <div className="layout-container">
-        <h1 className="page-title">{page.title}</h1>
+        <h1 className="hero-title hero-title--compact">{page.title}</h1>
         <div className="section-divider" />
       </div>
 

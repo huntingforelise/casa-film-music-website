@@ -49,8 +49,8 @@ const FullScreenHero = ({
       className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"
       aria-hidden
     />
-    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center">
-      <h1 className="page-title text-text-inverse">{pageTitle}</h1>
+    <div className="absolute inset-0 z-10 flex items-end justify-start px-6 pb-[clamp(5rem,8vh,7rem)] text-left sm:px-8 lg:px-12">
+      <h1 className="hero-title hero-title--fullscreen text-text-inverse">{pageTitle}</h1>
     </div>
     <HeroScrollButton targetId={contentAnchorId} />
   </section>
@@ -69,8 +69,8 @@ const StandardHero = ({
       className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"
       aria-hidden
     />
-    <div className="absolute inset-0 z-10 flex items-center justify-center px-6 text-center">
-      <h1 className="page-title text-text-inverse">{pageTitle}</h1>
+    <div className="absolute inset-0 z-10 flex items-end justify-start px-6 pb-[clamp(2.5rem,5vh,4rem)] text-left sm:px-8 lg:px-12">
+      <h1 className="hero-title hero-title--standard text-text-inverse">{pageTitle}</h1>
     </div>
   </section>
 );

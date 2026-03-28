@@ -32,6 +32,7 @@ const VideoShowcaseSection = ({ section }: Props) => {
           item={featuredVideo}
           orientation={orientation}
           className="h-full"
+          videoZoom={1.08}
         />
       </figure>
 
@@ -65,6 +66,7 @@ const VideoShowcaseSection = ({ section }: Props) => {
           item={featuredVideo}
           orientation={orientation}
           className="h-full"
+          videoZoom={1.08}
         />
       </figure>
 

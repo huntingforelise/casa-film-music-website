@@ -182,41 +182,49 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 /* Titles */
-.page-title,
-.section-title {
-  font-family: var(--theme-font-sans);
-  font-weight: 600;
+.hero-title {
+  display: block;
+  max-width: 12ch;
+  font-family: var(--theme-font-display);
+  font-weight: 500;
+  line-height: 0.95;
   text-transform: uppercase;
-  line-height: 1.1;
+  text-wrap: balance;
 }
 
-.page-title {
+.hero-title--compact {
   font-size: clamp(2.25rem, 2.9vw, 3.75rem);
   letter-spacing: 0.05em;
 }
 
+.hero-title--standard {
+  font-size: clamp(3rem, 4.8vw, 5.5rem);
+  letter-spacing: 0.04em;
+}
+
+.hero-title--fullscreen {
+  font-size: clamp(3.5rem, 5.5vw, 7rem);
+  letter-spacing: 0.03em;
+}
+
 .section-title {
   display: block;
+  font-family: var(--theme-font-sans);
+  font-weight: 600;
+  text-transform: uppercase;
   font-size: clamp(2.25rem, 4vw, 3rem);
   letter-spacing: 0.15em;
+  line-height: 1.1;
   margin-bottom: var(--space-4);
 }
 
 @media (min-width: 768px) {
-  .page-title {
-    letter-spacing: 0.08em;
-  }
-
   .section-title {
     letter-spacing: 0.18em;
   }
 }
 
 @media (min-width: 1280px) {
-  .page-title {
-    letter-spacing: 0.12em;
-  }
-
   .section-title {
     letter-spacing: 0.22em;
   }
