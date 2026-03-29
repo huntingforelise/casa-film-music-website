@@ -24,7 +24,6 @@
   --theme-bg-soft: color-mix(in srgb, var(--theme-bg) 50%, transparent 50%);
   --theme-bg-muted: color-mix(in srgb, var(--theme-bg) 60%, transparent 40%);
   --theme-bg-glass: color-mix(in srgb, var(--theme-bg) 95%, transparent 5%);
-  --hero-overlay-color: color-mix(in srgb, var(--color-obsidian) 80%, transparent 20%);
 
   /* Additional colors */
   --theme-text-80: color-mix(in srgb, var(--theme-text) 80%, transparent 20%);
@@ -315,36 +314,6 @@ body::-webkit-scrollbar-thumb:hover {
     --surface-card-bg-color: var(--theme-bg-glass);
   }
 
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-color: var(--hero-overlay-color);
-  }
-
-  .hero-overlay--base {
-    opacity: 0.22;
-  }
-
-  .hero-overlay--right {
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: auto;
-    width: 50%;
-    opacity: 0.34;
-  }
-
-  .hero-overlay--gradient {
-    inset: auto 0 0 0;
-    height: 10rem;
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--hero-overlay-color) 55%, transparent) 0%,
-      transparent 100%
-    );
-  }
-
   .hero-scroll-button {
     position: absolute;
     z-index: 20;
@@ -383,29 +352,15 @@ body::-webkit-scrollbar-thumb:hover {
     border-color: transparent;
   }
 
-  .split-hero-option--divider {
-    border-right-width: 1px;
-    border-right-style: solid;
-    border-right-color: color-mix(in srgb, var(--color-warm-ivory) 40%, transparent 60%);
-  }
-
-  .split-hero-option-backdrop {
-    position: absolute;
-    inset: 0;
-    background-color: transparent;
-    transition: background-color 0.3s ease;
-  }
-
-  .split-hero-option:focus-visible .split-hero-option-backdrop,
-  .split-hero-option:hover .split-hero-option-backdrop {
-    background-color: color-mix(in srgb, var(--color-obsidian) 40%, transparent 60%);
-  }
-
   .split-hero-option-card {
     position: relative;
-    border-radius: var(--radius-surface);
-    border: 1px solid color-mix(in srgb, var(--color-warm-ivory) 45%, transparent 55%);
-    background-color: color-mix(in srgb, var(--color-obsidian) 45%, transparent 55%);
+    border-radius: calc(var(--radius-surface) * 1.15);
+    border: 1px solid color-mix(in srgb, var(--color-warm-ivory) 38%, transparent 62%);
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-obsidian) 42%, transparent 58%) 0%,
+      color-mix(in srgb, var(--color-obsidian) 58%, transparent 42%) 100%
+    );
     padding: var(--space-3);
     backdrop-filter: blur(18px);
     transition:
@@ -419,26 +374,21 @@ body::-webkit-scrollbar-thumb:hover {
 
   .split-hero-option:focus-visible .split-hero-option-card,
   .split-hero-option:hover .split-hero-option-card {
-    background-color: color-mix(in srgb, var(--color-obsidian) 55%, transparent 45%);
-    border-color: color-mix(in srgb, var(--color-warm-ivory) 55%, transparent 45%);
-  }
-
-  .split-hero-option-title {
-    display: block;
-    font-family: var(--theme-font-display), serif;
-    font-size: clamp(1.9rem, 3vw, 3.5rem);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--theme-text-inverse);
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-obsidian) 54%, transparent 46%) 0%,
+      color-mix(in srgb, var(--color-obsidian) 72%, transparent 28%) 100%
+    );
+    border-color: color-mix(in srgb, var(--color-warm-ivory) 54%, transparent 46%);
   }
 
   .split-hero-option-subtitle {
     display: block;
     margin-top: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
+    max-width: 22ch;
+    font-size: 0.92rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
     color: color-mix(in srgb, var(--color-warm-ivory) 75%, transparent 25%);
   }
 }
