@@ -21,16 +21,19 @@ type VideoProps = {
 const Video = ({ src, title = 'Embedded video', containerClassName, zoom = 1 }: VideoProps) => {
   const embedUrl = getEmbedUrl(src);
   const [consent, setConsent] = useState<ConsentState | null>(null);
+  const [isConsentReady, setIsConsentReady] = useState(false);
 
   const isVimeoEmbed = embedUrl.startsWith('https://player.vimeo.com/');
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
       setConsent(getConsentFromDocumentCookie());
+      setIsConsentReady(true);
     });
 
     const handleConsentChange = () => {
       setConsent(getConsentFromDocumentCookie());
+      setIsConsentReady(true);
     };
 
     window.addEventListener(COOKIE_CONSENT_CHANGE_EVENT, handleConsentChange);
@@ -41,6 +44,10 @@ const Video = ({ src, title = 'Embedded video', containerClassName, zoom = 1 }: 
     };
   }, []);
 
+  if (isVimeoEmbed && !isConsentReady) {
+    return null;
+  }
+
   if (isVimeoEmbed && consent !== 'accepted') {
     return (
       <VideoConsentGate
@@ -48,6 +55,7 @@ const Video = ({ src, title = 'Embedded video', containerClassName, zoom = 1 }: 
         onEnable={() => {
           setConsentCookie('accepted');
           setConsent('accepted');
+          setIsConsentReady(true);
         }}
       />
     );

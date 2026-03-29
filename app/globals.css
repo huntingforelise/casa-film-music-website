@@ -737,3 +737,34 @@ body::-webkit-scrollbar-thumb:hover {
 .rdp-day:hover {
   background-color: color-mix(in srgb, var(--theme-accent) 20%, transparent);
 }
+
+/* Video consent gate */
+.video-consent-gate {
+  container-type: inline-size;
+}
+
+@container (max-width: 30rem) {
+  .video-consent-gate__content {
+    max-width: 100%;
+    gap: 0.625rem;
+    padding: 1rem 1rem 1.125rem;
+  }
+
+  .video-consent-gate__eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
+  }
+
+  .video-consent-gate__heading {
+    font-size: 1.05rem;
+    line-height: 1.15;
+  }
+
+  .video-consent-gate__body {
+    display: none;
+  }
+
+  .video-consent-gate__button {
+    width: 100%;
+  }
+}

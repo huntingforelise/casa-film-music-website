@@ -16,24 +16,28 @@ const VideoConsentGate = ({ className, onEnable }: VideoConsentGateProps) => {
   return (
     <div
       className={clsx(
-        'relative flex h-full w-full items-center justify-center overflow-hidden bg-[linear-gradient(135deg,color-mix(in_srgb,var(--color-obsidian)_94%,var(--theme-surface)_6%)_0%,color-mix(in_srgb,var(--color-obsidian)_76%,var(--color-champagne)_24%)_100%)]',
+        'video-consent-gate relative flex h-full w-full items-center justify-center overflow-hidden bg-[linear-gradient(135deg,color-mix(in_srgb,var(--color-obsidian)_94%,var(--theme-surface)_6%)_0%,color-mix(in_srgb,var(--color-obsidian)_76%,var(--color-champagne)_24%)_100%)]',
         className,
       )}
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(184,154,106,0.15),transparent_58%)]" />
-      <div className="relative z-10 flex max-w-sm flex-col items-center gap-4 px-6 py-8 text-center text-[var(--theme-text-inverse)]">
-        <p className="text-[0.7rem] font-medium uppercase tracking-[0.28em] text-[color-mix(in_srgb,var(--color-warm-ivory)_72%,var(--color-champagne)_28%)]">
+      <div className="video-consent-gate__content relative z-10 flex max-w-xs flex-col items-center gap-3 px-5 py-6 text-center text-[var(--theme-text-inverse)] sm:max-w-sm sm:gap-4 sm:px-6 sm:py-8">
+        <p className="video-consent-gate__eyebrow text-[0.65rem] font-medium uppercase tracking-[0.28em] text-[color-mix(in_srgb,var(--color-warm-ivory)_72%,var(--color-champagne)_28%)] sm:text-[0.7rem]">
           {copy.videoBlockedEyebrow}
         </p>
         <div className="space-y-2">
-          <h3 className="font-display text-2xl font-medium tracking-[-0.02em]">
+          <h3 className="video-consent-gate__heading font-display text-xl font-medium tracking-[-0.02em] sm:text-2xl">
             {copy.videoBlockedHeading}
           </h3>
-          <p className="text-sm leading-7 text-[color-mix(in_srgb,var(--color-warm-ivory)_78%,transparent_22%)]">
+          <p className="video-consent-gate__body hidden text-sm leading-7 text-[color-mix(in_srgb,var(--color-warm-ivory)_78%,transparent_22%)] sm:block">
             {copy.videoBlockedBody}
           </p>
         </div>
-        <button type="button" onClick={onEnable} className="btn-primary px-5 py-2.5">
+        <button
+          type="button"
+          onClick={onEnable}
+          className="video-consent-gate__button btn-primary w-full px-5 py-2.5 sm:w-auto"
+        >
           {copy.videoBlockedButtonLabel}
         </button>
       </div>
