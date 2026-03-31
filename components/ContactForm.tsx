@@ -75,7 +75,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
 
   return (
     <SectionShell variant="bottom">
-      <div className="surface-card surface-radius p-6 md:p-8">
+      <div className="surface-card surface-radius p-5 sm:p-6 md:p-8">
         <header className="pb-6">
           <h2 className="section-heading pt-2">{titleLabel}</h2>
         </header>
@@ -155,7 +155,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
 
             {state.feedback && (
               <p
-                className={`text-sm tracking-tight ${
+                className={`text-fluid-body-sm tracking-tight ${
                   state.status === 'error' ? 'text-red-700' : 'text-80'
                 }`}
               >

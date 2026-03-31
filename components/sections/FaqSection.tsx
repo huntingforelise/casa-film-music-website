@@ -48,14 +48,14 @@ const FaqSection = ({ section }: Props) => {
                 aria-controls={answerId}
                 aria-expanded={isOpen}
                 onClick={() => toggleItem(item._key)}
-                className="flex w-full items-center justify-between px-6 py-5 text-left text-lg font-semibold text-text transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="flex w-full items-center justify-between px-4 py-4 text-left text-fluid-body-lg font-semibold text-text transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:px-6 sm:py-5"
               >
                 <span>{item.question}</span>
-                <span className="text-2xl leading-none">{isOpen ? '-' : '+'}</span>
+                <span className="text-fluid-heading-sm leading-none">{isOpen ? '-' : '+'}</span>
               </button>
               <div
                 id={answerId}
-                className={clsx('px-6 pb-6 text-base leading-relaxed text-muted transition', {
+                className={clsx('px-4 pb-4 text-fluid-body text-muted transition sm:px-6 sm:pb-6', {
                   hidden: !isOpen,
                 })}
               >

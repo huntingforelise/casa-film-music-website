@@ -15,7 +15,7 @@ const SplitHeroSection = ({ section }: Props) => {
     <section className="relative isolate min-h-[100svh] w-full overflow-hidden bg-obsidian text-text-inverse">
       <div className="pointer-events-none absolute inset-x-0 top-[calc(4rem+1rem)] z-20 flex justify-center px-4 sm:top-[calc(4.5rem+1rem)] lg:top-[calc(5rem+1rem)]">
         <div className="surface-radius max-w-2xl border border-obsidian/10 bg-[color-mix(in_srgb,var(--theme-bg)_88%,transparent_12%)] px-4 py-2 text-center shadow-[0_20px_50px_rgba(18,18,18,0.16)] backdrop-blur-md sm:px-6 sm:py-3">
-          <p className="text-[0.66rem] font-medium uppercase tracking-[0.32em] text-text/70 sm:text-[0.72rem]">
+          <p className="text-fluid-eyebrow text-text/70">
             {introLabel}
           </p>
         </div>
@@ -52,7 +52,7 @@ const SplitHeroSection = ({ section }: Props) => {
 
             <div className="surface-radius split-hero-option-card relative mb-2 w-full max-w-[32rem] px-5 py-4 text-center transition duration-300 group-hover:-translate-y-1 md:mb-4 md:px-7 md:py-5 backdrop-blur-md">
               <div className="mt-3 flex flex-col items-center">
-                <span className="section-title">{option.title}</span>
+                <span className="split-hero-option-title">{option.title}</span>
                 <span className="split-hero-option-subtitle">{option.subtitle}</span>
               </div>
             </div>

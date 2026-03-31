@@ -56,14 +56,14 @@ const CookieBanner = () => {
           <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(184,154,106,0.55),transparent)]" />
           <div className="grid gap-5 px-5 py-5 sm:px-6 sm:py-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-6">
             <div className="space-y-2">
-              <p className="text-[0.72rem] font-medium uppercase tracking-[0.28em] text-[color-mix(in_srgb,var(--color-champagne)_78%,var(--theme-text)_22%)]">
+              <p className="text-fluid-eyebrow text-[color-mix(in_srgb,var(--color-champagne)_78%,var(--theme-text)_22%)]">
                 {copy.eyebrow}
               </p>
               <div className="space-y-2">
-                <h2 className="font-display text-xl font-medium tracking-[-0.02em] text-text sm:text-2xl">
+                <h2 className="text-fluid-heading-sm text-text">
                   {copy.heading}
                 </h2>
-                <p className="max-w-3xl text-sm leading-7 text-80 sm:text-[0.95rem]">{copy.body}</p>
+                <p className="max-w-3xl text-fluid-body text-80">{copy.body}</p>
               </div>
             </div>
 
@@ -71,7 +71,7 @@ const CookieBanner = () => {
               <button
                 type="button"
                 onClick={() => persistConsent('necessary')}
-                className="rounded-full border border-[color-mix(in_srgb,var(--theme-border)_78%,var(--color-champagne)_22%)] bg-[color-mix(in_srgb,var(--theme-bg)_72%,transparent_28%)] px-5 py-2.5 text-sm font-medium tracking-[-0.01em] text-text transition duration-200 ease-out hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--color-champagne)_45%,var(--theme-border)_55%)] hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--color-champagne)_65%,white_35%)] focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                className="w-full rounded-full border border-[color-mix(in_srgb,var(--theme-border)_78%,var(--color-champagne)_22%)] bg-[color-mix(in_srgb,var(--theme-bg)_72%,transparent_28%)] px-5 py-2.5 text-fluid-body-sm font-medium tracking-[-0.01em] text-text transition duration-200 ease-out hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--color-champagne)_45%,var(--theme-border)_55%)] hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--color-champagne)_65%,white_35%)] focus-visible:ring-offset-2 focus-visible:ring-offset-bg sm:w-auto"
               >
                 {copy.essentialButtonLabel}
               </button>
@@ -79,7 +79,7 @@ const CookieBanner = () => {
               <button
                 type="button"
                 onClick={() => persistConsent('accepted')}
-                className="btn-primary px-5 py-2.5"
+                className="btn-primary w-full px-5 py-2.5 sm:w-auto"
               >
                 {copy.acceptButtonLabel}
               </button>

@@ -22,14 +22,14 @@ const VideoConsentGate = ({ className, onEnable }: VideoConsentGateProps) => {
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(184,154,106,0.15),transparent_58%)]" />
       <div className="video-consent-gate__content relative z-10 flex max-w-xs flex-col items-center gap-3 px-5 py-6 text-center text-[var(--theme-text-inverse)] sm:max-w-sm sm:gap-4 sm:px-6 sm:py-8">
-        <p className="video-consent-gate__eyebrow text-[0.65rem] font-medium uppercase tracking-[0.28em] text-[color-mix(in_srgb,var(--color-warm-ivory)_72%,var(--color-champagne)_28%)] sm:text-[0.7rem]">
+        <p className="video-consent-gate__eyebrow text-fluid-eyebrow text-[color-mix(in_srgb,var(--color-warm-ivory)_72%,var(--color-champagne)_28%)]">
           {copy.videoBlockedEyebrow}
         </p>
         <div className="space-y-2">
-          <h3 className="video-consent-gate__heading font-display text-xl font-medium tracking-[-0.02em] sm:text-2xl">
+          <h3 className="video-consent-gate__heading text-fluid-heading-sm text-[var(--theme-text-inverse)]">
             {copy.videoBlockedHeading}
           </h3>
-          <p className="video-consent-gate__body hidden text-sm leading-7 text-[color-mix(in_srgb,var(--color-warm-ivory)_78%,transparent_22%)] sm:block">
+          <p className="video-consent-gate__body hidden text-fluid-body-sm text-[color-mix(in_srgb,var(--color-warm-ivory)_78%,transparent_22%)] sm:block">
             {copy.videoBlockedBody}
           </p>
         </div>

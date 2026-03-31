@@ -20,12 +20,12 @@ const TestimonialSection = ({ section }: Props) => {
             {cards.map((card) => (
               <article
                 key={card._key ?? `${card.author}-${card.quote?.slice(0, 10)}`}
-                className="snap-start min-w-[18rem] flex-1 shrink-0 surface-card surface-card--ghost-light rounded-3xl p-6 shadow-lg ring-1 ring-transparent transition hover:border-accent/60 hover:ring-accent/30"
+                className="snap-start min-w-[16rem] flex-1 shrink-0 surface-card surface-card--ghost-light rounded-3xl p-5 sm:min-w-[18rem] sm:p-6 shadow-lg ring-1 ring-transparent transition hover:border-accent/60 hover:ring-accent/30"
               >
                 <div className="flex flex-col justify-between gap-6 h-full py-4">
-                  <p className="text-base italic leading-relaxed text-80">{card.quote}</p>
+                  <p className="text-fluid-body-lg italic text-80">{card.quote}</p>
                   <div>
-                    <p className="text-sm font-semibold">{card.author}</p>
+                    <p className="text-fluid-body-sm font-semibold">{card.author}</p>
                   </div>
                 </div>
               </article>

@@ -55,10 +55,10 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
   return (
     <footer className="border-t border-[color-mix(in_srgb,var(--color-stone)_70%,var(--color-champagne)_30%)] bg-[var(--color-obsidian)] text-[var(--theme-text-inverse)]">
       <div className="mx-auto w-full max-w-6xl px-6 py-12">
-        {footer.ctaHeading && <p className="mb-2 text-2xl font-display">{footer.ctaHeading}</p>}
+        {footer.ctaHeading && <p className="mb-2 cta-heading">{footer.ctaHeading}</p>}
         <Link href="/quote">
           {footer.ctaText && (
-            <p className="mb-6 text-lg font-medium text-[color-mix(in_srgb,var(--color-warm-ivory)_78%,var(--color-champagne)_22%)] transition-colors hover:text-[var(--color-warm-ivory)]">
+            <p className="mb-6 text-fluid-body-lg font-medium text-[color-mix(in_srgb,var(--color-warm-ivory)_78%,var(--color-champagne)_22%)] transition-colors hover:text-[var(--color-warm-ivory)]">
               {footer.ctaText}
             </p>
           )}
@@ -67,7 +67,7 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
           <div className="space-y-2">
             {(footer.phoneNumbers?.length || footer.email) && (
               <>
-                <div className="flex flex-col gap-3 text-sm tracking-tight">
+                <div className="flex flex-col gap-3 text-fluid-body-sm tracking-tight">
                   {footer.phoneNumbers?.map((phone) => (
                     <Link key={phone} href={toTelHref(phone)} className="text-link">
                       {phone}
@@ -90,7 +90,7 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
                     <Link
                       key={`${link.label ?? 'link'}-${link.url}`}
                       href={link.url}
-                      className="text-link text-sm tracking-tight md:text-right text-left"
+                      className="text-link text-fluid-body-sm tracking-tight md:text-right text-left"
                     >
                       {link.label ?? link.url}
                     </Link>
@@ -137,7 +137,7 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
         </div>
 
         <div className="mt-10 border-t border-border pt-5">
-          <div className="flex flex-col gap-3 text-xs tracking-tight text-muted-inverse sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 text-fluid-body-sm tracking-tight text-muted-inverse sm:flex-row sm:items-center sm:justify-between">
             <p>
               {footer.developerCreditText ?? 'Site created by'}{' '}
               {footer.developerCreditUrl ? (

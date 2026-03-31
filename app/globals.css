@@ -47,11 +47,13 @@
   --space-12: 6rem;
 
   /* Type scale */
-  --text-body: 1rem;
-  --text-h3: 1.25rem;
-  --text-h2: 1.875rem;
-  --text-h1: 3rem;
-  --line-height-body: 1.8;
+  --text-body: clamp(0.95rem, 0.25vw + 0.9rem, 1rem);
+  --text-body-lg: clamp(1rem, 0.35vw + 0.94rem, 1.125rem);
+  --text-body-sm: clamp(0.85rem, 0.15vw + 0.82rem, 0.95rem);
+  --text-h3: clamp(1.1rem, 0.9vw + 0.92rem, 1.4rem);
+  --text-h2: clamp(1.55rem, 1.8vw + 1rem, 2.25rem);
+  --text-h1: clamp(2.2rem, 4vw + 0.75rem, 5rem);
+  --line-height-body: 1.75;
 
   /* Radius */
   --radius-surface: 1rem;
@@ -117,7 +119,7 @@ body::-webkit-scrollbar-thumb:hover {
   width: 100%;
   max-width: 72rem;
   margin-inline: auto;
-  padding-inline: var(--space-3);
+  padding-inline: clamp(1rem, 2.6vw, var(--space-3));
 }
 
 .page-shell {
@@ -192,18 +194,18 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .hero-title--compact {
-  font-size: clamp(2.25rem, 2.9vw, 3.75rem);
+  font-size: clamp(2rem, 7vw, 3.75rem);
   letter-spacing: 0.05em;
   max-width: 100%;
 }
 
 .hero-title--standard {
-  font-size: clamp(3rem, 4.8vw, 5.5rem);
+  font-size: clamp(2.6rem, 8vw, 5.5rem);
   letter-spacing: 0.04em;
 }
 
 .hero-title--fullscreen {
-  font-size: clamp(3.5rem, 5.5vw, 7rem);
+  font-size: clamp(2.8rem, 9vw, 7rem);
   letter-spacing: 0.03em;
 }
 
@@ -212,7 +214,7 @@ body::-webkit-scrollbar-thumb:hover {
   font-family: var(--theme-font-sans);
   font-weight: 600;
   text-transform: uppercase;
-  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-size: clamp(1.1rem, 3vw, 3rem);
   letter-spacing: 0.15em;
   line-height: 1.1;
   margin-bottom: var(--space-4);
@@ -220,8 +222,8 @@ body::-webkit-scrollbar-thumb:hover {
 
 @media (max-width: 480px) {
   .section-title {
-    font-size: clamp(1.35rem, 5vw, 1.9rem);
-    letter-spacing: 0.12em;
+    font-size: clamp(1rem, 4.8vw, 1.55rem);
+    letter-spacing: 0.1em;
   }
 }
 
@@ -246,7 +248,7 @@ body::-webkit-scrollbar-thumb:hover {
 @layer components {
   .section-heading {
     font-family: var(--theme-font-display);
-    font-size: clamp(1.875rem, 3vw, 2.25rem);
+    font-size: clamp(1.55rem, 2.6vw, 2.4rem);
     font-weight: 500;
     letter-spacing: -0.02em;
     line-height: 1.1;
@@ -254,19 +256,85 @@ body::-webkit-scrollbar-thumb:hover {
 
   @media (min-width: 768px) {
     .section-heading {
-      font-size: clamp(2.25rem, 3vw, 2.75rem);
+      font-size: clamp(1.85rem, 2.8vw, 2.75rem);
     }
   }
 
   .section-copy {
     font-size: var(--text-body);
-    line-height: var(--line-height-body);
+    line-height: 1.75;
+  }
+
+  .text-fluid-body-sm {
+    font-size: var(--text-body-sm);
+    line-height: 1.65;
+  }
+
+  .text-fluid-body {
+    font-size: var(--text-body);
+    line-height: 1.75;
+  }
+
+  .text-fluid-body-lg {
+    font-size: var(--text-body-lg);
+    line-height: 1.7;
+  }
+
+  .text-fluid-eyebrow {
+    font-size: clamp(0.62rem, 0.22vw + 0.6rem, 0.72rem);
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .text-fluid-heading-sm {
+    font-family: var(--theme-font-display);
+    font-size: clamp(1.1rem, 1vw + 0.9rem, 1.5rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .text-fluid-heading-md {
+    font-family: var(--theme-font-display);
+    font-size: clamp(1.35rem, 1.8vw + 0.95rem, 2.2rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+  }
+
+  .text-fluid-heading-lg {
+    font-family: var(--theme-font-display);
+    font-size: clamp(1.75rem, 2.8vw + 1rem, 3rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  .text-fluid-display {
+    font-family: var(--theme-font-display);
+    font-size: clamp(2.4rem, 5vw + 0.8rem, 5.5rem);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    line-height: 0.96;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .split-hero-option-title {
+    font-family: var(--theme-font-sans);
+    font-size: clamp(1rem, 2.2vw + 0.85rem, 2.1rem);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.05;
+    text-transform: uppercase;
+    text-wrap: balance;
   }
 
   .form-field {
     display: grid;
     gap: var(--space-1);
-    font-size: 0.875rem;
+    font-size: clamp(0.8rem, 0.2vw + 0.78rem, 0.875rem);
     letter-spacing: -0.01em;
     color: var(--theme-text-80);
   }
@@ -321,7 +389,7 @@ body::-webkit-scrollbar-thumb:hover {
     --surface-card-bg-color: var(--theme-bg-glass);
   }
 
-  .hero-scroll-button {
+.hero-scroll-button {
     position: absolute;
     z-index: 20;
     bottom: var(--space-2);
@@ -330,7 +398,7 @@ body::-webkit-scrollbar-thumb:hover {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: min(3.2rem, 15vw);
+    width: min(3rem, 16vw);
     padding: var(--space-1);
     border-radius: var(--radius-pill);
     border: 1px solid color-mix(in srgb, var(--color-warm-ivory) 65%, transparent 35%);
@@ -390,8 +458,9 @@ body::-webkit-scrollbar-thumb:hover {
 
   .split-hero-option-subtitle {
     display: block;
-    font-size: 0.92rem;
+    font-size: var(--text-body-sm);
     font-weight: 400;
+    line-height: 1.6;
     color: var(--theme-text-muted);
   }
 }
@@ -439,7 +508,7 @@ body::-webkit-scrollbar-thumb:hover {
   background: var(--color-champagne);
   color: var(--color-obsidian);
   padding: var(--space-1) var(--space-3);
-  font-size: 0.875rem;
+  font-size: clamp(0.82rem, 0.2vw + 0.8rem, 0.92rem);
   font-weight: 500;
   letter-spacing: -0.01em;
   transition:
@@ -489,7 +558,7 @@ body::-webkit-scrollbar-thumb:hover {
   background: color-mix(in srgb, var(--theme-bg) 86%, var(--theme-surface) 14%);
   color: var(--theme-text);
   padding: var(--space-1) var(--space-3);
-  font-size: 0.875rem;
+  font-size: clamp(0.82rem, 0.2vw + 0.8rem, 0.92rem);
   font-weight: 500;
   letter-spacing: -0.01em;
   transition:
@@ -601,7 +670,7 @@ body::-webkit-scrollbar-thumb:hover {
 .rich-h2 {
   margin-block: var(--space-2);
   font-family: var(--theme-font-display), serif;
-  font-size: var(--text-h2);
+  font-size: clamp(1.4rem, 2.2vw + 0.9rem, 2.25rem);
   font-weight: 500;
   letter-spacing: -0.02em;
   color: var(--theme-text);
@@ -610,7 +679,7 @@ body::-webkit-scrollbar-thumb:hover {
 .rich-h3 {
   margin-block: var(--space-1);
   font-family: var(--theme-font-display), serif;
-  font-size: var(--text-h3);
+  font-size: clamp(1.05rem, 1vw + 0.9rem, 1.4rem);
   font-weight: 500;
   letter-spacing: -0.02em;
   color: var(--theme-text);

@@ -17,7 +17,7 @@ const CookieSettingsButton = ({ label }: CookieSettingsButtonProps) => {
     <button
       type="button"
       onClick={handleClick}
-      className="rich-link text-left text-sm tracking-tight"
+      className="rich-link text-left text-fluid-body-sm tracking-tight"
     >
       {label}
     </button>

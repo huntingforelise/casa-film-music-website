@@ -26,7 +26,7 @@ const QuoteSection = ({ section }: Props) => {
           &ldquo;{quote}&rdquo;
         </p>
 
-        <p className="self-end text-right text-sm font-medium not-italic leading-tight tracking-[0.06em] text-80 sm:text-base">
+        <p className="self-end text-right text-fluid-body-sm font-medium not-italic tracking-[0.06em] text-80 sm:text-fluid-body">
           - {author}, {year}
         </p>
       </div>

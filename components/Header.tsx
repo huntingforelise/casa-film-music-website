@@ -35,7 +35,7 @@ const Header = async () => {
           <HeaderMenuLinks
             navigation={header.navigation}
             containerClassName="flex items-center gap-6"
-            itemClassName="text-sm uppercase md:tracking-[0.15em] lg:tracking-[0.35em]"
+            itemClassName="text-fluid-body-sm uppercase md:tracking-[0.15em] lg:tracking-[0.35em]"
           />
         </nav>
 

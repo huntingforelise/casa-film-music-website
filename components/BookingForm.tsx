@@ -214,13 +214,13 @@ const BookingForm = ({ settings }: Props) => {
 
   return (
     <SectionShell variant="bottom">
-      <div className="surface-card surface-radius p-6 md:p-8">
+      <div className="surface-card surface-radius p-5 sm:p-6 md:p-8">
         <header className="pb-6">
-          <p className="text-xs font-medium uppercase tracking-[0.16em] text-text/60">
+          <p className="text-fluid-body-sm font-medium uppercase tracking-[0.16em] text-text/60">
             Step {step} of {TOTAL_STEPS}
           </p>
           <h2 className="section-heading pt-2">{config.introTitle}</h2>
-          <p className="section-copy text-80 pt-3 text-sm md:text-base">{config.introText}</p>
+          <p className="section-copy text-80 pt-3 text-fluid-body">{config.introText}</p>
         </header>
 
         <form
@@ -315,7 +315,7 @@ const BookingForm = ({ settings }: Props) => {
             </div>
 
             {feedback && (
-              <p className={`text-sm ${status === 'error' ? 'text-red-700' : 'text-text/75'}`}>
+              <p className={`text-fluid-body-sm ${status === 'error' ? 'text-red-700' : 'text-text/75'}`}>
                 {feedback}
               </p>
             )}

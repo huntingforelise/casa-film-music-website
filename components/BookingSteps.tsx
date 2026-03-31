@@ -118,7 +118,7 @@ export const EventDetailsStep = ({
           <button
             type="button"
             onClick={() => setField('durationHours', Math.max(1, values.durationHours - 1))}
-            className="text-xl text-text/60 hover:text-text"
+            className="text-lg text-text/60 hover:text-text sm:text-xl"
           >
             −
           </button>
@@ -128,7 +128,7 @@ export const EventDetailsStep = ({
           <button
             type="button"
             onClick={() => setField('durationHours', Math.min(24, values.durationHours + 1))}
-            className="text-xl text-text/60 hover:text-text"
+            className="text-lg text-text/60 hover:text-text sm:text-xl"
           >
             +
           </button>
@@ -152,7 +152,7 @@ export const EventDetailsStep = ({
                 Math.max(GUEST_COUNT_MIN, values.guestCount - GUEST_COUNT_STEP),
               )
             }
-            className="text-xl text-text/60 hover:text-text"
+            className="text-lg text-text/60 hover:text-text sm:text-xl"
           >
             −
           </button>
@@ -162,7 +162,7 @@ export const EventDetailsStep = ({
           <button
             type="button"
             onClick={() => setField('guestCount', values.guestCount + GUEST_COUNT_STEP)}
-            className="text-xl text-text/60 hover:text-text"
+            className="text-lg text-text/60 hover:text-text sm:text-xl"
           >
             +
           </button>
@@ -241,11 +241,11 @@ export const ServicesStep = ({
               onChange={() => toggleService(service.value)}
             />
             <span className="grid gap-1">
-              <span className="font-display text-xl tracking-tight">{service.title}</span>
+              <span className="text-fluid-heading-sm">{service.title}</span>
               {service.description && (
-                <span className="text-sm text-muted">{service.description}</span>
+                <span className="text-fluid-body-sm text-muted">{service.description}</span>
               )}
-              {displayPrice && <span className="text-sm font-medium text-80">{displayPrice}</span>}
+              {displayPrice && <span className="text-fluid-body-sm font-medium text-80">{displayPrice}</span>}
             </span>
           </label>
         );
@@ -272,7 +272,7 @@ export const BundleSelectionStep = ({
   return (
     <div className="grid gap-4">
       {copy.bundleIntro && (
-        <p className="text-sm leading-relaxed text-text/75">{copy.bundleIntro}</p>
+        <p className="text-fluid-body text-text/75">{copy.bundleIntro}</p>
       )}
 
       {!!bundleSuggestions.length
@@ -307,7 +307,7 @@ export const BundleSelectionStep = ({
                 }`}
               >
                 <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="font-display text-2xl tracking-tight">
+                  <h3 className="text-fluid-heading-md">
                     {suggestion.bundle.title}
                   </h3>
                   {suggestion.bundle.highlightLabel && (
@@ -318,13 +318,13 @@ export const BundleSelectionStep = ({
                 </div>
 
                 {suggestion.bundle.description && (
-                  <p className="pt-2 text-sm text-text/75">{suggestion.bundle.description}</p>
+                  <p className="pt-2 text-fluid-body-sm text-text/75">{suggestion.bundle.description}</p>
                 )}
 
-                {includesLine && <p className="pt-2 text-sm text-text/75">{includesLine}</p>}
+                {includesLine && <p className="pt-2 text-fluid-body-sm text-text/75">{includesLine}</p>}
 
                 {hasPriceLine && (
-                  <p className="pt-2 text-sm font-medium text-text/85">
+                  <p className="pt-2 text-fluid-body-sm font-medium text-text/85">
                     {hasPrimaryPrice && priceRows.length > 0 && (
                       <span className="flex flex-wrap items-baseline gap-2">
                         {priceRows.map((row, index) => (
@@ -341,7 +341,7 @@ export const BundleSelectionStep = ({
                 )}
 
                 {priceNote && hasPrimaryPrice && (
-                  <p className="pt-2 text-sm text-muted">{priceNote}</p>
+                  <p className="pt-2 text-fluid-body-sm text-muted">{priceNote}</p>
                 )}
 
                 {suggestion.isEligible ? (
@@ -371,7 +371,7 @@ export const BundleSelectionStep = ({
             );
           })
         : copy.bundleNoSuggestions && (
-            <p className="text-sm text-muted">{copy.bundleNoSuggestions}</p>
+            <p className="text-fluid-body-sm text-muted">{copy.bundleNoSuggestions}</p>
           )}
     </div>
   );
@@ -424,17 +424,17 @@ export const AddOnsStep = ({
                 onChange={() => toggleAddOn(addOn.code)}
               />
               <span className="grid gap-1">
-                <span className="font-display text-xl tracking-tight">{addOn.title}</span>
+                <span className="text-fluid-heading-sm">{addOn.title}</span>
                 {addOn.description && (
-                  <span className="text-sm text-muted">{addOn.description}</span>
+                  <span className="text-fluid-body-sm text-muted">{addOn.description}</span>
                 )}
-                <span className="text-sm font-medium text-80">{displayPrice}</span>
+                <span className="text-fluid-body-sm font-medium text-80">{displayPrice}</span>
               </span>
             </label>
           );
         })
       ) : copy.addOnsEmptyText ? (
-        <p className="text-sm text-muted">{copy.addOnsEmptyText}</p>
+        <p className="text-fluid-body-sm text-muted">{copy.addOnsEmptyText}</p>
       ) : null}
     </div>
   );
@@ -480,12 +480,12 @@ export const SummaryStep = ({
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
       <div className="surface-card surface-card--ghost surface-radius p-5">
-        <h3 className="font-display text-2xl tracking-tight">{copy.summaryTitle ?? ''}</h3>
+        <h3 className="text-heading-summary">{copy.summaryTitle ?? ''}</h3>
         {copy.summarySubtitle && (
-          <p className="pt-1 text-sm text-text/75">{copy.summarySubtitle}</p>
+          <p className="pt-1 text-fluid-body-sm text-text/75">{copy.summarySubtitle}</p>
         )}
 
-        <ul className="pt-4 text-sm leading-relaxed text-text/75">
+        <ul className="pt-4 text-fluid-body text-text/75">
           <li>{renderListItem(copy.summaryLabelEvent, selectedEventTypeTitle)}</li>
           <li>{renderListItem(copy.summaryLabelDate, values.eventDate)}</li>
           <li>{renderListItem(copy.summaryLabelTime, values.startTime || notProvidedText)}</li>
@@ -498,7 +498,7 @@ export const SummaryStep = ({
           <li>{renderListItem(copy.summaryLabelAddOns, addOnsValue)}</li>
         </ul>
 
-        <p className="pt-5 text-xs leading-relaxed text-text/65">{config.disclaimer}</p>
+        <p className="pt-5 text-fluid-body-sm text-text/65">{config.disclaimer}</p>
       </div>
 
       <div className="grid gap-4">
