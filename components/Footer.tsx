@@ -15,6 +15,7 @@ type FooterData = {
   socialLinks?: SocialLink[];
   phoneNumbers?: string[];
   email?: string;
+  studioAddress?: string;
   otherLinks?: { label?: string; url?: string }[];
   developerCreditText?: string;
   developerCreditLabel?: string;
@@ -56,21 +57,27 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
   if (!footer) return null;
 
   return (
-    <footer className="border-t border-[color-mix(in_srgb,var(--color-stone)_70%,var(--color-champagne)_30%)] bg-[var(--color-obsidian)] text-[var(--theme-text-inverse)]">
-      <div className="mx-auto w-full max-w-6xl px-6 py-12">
-        {footer.ctaHeading && <p className="mb-2 cta-heading">{footer.ctaHeading}</p>}
-        <Link href="/quote">
+    <footer className="relative overflow-hidden border-t border-[color-mix(in_srgb,var(--color-ink)_72%,var(--color-obsidian)_28%)] bg-[linear-gradient(135deg,color-mix(in_srgb,var(--color-obsidian)_96%,var(--color-ink)_4%)_0%,color-mix(in_srgb,var(--color-ink)_88%,var(--color-obsidian)_12%)_55%,color-mix(in_srgb,var(--color-obsidian)_92%,var(--color-ink)_8%)_100%)] text-[var(--theme-text-inverse)]">
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.05),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.035),transparent_38%),linear-gradient(180deg,rgba(255,255,255,0.03),transparent_22%)]"
+        aria-hidden="true"
+      />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)]" />
+      <div className="pointer-events-none absolute -right-20 top-8 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.07),transparent_70%)] blur-3xl" />
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 py-12">
+        {footer.ctaHeading && <p className="mb-4 text-fluid-heading-md">{footer.ctaHeading}</p>}
+        <Link href="/contact">
           {footer.ctaText && (
-            <p className="mb-6 text-fluid-body-lg font-medium text-[color-mix(in_srgb,var(--color-warm-ivory)_78%,var(--color-champagne)_22%)] transition-colors hover:text-[var(--color-warm-ivory)]">
+            <p className="mb-6 text-fluid-body-lg font-medium text-[color-mix(in_srgb,var(--color-warm-ivory)_88%,transparent_12%)] transition-colors hover:text-[var(--color-warm-ivory)]">
               {footer.ctaText}
             </p>
           )}
         </Link>
         <div className="grid gap-10 grid-cols-1 md:grid-cols-2">
-          <div className="space-y-2">
+          <div className="space-y-4">
             {(footer.phoneNumbers?.length || footer.email) && (
               <>
-                <div className="flex flex-col gap-3 text-fluid-body-sm tracking-tight">
+                <div className="flex flex-col gap-1 text-fluid-body-sm tracking-tight">
                   {footer.phoneNumbers?.map((phone) => (
                     <Link key={phone} href={toTelHref(phone)} className="text-link">
                       {phone}
@@ -84,6 +91,11 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
                 </div>
               </>
             )}
+            {footer.studioAddress && (
+              <address className="not-italic text-fluid-body-sm leading-relaxed text-[color-mix(in_srgb,var(--color-warm-ivory)_82%,transparent_18%)] whitespace-pre-line">
+                {footer.studioAddress}
+              </address>
+            )}
           </div>
           <div className="flex min-h-full flex-col justify-between gap-8 items-start text-left md:items-end md:text-right">
             <div className="space-y-3">
@@ -93,7 +105,7 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
                     <Link
                       key={`${link.label ?? 'link'}-${link.url}`}
                       href={normalizeFooterLinkHref(link.url)}
-                      className="text-link text-fluid-body-sm tracking-tight md:text-right text-left"
+                      className="text-link text-fluid-body-sm tracking-tight text-left md:text-right"
                     >
                       {link.label ?? link.url}
                     </Link>
@@ -113,7 +125,7 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
                         href={social.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--color-warm-ivory)_18%,transparent_82%)] bg-[color-mix(in_srgb,var(--color-warm-ivory)_6%,transparent_94%)] text-[var(--theme-text-inverse)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-200 ease-out hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--color-champagne)_55%,var(--color-warm-ivory)_45%)] hover:bg-[color-mix(in_srgb,var(--color-champagne)_14%,transparent_86%)] hover:text-[var(--color-warm-ivory)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--color-champagne)_65%,var(--color-warm-ivory)_35%)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-obsidian)]"
+                        className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--color-warm-ivory)_14%,var(--color-obsidian)_86%)] bg-[color-mix(in_srgb,var(--color-obsidian)_72%,var(--color-ink)_28%)] text-[var(--color-warm-ivory)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-200 ease-out hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--color-warm-ivory)_36%,var(--color-obsidian)_64%)] hover:bg-[color-mix(in_srgb,var(--color-ink)_84%,var(--color-obsidian)_16%)] hover:text-[var(--color-warm-ivory)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--color-warm-ivory)_70%,white_30%)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-obsidian)]"
                         aria-label={socialIconAlt[social.platform]}
                         title={socialIconAlt[social.platform]}
                       >
@@ -139,8 +151,8 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-border pt-5">
-          <div className="flex flex-col gap-3 text-fluid-body-sm tracking-tight text-muted-inverse sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 border-t border-[color-mix(in_srgb,var(--color-warm-ivory)_12%,transparent_88%)] pt-5">
+          <div className="flex flex-col gap-3 text-fluid-body-xsm tracking-tight text-[color-mix(in_srgb,var(--color-warm-ivory)_78%,transparent_22%)] sm:flex-row sm:items-center sm:justify-between">
             <p>
               {footer.developerCreditText ?? 'Site created by'}{' '}
               {footer.developerCreditUrl ? (
@@ -150,10 +162,10 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
                   rel="noreferrer"
                   className="rich-link"
                 >
-                  {footer.developerCreditLabel || 'D·EV'}
+                  {footer.developerCreditLabel || 'd·EV'}
                 </Link>
               ) : (
-                footer.developerCreditLabel || 'D·EV'
+                footer.developerCreditLabel || 'd·EV'
               )}
               .
             </p>

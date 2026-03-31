@@ -20,6 +20,7 @@ export const footerQuery = `
     },
     phoneNumbers,
     email,
+    studioAddress,
     otherLinks[]{
       label,
       url
