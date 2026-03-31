@@ -149,19 +149,20 @@ export interface HeroSection {
 export interface SplitHeroSection {
   _key: string;
   _type: 'splitHeroSection';
-  question?: string;
-  image: SanityImage;
+  introLine: string;
 
   optionOne: {
     title: string;
     link: string;
     subtitle: string;
+    image: SanityImage;
   };
 
   optionTwo: {
     title: string;
     link: string;
     subtitle: string;
+    image: SanityImage;
   };
 }
 
