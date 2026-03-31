@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { client } from '@/lib/sanity/client';
 import { footerQuery } from '@/lib/sanity/queries';
+import { isExternalUrl, normalizeInternalPath } from '@/lib/header/utils';
 import CookieSettingsButton from './CookieSettingsButton';
 
 type SocialPlatform = 'facebook' | 'instagram' | 'linkedin' | 'youtube';
@@ -47,6 +48,8 @@ const getFooter = async () => {
 const toTelHref = (phone: string) => `tel:${phone.replace(/[^+\d]/g, '')}`;
 const isSupportedPlatform = (value: string): value is SocialPlatform =>
   value === 'facebook' || value === 'instagram' || value === 'linkedin' || value === 'youtube';
+const normalizeFooterLinkHref = (url: string) =>
+  isExternalUrl(url) ? url : normalizeInternalPath(url);
 
 const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
   const footer = await getFooter();
@@ -89,7 +92,7 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
                   link.url ? (
                     <Link
                       key={`${link.label ?? 'link'}-${link.url}`}
-                      href={link.url}
+                      href={normalizeFooterLinkHref(link.url)}
                       className="text-link text-fluid-body-sm tracking-tight md:text-right text-left"
                     >
                       {link.label ?? link.url}
