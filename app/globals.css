@@ -335,6 +335,7 @@ body::-webkit-scrollbar-thumb:hover {
     line-height: 1.05;
     text-transform: uppercase;
     text-wrap: balance;
+    color: var(--theme-text-inverse);
   }
 
   .form-field {
@@ -435,13 +436,9 @@ body::-webkit-scrollbar-thumb:hover {
 
   .split-hero-option-card {
     position: relative;
-    border-radius: calc(var(--radius-surface) * 1.15);
-    border: 1px solid color-mix(in srgb, var(--theme-bg) 72%, var(--color-champagne) 28%);
-    background: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--theme-bg) 92%, transparent 8%) 0%,
-      color-mix(in srgb, var(--theme-bg) 80%, var(--color-fog) 20%) 100%
-    );
+    border-radius: var(--radius-surface);
+    border: 1px solid color-mix(in srgb, var(--color-warm-ivory) 45%, transparent 55%);
+    background-color: color-mix(in srgb, var(--color-obsidian) 45%, transparent 55%);
     padding: var(--space-3);
     backdrop-filter: blur(18px);
     transition:
@@ -454,12 +451,8 @@ body::-webkit-scrollbar-thumb:hover {
 
   .split-hero-option:focus-visible .split-hero-option-card,
   .split-hero-option:hover .split-hero-option-card {
-    background: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--theme-bg) 96%, transparent 4%) 0%,
-      color-mix(in srgb, var(--theme-bg) 84%, var(--color-fog) 16%) 100%
-    );
-    border-color: color-mix(in srgb, var(--color-champagne) 42%, var(--theme-border) 58%);
+    background-color: color-mix(in srgb, var(--color-obsidian) 55%, transparent 45%);
+    border-color: color-mix(in srgb, var(--color-warm-ivory) 55%, transparent 45%);
   }
 
   .split-hero-option-subtitle {
@@ -467,7 +460,7 @@ body::-webkit-scrollbar-thumb:hover {
     font-size: var(--text-body-sm);
     font-weight: 400;
     line-height: 1.6;
-    color: var(--theme-text-muted);
+    color: color-mix(in srgb, var(--color-warm-ivory) 75%, transparent 25%);
   }
 }
 
