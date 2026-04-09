@@ -39,7 +39,7 @@ const SplitHeroSection = ({ section }: Props) => {
       />
 
       <div className="surface-radius split-hero-option-card relative mb-2 w-full max-w-[32rem] px-5 py-4 text-center transition duration-300 group-hover:-translate-y-1 md:mb-4 md:px-7 md:py-5 backdrop-blur-md">
-        <div className="mt-3 flex flex-col items-center">
+        <div className="flex flex-col items-center">
           <span className="split-hero-option-title">{option.title}</span>
           <span className="split-hero-option-subtitle">{option.subtitle}</span>
         </div>
