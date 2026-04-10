@@ -20,12 +20,6 @@ const LogoStripSection = ({ section }: Props) => {
   return (
     <SectionShell variant="wide">
       <div className="surface-card surface-card--glass relative overflow-hidden rounded-[2.25rem] px-5 py-8 shadow-[0_24px_80px_rgba(18,18,18,0.08)] sm:px-7 sm:py-10 lg:px-10 lg:py-12">
-        <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,154,106,0.16),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(18,18,18,0.06),transparent_40%)]"
-          aria-hidden="true"
-        />
-        <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
-
         <div className="relative flex flex-col items-center gap-3 text-center">
           <p className="text-fluid-eyebrow text-link">{title}</p>
           <p className="rich-h3">{intro}</p>

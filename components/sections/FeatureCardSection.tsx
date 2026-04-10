@@ -20,7 +20,7 @@ const FeatureCardSection = ({ section }: Props) => {
         {subtitle && <p className="section-copy max-w-3xl">{subtitle}</p>}
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
         {cards.map((card, index) => {
           const cardId = card._key ?? `${card.title ?? 'feature'}-${index}`;
           const cardTitle = card.title.trim();
