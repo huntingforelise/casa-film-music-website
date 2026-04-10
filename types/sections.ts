@@ -119,6 +119,21 @@ export interface TestimonialSection {
   cards: TestimonialCard[];
 }
 
+export interface LogoItem {
+  _key?: string;
+  _type?: 'logoItem';
+  image: SanityImage;
+  url?: string;
+}
+
+export interface LogoStripSection {
+  _key: string;
+  _type: 'logoStripSection';
+  title: string;
+  intro?: string;
+  logos: LogoItem[];
+}
+
 export interface FaqItem {
   _key: string;
   _type: 'faqItem';
@@ -194,6 +209,7 @@ export type Section =
   | MediaRowSection
   | VideoShowcaseSection
   | TestimonialSection
+  | LogoStripSection
   | FaqSection
   | HeroSection
   | PhotoMosaicSection;

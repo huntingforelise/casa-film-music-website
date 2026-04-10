@@ -9,6 +9,7 @@ import CtaSection from './sections/CtaSection';
 import MediaRowSection from './sections/MediaRowSection';
 import VideoShowcaseSection from './sections/VideoShowcaseSection';
 import TestimonialSection from './sections/TestimonialSection';
+import LogoStripSection from './sections/LogoStripSection';
 import FaqSection from './sections/FaqSection';
 import PhotoMosaicSection from './sections/PhotoMosaicSection';
 
@@ -44,6 +45,9 @@ const SectionRenderer = ({ section }: Props) => {
 
     case 'testimonialSection':
       return <TestimonialSection section={section} />;
+
+    case 'logoStripSection':
+      return <LogoStripSection section={section} />;
 
     case 'faqSection':
       return <FaqSection section={section} />;
