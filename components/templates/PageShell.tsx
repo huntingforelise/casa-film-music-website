@@ -27,7 +27,7 @@ const renderBackground = (heroSection?: HeroSection, altText?: string) =>
       alt={heroSection.image.alt ?? altText ?? 'Hero image'}
       mode="fill"
       priority
-      className="absolute inset-0 h-full w-full object-cover"
+      className="absolute inset-0 z-0 h-full w-full object-cover"
       loading="eager"
     />
   ) : (
@@ -43,13 +43,13 @@ const FullScreenHero = ({
   pageTitle: string;
   contentAnchorId: string;
 }) => (
-  <section className="relative h-[100svh] w-full overflow-hidden">
+  <section className="relative isolate h-[100svh] w-full overflow-hidden bg-[var(--theme-bg)]">
     {renderBackground(heroSection, `${pageTitle} hero image`)}
     <div
-      className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"
+      className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black/40 via-black/20 to-black/60"
       aria-hidden
     />
-    <div className="absolute inset-0 z-10 flex items-end justify-start px-6 pb-[clamp(5rem,8vh,7rem)] text-left sm:px-8 lg:px-12">
+    <div className="absolute inset-0 z-20 flex items-end justify-start px-6 pb-[clamp(5rem,8vh,7rem)] text-left sm:px-8 lg:px-12">
       <h1 className="hero-title hero-title--fullscreen text-text-inverse">{pageTitle}</h1>
     </div>
     <HeroScrollButton targetId={contentAnchorId} />
@@ -63,13 +63,14 @@ const StandardHero = ({
   heroSection?: HeroSection;
   pageTitle: string;
 }) => (
-  <section className="relative h-[60vh] min-h-[50vh] max-h-[70vh] w-full overflow-hidden">
+  <section className="relative isolate h-[60vh] min-h-[50vh] max-h-[70vh] w-full overflow-hidden bg-[var(--theme-bg)]">
     {renderBackground(heroSection, `${pageTitle} hero image`)}
     <div
-      className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"
+      className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black/40 via-black/20 to-black/55"
       aria-hidden
     />
-    <div className="absolute inset-0 z-10 flex items-end justify-start px-6 pb-[clamp(2.5rem,5vh,4rem)] text-left sm:px-8 lg:px-12">
+    <div className="hero-bottom-fade" aria-hidden />
+    <div className="absolute inset-0 z-20 flex items-end justify-start px-6 pb-[clamp(2.5rem,5vh,4rem)] text-left sm:px-8 lg:px-12">
       <h1 className="hero-title hero-title--standard text-text-inverse">{pageTitle}</h1>
     </div>
   </section>

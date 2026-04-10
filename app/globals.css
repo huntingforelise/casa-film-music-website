@@ -187,7 +187,8 @@ body::-webkit-scrollbar-thumb:hover {
 .hero-title {
   display: block;
   max-width: 12ch;
-  font-family: var(--theme-font-display);
+  font-family: var(--theme-font-sans);
+  font-size: clamp(2rem, 7vw, 3.75rem);
   font-weight: 500;
   line-height: 0.95;
   text-transform: uppercase;
@@ -195,26 +196,38 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .hero-title--compact {
-  font-size: clamp(2rem, 7vw, 3.75rem);
   letter-spacing: 0.05em;
   max-width: 100%;
 }
 
 .hero-title--standard {
-  font-size: clamp(2.6rem, 8vw, 5.5rem);
   letter-spacing: 0.04em;
 }
 
 .hero-title--fullscreen {
-  font-size: clamp(2.8rem, 9vw, 7rem);
   letter-spacing: 0.03em;
+}
+
+.hero-bottom-fade {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 15;
+  height: 44%;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--theme-bg) 0%, transparent) 0%,
+    color-mix(in srgb, var(--theme-bg) 18%, transparent) 34%,
+    color-mix(in srgb, var(--theme-bg) 56%, transparent) 72%,
+    var(--theme-bg) 100%
+  );
 }
 
 .section-title {
   display: block;
   font-family: var(--theme-font-sans);
   font-weight: 600;
-  text-transform: uppercase;
   font-size: clamp(1.1rem, 3vw, 3rem);
   letter-spacing: 0.15em;
   line-height: 1.1;
