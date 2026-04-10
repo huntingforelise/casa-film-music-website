@@ -130,7 +130,7 @@ export interface LogoStripSection {
   _key: string;
   _type: 'logoStripSection';
   title: string;
-  intro?: string;
+  intro: string;
   logos: LogoItem[];
 }
 

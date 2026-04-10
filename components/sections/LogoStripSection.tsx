@@ -12,7 +12,7 @@ interface Props {
 
 const LogoStripSection = ({ section }: Props) => {
   const title = section.title.trim();
-  const intro = section.intro?.trim();
+  const intro = section.intro.trim();
   const logos = section.logos ?? [];
 
   if (!title || !logos.length) return null;
@@ -28,7 +28,7 @@ const LogoStripSection = ({ section }: Props) => {
 
         <div className="relative flex flex-col items-center gap-3 text-center">
           <p className="text-fluid-eyebrow text-link">{title}</p>
-          {intro && <p className="section-copy mx-auto max-w-3xl text-80">{intro}</p>}
+          <p className="rich-h3">{intro}</p>
         </div>
 
         <div className="relative mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5 lg:gap-3">
