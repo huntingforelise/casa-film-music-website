@@ -119,6 +119,22 @@ export interface TestimonialSection {
   cards: TestimonialCard[];
 }
 
+export interface FeatureCard {
+  _key?: string;
+  _type: 'featureCard';
+  image: SanityImage;
+  title: string;
+  text: string;
+}
+
+export interface FeatureCardSection {
+  _key: string;
+  _type: 'featureCardSection';
+  title: string;
+  subtitle?: string;
+  cards: FeatureCard[];
+}
+
 export interface LogoItem {
   _key?: string;
   _type?: 'logoItem';
@@ -209,6 +225,7 @@ export type Section =
   | MediaRowSection
   | VideoShowcaseSection
   | TestimonialSection
+  | FeatureCardSection
   | LogoStripSection
   | FaqSection
   | HeroSection
