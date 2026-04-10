@@ -29,9 +29,7 @@ const FaqSection = ({ section }: Props) => {
     <SectionShell className="bg-surface/30">
       <div className="flex flex-col gap-3">
         {section.title && <h2 className="section-heading">{section.title}</h2>}
-        {section.intro && (
-          <p className="section-copy max-w-3xl text-muted">{section.intro}</p>
-        )}
+        {section.intro && <p className="section-copy max-w-3xl text-muted">{section.intro}</p>}
       </div>
       <div className="mt-8 space-y-4">
         {items.map((item) => {
@@ -55,9 +53,12 @@ const FaqSection = ({ section }: Props) => {
               </button>
               <div
                 id={answerId}
-                className={clsx('px-4 pb-4 text-fluid-body text-muted transition sm:px-6 sm:pb-6', {
-                  hidden: !isOpen,
-                })}
+                className={clsx(
+                  'px-4 pb-4 text-fluid-body-md text-muted transition sm:px-6 sm:pb-6',
+                  {
+                    hidden: !isOpen,
+                  },
+                )}
               >
                 {item.answer?.length ? (
                   <PortableText value={item.answer} components={portableTextComponents} />

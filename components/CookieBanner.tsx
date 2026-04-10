@@ -60,10 +60,8 @@ const CookieBanner = () => {
                 {copy.eyebrow}
               </p>
               <div className="space-y-2">
-                <h2 className="text-fluid-heading-sm text-text">
-                  {copy.heading}
-                </h2>
-                <p className="max-w-3xl text-fluid-body text-80">{copy.body}</p>
+                <h2 className="text-fluid-heading-sm text-text">{copy.heading}</h2>
+                <p className="max-w-3xl text-fluid-body-md text-80">{copy.body}</p>
               </div>
             </div>
 

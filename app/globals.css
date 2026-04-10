@@ -47,10 +47,10 @@
   --space-12: 6rem;
 
   /* Type scale */
+  --text-body-xsm: clamp(0.75rem, 0.1vw + 0.7rem, 0.85rem);
+  --text-body-sm: clamp(0.85rem, 0.15vw + 0.82rem, 0.95rem);
   --text-body: clamp(0.95rem, 0.25vw + 0.9rem, 1rem);
   --text-body-lg: clamp(1rem, 0.35vw + 0.94rem, 1.125rem);
-  --text-body-sm: clamp(0.85rem, 0.15vw + 0.82rem, 0.95rem);
-  --text-body-xsm: clamp(0.75rem, 0.1vw + 0.7rem, 0.85rem);
   --text-h3: clamp(1.1rem, 0.9vw + 0.92rem, 1.4rem);
   --text-h2: clamp(1.55rem, 1.8vw + 1rem, 2.25rem);
   --text-h1: clamp(2.2rem, 4vw + 0.75rem, 5rem);
@@ -289,14 +289,14 @@ body::-webkit-scrollbar-thumb:hover {
     line-height: 1.65;
   }
 
-  .text-fluid-body {
+  .text-fluid-body-md {
     font-size: var(--text-body);
     line-height: 1.75;
   }
 
   .text-fluid-body-lg {
     font-size: var(--text-body-lg);
-    line-height: 1.7;
+    line-height: 1.85;
   }
 
   .text-fluid-eyebrow {

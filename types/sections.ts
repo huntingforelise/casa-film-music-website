@@ -105,8 +105,10 @@ export interface VideoShowcaseSection {
 export interface TestimonialCard {
   _key?: string;
   _type: 'testimonialCard';
-  quote: string;
-  author: string;
+  image: SanityImage;
+  name: string;
+  occasion: string;
+  text: string;
 }
 
 export interface TestimonialSection {

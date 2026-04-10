@@ -227,13 +227,13 @@ export const ServicesStep = ({
         const displayPrice =
           priceParts.length > 0 ? priceParts.join(PRICE_SEPARATOR) : onRequestText;
 
-          return (
-            <label
-              key={service.value}
-              className={`surface-card surface-card--ghost surface-radius booking-choice-card ${
-                checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
-              }`}
-            >
+        return (
+          <label
+            key={service.value}
+            className={`surface-card surface-card--ghost surface-radius booking-choice-card ${
+              checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
+            }`}
+          >
             <input
               type="checkbox"
               className="mt-1"
@@ -245,7 +245,9 @@ export const ServicesStep = ({
               {service.description && (
                 <span className="text-fluid-body-sm text-muted">{service.description}</span>
               )}
-              {displayPrice && <span className="text-fluid-body-sm font-medium text-80">{displayPrice}</span>}
+              {displayPrice && (
+                <span className="text-fluid-body-sm font-medium text-80">{displayPrice}</span>
+              )}
             </span>
           </label>
         );
@@ -271,9 +273,7 @@ export const BundleSelectionStep = ({
 }: BundleSelectionStepProps) => {
   return (
     <div className="grid gap-4">
-      {copy.bundleIntro && (
-        <p className="text-fluid-body text-text/75">{copy.bundleIntro}</p>
-      )}
+      {copy.bundleIntro && <p className="text-fluid-body-md text-text/75">{copy.bundleIntro}</p>}
 
       {!!bundleSuggestions.length
         ? bundleSuggestions.map((suggestion) => {
@@ -307,9 +307,7 @@ export const BundleSelectionStep = ({
                 }`}
               >
                 <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="text-fluid-heading-md">
-                    {suggestion.bundle.title}
-                  </h3>
+                  <h3 className="text-fluid-heading-md">{suggestion.bundle.title}</h3>
                   {suggestion.bundle.highlightLabel && (
                     <span className="surface-radius border border-accent/40 bg-accent/15 px-2 py-0.5 text-xs uppercase tracking-[0.12em] text-80">
                       {suggestion.bundle.highlightLabel}
@@ -318,10 +316,14 @@ export const BundleSelectionStep = ({
                 </div>
 
                 {suggestion.bundle.description && (
-                  <p className="pt-2 text-fluid-body-sm text-text/75">{suggestion.bundle.description}</p>
+                  <p className="pt-2 text-fluid-body-sm text-text/75">
+                    {suggestion.bundle.description}
+                  </p>
                 )}
 
-                {includesLine && <p className="pt-2 text-fluid-body-sm text-text/75">{includesLine}</p>}
+                {includesLine && (
+                  <p className="pt-2 text-fluid-body-sm text-text/75">{includesLine}</p>
+                )}
 
                 {hasPriceLine && (
                   <p className="pt-2 text-fluid-body-sm font-medium text-text/85">
@@ -485,7 +487,7 @@ export const SummaryStep = ({
           <p className="pt-1 text-fluid-body-sm text-text/75">{copy.summarySubtitle}</p>
         )}
 
-        <ul className="pt-4 text-fluid-body text-text/75">
+        <ul className="pt-4 text-fluid-body-md text-text/75">
           <li>{renderListItem(copy.summaryLabelEvent, selectedEventTypeTitle)}</li>
           <li>{renderListItem(copy.summaryLabelDate, values.eventDate)}</li>
           <li>{renderListItem(copy.summaryLabelTime, values.startTime || notProvidedText)}</li>
