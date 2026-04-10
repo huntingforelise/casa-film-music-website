@@ -28,6 +28,8 @@ const getBackground = (mediaType: MediaCardProps['mediaType']) =>
 
 const MediaCard = (props: MediaCardProps) => {
   const { mediaType, orientation, className, videoZoom = 1, sizes } = props;
+  const isInteractiveVideo = mediaType === 'video' ? Boolean(props.item.interactive) : false;
+  const resolvedVideoZoom = isInteractiveVideo ? 1 : videoZoom;
 
   const containerClass = clsx(
     'relative overflow-hidden',
@@ -60,8 +62,9 @@ const MediaCard = (props: MediaCardProps) => {
     <Video
       src={props.item.url}
       title={props.item.title ?? 'Embedded video'}
-      zoom={videoZoom}
+      zoom={resolvedVideoZoom}
       containerClassName={containerClass}
+      interactive={isInteractiveVideo}
     />
   );
 };

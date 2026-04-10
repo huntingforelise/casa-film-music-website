@@ -20,6 +20,7 @@ export interface PhotoItem extends BaseMediaItem {
 export interface VideoItem extends BaseMediaItem {
   _type?: 'videoItem';
   url: string;
+  interactive?: boolean;
 }
 
 export type MediaItem = PhotoItem | VideoItem;

@@ -16,10 +16,17 @@ type VideoProps = {
   title?: string;
   containerClassName?: string;
   zoom?: number;
+  interactive?: boolean;
 };
 
-const Video = ({ src, title = 'Embedded video', containerClassName, zoom = 1 }: VideoProps) => {
-  const embedUrl = getEmbedUrl(src);
+const Video = ({
+  src,
+  title = 'Embedded video',
+  containerClassName,
+  zoom = 1,
+  interactive = false,
+}: VideoProps) => {
+  const embedUrl = getEmbedUrl(src, interactive);
   const [consent, setConsent] = useState<ConsentState | null>(null);
   const [isConsentReady, setIsConsentReady] = useState(false);
 
