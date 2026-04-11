@@ -22,7 +22,7 @@ const QuoteSection = ({ section }: Props) => {
         aria-hidden="true"
       />
       <div className="relative flex flex-col gap-5">
-        <p className="rich-h2 italic" style={{ textWrap: 'balance' }}>
+        <p className="quote-section-text italic" style={{ textWrap: 'balance' }}>
           &ldquo;{quote}&rdquo;
         </p>
 

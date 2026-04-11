@@ -24,7 +24,7 @@ type MediaTextLayoutSpec = {
 };
 
 const RESPONSIVE_GRID_CLASS =
-  'grid grid-cols-1 gap-8 md:[grid-template-columns:var(--media-text-cols)] md:items-center md:gap-8 xl:gap-12';
+  'grid grid-cols-1 gap-8 md:[grid-template-columns:var(--media-text-cols)] md:items-stretch md:gap-8 xl:gap-12';
 
 const buildSizes = (desktopWidth: number, tabletWidth: number) =>
   `(min-width: 1280px) ${desktopWidth}vw, (min-width: 768px) ${tabletWidth}vw, 100vw`;
@@ -50,32 +50,32 @@ const buildLayoutClasses = (
 
 const LANDSCAPE_LAYOUTS: Record<LandscapeMediaSize, MediaTextLayoutSpec> = {
   small: {
-    mediaColumns: 'minmax(0,0.75fr)',
-    textColumns: 'minmax(0,1.25fr)',
-    sizes: buildSizes(32, 36),
+    mediaColumns: 'minmax(0,0.85fr)',
+    textColumns: 'minmax(0,1.15fr)',
+    sizes: buildSizes(34, 38),
   },
   large: {
-    mediaColumns: 'minmax(0,1.1fr)',
-    textColumns: 'minmax(0,0.9fr)',
-    sizes: buildSizes(48, 52),
+    mediaColumns: 'minmax(0,1.26fr)',
+    textColumns: 'minmax(0,0.74fr)',
+    sizes: buildSizes(52, 56),
   },
 };
 
 const PORTRAIT_LAYOUTS: Record<PortraitMediaSize, MediaTextLayoutSpec> = {
   small: {
-    mediaColumns: 'minmax(0,0.6fr)',
-    textColumns: 'minmax(0,1.4fr)',
-    sizes: buildSizes(26, 30),
+    mediaColumns: 'minmax(0,0.72fr)',
+    textColumns: 'minmax(0,1.28fr)',
+    sizes: buildSizes(28, 32),
   },
   standard: {
-    mediaColumns: 'minmax(0,0.8fr)',
-    textColumns: 'minmax(0,1.2fr)',
+    mediaColumns: 'minmax(0,0.92fr)',
+    textColumns: 'minmax(0,1.08fr)',
     sizes: buildSizes(36, 40),
   },
   large: {
-    mediaColumns: 'minmax(0,1fr)',
-    textColumns: 'minmax(0,1fr)',
-    sizes: buildSizes(44, 48),
+    mediaColumns: 'minmax(0,1.08fr)',
+    textColumns: 'minmax(0,0.92fr)',
+    sizes: buildSizes(46, 50),
   },
 };
 

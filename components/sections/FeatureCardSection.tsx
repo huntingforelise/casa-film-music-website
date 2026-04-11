@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react';
+
 import SanityImage from '../media/SanityImage';
 import SectionShell from './SectionShell';
 import type { FeatureCardSection as FeatureCardSectionType } from '@/types/sections';
@@ -7,20 +9,35 @@ interface Props {
 }
 
 const FeatureCardSection = ({ section }: Props) => {
+  const eyebrow = section.eyebrow?.trim();
   const title = section.title.trim();
   const subtitle = section.subtitle?.trim();
+  const calloutTitle = section.calloutTitle?.trim();
+  const calloutText = section.calloutText?.trim();
+  const calloutItems = (section.calloutItems ?? []).map((item) => item.trim()).filter(Boolean);
   const cards = section.cards ?? [];
+  const mdColumns = Math.min(cards.length, 2);
+  const lgColumns = Math.min(cards.length, 4);
 
   if (!title || !cards.length) return null;
 
   return (
     <SectionShell id="feature-cards">
       <div className="flex flex-col gap-3">
+        {eyebrow && <p className="text-fluid-eyebrow text-link">{eyebrow}</p>}
         <h2 className="section-heading">{title}</h2>
         {subtitle && <p className="section-copy max-w-3xl">{subtitle}</p>}
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <div
+        className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-[repeat(var(--feature-card-cols-md),minmax(0,1fr))] lg:grid-cols-[repeat(var(--feature-card-cols-lg),minmax(0,1fr))]"
+        style={
+          {
+            '--feature-card-cols-md': mdColumns,
+            '--feature-card-cols-lg': lgColumns,
+          } as CSSProperties
+        }
+      >
         {cards.map((card, index) => {
           const cardId = card._key ?? `${card.title ?? 'feature'}-${index}`;
           const cardTitle = card.title.trim();
@@ -60,6 +77,31 @@ const FeatureCardSection = ({ section }: Props) => {
           );
         })}
       </div>
+
+      {(calloutTitle || calloutText || calloutItems.length > 0) && (
+        <div className="editorial-panel mt-8">
+          <div className="editorial-panel__inner grid gap-5 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:items-start">
+            <div className="flex flex-col gap-3">
+              <p className="text-fluid-eyebrow text-link">Included in all options</p>
+              {calloutTitle && (
+                <h3 className="text-fluid-heading-sm leading-tight text-text">{calloutTitle}</h3>
+              )}
+              {calloutText && <p className="section-copy text-text/80">{calloutText}</p>}
+            </div>
+
+            {calloutItems.length > 0 && (
+              <ul className="grid gap-3 text-fluid-body-sm text-text/85">
+                {calloutItems.map((item, index) => (
+                  <li key={`${item}-${index}`} className="flex items-center gap-3">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      )}
     </SectionShell>
   );
 };

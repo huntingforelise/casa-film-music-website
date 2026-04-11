@@ -130,8 +130,12 @@ export interface FeatureCard {
 export interface FeatureCardSection {
   _key: string;
   _type: 'featureCardSection';
+  eyebrow?: string;
   title: string;
   subtitle?: string;
+  calloutTitle?: string;
+  calloutText?: string;
+  calloutItems?: string[];
   cards: FeatureCard[];
 }
 

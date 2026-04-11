@@ -16,26 +16,36 @@ const TwoColumnTextSection = ({ section }: Props) => {
     return null;
   }
 
-  const gridClassName =
-    hasLeftContent && hasRightContent
-      ? 'grid gap-8 md:grid-cols-2 md:gap-10 lg:gap-12'
-      : 'grid gap-8';
-
-  const rightColumnClassName =
-    hasLeftContent && hasRightContent ? 'md:border-l md:border-border/60 md:pl-8 lg:pl-10' : '';
+  const gridClassName = hasLeftContent && hasRightContent ? 'grid gap-6 lg:grid-cols-2 lg:gap-8' : 'grid gap-6';
 
   return (
     <SectionShell variant="wide">
       <div className={gridClassName}>
         {hasLeftContent && (
-          <div className="min-w-0 max-w-prose">
-            <PortableText value={section.leftContent} components={portableTextComponents} />
+          <div className="min-w-0">
+            <div className="editorial-panel h-full">
+              <div className="editorial-panel__inner flex h-full flex-col gap-4 sm:gap-5">
+                <div className="editorial-panel__rule" aria-hidden="true" />
+
+                <div className="editorial-panel__lead max-w-prose">
+                  <PortableText value={section.leftContent} components={portableTextComponents} />
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
         {hasRightContent && (
-          <div className={`min-w-0 max-w-prose ${rightColumnClassName}`}>
-            <PortableText value={section.rightContent} components={portableTextComponents} />
+          <div className="min-w-0">
+            <div className="editorial-panel editorial-panel--split h-full">
+              <div className="editorial-panel__inner flex h-full flex-col gap-4 sm:gap-5">
+                <div className="editorial-panel__rule" aria-hidden="true" />
+
+                <div className="editorial-panel__lead max-w-prose">
+                  <PortableText value={section.rightContent} components={portableTextComponents} />
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
