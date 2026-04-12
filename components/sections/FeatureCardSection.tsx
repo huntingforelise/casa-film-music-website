@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 
 import SanityImage from '../media/SanityImage';
+import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
 import type { FeatureCardSection as FeatureCardSectionType } from '@/types/sections';
 
@@ -10,8 +11,8 @@ interface Props {
 
 const FeatureCardSection = ({ section }: Props) => {
   const eyebrow = section.eyebrow?.trim();
-  const title = section.title.trim();
-  const subtitle = section.subtitle?.trim();
+  const title = section.title?.trim();
+  const intro = section.intro?.trim() ?? section.subtitle?.trim();
   const calloutTitle = section.calloutTitle?.trim();
   const calloutText = section.calloutText?.trim();
   const calloutItems = (section.calloutItems ?? []).map((item) => item.trim()).filter(Boolean);
@@ -19,18 +20,18 @@ const FeatureCardSection = ({ section }: Props) => {
   const mdColumns = Math.min(cards.length, 2);
   const lgColumns = Math.min(cards.length, 4);
 
-  if (!title || !cards.length) return null;
+  if (!cards.length) return null;
 
   return (
     <SectionShell id="feature-cards">
-      <div className="flex flex-col gap-3">
-        {eyebrow && <p className="text-fluid-eyebrow text-link">{eyebrow}</p>}
-        <h2 className="section-heading">{title}</h2>
-        {subtitle && <p className="section-copy max-w-3xl">{subtitle}</p>}
-      </div>
+      <SectionHeader
+        eyebrow={eyebrow}
+        title={title}
+        intro={intro}
+      />
 
       <div
-        className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-[repeat(var(--feature-card-cols-md),minmax(0,1fr))] lg:grid-cols-[repeat(var(--feature-card-cols-lg),minmax(0,1fr))]"
+        className="grid grid-cols-1 gap-5 md:grid-cols-[repeat(var(--feature-card-cols-md),minmax(0,1fr))] lg:grid-cols-[repeat(var(--feature-card-cols-lg),minmax(0,1fr))]"
         style={
           {
             '--feature-card-cols-md': mdColumns,

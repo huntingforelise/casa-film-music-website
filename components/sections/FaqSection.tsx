@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 import type { FaqSection as FaqSectionType } from '@/types/sections';
 import SectionShell from './SectionShell';
+import SectionHeader from './SectionHeader';
 import { portableTextComponents } from '../portableTextComponents';
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const FaqSection = ({ section }: Props) => {
+  const eyebrow = section.eyebrow?.trim();
   const items = section.items ?? [];
   const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
   const title = section.title?.trim();
@@ -30,12 +32,9 @@ const FaqSection = ({ section }: Props) => {
   return (
     <SectionShell id="faq">
       <div className="relative overflow-hidden rounded-[2.5rem] border border-[color-mix(in_srgb,var(--color-champagne)_16%,var(--theme-border)_84%)] px-5 py-6 shadow-[0_26px_80px_rgba(18,18,18,0.08)] sm:px-7 sm:py-8 lg:px-10 lg:py-10">
-        <div className="relative flex flex-col gap-3">
-          {title && <h2 className="section-heading max-w-3xl">{title}</h2>}
-          {intro && <p className="section-copy max-w-3xl text-muted">{intro}</p>}
-        </div>
+        <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
-        <div className="relative mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div className="relative grid grid-cols-1 gap-4 lg:grid-cols-2">
           {items.map((item) => {
             const answerId = `faq-answer-${item._key}`;
             const isOpen = Boolean(openItems[item._key]);

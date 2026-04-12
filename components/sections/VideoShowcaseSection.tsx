@@ -2,6 +2,7 @@ import { VideoShowcaseSection as VideoShowcaseSectionType } from '@/types/sectio
 import { MediaOrientation } from '@/types/media';
 import MediaCard from '@/components/media/MediaCard';
 import { getMediaAspectClass } from '../../lib/media/mediaLayout';
+import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
 import clsx from 'clsx';
 
@@ -15,6 +16,9 @@ const SUPPORTING_VIDEO_COUNTS: Record<MediaOrientation, number> = {
 };
 
 const VideoShowcaseSection = ({ section }: Props) => {
+  const eyebrow = section.eyebrow?.trim();
+  const title = section.title?.trim();
+  const intro = section.intro?.trim();
   const orientation = section.mediaOrientation ?? 'landscape';
   const featuredVideo = section.featuredVideo;
   const supportingCount = SUPPORTING_VIDEO_COUNTS[orientation];
@@ -94,17 +98,8 @@ const VideoShowcaseSection = ({ section }: Props) => {
 
   return (
     <SectionShell>
-      <div className="flex flex-col gap-6">
-        {(section.title || section.intro) && (
-          <header className="max-w-3xl">
-            {section.title && (
-              <h2 className="section-heading">{section.title}</h2>
-            )}
-            {section.intro && (
-              <p className="section-copy text-80 pt-3">{section.intro}</p>
-            )}
-          </header>
-        )}
+      <div className="flex flex-col">
+        <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
         {orientation === 'portrait' ? renderPortraitLayout() : renderLandscapeLayout()}
       </div>

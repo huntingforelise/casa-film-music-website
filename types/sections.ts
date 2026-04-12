@@ -34,6 +34,12 @@ export interface PortableTextBlock {
 
 /* ---------- Sections ---------- */
 
+export interface SectionHeaderContent {
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+}
+
 export interface TextSection {
   _key: string;
   _type: 'textSection';
@@ -92,11 +98,9 @@ export type MediaRowSection =
       videos: VideoItem[];
     });
 
-export interface VideoShowcaseSection {
+export interface VideoShowcaseSection extends SectionHeaderContent {
   _key: string;
   _type: 'videoShowcaseSection';
-  title?: string;
-  intro?: string;
   mediaOrientation: MediaOrientation;
   featuredVideo: VideoItem;
   videos: VideoItem[];
@@ -111,11 +115,9 @@ export interface TestimonialCard {
   text: string;
 }
 
-export interface TestimonialSection {
+export interface TestimonialSection extends SectionHeaderContent {
   _key: string;
   _type: 'testimonialSection';
-  title: string;
-  intro?: string;
   cards: TestimonialCard[];
 }
 
@@ -127,11 +129,9 @@ export interface FeatureCard {
   text: string;
 }
 
-export interface FeatureCardSection {
+export interface FeatureCardSection extends SectionHeaderContent {
   _key: string;
   _type: 'featureCardSection';
-  eyebrow?: string;
-  title: string;
   subtitle?: string;
   calloutTitle?: string;
   calloutText?: string;
@@ -146,11 +146,9 @@ export interface LogoItem {
   url?: string;
 }
 
-export interface LogoStripSection {
+export interface LogoStripSection extends SectionHeaderContent {
   _key: string;
   _type: 'logoStripSection';
-  title: string;
-  intro: string;
   logos: LogoItem[];
 }
 
@@ -161,11 +159,9 @@ export interface FaqItem {
   answer: PortableTextBlock[];
 }
 
-export interface FaqSection {
+export interface FaqSection extends SectionHeaderContent {
   _key: string;
   _type: 'faqSection';
-  title?: string;
-  intro?: string;
   items: FaqItem[];
 }
 
