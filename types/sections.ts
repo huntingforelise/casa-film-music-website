@@ -49,6 +49,7 @@ export interface TextSection {
 export interface TwoColumnTextSection {
   _key: string;
   _type: 'twoColumnTextSection';
+  backgroundImage?: SanityImage;
   leftContent: PortableTextBlock[];
   rightContent: PortableTextBlock[];
 }
