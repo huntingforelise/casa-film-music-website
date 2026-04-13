@@ -141,6 +141,13 @@ export interface FeatureCardSection extends SectionHeaderContent {
   cards: FeatureCard[];
 }
 
+export interface ProcessSection extends SectionHeaderContent {
+  _key: string;
+  _type: 'processSection';
+  backgroundImage?: SanityImage;
+  steps: string[];
+}
+
 export interface LogoItem {
   _key?: string;
   _type?: 'logoItem';
@@ -228,6 +235,7 @@ export type Section =
   | VideoShowcaseSection
   | TestimonialSection
   | FeatureCardSection
+  | ProcessSection
   | LogoStripSection
   | FaqSection
   | HeroSection

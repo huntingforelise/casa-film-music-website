@@ -10,6 +10,7 @@ import MediaRowSection from './sections/MediaRowSection';
 import VideoShowcaseSection from './sections/VideoShowcaseSection';
 import TestimonialSection from './sections/TestimonialSection';
 import FeatureCardSection from './sections/FeatureCardSection';
+import ProcessSection from './sections/ProcessSection';
 import LogoStripSection from './sections/LogoStripSection';
 import FaqSection from './sections/FaqSection';
 import PhotoMosaicSection from './sections/PhotoMosaicSection';
@@ -49,6 +50,9 @@ const SectionRenderer = ({ section }: Props) => {
 
     case 'featureCardSection':
       return <FeatureCardSection section={section} />;
+
+    case 'processSection':
+      return <ProcessSection section={section} />;
 
     case 'logoStripSection':
       return <LogoStripSection section={section} />;
