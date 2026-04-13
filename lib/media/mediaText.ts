@@ -1,9 +1,9 @@
-import type {
-  LandscapeMediaSize,
-  MediaOrientation,
-  PortraitMediaSize,
-} from '@/types/media';
 import type { CSSProperties } from 'react';
+
+import type { MediaOrientation } from '@/types/media';
+import type { PortableTextBlock } from '@/types/sections';
+
+export type MediaTextContentDensity = 'compact' | 'balanced' | 'expanded';
 
 type MediaTextLayoutClasses = {
   grid: string;
@@ -23,22 +23,19 @@ type MediaTextLayoutSpec = {
   sizes: string;
 };
 
-const RESPONSIVE_GRID_CLASS =
-  'grid grid-cols-1 gap-8 md:[grid-template-columns:var(--media-text-cols)] md:items-stretch md:gap-8 xl:gap-12';
+const GRID_CLASS =
+  'grid grid-cols-1 gap-6 md:[grid-template-columns:var(--media-text-cols)] md:items-start md:gap-8 xl:gap-12';
 
 const buildSizes = (desktopWidth: number, tabletWidth: number) =>
   `(min-width: 1280px) ${desktopWidth}vw, (min-width: 768px) ${tabletWidth}vw, 100vw`;
 
-const buildLayoutClasses = (
-  spec: MediaTextLayoutSpec,
-  mediaOnLeft: boolean,
-): MediaTextLayoutClasses => {
+const buildLayoutClasses = (spec: MediaTextLayoutSpec, mediaOnLeft: boolean): MediaTextLayoutClasses => {
   const columns = mediaOnLeft
     ? `${spec.mediaColumns} ${spec.textColumns}`
     : `${spec.textColumns} ${spec.mediaColumns}`;
 
   return {
-    grid: RESPONSIVE_GRID_CLASS,
+    grid: GRID_CLASS,
     style: {
       ['--media-text-cols']: columns,
     },
@@ -48,57 +45,74 @@ const buildLayoutClasses = (
   };
 };
 
-const LANDSCAPE_LAYOUTS: Record<LandscapeMediaSize, MediaTextLayoutSpec> = {
-  small: {
-    mediaColumns: 'minmax(0,0.85fr)',
-    textColumns: 'minmax(0,1.15fr)',
-    sizes: buildSizes(34, 38),
+const LANDSCAPE_LAYOUTS: Record<MediaTextContentDensity, MediaTextLayoutSpec> = {
+  compact: {
+    mediaColumns: 'minmax(0,1.18fr)',
+    textColumns: 'minmax(0,0.82fr)',
+    sizes: buildSizes(56, 58),
   },
-  large: {
-    mediaColumns: 'minmax(0,1.26fr)',
-    textColumns: 'minmax(0,0.74fr)',
-    sizes: buildSizes(52, 56),
+  balanced: {
+    mediaColumns: 'minmax(0,1.08fr)',
+    textColumns: 'minmax(0,0.92fr)',
+    sizes: buildSizes(52, 54),
+  },
+  expanded: {
+    mediaColumns: 'minmax(0,1fr)',
+    textColumns: 'minmax(0,1fr)',
+    sizes: buildSizes(46, 48),
   },
 };
 
-const PORTRAIT_LAYOUTS: Record<PortraitMediaSize, MediaTextLayoutSpec> = {
-  small: {
-    mediaColumns: 'minmax(0,0.72fr)',
-    textColumns: 'minmax(0,1.28fr)',
-    sizes: buildSizes(28, 32),
+const PORTRAIT_LAYOUTS: Record<MediaTextContentDensity, MediaTextLayoutSpec> = {
+  compact: {
+    mediaColumns: 'minmax(0,1fr)',
+    textColumns: 'minmax(0,1fr)',
+    sizes: buildSizes(42, 44),
   },
-  standard: {
-    mediaColumns: 'minmax(0,0.92fr)',
-    textColumns: 'minmax(0,1.08fr)',
-    sizes: buildSizes(36, 40),
+  balanced: {
+    mediaColumns: 'minmax(0,0.9fr)',
+    textColumns: 'minmax(0,1.1fr)',
+    sizes: buildSizes(38, 40),
   },
-  large: {
-    mediaColumns: 'minmax(0,1.08fr)',
-    textColumns: 'minmax(0,0.92fr)',
-    sizes: buildSizes(46, 50),
+  expanded: {
+    mediaColumns: 'minmax(0,0.82fr)',
+    textColumns: 'minmax(0,1.18fr)',
+    sizes: buildSizes(34, 36),
   },
+};
+
+export const getMediaTextContentDensity = (content: PortableTextBlock[]): MediaTextContentDensity => {
+  const characterCount = content.reduce((total, block) => {
+    if (block._type !== 'block') {
+      return total;
+    }
+
+    return (
+      total +
+      block.children.reduce((blockTotal, child) => blockTotal + child.text.length, 0)
+    );
+  }, 0);
+
+  const weightedLength = characterCount + content.length * 42;
+
+  if (weightedLength < 360) {
+    return 'compact';
+  }
+
+  if (weightedLength > 900) {
+    return 'expanded';
+  }
+
+  return 'balanced';
 };
 
 export const getLayoutClasses = (
   orientation: MediaOrientation,
   mediaOnLeft: boolean,
-  portraitMediaSize: PortraitMediaSize = 'standard',
-  landscapeMediaSize: LandscapeMediaSize = 'large',
+  content: PortableTextBlock[] = [],
 ): MediaTextLayoutClasses => {
-  if (orientation === 'landscape') {
-    return buildLayoutClasses(LANDSCAPE_LAYOUTS[landscapeMediaSize], mediaOnLeft);
-  }
+  const density = getMediaTextContentDensity(content);
+  const spec = orientation === 'landscape' ? LANDSCAPE_LAYOUTS[density] : PORTRAIT_LAYOUTS[density];
 
-  return buildLayoutClasses(PORTRAIT_LAYOUTS[portraitMediaSize], mediaOnLeft);
+  return buildLayoutClasses(spec, mediaOnLeft);
 };
-
-export const isSmallMediaLayout = (
-  orientation: MediaOrientation,
-  portraitMediaSize: PortraitMediaSize,
-  landscapeMediaSize: LandscapeMediaSize,
-) => (orientation === 'landscape' ? landscapeMediaSize === 'small' : portraitMediaSize === 'small');
-
-export const shouldShowTitleAboveGrid = (
-  orientation: MediaOrientation,
-  portraitMediaSize: PortraitMediaSize,
-) => orientation === 'landscape' || portraitMediaSize === 'small';

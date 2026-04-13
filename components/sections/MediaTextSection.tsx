@@ -1,20 +1,12 @@
 import { PortableText } from '@portabletext/react';
+
 import MediaCard from '../media/MediaCard';
-import { MediaTextSection as MediaTextSectionType } from '@/types/sections';
-import { portableTextComponents } from '../portableTextComponents';
-import {
-  getLayoutClasses,
-  isSmallMediaLayout,
-  shouldShowTitleAboveGrid,
-} from '@/lib/media/mediaText';
-import type {
-  LandscapeMediaSize,
-  MediaOrientation,
-  PhotoItem,
-  PortraitMediaSize,
-  VideoItem,
-} from '@/types/media';
+import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
+import { portableTextComponents } from '../portableTextComponents';
+import { MediaTextSection as MediaTextSectionType } from '@/types/sections';
+import { getLayoutClasses } from '@/lib/media/mediaText';
+import type { MediaOrientation, PhotoItem, VideoItem } from '@/types/media';
 
 interface Props {
   section: MediaTextSectionType;
@@ -22,112 +14,84 @@ interface Props {
 
 const MediaTextSection = ({ section }: Props) => {
   const orientation: MediaOrientation = section.mediaOrientation ?? 'landscape';
-  const landscapeMediaSize: LandscapeMediaSize = section.landscapeMediaSize ?? 'large';
-  const portraitMediaSize: PortraitMediaSize = section.portraitMediaSize ?? 'standard';
-  const isSmallMedia = isSmallMediaLayout(orientation, portraitMediaSize, landscapeMediaSize);
-  const mediaOnLeft = section.mediaPosition === 'left' && !isSmallMedia;
+  const mediaOnLeft = section.mediaPosition === 'left';
+  const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
-  const showTitleAboveGrid = !!title && shouldShowTitleAboveGrid(orientation, portraitMediaSize);
+  const intro = section.intro?.trim();
+  const content = section.content ?? [];
 
-  if (!section.content?.length) {
+  if (!content.length) {
+    return null;
+  }
+
+  if (section.mediaType === 'photo' && !section.image) {
+    return null;
+  }
+
+  if (section.mediaType === 'video' && !section.video?.url) {
     return null;
   }
 
   const { grid, style, textOrder, mediaOrder, sizes } = getLayoutClasses(
     orientation,
     mediaOnLeft,
-    portraitMediaSize,
-    landscapeMediaSize,
+    content,
   );
-  const overlapClassName = mediaOnLeft
-    ? 'editorial-panel--overlap-left'
-    : 'editorial-panel--overlap-right';
 
-  if (section.mediaType === 'photo') {
-    const photoItem: PhotoItem = {
-      image: section.image,
-      title: title ?? section.image.alt,
-      alt: section.image.alt ?? title ?? '',
-    };
+  const mediaClassName =
+    'w-full rounded-[2.5rem] border border-black/10 bg-surface shadow-[0_28px_80px_rgba(18,18,18,0.12)] ring-1 ring-black/5';
+
+  const renderMedia = () => {
+    if (section.mediaType === 'photo') {
+      const photoItem: PhotoItem = {
+        image: section.image,
+        title: title ?? section.image.alt,
+        alt: section.image.alt ?? title ?? '',
+      };
+
+      return (
+        <MediaCard
+          mediaType="photo"
+          item={photoItem}
+          orientation={orientation}
+          className={mediaClassName}
+          sizes={sizes}
+        />
+      );
+    }
+
+    const videoItem: VideoItem = section.video;
 
     return (
-      <SectionShell variant="wide">
-        {showTitleAboveGrid && title && (
-          <div className="mb-10 sm:mb-12 lg:mb-24">
-            <h2 className="media-text-title text-center lg:whitespace-nowrap">{title}</h2>
-          </div>
-        )}
-
-        <div className={grid} style={style}>
-          <div className={`${textOrder} min-w-0`}>
-            <div
-              className={`editorial-panel editorial-panel--media-text editorial-panel--overlap ${overlapClassName} h-full`}
-            >
-              <div className="editorial-panel__inner flex h-full flex-col gap-4 sm:gap-5">
-                <div className="editorial-panel__rule" aria-hidden="true" />
-                {!showTitleAboveGrid && title && (
-                  <h2 className="media-text-title text-center lg:whitespace-nowrap">{title}</h2>
-                )}
-
-                <div className="editorial-panel__lead max-w-prose">
-                  <PortableText value={section.content} components={portableTextComponents} />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className={`${mediaOrder} min-w-0`}>
-            <MediaCard
-              mediaType="photo"
-              item={photoItem}
-              orientation={orientation}
-              className="editorial-media--overlap h-full w-full rounded-[2.25rem] border border-[var(--theme-border)] bg-surface shadow-2xl shadow-black/20"
-              sizes={sizes}
-            />
-          </div>
-        </div>
-      </SectionShell>
+      <MediaCard
+        mediaType="video"
+        item={videoItem}
+        orientation={orientation}
+        videoZoom={orientation === 'landscape' ? 1.08 : 1}
+        className={mediaClassName}
+        sizes={sizes}
+      />
     );
-  }
-
-  const videoItem: VideoItem = section.video;
-  const videoZoom = orientation === 'landscape' ? 1.58 : 1;
+  };
 
   return (
     <SectionShell variant="wide">
-      {showTitleAboveGrid && title && (
-        <div className="mb-10 sm:mb-12 lg:mb-24">
-          <h2 className="media-text-title text-center lg:whitespace-nowrap">{title}</h2>
-        </div>
-      )}
+      <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
       <div className={grid} style={style}>
         <div className={`${textOrder} min-w-0`}>
-          <div
-            className={`editorial-panel editorial-panel--media-text editorial-panel--overlap ${overlapClassName} h-full`}
-          >
+          <div className="editorial-panel h-full">
             <div className="editorial-panel__inner flex h-full flex-col gap-4 sm:gap-5">
               <div className="editorial-panel__rule" aria-hidden="true" />
-              {!showTitleAboveGrid && title && (
-                <h2 className="media-text-title text-center lg:whitespace-nowrap">{title}</h2>
-              )}
-
               <div className="editorial-panel__lead max-w-prose">
-                <PortableText value={section.content} components={portableTextComponents} />
+                <PortableText value={content} components={portableTextComponents} />
               </div>
             </div>
           </div>
         </div>
 
-        <div className={`${mediaOrder} min-w-0`}>
-          <MediaCard
-            mediaType="video"
-            item={videoItem}
-            orientation={orientation}
-            videoZoom={videoZoom}
-            className="editorial-media--overlap h-full w-full rounded-[2.25rem] border border-[var(--theme-border)] bg-surface shadow-2xl shadow-black/20"
-            sizes={sizes}
-          />
+        <div className={`${mediaOrder} min-w-0 md:sticky md:top-8`}>
+          {renderMedia()}
         </div>
       </div>
     </SectionShell>

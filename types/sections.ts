@@ -1,9 +1,7 @@
 import { SanityImage } from './sanity';
 import type {
   MediaOrientation,
-  LandscapeMediaSize,
   PhotoItem,
-  PortraitMediaSize,
   VideoItem,
 } from './media';
 
@@ -63,14 +61,14 @@ export interface QuoteSection {
 }
 
 type BaseMediaTextSection = {
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
   _key: string;
   _type: 'mediaTextSection';
-  title?: string;
   content: PortableTextBlock[];
   mediaPosition: 'left' | 'right';
   mediaOrientation: MediaOrientation;
-  landscapeMediaSize?: LandscapeMediaSize;
-  portraitMediaSize?: PortraitMediaSize;
 };
 
 export type MediaTextSection =
