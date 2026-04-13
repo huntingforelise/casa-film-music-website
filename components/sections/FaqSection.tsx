@@ -35,7 +35,7 @@ const FaqSection = ({ section }: Props) => {
     <div className="relative overflow-hidden rounded-[2.5rem] border border-[color-mix(in_srgb,var(--color-champagne)_16%,var(--theme-border)_84%)] bg-surface/95 px-5 py-6 shadow-[0_26px_80px_rgba(18,18,18,0.08)] sm:px-7 sm:py-8 lg:px-10 lg:py-10">
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
-      <div className="relative grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="relative grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
         {items.map((item) => {
           const answerId = `faq-answer-${item._key}`;
           const isOpen = Boolean(openItems[item._key]);
@@ -59,7 +59,7 @@ const FaqSection = ({ section }: Props) => {
                 aria-controls={answerId}
                 aria-expanded={isOpen}
                 onClick={() => toggleItem(item._key)}
-                className="grid w-full min-h-[5.1rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:min-h-[5.75rem] sm:px-5"
+                className="grid w-full min-h-[5.1rem] cursor-pointer grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:min-h-[5.75rem] sm:px-5"
               >
                 <span className="min-w-0">
                   <span className="block text-fluid-body-lg font-semibold leading-snug text-text transition group-hover:text-accent">
