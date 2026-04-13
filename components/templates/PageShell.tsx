@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 
 import SanityImage from '../media/SanityImage';
 import HeroScrollButton from '../HeroScrollButton';
+import PageHeroHeader from './PageHeroHeader';
 
 import { HeroSection } from '@/types/sections';
 import { Page, PageTemplate } from '@/types/page';
@@ -17,7 +18,7 @@ type Props = {
 };
 
 const getFallbackBackground = () => (
-  <div className="absolute inset-0 bg-gradient-to-br from-surface to-surface/70" />
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,154,106,0.22),transparent_38%),linear-gradient(135deg,rgba(18,18,18,0.98)_0%,rgba(31,31,31,0.94)_52%,rgba(18,18,18,0.98)_100%)]" />
 );
 
 const renderBackground = (heroSection?: HeroSection, altText?: string) =>
@@ -37,20 +38,32 @@ const renderBackground = (heroSection?: HeroSection, altText?: string) =>
 const FullScreenHero = ({
   heroSection,
   pageTitle,
+  pageSubtitle,
   contentAnchorId,
 }: {
   heroSection?: HeroSection;
   pageTitle: string;
+  pageSubtitle: string;
   contentAnchorId: string;
 }) => (
-  <section className="relative isolate h-[100svh] w-full overflow-hidden bg-[var(--theme-bg)]">
+  <section className="hero-shell hero-shell--fullscreen relative isolate h-[100svh] w-full overflow-hidden bg-obsidian text-text-inverse">
     {renderBackground(heroSection, `${pageTitle} hero image`)}
     <div
-      className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black/40 via-black/20 to-black/60"
+      className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(18,18,18,0.12)_0%,rgba(18,18,18,0.24)_38%,rgba(18,18,18,0.72)_100%)]"
       aria-hidden
     />
-    <div className="absolute inset-0 z-20 flex items-end justify-start px-6 pb-[clamp(5rem,8vh,7rem)] text-left sm:px-8 lg:px-12">
-      <h1 className="hero-title hero-title--fullscreen text-text-inverse">{pageTitle}</h1>
+    <div className="absolute inset-0 z-20 flex items-end justify-center px-4 pb-[clamp(5rem,8vh,7rem)] sm:px-8 lg:px-12">
+      <div className="hero-panel hero-panel--dark w-fit max-w-full">
+        <div className="hero-panel__inner">
+          <PageHeroHeader
+            title={pageTitle}
+            subtitle={pageSubtitle}
+            tone="inverse"
+            align="center"
+            className="page-hero-header--hero-image"
+          />
+        </div>
+      </div>
     </div>
     <HeroScrollButton targetId={contentAnchorId} />
   </section>
@@ -59,24 +72,48 @@ const FullScreenHero = ({
 const StandardHero = ({
   heroSection,
   pageTitle,
+  pageSubtitle,
 }: {
   heroSection?: HeroSection;
   pageTitle: string;
+  pageSubtitle: string;
 }) => (
-  <section className="relative isolate h-[60vh] min-h-[50vh] max-h-[70vh] w-full overflow-hidden bg-[var(--theme-bg)]">
+  <section className="hero-shell hero-shell--standard relative isolate h-[58vh] min-h-[32rem] max-h-[72vh] w-full overflow-hidden bg-obsidian text-text-inverse">
     {renderBackground(heroSection, `${pageTitle} hero image`)}
     <div
-      className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black/40 via-black/20 to-black/55"
+      className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(18,18,18,0.08)_0%,rgba(18,18,18,0.2)_40%,rgba(18,18,18,0.68)_100%)]"
       aria-hidden
     />
-    <div className="hero-bottom-fade" aria-hidden />
-    <div className="absolute inset-0 z-20 flex items-end justify-start px-6 pb-[clamp(2.5rem,5vh,4rem)] text-left sm:px-8 lg:px-12">
-      <h1 className="hero-title hero-title--standard text-text-inverse">{pageTitle}</h1>
+    <div className="absolute inset-0 z-20 flex items-end justify-center px-4 pb-[clamp(2rem,4vw,3.5rem)] sm:px-8 lg:px-12">
+      <div className="hero-panel hero-panel--dark w-fit max-w-full">
+        <div className="hero-panel__inner">
+          <PageHeroHeader
+            title={pageTitle}
+            subtitle={pageSubtitle}
+            tone="inverse"
+            align="center"
+            className="page-hero-header--hero-image"
+          />
+        </div>
+      </div>
     </div>
   </section>
 );
 
-const CompactHero = () => <div aria-hidden="true" className="h-[64px] sm:h-[72px] lg:h-[80px]" />;
+const CompactHero = ({ pageTitle, pageSubtitle }: { pageTitle: string; pageSubtitle: string }) => (
+  <section className="hero-shell hero-shell--compact border-b border-border/70 bg-[linear-gradient(180deg,var(--theme-bg)_0%,color-mix(in_srgb,var(--theme-bg)_92%,var(--theme-surface)_8%)_100%)]">
+    <div className="layout-container py-8 sm:py-10 lg:py-12">
+      <div className="hero-panel hero-panel--light max-w-3xl">
+        <div className="hero-panel__inner">
+          <PageHeroHeader
+            title={pageTitle}
+            subtitle={pageSubtitle}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 const PageShell = ({ page, heroSection, heroVariant, children }: Props) => {
   const sanitizedSlug = getSanitizedSlug(page.slug?.current);
@@ -89,16 +126,17 @@ const PageShell = ({ page, heroSection, heroVariant, children }: Props) => {
           <FullScreenHero
             heroSection={heroSection}
             pageTitle={page.title}
+            pageSubtitle={page.subtitle}
             contentAnchorId={contentAnchorId}
           />
         );
 
       case 'standard':
-        return <StandardHero heroSection={heroSection} pageTitle={page.title} />;
+        return <StandardHero heroSection={heroSection} pageTitle={page.title} pageSubtitle={page.subtitle} />;
 
       case 'compact':
       default:
-        return <CompactHero />;
+        return <CompactHero pageTitle={page.title} pageSubtitle={page.subtitle} />;
     }
   };
 

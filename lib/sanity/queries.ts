@@ -150,6 +150,7 @@ export const bookingSettingsQuery = `
 export const pageBySlugQuery = `
   *[_type == "page" && slug.current == $slug][0]{
     title,
+    subtitle,
     slug,
     sections[],
     template
