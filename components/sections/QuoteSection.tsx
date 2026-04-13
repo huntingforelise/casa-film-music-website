@@ -1,5 +1,6 @@
 import type { QuoteSection as QuoteSectionType } from '@/types/sections';
 
+import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
 
 interface Props {
@@ -10,6 +11,9 @@ const QuoteSection = ({ section }: Props) => {
   const quote = section.quote.trim();
   const author = section.author.trim();
   const year = Number.isFinite(section.year) ? section.year : null;
+  const eyebrow = section.eyebrow?.trim();
+  const title = section.title?.trim();
+  const intro = section.intro?.trim();
 
   if (!quote || !author || year === null) {
     return null;
@@ -22,6 +26,8 @@ const QuoteSection = ({ section }: Props) => {
         aria-hidden="true"
       />
       <div className="relative flex flex-col gap-5">
+        <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
+
         <p className="quote-section-text italic" style={{ textWrap: 'balance' }}>
           &ldquo;{quote}&rdquo;
         </p>

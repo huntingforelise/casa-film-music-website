@@ -2,6 +2,7 @@ import { MediaRowSection as MediaRowSectionType } from '@/types/sections';
 import type { MediaOrientation, MediaType, PhotoItem, VideoItem } from '@/types/media';
 import MediaCard from '../media/MediaCard';
 import { getMediaRowGridClass, getMediaRowSizes } from '@/lib/media/mediaRow';
+import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
 
 type MediaRowItems = PhotoItem[] | VideoItem[];
@@ -13,6 +14,9 @@ interface Props {
 const MediaRowSection = ({ section }: Props) => {
   const orientation: MediaOrientation = section.mediaOrientation ?? 'portrait';
   const mediaType: MediaType = section.mediaType ?? 'photo';
+  const eyebrow = section.eyebrow?.trim();
+  const title = section.title?.trim();
+  const intro = section.intro?.trim();
   const items: MediaRowItems =
     mediaType === 'photo'
       ? section.mediaType === 'photo'
@@ -30,6 +34,8 @@ const MediaRowSection = ({ section }: Props) => {
 
   return (
     <SectionShell>
+      <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
+
       <div className={`grid ${gridClassName} gap-4 sm:gap-5 md:gap-6`}>
         {items.map((item, index) => {
           const key = item._key ?? `${mediaType}-${index}`;

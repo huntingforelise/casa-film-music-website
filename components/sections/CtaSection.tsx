@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { CtaSection as CtaSectionType } from '@/types/sections';
 import { isExternalUrl, normalizeInternalPath } from '@/lib/header/utils';
+import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
 
 interface Props {
@@ -15,6 +16,9 @@ const CtaSection = ({ section }: Props) => {
     : '';
   const isExternal = href ? isExternalUrl(href) : false;
   const text = section.text?.trim();
+  const eyebrow = section.eyebrow?.trim();
+  const title = section.title?.trim();
+  const intro = section.intro?.trim();
 
   if (!text && !href) {
     return null;
@@ -22,6 +26,8 @@ const CtaSection = ({ section }: Props) => {
 
   return (
     <SectionShell>
+      <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
+
       <div className="surface-card surface-card--glass relative overflow-hidden rounded-[2rem] px-6 py-8 shadow-[0_24px_80px_rgba(18,18,18,0.08)] transition duration-300 motion-safe:hover:-translate-y-0.5 sm:px-8 lg:px-10">
         <div
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,154,106,0.18),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(18,18,18,0.08),transparent_38%)]"

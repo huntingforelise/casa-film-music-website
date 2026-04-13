@@ -4,6 +4,7 @@ import SanityImage from '../media/SanityImage';
 import { getVisibleCount, GRID_SLOTS, hasImage, PORTRAIT_SLOTS } from '@/lib/media/photoMosaic';
 import { clsx } from 'clsx';
 import { getMediaAspectClass } from '../../lib/media/mediaLayout';
+import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
 
 export type SlotKey =
@@ -33,6 +34,9 @@ const desktopGridClassName =
   'grid grid-cols-4 gap-4 auto-rows-[120px] sm:auto-rows-[140px] md:auto-rows-[160px] lg:auto-rows-[180px] xl:auto-rows-[220px]';
 
 const PhotoMosaicSection = ({ section }: { section: PhotoMosaicSectionType }) => {
+  const eyebrow = section.eyebrow?.trim();
+  const title = section.title?.trim();
+  const intro = section.intro?.trim();
   const slotEntries: Array<[SlotKey, PhotoItem | undefined]> = SLOT_KEYS.map((key) => [
     key,
     section[key],
@@ -47,6 +51,8 @@ const PhotoMosaicSection = ({ section }: { section: PhotoMosaicSectionType }) =>
 
   return (
     <SectionShell>
+      <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
+
       <div className="hidden md:block">
         <div className={desktopGridClassName}>
           {visibleEntries.map(([key, item]) => {

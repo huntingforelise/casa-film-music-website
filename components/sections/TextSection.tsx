@@ -1,6 +1,7 @@
 import { PortableText } from '@portabletext/react';
 import { TextSection as TextSectionType } from '@/types/sections';
 import { portableTextComponents } from '../portableTextComponents';
+import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
 
 interface Props {
@@ -10,8 +11,14 @@ interface Props {
 const TextSection = ({ section }: Props) => {
   if (!section.content) return null;
 
+  const eyebrow = section.eyebrow?.trim();
+  const title = section.title?.trim();
+  const intro = section.intro?.trim();
+
   return (
     <SectionShell variant="wide">
+      <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
+
       <div className="editorial-panel mx-auto max-w-5xl">
         <div className="editorial-panel__inner">
           <div className="editorial-panel__rule" aria-hidden="true" />

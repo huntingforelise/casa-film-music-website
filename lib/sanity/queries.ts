@@ -173,7 +173,9 @@ export const contactFormQuery = `
 export const photoMosaicSectionQuery = `
   _type == "photoMosaicSection" => {
     _type,
+    eyebrow,
     title,
+    intro,
     slotA{ image },
     slotB{ image },
     slotC{ image },

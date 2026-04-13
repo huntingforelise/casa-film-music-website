@@ -38,13 +38,13 @@ export interface SectionHeaderContent {
   intro?: string;
 }
 
-export interface TextSection {
+export interface TextSection extends SectionHeaderContent {
   _key: string;
   _type: 'textSection';
   content: PortableTextBlock[];
 }
 
-export interface TwoColumnTextSection {
+export interface TwoColumnTextSection extends SectionHeaderContent {
   _key: string;
   _type: 'twoColumnTextSection';
   backgroundImage?: SanityImage;
@@ -52,7 +52,7 @@ export interface TwoColumnTextSection {
   rightContent: PortableTextBlock[];
 }
 
-export interface QuoteSection {
+export interface QuoteSection extends SectionHeaderContent {
   _key: string;
   _type: 'quoteSection';
   quote: string;
@@ -82,6 +82,9 @@ export type MediaTextSection =
     });
 
 type BaseMediaRowSection = {
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
   _key: string;
   _type: 'mediaRowSection';
   mediaOrientation: MediaOrientation;
@@ -164,7 +167,7 @@ export interface FaqSection extends SectionHeaderContent {
   items: FaqItem[];
 }
 
-export interface CtaSection {
+export interface CtaSection extends SectionHeaderContent {
   _key: string;
   _type: 'ctaSection';
   text?: string;
@@ -178,7 +181,7 @@ export interface HeroSection {
   image: SanityImage;
 }
 
-export interface SplitHeroSection {
+export interface SplitHeroSection extends SectionHeaderContent {
   _key: string;
   _type: 'splitHeroSection';
   introLine: string;
@@ -198,7 +201,7 @@ export interface SplitHeroSection {
   };
 }
 
-export interface PhotoMosaicSection {
+export interface PhotoMosaicSection extends SectionHeaderContent {
   _key: string;
   _type: 'photoMosaicSection';
   slotA?: PhotoItem;

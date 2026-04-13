@@ -3,6 +3,7 @@ import type { TwoColumnTextSection as TwoColumnTextSectionType } from '@/types/s
 
 import SanityImage from '../media/SanityImage';
 import { portableTextComponents } from '../portableTextComponents';
+import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
 
 interface Props {
@@ -12,6 +13,9 @@ interface Props {
 const TwoColumnTextSection = ({ section }: Props) => {
   const hasLeftContent = !!section.leftContent?.length;
   const hasRightContent = !!section.rightContent?.length;
+  const eyebrow = section.eyebrow?.trim();
+  const title = section.title?.trim();
+  const intro = section.intro?.trim();
 
   if (!hasLeftContent && !hasRightContent) {
     return null;
@@ -37,6 +41,8 @@ const TwoColumnTextSection = ({ section }: Props) => {
       ) : null}
 
       <div className="layout-container relative z-10">
+        <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
+
         <div className={gridClassName}>
           {hasLeftContent && (
             <div className="min-w-0">
