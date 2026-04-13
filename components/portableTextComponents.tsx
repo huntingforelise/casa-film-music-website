@@ -1,5 +1,12 @@
 import { PortableTextComponents } from '@portabletext/react';
 
+import { isExternalUrl, normalizeInternalPath } from '@/lib/header/utils';
+
+const normalizeRichTextHref = (href: string) => {
+  if (href.startsWith('#')) return href;
+  return isExternalUrl(href) ? href : normalizeInternalPath(href);
+};
+
 export const portableTextComponents: PortableTextComponents = {
   block: {
     h1: ({ children }) => <h1 className="section-title">{children}</h1>,
@@ -17,7 +24,8 @@ export const portableTextComponents: PortableTextComponents = {
   },
   marks: {
     link: ({ children, value }) => {
-      const href = typeof value?.href === 'string' ? value.href : '#';
+      const rawHref = typeof value?.href === 'string' ? value.href.trim() : '';
+      const href = rawHref ? normalizeRichTextHref(rawHref) : '#';
       return (
         <a href={href} className="rich-link">
           {children}

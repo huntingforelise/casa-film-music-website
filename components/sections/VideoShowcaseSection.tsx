@@ -18,7 +18,7 @@ const SUPPORTING_VIDEO_COUNTS: Record<MediaOrientation, number> = {
 const VideoShowcaseSection = ({ section }: Props) => {
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
-  const intro = section.intro?.trim();
+  const intro = section.intro;
   const orientation = section.mediaOrientation ?? 'landscape';
   const featuredVideo = section.featuredVideo;
   const supportingCount = SUPPORTING_VIDEO_COUNTS[orientation];

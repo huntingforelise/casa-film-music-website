@@ -16,7 +16,7 @@ const MediaRowSection = ({ section }: Props) => {
   const mediaType: MediaType = section.mediaType ?? 'photo';
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
-  const intro = section.intro?.trim();
+  const intro = section.intro;
   const items: MediaRowItems =
     mediaType === 'photo'
       ? section.mediaType === 'photo'

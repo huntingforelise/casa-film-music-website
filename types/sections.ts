@@ -35,7 +35,7 @@ export interface PortableTextBlock {
 export interface SectionHeaderContent {
   eyebrow?: string;
   title?: string;
-  intro?: string;
+  intro?: string | PortableTextBlock[];
 }
 
 export interface TextSection extends SectionHeaderContent {
@@ -63,7 +63,7 @@ export interface QuoteSection extends SectionHeaderContent {
 type BaseMediaTextSection = {
   eyebrow?: string;
   title?: string;
-  intro?: string;
+  intro?: string | PortableTextBlock[];
   _key: string;
   _type: 'mediaTextSection';
   content: PortableTextBlock[];
@@ -84,7 +84,7 @@ export type MediaTextSection =
 type BaseMediaRowSection = {
   eyebrow?: string;
   title?: string;
-  intro?: string;
+  intro?: string | PortableTextBlock[];
   _key: string;
   _type: 'mediaRowSection';
   mediaOrientation: MediaOrientation;
@@ -134,7 +134,6 @@ export interface FeatureCard {
 export interface FeatureCardSection extends SectionHeaderContent {
   _key: string;
   _type: 'featureCardSection';
-  subtitle?: string;
   calloutTitle?: string;
   calloutText?: string;
   calloutItems?: string[];
@@ -144,7 +143,6 @@ export interface FeatureCardSection extends SectionHeaderContent {
 export interface ProcessSection extends SectionHeaderContent {
   _key: string;
   _type: 'processSection';
-  backgroundImage?: SanityImage;
   steps: string[];
 }
 
@@ -171,12 +169,14 @@ export interface FaqItem {
 export interface FaqSection extends SectionHeaderContent {
   _key: string;
   _type: 'faqSection';
+  backgroundImage?: SanityImage;
   items: FaqItem[];
 }
 
 export interface CtaSection extends SectionHeaderContent {
   _key: string;
   _type: 'ctaSection';
+  variant?: 'featured' | 'inline';
   text?: string;
   buttonLabel?: string;
   buttonLink?: string;

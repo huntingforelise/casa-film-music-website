@@ -36,7 +36,7 @@ const desktopGridClassName =
 const PhotoMosaicSection = ({ section }: { section: PhotoMosaicSectionType }) => {
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
-  const intro = section.intro?.trim();
+  const intro = section.intro;
   const slotEntries: Array<[SlotKey, PhotoItem | undefined]> = SLOT_KEYS.map((key) => [
     key,
     section[key],

@@ -13,7 +13,7 @@ const QuoteSection = ({ section }: Props) => {
   const year = Number.isFinite(section.year) ? section.year : null;
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
-  const intro = section.intro?.trim();
+  const intro = section.intro;
 
   if (!quote || !author || year === null) {
     return null;

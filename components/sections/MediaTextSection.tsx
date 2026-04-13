@@ -17,7 +17,7 @@ const MediaTextSection = ({ section }: Props) => {
   const mediaOnLeft = section.mediaPosition === 'left';
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
-  const intro = section.intro?.trim();
+  const intro = section.intro;
   const content = section.content ?? [];
 
   if (!content.length) {

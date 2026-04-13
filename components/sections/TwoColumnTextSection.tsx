@@ -15,7 +15,7 @@ const TwoColumnTextSection = ({ section }: Props) => {
   const hasRightContent = !!section.rightContent?.length;
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
-  const intro = section.intro?.trim();
+  const intro = section.intro;
 
   if (!hasLeftContent && !hasRightContent) {
     return null;

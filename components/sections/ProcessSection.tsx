@@ -1,6 +1,5 @@
 import type { ProcessSection as ProcessSectionType } from '@/types/sections';
 
-import SanityImage from '../media/SanityImage';
 import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
 
@@ -11,9 +10,8 @@ interface Props {
 const ProcessSection = ({ section }: Props) => {
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
-  const intro = section.intro?.trim();
+  const intro = section.intro;
   const steps = (section.steps ?? []).map((step) => step.trim()).filter(Boolean);
-  const backgroundImage = section.backgroundImage;
 
   if (!steps.length) {
     return null;
@@ -49,27 +47,7 @@ const ProcessSection = ({ section }: Props) => {
     </div>
   );
 
-  if (!backgroundImage) {
-    return <SectionShell id="process">{content}</SectionShell>;
-  }
-
-  return (
-    <SectionShell variant="wide" fullBleed className="relative isolate overflow-x-clip" id="process">
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-        <SanityImage
-          value={backgroundImage}
-          alt={backgroundImage.alt || 'Background image'}
-          mode="fill"
-          loading="lazy"
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(246,243,238,0.78)_0%,rgba(246,243,238,0.62)_45%,rgba(246,243,238,0.75)_100%)]" />
-      </div>
-
-      {content}
-    </SectionShell>
-  );
+  return <SectionShell id="process">{content}</SectionShell>;
 };
 
 export default ProcessSection;

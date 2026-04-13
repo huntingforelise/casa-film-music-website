@@ -12,7 +12,7 @@ interface Props {
 const FeatureCardSection = ({ section }: Props) => {
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
-  const intro = section.intro?.trim() ?? section.subtitle?.trim();
+  const intro = section.intro;
   const calloutTitle = section.calloutTitle?.trim();
   const calloutText = section.calloutText?.trim();
   const calloutItems = (section.calloutItems ?? []).map((item) => item.trim()).filter(Boolean);
@@ -24,11 +24,7 @@ const FeatureCardSection = ({ section }: Props) => {
 
   return (
     <SectionShell id="feature-cards">
-      <SectionHeader
-        eyebrow={eyebrow}
-        title={title}
-        intro={intro}
-      />
+      <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
       <div
         className="grid grid-cols-1 gap-5 md:grid-cols-[repeat(var(--feature-card-cols-md),minmax(0,1fr))] lg:grid-cols-[repeat(var(--feature-card-cols-lg),minmax(0,1fr))]"
@@ -83,7 +79,7 @@ const FeatureCardSection = ({ section }: Props) => {
         <div className="editorial-panel mt-8">
           <div className="editorial-panel__inner grid gap-5 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:items-start">
             <div className="flex flex-col gap-3">
-              <p className="text-fluid-eyebrow text-link">Included in all options</p>
+              <p className="text-fluid-eyebrow text-link">Included in every booking</p>
               {calloutTitle && (
                 <h3 className="text-fluid-heading-sm leading-tight text-text">{calloutTitle}</h3>
               )}
@@ -94,7 +90,10 @@ const FeatureCardSection = ({ section }: Props) => {
               <ul className="grid gap-3 text-fluid-body-sm text-text/85">
                 {calloutItems.map((item, index) => (
                   <li key={`${item}-${index}`} className="flex items-center gap-3">
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                    <span
+                      className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                      aria-hidden="true"
+                    />
                     <span>{item}</span>
                   </li>
                 ))}

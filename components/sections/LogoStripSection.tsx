@@ -14,7 +14,7 @@ interface Props {
 const LogoStripSection = ({ section }: Props) => {
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
-  const intro = section.intro?.trim();
+  const intro = section.intro;
   const logos = section.logos ?? [];
 
   if (!logos.length) return null;

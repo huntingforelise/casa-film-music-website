@@ -13,7 +13,7 @@ const TextSection = ({ section }: Props) => {
 
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
-  const intro = section.intro?.trim();
+  const intro = section.intro;
 
   return (
     <SectionShell variant="wide">

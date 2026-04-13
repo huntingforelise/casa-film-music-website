@@ -15,7 +15,7 @@ interface Props {
 const TestimonialSection = ({ section }: Props) => {
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
-  const intro = section.intro?.trim();
+  const intro = section.intro;
   const cards = section.cards ?? [];
   const [expandedCards, setExpandedCards] = useState<Record<string, boolean>>({});
 
