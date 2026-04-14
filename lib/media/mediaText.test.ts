@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
 import type { PortableTextBlock } from '@/types/sections';
-import { getLayoutClasses, getMediaTextContentDensity } from './mediaText';
+import {
+  getLayoutClasses,
+  getMediaTextContentDensity,
+  getMediaTextVideoAspectClass,
+  getMediaTextVideoZoom,
+} from './mediaText';
 
 const block = (text: string): PortableTextBlock => ({
   _key: text,
@@ -60,6 +65,7 @@ describe('getLayoutClasses', () => {
 
     expect(layout.grid).toContain('grid-cols-1');
     expect(layout.grid).toContain('md:[grid-template-columns:var(--media-text-cols)]');
+    expect(layout.grid).toContain('md:items-stretch');
     expect(layout.textOrder).toBe('md:order-2');
     expect(layout.mediaOrder).toBe('md:order-1');
     expect(layout.style['--media-text-cols']).toBe('minmax(0,1.18fr) minmax(0,0.82fr)');
@@ -80,5 +86,19 @@ describe('getLayoutClasses', () => {
     expect(layout.mediaOrder).toBe('md:order-2');
     expect(layout.style['--media-text-cols']).toBe('minmax(0,1.1fr) minmax(0,0.9fr)');
     expect(layout.sizes).toContain('40vw');
+  });
+});
+
+describe('getMediaTextVideoAspectClass', () => {
+  it('uses a shorter portrait video frame in media text sections', () => {
+    expect(getMediaTextVideoAspectClass('landscape')).toBe('aspect-video');
+    expect(getMediaTextVideoAspectClass('portrait')).toBe('aspect-[4/5]');
+  });
+});
+
+describe('getMediaTextVideoZoom', () => {
+  it('zooms portrait videos a bit more to avoid edge whitespace', () => {
+    expect(getMediaTextVideoZoom('landscape')).toBe(1.16);
+    expect(getMediaTextVideoZoom('portrait')).toBe(1.48);
   });
 });

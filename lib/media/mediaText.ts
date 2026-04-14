@@ -24,12 +24,15 @@ type MediaTextLayoutSpec = {
 };
 
 const GRID_CLASS =
-  'grid grid-cols-1 gap-6 md:[grid-template-columns:var(--media-text-cols)] md:items-start md:gap-8 xl:gap-12';
+  'grid grid-cols-1 gap-6 md:[grid-template-columns:var(--media-text-cols)] md:items-stretch md:gap-8 xl:gap-12';
 
 const buildSizes = (desktopWidth: number, tabletWidth: number) =>
   `(min-width: 1280px) ${desktopWidth}vw, (min-width: 768px) ${tabletWidth}vw, 100vw`;
 
-const buildLayoutClasses = (spec: MediaTextLayoutSpec, mediaOnLeft: boolean): MediaTextLayoutClasses => {
+const buildLayoutClasses = (
+  spec: MediaTextLayoutSpec,
+  mediaOnLeft: boolean,
+): MediaTextLayoutClasses => {
   const columns = mediaOnLeft
     ? `${spec.mediaColumns} ${spec.textColumns}`
     : `${spec.textColumns} ${spec.mediaColumns}`;
@@ -81,16 +84,15 @@ const PORTRAIT_LAYOUTS: Record<MediaTextContentDensity, MediaTextLayoutSpec> = {
   },
 };
 
-export const getMediaTextContentDensity = (content: PortableTextBlock[]): MediaTextContentDensity => {
+export const getMediaTextContentDensity = (
+  content: PortableTextBlock[],
+): MediaTextContentDensity => {
   const characterCount = content.reduce((total, block) => {
     if (block._type !== 'block') {
       return total;
     }
 
-    return (
-      total +
-      block.children.reduce((blockTotal, child) => blockTotal + child.text.length, 0)
-    );
+    return total + block.children.reduce((blockTotal, child) => blockTotal + child.text.length, 0);
   }, 0);
 
   const weightedLength = characterCount + content.length * 42;
@@ -105,6 +107,12 @@ export const getMediaTextContentDensity = (content: PortableTextBlock[]): MediaT
 
   return 'balanced';
 };
+
+export const getMediaTextVideoAspectClass = (orientation: MediaOrientation) =>
+  orientation === 'portrait' ? 'aspect-[4/5]' : 'aspect-video';
+
+export const getMediaTextVideoZoom = (orientation: MediaOrientation) =>
+  orientation === 'portrait' ? 1.48 : 1.28;
 
 export const getLayoutClasses = (
   orientation: MediaOrientation,

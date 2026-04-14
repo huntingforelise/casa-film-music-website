@@ -7,6 +7,7 @@ import { getMediaAspectClass } from '../../lib/media/mediaLayout';
 interface BaseProps {
   orientation: MediaOrientation;
   className?: string;
+  aspectClassName?: string;
   videoZoom?: number;
   sizes?: string;
 }
@@ -27,13 +28,13 @@ const getBackground = (mediaType: MediaCardProps['mediaType']) =>
   mediaType === 'photo' ? 'bg-neutral-100' : 'bg-surface';
 
 const MediaCard = (props: MediaCardProps) => {
-  const { mediaType, orientation, className, videoZoom = 1, sizes } = props;
+  const { mediaType, orientation, className, aspectClassName, videoZoom = 1, sizes } = props;
   const isInteractiveVideo = mediaType === 'video' ? Boolean(props.item.interactive) : false;
   const resolvedVideoZoom = isInteractiveVideo ? 1 : videoZoom;
 
   const containerClass = clsx(
     'relative overflow-hidden',
-    getMediaAspectClass(mediaType, orientation),
+    aspectClassName ?? getMediaAspectClass(mediaType, orientation),
     getBackground(mediaType),
     className,
   );

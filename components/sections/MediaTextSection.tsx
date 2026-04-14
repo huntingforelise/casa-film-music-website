@@ -5,7 +5,11 @@ import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
 import { portableTextComponents } from '../portableTextComponents';
 import { MediaTextSection as MediaTextSectionType } from '@/types/sections';
-import { getLayoutClasses } from '@/lib/media/mediaText';
+import {
+  getLayoutClasses,
+  getMediaTextVideoAspectClass,
+  getMediaTextVideoZoom,
+} from '@/lib/media/mediaText';
 import type { MediaOrientation, PhotoItem, VideoItem } from '@/types/media';
 
 interface Props {
@@ -67,7 +71,8 @@ const MediaTextSection = ({ section }: Props) => {
         mediaType="video"
         item={videoItem}
         orientation={orientation}
-        videoZoom={orientation === 'landscape' ? 1.08 : 1}
+        aspectClassName={getMediaTextVideoAspectClass(orientation)}
+        videoZoom={getMediaTextVideoZoom(orientation)}
         className={mediaClassName}
         sizes={sizes}
       />
