@@ -128,10 +128,18 @@ body::-webkit-scrollbar-thumb:hover {
   padding-bottom: var(--space-2);
 }
 
+.page-shell--flush-top {
+  padding-top: 0;
+}
+
 @media (min-width: 1024px) {
   .page-shell {
     padding-top: var(--space-6);
     padding-bottom: var(--space-3);
+  }
+
+  .page-shell--flush-top {
+    padding-top: 0;
   }
 }
 
@@ -300,9 +308,17 @@ body::-webkit-scrollbar-thumb:hover {
     padding: clamp(1.25rem, 2vw, 2rem);
   }
 
+  .hero-panel--tight .hero-panel__inner {
+    padding: clamp(0.75rem, 1.2vw, 1rem);
+  }
+
   @media (min-width: 640px) {
     .hero-panel__inner {
       padding: clamp(1.5rem, 2.4vw, 2.5rem);
+    }
+
+    .hero-panel--tight .hero-panel__inner {
+      padding: clamp(0.875rem, 1.35vw, 1.2rem);
     }
   }
 
@@ -329,6 +345,10 @@ body::-webkit-scrollbar-thumb:hover {
 
   .page-hero-header {
     max-width: 36rem;
+  }
+
+  .page-hero-header--hero-image {
+    gap: 0.5rem;
   }
 
   .page-hero-header__title {
@@ -925,6 +945,11 @@ body::-webkit-scrollbar-thumb:hover {
 
 .rich-ol {
   list-style: decimal;
+}
+
+.rich-ul > li::marker,
+ul > li::marker {
+  color: var(--theme-accent);
 }
 
 .rich-li {

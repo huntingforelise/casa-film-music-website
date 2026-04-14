@@ -84,8 +84,8 @@ const StandardHero = ({
       className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(18,18,18,0.08)_0%,rgba(18,18,18,0.2)_40%,rgba(18,18,18,0.68)_100%)]"
       aria-hidden
     />
-    <div className="absolute inset-0 z-20 flex items-end justify-center px-4 pb-[clamp(2rem,4vw,3.5rem)] sm:px-8 lg:px-12">
-      <div className="hero-panel hero-panel--dark w-fit max-w-full">
+    <div className="absolute inset-0 z-20 flex items-end justify-center px-4 pb-[clamp(0.75rem,1.5vw,1.25rem)] sm:px-8 lg:px-12">
+      <div className="hero-panel hero-panel--dark hero-panel--tight w-fit max-w-full">
         <div className="hero-panel__inner">
           <PageHeroHeader
             title={pageTitle}
@@ -105,10 +105,7 @@ const CompactHero = ({ pageTitle, pageSubtitle }: { pageTitle: string; pageSubti
     <div className="layout-container py-8 sm:py-10 lg:py-12">
       <div className="hero-panel hero-panel--light max-w-3xl">
         <div className="hero-panel__inner">
-          <PageHeroHeader
-            title={pageTitle}
-            subtitle={pageSubtitle}
-          />
+          <PageHeroHeader title={pageTitle} subtitle={pageSubtitle} />
         </div>
       </div>
     </div>
@@ -132,7 +129,13 @@ const PageShell = ({ page, heroSection, heroVariant, children }: Props) => {
         );
 
       case 'standard':
-        return <StandardHero heroSection={heroSection} pageTitle={page.title} pageSubtitle={page.subtitle} />;
+        return (
+          <StandardHero
+            heroSection={heroSection}
+            pageTitle={page.title}
+            pageSubtitle={page.subtitle}
+          />
+        );
 
       case 'compact':
       default:
@@ -143,7 +146,10 @@ const PageShell = ({ page, heroSection, heroVariant, children }: Props) => {
   return (
     <main>
       {renderHeroVariant()}
-      <section id={contentAnchorId} className="page-shell">
+      <section
+        id={contentAnchorId}
+        className={heroVariant === 'standard' ? 'page-shell page-shell--flush-top' : 'page-shell'}
+      >
         {children}
       </section>
     </main>
