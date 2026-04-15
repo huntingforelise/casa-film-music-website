@@ -1,17 +1,3 @@
-const formatTimeOption = (minutes: number) => {
-  const hour = Math.floor(minutes / 60);
-  const minute = minutes % 60;
-  return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-};
-
-export const buildTimeOptions = (startMinutes: number, endMinutes: number, stepMinutes: number) => {
-  const options: string[] = [];
-  for (let minutes = startMinutes; minutes <= endMinutes; minutes += stepMinutes) {
-    options.push(formatTimeOption(minutes));
-  }
-  return options;
-};
-
 export const parseDateString = (value: string): Date | undefined => {
   if (!value) return undefined;
 

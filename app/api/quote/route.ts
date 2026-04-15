@@ -15,8 +15,6 @@ export const POST = async (req: NextRequest) => {
       phone,
       eventType,
       eventDate,
-      startTime,
-      durationHours,
       guestCount,
       venue,
       travelRegion,
@@ -48,11 +46,8 @@ export const POST = async (req: NextRequest) => {
       !cleanedPhone ||
       !eventType?.trim() ||
       !eventDate?.trim() ||
-      !cleanedVenue ||
       !travelRegion?.trim() ||
       cleanedServices.length === 0 ||
-      typeof durationHours !== 'number' ||
-      durationHours <= 0 ||
       typeof guestCount !== 'number' ||
       guestCount <= 0
     ) {
@@ -70,8 +65,6 @@ export const POST = async (req: NextRequest) => {
         phone: cleanedPhone,
         event_type: eventType,
         event_date: eventDate,
-        start_time: startTime || null,
-        duration_hours: durationHours,
         guest_count: guestCount,
         venue: cleanedVenue,
         travel_region: travelRegion,
@@ -99,12 +92,10 @@ export const POST = async (req: NextRequest) => {
         phone: cleanedPhone,
         eventType,
         eventDate,
-        durationHours,
         guestCount,
-        venue: cleanedVenue,
+        venue: cleanedVenue || undefined,
         travelRegion,
         services: cleanedServices,
-        startTime: startTime || null,
         bundleCode: bundleCode || null,
         addOns: cleanedAddOns,
         notes: cleanedNotes,

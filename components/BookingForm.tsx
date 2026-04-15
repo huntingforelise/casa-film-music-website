@@ -138,9 +138,7 @@ const BookingForm = ({ settings }: Props) => {
       return (
         values.eventType.trim() !== '' &&
         values.eventDate.trim() !== '' &&
-        values.durationHours > 0 &&
         values.guestCount > 0 &&
-        values.venue.trim() !== '' &&
         values.travelRegion.trim() !== ''
       );
     }
@@ -166,10 +164,8 @@ const BookingForm = ({ settings }: Props) => {
     const payload: BookingEnquiryPayload = {
       eventType: values.eventType,
       eventDate: values.eventDate,
-      startTime: values.startTime,
-      durationHours: values.durationHours,
       guestCount: values.guestCount,
-      venue: values.venue.trim(),
+      venue: values.venue.trim() || undefined,
       travelRegion: values.travelRegion,
       services: values.services,
       bundleCode: values.bundleCode || undefined,
@@ -182,7 +178,7 @@ const BookingForm = ({ settings }: Props) => {
     };
 
     try {
-      const response = await fetch('/api/booking/enquiry', {
+      const response = await fetch('/api/quote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

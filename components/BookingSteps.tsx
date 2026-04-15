@@ -15,21 +15,11 @@ import { BookingFormValues, SetField } from '@/lib/booking/types';
 import { formatEuro, getBundlePriceDetails } from '@/lib/booking/helpers';
 import {
   PRICE_SEPARATOR,
-  TIME_OPTION_START_MINUTES,
-  TIME_OPTION_END_MINUTES,
-  TIME_OPTION_STEP_MINUTES,
   GUEST_COUNT_MIN,
   GUEST_COUNT_STEP,
 } from '@/lib/booking/constants';
 import FormListbox from './FormListBox';
-import { buildTimeOptions } from '@/lib/booking/helpers/dateTime';
 import FormDatePicker from './FormDatePicker';
-
-const timeOptions = buildTimeOptions(
-  TIME_OPTION_START_MINUTES,
-  TIME_OPTION_END_MINUTES,
-  TIME_OPTION_STEP_MINUTES,
-);
 
 interface EventDetailsStepProps {
   eventTypes: BookingEventType[];
@@ -49,25 +39,17 @@ export const EventDetailsStep = ({
   const {
     eventTypeLabel,
     eventDateLabel,
-    startTimeLabel,
-    durationLabel,
     guestCountLabel,
     travelRegionLabel,
     venueLabel,
     venuePlaceholder,
   } = copy;
 
-  const [durationIsFocused, setDurationIsFocused] = useState(false);
   const [guestCountIsFocused, setGuestCountIsFocused] = useState(false);
 
   const shouldRetainFocus = (event: FocusEvent<HTMLDivElement>) => {
     const relatedTarget = event.relatedTarget as Node | null;
     return relatedTarget && event.currentTarget.contains(relatedTarget);
-  };
-
-  const handleDurationBlur = (event: FocusEvent<HTMLDivElement>) => {
-    if (shouldRetainFocus(event)) return;
-    setDurationIsFocused(false);
   };
 
   const handleGuestBlur = (event: FocusEvent<HTMLDivElement>) => {
@@ -94,46 +76,6 @@ export const EventDetailsStep = ({
         placeholder="Select a date"
         onChange={(value) => setField('eventDate', value)}
       />
-
-      <FormListbox
-        label={startTimeLabel ?? ''}
-        value={values.startTime}
-        placeholder="Select a time"
-        onChange={(value) => setField('startTime', value)}
-        options={timeOptions.map((time) => ({
-          value: time,
-          label: time,
-        }))}
-      />
-
-      <div className="form-field">
-        <label>{durationLabel ?? ''}</label>
-
-        <div
-          className="input-base form-counter"
-          onFocus={() => setDurationIsFocused(true)}
-          onBlur={handleDurationBlur}
-          data-active={durationIsFocused ? 'true' : undefined}
-        >
-          <button
-            type="button"
-            onClick={() => setField('durationHours', Math.max(1, values.durationHours - 1))}
-            className="text-lg text-text/60 hover:text-text sm:text-xl"
-          >
-            −
-          </button>
-
-          <span>{values.durationHours}</span>
-
-          <button
-            type="button"
-            onClick={() => setField('durationHours', Math.min(24, values.durationHours + 1))}
-            className="text-lg text-text/60 hover:text-text sm:text-xl"
-          >
-            +
-          </button>
-        </div>
-      </div>
 
       <div className="form-field">
         <label>{guestCountLabel ?? ''}</label>
@@ -490,8 +432,6 @@ export const SummaryStep = ({
         <ul className="pt-4 text-fluid-body-md text-text/75">
           <li>{renderListItem(copy.summaryLabelEvent, selectedEventTypeTitle)}</li>
           <li>{renderListItem(copy.summaryLabelDate, values.eventDate)}</li>
-          <li>{renderListItem(copy.summaryLabelTime, values.startTime || notProvidedText)}</li>
-          <li>{renderListItem(copy.summaryLabelDuration, values.durationHours.toString())}</li>
           <li>{renderListItem(copy.summaryLabelGuests, values.guestCount.toString())}</li>
           <li>{renderListItem(copy.summaryLabelVenue, values.venue || notProvidedText)}</li>
           <li>{renderListItem(copy.summaryLabelTravel, selectedTravelBandTitle)}</li>

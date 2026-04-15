@@ -51,8 +51,6 @@ export interface BookingTravelRegion {
 export interface BookingFormCopy {
   eventTypeLabel?: string;
   eventDateLabel?: string;
-  startTimeLabel?: string;
-  durationLabel?: string;
   guestCountLabel?: string;
   travelRegionLabel?: string;
   venueLabel?: string;
@@ -76,8 +74,6 @@ export interface BookingFormCopy {
   summaryNoPackageText?: string;
   summaryLabelEvent?: string;
   summaryLabelDate?: string;
-  summaryLabelTime?: string;
-  summaryLabelDuration?: string;
   summaryLabelGuests?: string;
   summaryLabelVenue?: string;
   summaryLabelTravel?: string;
@@ -125,10 +121,8 @@ export interface BookingBundleSuggestion {
 export interface BookingEnquiryPayload {
   eventType: string;
   eventDate: string;
-  startTime: string;
-  durationHours: number;
   guestCount: number;
-  venue: string;
+  venue?: string;
   travelRegion: string;
   services: string[];
   bundleCode?: string;

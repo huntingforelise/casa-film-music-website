@@ -18,8 +18,6 @@ export const withBookingDefaults = (settings?: BookingFormSettings | null): Book
 export const getDefaultValues = (config: BookingFormSettings): BookingFormValues => ({
   eventType: config.eventTypes[0]?.value ?? '',
   eventDate: '',
-  startTime: '',
-  durationHours: 10,
   guestCount: 80,
   venue: '',
   travelRegion: config.travelRegions[0]?.value ?? '',

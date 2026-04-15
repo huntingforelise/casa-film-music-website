@@ -7,12 +7,10 @@ interface BookingEnquiryEmailProps {
   phone: string;
   eventType: string;
   eventDate: string;
-  durationHours: number;
   guestCount: number;
-  venue: string;
+  venue?: string | null;
   travelRegion: string;
   services: string[];
-  startTime?: string | null;
   bundleCode?: string | null;
   addOns?: string[];
   notes?: string | null;
@@ -58,12 +56,10 @@ const BookingEnquiryEmail: React.FC<BookingEnquiryEmailProps> = ({
   phone,
   eventType,
   eventDate,
-  durationHours,
   guestCount,
   venue,
   travelRegion,
   services,
-  startTime,
   bundleCode,
   addOns,
   notes,
@@ -89,17 +85,11 @@ const BookingEnquiryEmail: React.FC<BookingEnquiryEmailProps> = ({
       <Label>Date</Label>
       <Value>{eventDate}</Value>
 
-      <Label>Start Time</Label>
-      <Value>{startTime || 'Not provided'}</Value>
-
-      <Label>Duration</Label>
-      <Value>{durationHours} hours</Value>
-
       <Label>Guest Count</Label>
       <Value>{guestCount}</Value>
 
       <Label>Venue</Label>
-      <Value>{venue}</Value>
+      <Value>{venue || 'Not provided'}</Value>
 
       <Label>Travel Region</Label>
       <Value>{travelRegion}</Value>

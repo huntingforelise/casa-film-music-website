@@ -98,8 +98,6 @@ export const bookingSettingsQuery = `
     copy{
       eventTypeLabel,
       eventDateLabel,
-      startTimeLabel,
-      durationLabel,
       guestCountLabel,
       travelRegionLabel,
       venueLabel,
@@ -123,8 +121,6 @@ export const bookingSettingsQuery = `
       summaryNoPackageText,
       summaryLabelEvent,
       summaryLabelDate,
-      summaryLabelTime,
-      summaryLabelDuration,
       summaryLabelGuests,
       summaryLabelVenue,
       summaryLabelTravel,

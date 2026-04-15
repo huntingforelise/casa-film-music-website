@@ -3,8 +3,6 @@ export type Status = 'idle' | 'submitting' | 'success' | 'error'
 export type BookingFormValues = {
   eventType: string
   eventDate: string
-  startTime: string
-  durationHours: number
   guestCount: number
   venue: string
   travelRegion: string
