@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 type Props = {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   tone?: 'default' | 'inverse';
   align?: 'left' | 'center';
   className?: string;
@@ -29,9 +29,11 @@ const PageHeroHeader = ({
     >
       {title}
     </h1>
-    <p className="page-hero-header__subtitle split-hero-option-subtitle">
-      {subtitle}
-    </p>
+    {subtitle ? (
+      <p className="page-hero-header__subtitle split-hero-option-subtitle">
+        {subtitle}
+      </p>
+    ) : null}
   </div>
 );
 

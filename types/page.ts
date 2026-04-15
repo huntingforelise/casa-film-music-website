@@ -7,7 +7,7 @@ export interface BasePage {
   _id: string;
   _type: 'page';
   title: string;
-  subtitle: string;
+  subtitle?: string;
   slug: SanitySlug;
   sections: Section[];
 }

@@ -43,7 +43,7 @@ const FullScreenHero = ({
 }: {
   heroSection?: HeroSection;
   pageTitle: string;
-  pageSubtitle: string;
+  pageSubtitle?: string;
   contentAnchorId: string;
 }) => (
   <section className="hero-shell hero-shell--fullscreen relative isolate h-[100svh] w-full overflow-hidden bg-obsidian text-text-inverse">
@@ -76,7 +76,7 @@ const StandardHero = ({
 }: {
   heroSection?: HeroSection;
   pageTitle: string;
-  pageSubtitle: string;
+  pageSubtitle?: string;
 }) => (
   <section className="hero-shell hero-shell--standard relative isolate h-[58vh] min-h-[32rem] max-h-[72vh] w-full overflow-hidden bg-obsidian text-text-inverse">
     {renderBackground(heroSection, `${pageTitle} hero image`)}
@@ -100,7 +100,7 @@ const StandardHero = ({
   </section>
 );
 
-const CompactHero = ({ pageTitle, pageSubtitle }: { pageTitle: string; pageSubtitle: string }) => (
+const CompactHero = ({ pageTitle, pageSubtitle }: { pageTitle: string; pageSubtitle?: string }) => (
   <section className="hero-shell hero-shell--compact border-b border-border/70 bg-[linear-gradient(180deg,var(--theme-bg)_0%,color-mix(in_srgb,var(--theme-bg)_92%,var(--theme-surface)_8%)_100%)]">
     <div className="layout-container py-8 sm:py-10 lg:py-12">
       <div className="hero-panel hero-panel--light max-w-3xl">
