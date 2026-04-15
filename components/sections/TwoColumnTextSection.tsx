@@ -25,7 +25,7 @@ const TwoColumnTextSection = ({ section }: Props) => {
   const backgroundImage = section.backgroundImage;
 
   return (
-    <SectionShell variant="wide" fullBleed className="relative isolate overflow-x-clip">
+    <SectionShell fullBleed className="relative isolate overflow-x-clip">
       {backgroundImage ? (
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
           <SanityImage

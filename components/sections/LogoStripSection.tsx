@@ -20,7 +20,7 @@ const LogoStripSection = ({ section }: Props) => {
   if (!logos.length) return null;
 
   return (
-    <SectionShell variant="wide">
+    <SectionShell>
       <div className="surface-card surface-card--glass relative overflow-hidden rounded-[2.25rem] px-5 py-8 shadow-[0_24px_80px_rgba(18,18,18,0.08)] sm:px-7 sm:py-10 lg:px-10 lg:py-12">
         <div className="relative flex justify-center text-center">
           <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />

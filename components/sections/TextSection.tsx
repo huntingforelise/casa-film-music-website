@@ -16,7 +16,7 @@ const TextSection = ({ section }: Props) => {
   const intro = section.intro;
 
   return (
-    <SectionShell variant="wide">
+    <SectionShell>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
       <div className="editorial-panel__lead max-w-3xl">

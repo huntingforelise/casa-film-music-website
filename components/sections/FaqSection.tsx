@@ -118,7 +118,7 @@ const FaqSection = ({ section }: Props) => {
 
   if (backgroundImage) {
     return (
-      <SectionShell variant="wide" fullBleed className="relative isolate overflow-x-clip" id="faq">
+      <SectionShell fullBleed className="relative isolate overflow-x-clip" id="faq">
         {background}
 
         <div className="layout-container relative z-10">{content}</div>

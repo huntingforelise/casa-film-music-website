@@ -80,7 +80,7 @@ const MediaTextSection = ({ section }: Props) => {
   };
 
   return (
-    <SectionShell variant="wide">
+    <SectionShell>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
       <div className={grid} style={style}>
