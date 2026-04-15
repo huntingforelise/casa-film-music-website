@@ -102,7 +102,7 @@ const StandardHero = ({
 
 const CompactHero = ({ pageTitle, pageSubtitle }: { pageTitle: string; pageSubtitle?: string }) => (
   <section className="hero-shell hero-shell--compact border-b border-border/70 bg-[linear-gradient(180deg,var(--theme-bg)_0%,color-mix(in_srgb,var(--theme-bg)_92%,var(--theme-surface)_8%)_100%)]">
-    <div className="layout-container pb-8 pt-[calc(7rem+env(safe-area-inset-top))] sm:pb-10 sm:pt-[calc(7.5rem+env(safe-area-inset-top))] lg:pb-12 lg:pt-[calc(8rem+env(safe-area-inset-top))]">
+    <div className="layout-container pb-4 pt-[calc(7rem+env(safe-area-inset-top))] sm:pb-5 sm:pt-[calc(7.5rem+env(safe-area-inset-top))] lg:pb-6 lg:pt-[calc(8rem+env(safe-area-inset-top))]">
       <PageHeroHeader
         title={pageTitle}
         subtitle={pageSubtitle}
