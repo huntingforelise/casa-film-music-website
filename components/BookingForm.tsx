@@ -31,6 +31,8 @@ const BookingForm = ({ settings }: Props) => {
   const [status, setStatus] = useState<Status>('idle');
   const [feedback, setFeedback] = useState('');
   const copy = useMemo<BookingFormCopy>(() => settings?.copy ?? {}, [settings]);
+  const eyebrowLabel = config.eyebrow?.trim();
+  const stepLabel = `Step ${step} of ${TOTAL_STEPS}`;
 
   const bundleSuggestions = useMemo(
     () => getBundleSuggestions(config, values.services),
@@ -213,12 +215,18 @@ const BookingForm = ({ settings }: Props) => {
     <SectionShell>
       <div className="surface-card surface-radius p-5 sm:p-6 md:p-8">
         <header className="pb-6">
-          <SectionHeader
-            compact
-            eyebrow={`Step ${step} of ${TOTAL_STEPS}`}
-            title={config.title}
-            intro={config.intro}
-          />
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:gap-8">
+            <SectionHeader compact eyebrow={eyebrowLabel} title={config.title} intro={config.intro} />
+
+            <div className="flex flex-col gap-3 lg:items-end lg:text-right">
+              <p className="text-fluid-body-sm tracking-tight text-text/60">{stepLabel}</p>
+              {config.disclaimer && (
+                <p className="max-w-xs text-fluid-body-sm leading-relaxed text-text/60">
+                  {config.disclaimer}
+                </p>
+              )}
+            </div>
+          </div>
         </header>
 
         <form

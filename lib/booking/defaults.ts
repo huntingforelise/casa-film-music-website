@@ -3,7 +3,6 @@ import { BookingFormValues } from './types';
 
 const emptyBookingSettings: BookingFormSettings = {
   title: '',
-  intro: '',
   disclaimer: '',
   eventTypes: [],
   services: [],

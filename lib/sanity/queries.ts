@@ -56,6 +56,7 @@ export const bookingSettingsQuery = `
   *[_id == "bookingSettings"][0]{
     _id,
     _type,
+    eyebrow,
     title,
     intro,
     disclaimer,

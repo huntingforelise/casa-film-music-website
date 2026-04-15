@@ -1,4 +1,5 @@
-// TODO not being used
+import type { PortableTextBlock } from './sections';
+
 export interface BookingEventType {
   _key?: string;
   value: string;
@@ -95,8 +96,9 @@ export interface BookingFormCopy {
 }
 
 export interface BookingFormSettings {
+  eyebrow?: string;
   title: string;
-  intro: string;
+  intro?: string | PortableTextBlock[];
   disclaimer: string;
   eventTypes: BookingEventType[];
   services: BookingService[];

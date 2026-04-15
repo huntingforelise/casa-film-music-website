@@ -12,23 +12,64 @@ type ContactFormProps = {
   copy?: ContactFormCopy | null;
 };
 
+const defaultContactFormCopy: Required<
+  Pick<
+    ContactFormCopy,
+    | 'eyebrow'
+    | 'title'
+    | 'nameLabel'
+    | 'emailLabel'
+    | 'messageLabel'
+    | 'submitLabel'
+    | 'submittingLabel'
+    | 'feedbackSuccess'
+    | 'feedbackError'
+    | 'feedbackNetworkError'
+  >
+> = {
+  eyebrow: 'Start a conversation',
+  title: 'Tell us what you have in mind',
+  nameLabel: 'Name',
+  emailLabel: 'Email',
+  messageLabel: 'Message',
+  submitLabel: 'Send message',
+  submittingLabel: 'Sending...',
+  feedbackSuccess: 'Thanks for reaching out. We will be in touch soon.',
+  feedbackError: 'Something went wrong. Please try again.',
+  feedbackNetworkError:
+    'We could not send your message. Please check your connection and try again.',
+};
+
+const textOrDefault = (value: string | null | undefined, fallback: string) => {
+  const trimmed = value?.trim();
+  return trimmed ? trimmed : fallback;
+};
+
 const ContactForm = ({ copy }: ContactFormProps) => {
   const [state, dispatch] = useReducer(contactFormReducer, initialFormState);
   const isSubmitting = state.status === 'submitting';
 
   const isFormValid = isContactFormValid(state);
-  const copyValues = copy ?? {};
-  const eyebrowLabel = copyValues.eyebrow?.trim();
-  const titleLabel = copyValues.title ?? '';
-  const introText = copyValues.intro;
-  const nameLabel = copyValues.nameLabel ?? '';
-  const emailLabel = copyValues.emailLabel ?? '';
-  const messageLabel = copyValues.messageLabel ?? '';
-  const submitLabel = copyValues.submitLabel ?? '';
-  const submittingLabel = copyValues.submittingLabel ?? '';
-  const feedbackSuccess = copyValues.feedbackSuccess ?? '';
-  const feedbackError = copyValues.feedbackError ?? '';
-  const feedbackNetworkError = copyValues.feedbackNetworkError ?? '';
+  const eyebrowLabel = textOrDefault(copy?.eyebrow, defaultContactFormCopy.eyebrow);
+  const titleLabel = textOrDefault(copy?.title, defaultContactFormCopy.title);
+  const introText = copy?.intro;
+  const nameLabel = textOrDefault(copy?.nameLabel, defaultContactFormCopy.nameLabel);
+  const emailLabel = textOrDefault(copy?.emailLabel, defaultContactFormCopy.emailLabel);
+  const messageLabel = textOrDefault(copy?.messageLabel, defaultContactFormCopy.messageLabel);
+  const submitLabel = textOrDefault(copy?.submitLabel, defaultContactFormCopy.submitLabel);
+  const submittingLabel = textOrDefault(
+    copy?.submittingLabel,
+    defaultContactFormCopy.submittingLabel,
+  );
+  const feedbackSuccess = textOrDefault(
+    copy?.feedbackSuccess,
+    defaultContactFormCopy.feedbackSuccess,
+  );
+  const feedbackError = textOrDefault(copy?.feedbackError, defaultContactFormCopy.feedbackError);
+  const feedbackNetworkError = textOrDefault(
+    copy?.feedbackNetworkError,
+    defaultContactFormCopy.feedbackNetworkError,
+  );
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -77,7 +118,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
   };
 
   return (
-    <SectionShell variant="bottom">
+    <SectionShell>
       <div className="surface-card surface-radius p-5 sm:p-6 md:p-8">
         <header className="pb-6">
           <SectionHeader compact eyebrow={eyebrowLabel} title={titleLabel} intro={introText} />
@@ -148,11 +189,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
           />
 
           <div className="flex items-center gap-4">
-            <button
-              type="submit"
-              disabled={isSubmitting || !isFormValid}
-              className="btn-primary"
-            >
+            <button type="submit" disabled={isSubmitting || !isFormValid} className="btn-primary">
               {isSubmitting ? submittingLabel : submitLabel}
             </button>
 

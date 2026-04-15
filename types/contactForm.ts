@@ -1,7 +1,9 @@
+import type { PortableTextBlock } from './sections';
+
 export interface ContactFormCopy {
   eyebrow?: string;
   title?: string;
-  intro?: string;
+  intro?: string | PortableTextBlock[];
   nameLabel?: string;
   emailLabel?: string;
   messageLabel?: string;
