@@ -58,15 +58,17 @@ export interface BookingFormCopy {
   venuePlaceholder?: string;
   serviceFromLabel?: string;
   priceOnRequestText?: string;
+  servicesIntro?: string;
   bundleIntro?: string;
   bundleNoSuggestions?: string;
   bundleSelectLabel?: string;
   bundleSelectedLabel?: string;
-  bundleAddMissingLabel?: string;
   bundleIncludesLabel?: string;
   bundleStartingPricePrefix?: string;
   bundleOriginalPricePrefix?: string;
   bundleRegularPricePrefix?: string;
+  eventDetailsIntro?: string;
+  addOnsIntro?: string;
   addOnsEmptyText?: string;
   summaryTitle?: string;
   summarySubtitle?: string;

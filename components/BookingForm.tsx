@@ -1,11 +1,16 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { BookingBundleSuggestion, BookingEnquiryPayload, BookingFormCopy } from '@/types/booking';
+import { BookingBundleSuggestion, BookingEnquiryPayload } from '@/types/booking';
 import type { BookingForm } from '@/types/booking';
-import { getDefaultValues, withBookingDefaults } from '@/lib/booking/defaults';
+import {
+  getDefaultValues,
+  withBookingCopyDefaults,
+  withBookingDefaults,
+} from '@/lib/booking/defaults';
 import { getBundleSuggestions } from '@/lib/booking/bundles';
 import { BookingFormValues, SetField, Status } from '@/lib/booking/types';
+import { getBookingEstimate, isValidEmail } from '@/lib/booking/helpers';
 import { TOTAL_STEPS } from '@/lib/booking/constants';
 import {
   EventDetailsStep,
@@ -14,7 +19,6 @@ import {
   AddOnsStep,
   SummaryStep,
 } from './BookingSteps';
-import { isValidEmail } from '@/lib/booking/helpers';
 import SectionHeader from './sections/SectionHeader';
 import SectionShell from './sections/SectionShell';
 
@@ -30,7 +34,7 @@ const BookingForm = ({ settings }: Props) => {
   const values = useMemo(() => ({ ...defaultValues, ...overrides }), [defaultValues, overrides]);
   const [status, setStatus] = useState<Status>('idle');
   const [feedback, setFeedback] = useState('');
-  const copy = useMemo<BookingFormCopy>(() => settings?.copy ?? {}, [settings]);
+  const copy = useMemo(() => withBookingCopyDefaults(settings?.copy), [settings]);
   const eyebrowLabel = config.eyebrow?.trim();
   const stepLabel = `Step ${step} of ${TOTAL_STEPS}`;
 
@@ -42,6 +46,11 @@ const BookingForm = ({ settings }: Props) => {
   const activeBundle = useMemo(
     () => config.bundles.find((bundle) => bundle.code === values.bundleCode),
     [config.bundles, values.bundleCode],
+  );
+
+  const estimate = useMemo(
+    () => getBookingEstimate(config, values.services, values.addOns, activeBundle),
+    [activeBundle, config, values.addOns, values.services],
   );
 
   const bundleIsStillValid = (serviceList: string[], bundleCode?: string) => {
@@ -136,7 +145,9 @@ const BookingForm = ({ settings }: Props) => {
   };
 
   const stepIsValid = useMemo(() => {
-    if (step === 1) {
+    if (step === 1) return values.services.length > 0;
+    if (step === 2 || step === 3) return true;
+    if (step === 4) {
       return (
         values.eventType.trim() !== '' &&
         values.eventDate.trim() !== '' &&
@@ -144,8 +155,6 @@ const BookingForm = ({ settings }: Props) => {
         values.travelRegion.trim() !== ''
       );
     }
-    if (step === 2) return values.services.length > 0;
-    if (step === 3 || step === 4) return true;
     return values.name.trim() !== '' && isValidEmail(values.email) && values.phone.trim() !== '';
   }, [step, values]);
 
@@ -158,7 +167,7 @@ const BookingForm = ({ settings }: Props) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!stepIsValid || status === 'submitting') return;
+    if (step !== TOTAL_STEPS || !stepIsValid || status === 'submitting') return;
 
     setStatus('submitting');
     setFeedback('');
@@ -216,15 +225,17 @@ const BookingForm = ({ settings }: Props) => {
       <div className="surface-card surface-radius p-5 sm:p-6 md:p-8">
         <header className="pb-6">
           <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:gap-8">
-            <SectionHeader compact eyebrow={eyebrowLabel} title={config.title} intro={config.intro} />
+            <SectionHeader
+              compact
+              eyebrow={eyebrowLabel}
+              title={config.title}
+              intro={config.intro}
+            />
 
             <div className="flex flex-col gap-3 lg:items-end lg:text-right">
-              <p className="text-fluid-body-sm tracking-tight text-text/60">{stepLabel}</p>
-              {config.disclaimer && (
-                <p className="max-w-xs text-fluid-body-sm leading-relaxed text-text/60">
-                  {config.disclaimer}
-                </p>
-              )}
+              <p className="text-fluid-body-sm tracking-tight text-text/60 uppercase">
+                {stepLabel}
+              </p>
             </div>
           </div>
         </header>
@@ -236,16 +247,6 @@ const BookingForm = ({ settings }: Props) => {
           aria-busy={status === 'submitting'}
         >
           {step === 1 && (
-            <EventDetailsStep
-              eventTypes={config.eventTypes}
-              travelRegions={config.travelRegions}
-              values={values}
-              setField={setField}
-              copy={copy}
-            />
-          )}
-
-          {step === 2 && (
             <ServicesStep
               services={config.services}
               selectedServices={values.services}
@@ -254,7 +255,7 @@ const BookingForm = ({ settings }: Props) => {
             />
           )}
 
-          {step === 3 && (
+          {step === 2 && (
             <BundleSelectionStep
               bundleSuggestions={bundleSuggestions}
               selectedBundleCode={values.bundleCode}
@@ -264,11 +265,21 @@ const BookingForm = ({ settings }: Props) => {
             />
           )}
 
-          {step === 4 && (
+          {step === 3 && (
             <AddOnsStep
               availableAddOns={availableAddOns}
               selectedAddOns={values.addOns}
               toggleAddOn={toggleAddOn}
+              copy={copy}
+            />
+          )}
+
+          {step === 4 && (
+            <EventDetailsStep
+              eventTypes={config.eventTypes}
+              travelRegions={config.travelRegions}
+              values={values}
+              setField={setField}
               copy={copy}
             />
           )}
@@ -282,11 +293,11 @@ const BookingForm = ({ settings }: Props) => {
               selectedServiceTitles={selectedServiceTitles}
               selectedAddOnTitles={selectedAddOnTitles}
               activeBundle={activeBundle}
+              estimate={estimate}
               setField={setField}
               copy={copy}
             />
           )}
-
           <footer className="flex flex-wrap items-center justify-between gap-3 pt-2">
             <div className="flex items-center gap-2">
               <button
@@ -321,7 +332,9 @@ const BookingForm = ({ settings }: Props) => {
             </div>
 
             {feedback && (
-              <p className={`text-fluid-body-sm ${status === 'error' ? 'text-red-700' : 'text-text/75'}`}>
+              <p
+                className={`text-fluid-body-sm ${status === 'error' ? 'text-red-700' : 'text-text/75'}`}
+              >
                 {feedback}
               </p>
             )}

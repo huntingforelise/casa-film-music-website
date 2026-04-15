@@ -13,11 +13,8 @@ import {
 } from '@/types/booking';
 import { BookingFormValues, SetField } from '@/lib/booking/types';
 import { formatEuro, getBundlePriceDetails } from '@/lib/booking/helpers';
-import {
-  PRICE_SEPARATOR,
-  GUEST_COUNT_MIN,
-  GUEST_COUNT_STEP,
-} from '@/lib/booking/constants';
+import type { BookingEstimate } from '@/lib/booking/helpers';
+import { PRICE_SEPARATOR, GUEST_COUNT_MIN, GUEST_COUNT_STEP } from '@/lib/booking/constants';
 import FormListbox from './FormListBox';
 import FormDatePicker from './FormDatePicker';
 
@@ -56,82 +53,88 @@ export const EventDetailsStep = ({
     if (shouldRetainFocus(event)) return;
     setGuestCountIsFocused(false);
   };
+  const introText =
+    copy.eventDetailsIntro ?? 'Tell us the basics about your event so we can shape the quote.';
 
   return (
-    <div className="grid gap-5 md:grid-cols-2">
-      <FormListbox
-        label={eventTypeLabel ?? ''}
-        value={values.eventType}
-        placeholder="Select an event type"
-        onChange={(value) => setField('eventType', value)}
-        options={eventTypes.map((eventType) => ({
-          value: eventType.value,
-          label: eventType.title,
-        }))}
-      />
+    <div className="grid gap-4">
+      <p className="text-fluid-body-lg">{introText}</p>
 
-      <FormDatePicker
-        label={eventDateLabel ?? ''}
-        value={values.eventDate}
-        placeholder="Select a date"
-        onChange={(value) => setField('eventDate', value)}
-      />
-
-      <div className="form-field">
-        <label>{guestCountLabel ?? ''}</label>
-
-        <div
-          className="input-base form-counter"
-          onFocus={() => setGuestCountIsFocused(true)}
-          onBlur={handleGuestBlur}
-          data-active={guestCountIsFocused ? 'true' : undefined}
-        >
-          <button
-            type="button"
-            onClick={() =>
-              setField(
-                'guestCount',
-                Math.max(GUEST_COUNT_MIN, values.guestCount - GUEST_COUNT_STEP),
-              )
-            }
-            className="text-lg text-text/60 hover:text-text sm:text-xl"
-          >
-            −
-          </button>
-
-          <span>{values.guestCount}</span>
-
-          <button
-            type="button"
-            onClick={() => setField('guestCount', values.guestCount + GUEST_COUNT_STEP)}
-            className="text-lg text-text/60 hover:text-text sm:text-xl"
-          >
-            +
-          </button>
-        </div>
-      </div>
-
-      <FormListbox
-        label={travelRegionLabel ?? ''}
-        value={values.travelRegion}
-        placeholder="Select a travel region"
-        onChange={(value) => setField('travelRegion', value)}
-        options={travelRegions.map((region) => ({
-          value: region.value,
-          label: region.title,
-        }))}
-      />
-
-      <label className="form-field md:col-span-2">
-        {venueLabel ?? ''}
-        <input
-          className="input-base"
-          type="text"
-          placeholder={venuePlaceholder ?? ''}
-          value={values.venue}
-          onChange={(event) => setField('venue', event.target.value)}
+      <div className="grid gap-5 md:grid-cols-2">
+        <FormListbox
+          label={eventTypeLabel ?? ''}
+          value={values.eventType}
+          placeholder="Select an event type"
+          onChange={(value) => setField('eventType', value)}
+          options={eventTypes.map((eventType) => ({
+            value: eventType.value,
+            label: eventType.title,
+          }))}
         />
-      </label>
+
+        <FormDatePicker
+          label={eventDateLabel ?? ''}
+          value={values.eventDate}
+          placeholder="Select a date"
+          onChange={(value) => setField('eventDate', value)}
+        />
+
+        <div className="form-field">
+          <label>{guestCountLabel ?? ''}</label>
+
+          <div
+            className="input-base form-counter"
+            onFocus={() => setGuestCountIsFocused(true)}
+            onBlur={handleGuestBlur}
+            data-active={guestCountIsFocused ? 'true' : undefined}
+          >
+            <button
+              type="button"
+              onClick={() =>
+                setField(
+                  'guestCount',
+                  Math.max(GUEST_COUNT_MIN, values.guestCount - GUEST_COUNT_STEP),
+                )
+              }
+              className="text-lg text-text/60 hover:text-text sm:text-xl"
+            >
+              −
+            </button>
+
+            <span>{values.guestCount}</span>
+
+            <button
+              type="button"
+              onClick={() => setField('guestCount', values.guestCount + GUEST_COUNT_STEP)}
+              className="text-lg text-text/60 hover:text-text sm:text-xl"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <FormListbox
+          label={travelRegionLabel ?? ''}
+          value={values.travelRegion}
+          placeholder="Select a travel region"
+          onChange={(value) => setField('travelRegion', value)}
+          options={travelRegions.map((region) => ({
+            value: region.value,
+            label: region.title,
+          }))}
+        />
+
+        <label className="form-field md:col-span-2">
+          {venueLabel ?? ''}
+          <input
+            className="input-base"
+            type="text"
+            placeholder={venuePlaceholder ?? ''}
+            value={values.venue}
+            onChange={(event) => setField('venue', event.target.value)}
+          />
+        </label>
+      </div>
     </div>
   );
 };
@@ -151,49 +154,54 @@ export const ServicesStep = ({
 }: ServicesStepProps) => {
   const onRequestText = copy.priceOnRequestText ?? '';
   const fromLabel = (copy.serviceFromLabel ?? '').trim();
+  const introText = copy.servicesIntro ?? 'Choose the services you would like included.';
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
-      {services.map((service) => {
-        const checked = selectedServices.includes(service.value);
-        const formattedPrice = formatEuro(service.basePrice);
-        const priceParts: string[] = [];
+    <div className="grid gap-4">
+      <p className="text-fluid-body-lg text-text/85">{introText}</p>
 
-        if (formattedPrice) {
-          priceParts.push(fromLabel ? `${fromLabel} ${formattedPrice}` : formattedPrice);
-        }
-        if (service.priceNote) {
-          priceParts.push(service.priceNote);
-        }
+      <div className="grid gap-4 md:grid-cols-2">
+        {services.map((service) => {
+          const checked = selectedServices.includes(service.value);
+          const formattedPrice = formatEuro(service.basePrice);
+          const priceParts: string[] = [];
 
-        const displayPrice =
-          priceParts.length > 0 ? priceParts.join(PRICE_SEPARATOR) : onRequestText;
+          if (formattedPrice) {
+            priceParts.push(fromLabel ? `${fromLabel} ${formattedPrice}` : formattedPrice);
+          }
+          if (service.priceNote) {
+            priceParts.push(service.priceNote);
+          }
 
-        return (
-          <label
-            key={service.value}
-            className={`surface-card surface-card--ghost surface-radius booking-choice-card ${
-              checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
-            }`}
-          >
-            <input
-              type="checkbox"
-              className="mt-1"
-              checked={checked}
-              onChange={() => toggleService(service.value)}
-            />
-            <span className="grid gap-1">
-              <span className="text-fluid-heading-sm">{service.title}</span>
-              {service.description && (
-                <span className="text-fluid-body-sm text-muted">{service.description}</span>
-              )}
-              {displayPrice && (
-                <span className="text-fluid-body-sm font-medium text-80">{displayPrice}</span>
-              )}
-            </span>
-          </label>
-        );
-      })}
+          const displayPrice =
+            priceParts.length > 0 ? priceParts.join(PRICE_SEPARATOR) : onRequestText;
+
+          return (
+            <label
+              key={service.value}
+              className={`surface-card surface-card--ghost surface-radius booking-choice-card ${
+                checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
+              }`}
+            >
+              <input
+                type="checkbox"
+                className="mt-1"
+                checked={checked}
+                onChange={() => toggleService(service.value)}
+              />
+              <span className="grid gap-1">
+                <span className="text-fluid-heading-sm">{service.title}</span>
+                {service.description && (
+                  <span className="text-fluid-body-sm text-muted">{service.description}</span>
+                )}
+                {displayPrice && (
+                  <span className="text-fluid-body-sm font-medium text-80">{displayPrice}</span>
+                )}
+              </span>
+            </label>
+          );
+        })}
+      </div>
     </div>
   );
 };
@@ -213,9 +221,11 @@ export const BundleSelectionStep = ({
   servicesByValue,
   copy,
 }: BundleSelectionStepProps) => {
+  const introText = copy.bundleIntro ?? 'See which bundle best matches the services you selected.';
+
   return (
     <div className="grid gap-4">
-      {copy.bundleIntro && <p className="text-fluid-body-md text-text/75">{copy.bundleIntro}</p>}
+      <p className="text-fluid-body-lg text-text/85">{introText}</p>
 
       {!!bundleSuggestions.length
         ? bundleSuggestions.map((suggestion) => {
@@ -223,13 +233,10 @@ export const BundleSelectionStep = ({
             const includedTitles = suggestion.bundle.includedServices
               .map((service) => servicesByValue.get(service) ?? service)
               .join(', ');
-            const missingServices = suggestion.missingServices
-              .map((service) => servicesByValue.get(service) ?? service)
-              .join(', ');
 
             const bundleButtonLabel = selected
-              ? (copy.bundleSelectedLabel ?? '')
-              : (copy.bundleSelectLabel ?? '');
+              ? (copy.bundleSelectedLabel ?? 'Package selected')
+              : (copy.bundleSelectLabel ?? 'Select package');
 
             const { priceNote, hasPriceLine, hasPrimaryPrice, priceRows } = getBundlePriceDetails(
               suggestion.bundle,
@@ -288,29 +295,13 @@ export const BundleSelectionStep = ({
                   <p className="pt-2 text-fluid-body-sm text-muted">{priceNote}</p>
                 )}
 
-                {suggestion.isEligible ? (
-                  <button
-                    type="button"
-                    className="btn-primary mt-4"
-                    onClick={() => applyBundle(suggestion)}
-                  >
-                    {bundleButtonLabel}
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="btn-secondary mt-4"
-                    onClick={() => applyBundle(suggestion)}
-                  >
-                    {copy.bundleAddMissingLabel && (
-                      <>
-                        {copy.bundleAddMissingLabel}
-                        {missingServices ? ` ${missingServices}` : ''}
-                      </>
-                    )}
-                    {!copy.bundleAddMissingLabel && missingServices}
-                  </button>
-                )}
+                <button
+                  type="button"
+                  className={`${selected ? 'btn-primary' : 'btn-secondary'} mt-4`}
+                  onClick={() => applyBundle(suggestion)}
+                >
+                  {bundleButtonLabel}
+                </button>
               </article>
             );
           })
@@ -335,51 +326,56 @@ export const AddOnsStep = ({
   copy,
 }: AddOnsStepProps) => {
   const priceOnRequest = copy.priceOnRequestText ?? '';
+  const introText = copy.addOnsIntro ?? 'Choose any extras you want to include.';
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
-      {availableAddOns.length ? (
-        availableAddOns.map((addOn) => {
-          const checked = selectedAddOns.includes(addOn.code);
-          const addOnPrice = formatEuro(addOn.price);
-          const priceParts: string[] = [];
+    <div className="grid gap-4">
+      <p className="text-fluid-body-lg text-text/85">{introText}</p>
 
-          if (addOnPrice) {
-            priceParts.push(addOnPrice);
-          }
-          if (addOn.priceNote) {
-            priceParts.push(addOn.priceNote);
-          }
+      <div className="grid gap-4 md:grid-cols-2">
+        {availableAddOns.length ? (
+          availableAddOns.map((addOn) => {
+            const checked = selectedAddOns.includes(addOn.code);
+            const addOnPrice = formatEuro(addOn.price);
+            const priceParts: string[] = [];
 
-          const displayPrice =
-            priceParts.length > 0 ? priceParts.join(PRICE_SEPARATOR) : priceOnRequest;
+            if (addOnPrice) {
+              priceParts.push(addOnPrice);
+            }
+            if (addOn.priceNote) {
+              priceParts.push(addOn.priceNote);
+            }
 
-          return (
-            <label
-              key={addOn.code}
-              className={`surface-card surface-card--ghost surface-radius booking-choice-card ${
-                checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
-              }`}
-            >
-              <input
-                type="checkbox"
-                className="mt-1"
-                checked={checked}
-                onChange={() => toggleAddOn(addOn.code)}
-              />
-              <span className="grid gap-1">
-                <span className="text-fluid-heading-sm">{addOn.title}</span>
-                {addOn.description && (
-                  <span className="text-fluid-body-sm text-muted">{addOn.description}</span>
-                )}
-                <span className="text-fluid-body-sm font-medium text-80">{displayPrice}</span>
-              </span>
-            </label>
-          );
-        })
-      ) : copy.addOnsEmptyText ? (
-        <p className="text-fluid-body-sm text-muted">{copy.addOnsEmptyText}</p>
-      ) : null}
+            const displayPrice =
+              priceParts.length > 0 ? priceParts.join(PRICE_SEPARATOR) : priceOnRequest;
+
+            return (
+              <label
+                key={addOn.code}
+                className={`surface-card surface-card--ghost surface-radius booking-choice-card ${
+                  checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  className="mt-1"
+                  checked={checked}
+                  onChange={() => toggleAddOn(addOn.code)}
+                />
+                <span className="grid gap-1">
+                  <span className="text-fluid-heading-sm">{addOn.title}</span>
+                  {addOn.description && (
+                    <span className="text-fluid-body-sm text-muted">{addOn.description}</span>
+                  )}
+                  <span className="text-fluid-body-sm font-medium text-80">{displayPrice}</span>
+                </span>
+              </label>
+            );
+          })
+        ) : copy.addOnsEmptyText ? (
+          <p className="text-fluid-body-sm text-muted">{copy.addOnsEmptyText}</p>
+        ) : null}
+      </div>
     </div>
   );
 };
@@ -393,6 +389,7 @@ interface SummaryStepProps {
   selectedServiceTitles: string[];
   selectedAddOnTitles: string[];
   activeBundle?: BookingBundle;
+  estimate: BookingEstimate;
   setField: SetField;
 }
 
@@ -400,6 +397,7 @@ export const SummaryStep = ({
   activeBundle,
   config,
   copy,
+  estimate,
   selectedAddOnTitles,
   selectedEventTypeTitle,
   selectedServiceTitles,
@@ -420,14 +418,20 @@ export const SummaryStep = ({
   const addOnsValue = selectedAddOnTitles.length
     ? selectedAddOnTitles.join(', ')
     : noneSelectedText;
+  const hasEstimate = estimate.lineItems.length > 0;
+  const estimateTotal = hasEstimate ? (formatEuro(estimate.total) ?? '') : '';
+  const estimateFallback = copy.priceOnRequestText ?? 'Estimate available on request';
+  const summaryIntroText =
+    copy.summarySubtitle ?? 'Review your estimate and contact details before sending the enquiry.';
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-      <div className="surface-card surface-card--ghost surface-radius p-5">
-        <h3 className="text-heading-summary">{copy.summaryTitle ?? ''}</h3>
-        {copy.summarySubtitle && (
-          <p className="pt-1 text-fluid-body-sm text-text/75">{copy.summarySubtitle}</p>
-        )}
+      <div className="lg:col-span-2">
+        <p className="text-fluid-body-lg text-text/85">{summaryIntroText}</p>
+      </div>
+
+      <div className="surface-card surface-card--ghost surface-radius p-8">
+        <h3 className="text-fluid-heading-sm">{copy.summaryTitle ?? ''}</h3>
 
         <ul className="pt-4 text-fluid-body-md text-text/75">
           <li>{renderListItem(copy.summaryLabelEvent, selectedEventTypeTitle)}</li>
@@ -440,7 +444,35 @@ export const SummaryStep = ({
           <li>{renderListItem(copy.summaryLabelAddOns, addOnsValue)}</li>
         </ul>
 
-        <p className="pt-5 text-fluid-body-sm text-text/65">{config.disclaimer}</p>
+        <div className="mt-4 rounded-2xl border border-accent/20 bg-accent/5 p-4">
+          <p className="text-fluid-eyebrow" style={{ color: 'var(--theme-accent)' }}>
+            Estimate
+          </p>
+          {hasEstimate ? (
+            <div className="mt-2 flex flex-wrap items-baseline justify-between gap-3">
+              <span className="text-fluid-heading-sm">Estimated total</span>
+              <span className="text-fluid-heading-md">{estimateTotal}</span>
+            </div>
+          ) : (
+            <p className="mt-2 text-fluid-body-sm text-text/75">{estimateFallback}</p>
+          )}
+
+          {hasEstimate && (
+            <ul className="mt-4 grid gap-2 text-fluid-body-sm text-text/75">
+              {estimate.lineItems.map((item) => (
+                <li
+                  key={`${item.label}-${item.formattedAmount}`}
+                  className="flex justify-between gap-4"
+                >
+                  <span>{item.label}</span>
+                  <span className="whitespace-nowrap">{item.formattedAmount}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <p className="pt-5 text-fluid-body-xsm text-text/65">{config.disclaimer}</p>
       </div>
 
       <div className="grid gap-4">
