@@ -19,14 +19,8 @@ const TextSection = ({ section }: Props) => {
     <SectionShell variant="wide">
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
-      <div className="editorial-panel mx-auto max-w-5xl">
-        <div className="editorial-panel__inner">
-          <div className="editorial-panel__rule" aria-hidden="true" />
-
-          <div className="editorial-panel__lead max-w-3xl">
-            <PortableText value={section.content} components={portableTextComponents} />
-          </div>
-        </div>
+      <div className="editorial-panel__lead max-w-3xl">
+        <PortableText value={section.content} components={portableTextComponents} />
       </div>
     </SectionShell>
   );
