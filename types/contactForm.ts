@@ -1,5 +1,7 @@
 export interface ContactFormCopy {
+  eyebrow?: string;
   title?: string;
+  intro?: string;
   nameLabel?: string;
   emailLabel?: string;
   messageLabel?: string;

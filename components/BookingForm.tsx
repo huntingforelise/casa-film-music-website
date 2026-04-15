@@ -15,6 +15,7 @@ import {
   SummaryStep,
 } from './BookingSteps';
 import { isValidEmail } from '@/lib/booking/helpers';
+import SectionHeader from './sections/SectionHeader';
 import SectionShell from './sections/SectionShell';
 
 interface Props {
@@ -216,11 +217,12 @@ const BookingForm = ({ settings }: Props) => {
     <SectionShell variant="bottom">
       <div className="surface-card surface-radius p-5 sm:p-6 md:p-8">
         <header className="pb-6">
-          <p className="text-fluid-body-sm font-medium uppercase tracking-[0.16em] text-text/60">
-            Step {step} of {TOTAL_STEPS}
-          </p>
-          <h2 className="section-heading pt-2">{config.introTitle}</h2>
-          <p className="section-copy text-80 pt-3 text-fluid-body">{config.introText}</p>
+          <SectionHeader
+            compact
+            eyebrow={`Step ${step} of ${TOTAL_STEPS}`}
+            title={config.title}
+            intro={config.intro}
+          />
         </header>
 
         <form

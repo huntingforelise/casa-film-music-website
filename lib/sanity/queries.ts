@@ -56,8 +56,8 @@ export const bookingSettingsQuery = `
   *[_id == "bookingSettings"][0]{
     _id,
     _type,
-    introTitle,
-    introText,
+    title,
+    intro,
     disclaimer,
     eventTypes[]{
       value,
@@ -159,7 +159,9 @@ export const pageBySlugQuery = `
 
 export const contactFormQuery = `
   *[_id == "contactForm"][0]{
+    eyebrow,
     title,
+    intro,
     nameLabel,
     emailLabel,
     messageLabel,

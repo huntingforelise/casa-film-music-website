@@ -2,8 +2,8 @@ import { BookingFormSettings } from '@/types/booking';
 import { BookingFormValues } from './types';
 
 const emptyBookingSettings: BookingFormSettings = {
-  introTitle: '',
-  introText: '',
+  title: '',
+  intro: '',
   disclaimer: '',
   eventTypes: [],
   services: [],

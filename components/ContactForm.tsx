@@ -5,6 +5,7 @@ import { contactFormReducer } from '@/lib/contactForm/reducer';
 import { initialFormState } from '@/lib/contactForm/state';
 import { isContactFormValid } from '@/lib/contactForm/helpers';
 import { ContactFormCopy } from '@/types/contactForm';
+import SectionHeader from './sections/SectionHeader';
 import SectionShell from './sections/SectionShell';
 
 type ContactFormProps = {
@@ -17,7 +18,9 @@ const ContactForm = ({ copy }: ContactFormProps) => {
 
   const isFormValid = isContactFormValid(state);
   const copyValues = copy ?? {};
+  const eyebrowLabel = copyValues.eyebrow?.trim();
   const titleLabel = copyValues.title ?? '';
+  const introText = copyValues.intro;
   const nameLabel = copyValues.nameLabel ?? '';
   const emailLabel = copyValues.emailLabel ?? '';
   const messageLabel = copyValues.messageLabel ?? '';
@@ -77,7 +80,7 @@ const ContactForm = ({ copy }: ContactFormProps) => {
     <SectionShell variant="bottom">
       <div className="surface-card surface-radius p-5 sm:p-6 md:p-8">
         <header className="pb-6">
-          <h2 className="section-heading pt-2">{titleLabel}</h2>
+          <SectionHeader compact eyebrow={eyebrowLabel} title={titleLabel} intro={introText} />
         </header>
         <form className="grid gap-6" onSubmit={handleSubmit} noValidate aria-busy={isSubmitting}>
           <div className="grid gap-6 md:grid-cols-2">

@@ -99,8 +99,8 @@ export interface BookingFormCopy {
 }
 
 export interface BookingFormSettings {
-  introTitle: string;
-  introText: string;
+  title: string;
+  intro: string;
   disclaimer: string;
   eventTypes: BookingEventType[];
   services: BookingService[];
