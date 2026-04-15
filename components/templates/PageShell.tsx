@@ -102,12 +102,12 @@ const StandardHero = ({
 
 const CompactHero = ({ pageTitle, pageSubtitle }: { pageTitle: string; pageSubtitle?: string }) => (
   <section className="hero-shell hero-shell--compact border-b border-border/70 bg-[linear-gradient(180deg,var(--theme-bg)_0%,color-mix(in_srgb,var(--theme-bg)_92%,var(--theme-surface)_8%)_100%)]">
-    <div className="layout-container py-8 sm:py-10 lg:py-12">
-      <div className="hero-panel hero-panel--light max-w-3xl">
-        <div className="hero-panel__inner">
-          <PageHeroHeader title={pageTitle} subtitle={pageSubtitle} />
-        </div>
-      </div>
+    <div className="layout-container pb-8 pt-[calc(7rem+env(safe-area-inset-top))] sm:pb-10 sm:pt-[calc(7.5rem+env(safe-area-inset-top))] lg:pb-12 lg:pt-[calc(8rem+env(safe-area-inset-top))]">
+      <PageHeroHeader
+        title={pageTitle}
+        subtitle={pageSubtitle}
+        titleStyle={{ color: '#000000', maxWidth: 'none' }}
+      />
     </div>
   </section>
 );
@@ -148,7 +148,11 @@ const PageShell = ({ page, heroSection, heroVariant, children }: Props) => {
       {renderHeroVariant()}
       <section
         id={contentAnchorId}
-        className={heroVariant === 'standard' ? 'page-shell page-shell--flush-top' : 'page-shell'}
+        className={
+          heroVariant === 'standard' || heroVariant === 'compact'
+            ? 'page-shell page-shell--flush-top'
+            : 'page-shell'
+        }
       >
         {children}
       </section>

@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react';
+
 import clsx from 'clsx';
 
 type Props = {
@@ -6,6 +8,7 @@ type Props = {
   tone?: 'default' | 'inverse';
   align?: 'left' | 'center';
   className?: string;
+  titleStyle?: CSSProperties;
 };
 
 const PageHeroHeader = ({
@@ -14,6 +17,7 @@ const PageHeroHeader = ({
   tone = 'default',
   align = 'left',
   className,
+  titleStyle,
 }: Props) => (
   <div
     className={clsx(
@@ -26,6 +30,7 @@ const PageHeroHeader = ({
   >
     <h1
       className="page-hero-header__title split-hero-option-title"
+      style={titleStyle}
     >
       {title}
     </h1>
