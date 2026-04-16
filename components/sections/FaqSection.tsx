@@ -127,9 +127,7 @@ const FaqSection = ({ section }: Props) => {
   }
 
   return (
-    <SectionShell id="faq">
-      <div className="layout-container">{content}</div>
-    </SectionShell>
+    <SectionShell id="faq">{content}</SectionShell>
   );
 };
 

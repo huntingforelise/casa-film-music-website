@@ -17,8 +17,8 @@ const ProcessSection = ({ section }: Props) => {
     return null;
   }
 
-  const content = (
-    <div className="layout-container relative z-10">
+  return (
+    <SectionShell id="process">
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
       <div className="grid gap-4 md:grid-cols-2 lg:gap-5">
@@ -44,10 +44,8 @@ const ProcessSection = ({ section }: Props) => {
           );
         })}
       </div>
-    </div>
+    </SectionShell>
   );
-
-  return <SectionShell id="process">{content}</SectionShell>;
 };
 
 export default ProcessSection;
