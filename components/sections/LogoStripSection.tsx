@@ -26,7 +26,7 @@ const LogoStripSection = ({ section }: Props) => {
           <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
         </div>
 
-        <div className="relative mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5 lg:gap-3">
+        <div className="relative mt-8 grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-5 lg:gap-3">
           {logos.map((logo, index) => {
             if (!logo?.image) return null;
 
@@ -39,7 +39,7 @@ const LogoStripSection = ({ section }: Props) => {
                     value={logo.image}
                     alt={alt}
                     mode="fill"
-                    sizes="(min-width: 1024px) 18vw, (min-width: 640px) 45vw, 90vw"
+                    sizes="(min-width: 1024px) 18vw, (min-width: 640px) 45vw, 46vw"
                     className="object-contain object-center grayscale mix-blend-multiply transition duration-300 group-hover:grayscale-0 group-hover:mix-blend-normal"
                   />
                 </div>
