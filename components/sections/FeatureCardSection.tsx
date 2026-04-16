@@ -13,6 +13,7 @@ const FeatureCardSection = ({ section }: Props) => {
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
   const intro = section.intro;
+  const calloutEyebrow = section.calloutEyebrow?.trim();
   const calloutTitle = section.calloutTitle?.trim();
   const calloutText = section.calloutText?.trim();
   const calloutItems = (section.calloutItems ?? []).map((item) => item.trim()).filter(Boolean);
@@ -79,7 +80,7 @@ const FeatureCardSection = ({ section }: Props) => {
         <div className="editorial-panel mt-8">
           <div className="editorial-panel__inner grid gap-5 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:items-start">
             <div className="flex flex-col gap-3">
-              <p className="text-fluid-eyebrow text-link">Included in every booking</p>
+              <p className="text-fluid-eyebrow text-link">{calloutEyebrow}</p>
               {calloutTitle && (
                 <h3 className="text-fluid-heading-sm leading-tight text-text">{calloutTitle}</h3>
               )}

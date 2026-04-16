@@ -134,6 +134,7 @@ export interface FeatureCard {
 export interface FeatureCardSection extends SectionHeaderContent {
   _key: string;
   _type: 'featureCardSection';
+  calloutEyebrow?: string;
   calloutTitle?: string;
   calloutText?: string;
   calloutItems?: string[];
