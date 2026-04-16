@@ -144,7 +144,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .section-spacing {
-  padding-block: var(--space-4);
+  padding-block: var(--space-6);
 }
 
 @media (min-width: 768px) {
