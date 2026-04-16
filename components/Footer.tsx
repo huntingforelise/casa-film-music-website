@@ -64,17 +64,17 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
       />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)]" />
       <div className="pointer-events-none absolute -right-20 top-8 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.07),transparent_70%)] blur-3xl" />
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 py-12">
-        {footer.ctaHeading && <p className="mb-4 text-fluid-heading-md">{footer.ctaHeading}</p>}
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 py-10 sm:px-6 sm:py-12">
+        {footer.ctaHeading && <p className="mb-3 text-fluid-heading-md sm:mb-4">{footer.ctaHeading}</p>}
         <Link href="/contact">
           {footer.ctaText && (
-            <p className="mb-6 text-fluid-body-lg font-medium text-[color-mix(in_srgb,var(--color-warm-ivory)_88%,transparent_12%)] transition-colors hover:text-[var(--color-warm-ivory)]">
+            <p className="mb-4 text-fluid-body-lg font-medium text-[color-mix(in_srgb,var(--color-warm-ivory)_88%,transparent_12%)] transition-colors hover:text-[var(--color-warm-ivory)] sm:mb-6">
               {footer.ctaText}
             </p>
           )}
         </Link>
-        <div className="grid gap-10 grid-cols-1 md:grid-cols-2">
-          <div className="space-y-4">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
+          <div className="space-y-3 sm:space-y-4">
             {(footer.phoneNumbers?.length || footer.email) && (
               <>
                 <div className="flex flex-col gap-1 text-fluid-body-sm tracking-tight">
@@ -97,9 +97,9 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
               </address>
             )}
           </div>
-          <div className="flex min-h-full flex-col justify-between gap-8 items-start text-left md:items-end md:text-right">
-            <div className="space-y-3">
-              <div className="flex flex-col gap-3">
+          <div className="flex min-h-full flex-col items-start justify-between gap-6 text-left md:items-end md:gap-8 md:text-right">
+            <div className="space-y-2.5 sm:space-y-3">
+              <div className="flex flex-col gap-2 sm:gap-3">
                 {footer.otherLinks?.map((link) =>
                   link.url ? (
                     <Link
@@ -115,7 +115,7 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
             </div>
             {footer.socialLinks?.length ? (
               <div className="space-y-2">
-                <div className="flex w-full flex-wrap items-center gap-4 justify-start md:justify-end">
+                <div className="flex w-full flex-wrap items-center justify-start gap-3 md:justify-end md:gap-4">
                   {footer.socialLinks.map((social) => {
                     if (!isSupportedPlatform(social.platform)) return null;
 
@@ -125,7 +125,7 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
                         href={social.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--color-warm-ivory)_14%,var(--color-obsidian)_86%)] bg-[color-mix(in_srgb,var(--color-obsidian)_72%,var(--color-ink)_28%)] text-[var(--color-warm-ivory)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-200 ease-out hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--color-warm-ivory)_36%,var(--color-obsidian)_64%)] hover:bg-[color-mix(in_srgb,var(--color-ink)_84%,var(--color-obsidian)_16%)] hover:text-[var(--color-warm-ivory)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--color-warm-ivory)_70%,white_30%)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-obsidian)]"
+                        className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--color-warm-ivory)_14%,var(--color-obsidian)_86%)] bg-[color-mix(in_srgb,var(--color-obsidian)_72%,var(--color-ink)_28%)] text-[var(--color-warm-ivory)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-200 ease-out hover:-translate-y-0.5 hover:border-[var(--theme-accent)] hover:bg-[color-mix(in_srgb,var(--color-ink)_84%,var(--color-obsidian)_16%)] hover:text-[var(--theme-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--color-warm-ivory)_70%,white_30%)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-obsidian)] sm:h-11 sm:w-11"
                         aria-label={socialIconAlt[social.platform]}
                         title={socialIconAlt[social.platform]}
                       >
@@ -151,8 +151,8 @@ const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-[color-mix(in_srgb,var(--color-warm-ivory)_12%,transparent_88%)] pt-5">
-          <div className="flex flex-col gap-3 text-fluid-body-xsm tracking-tight text-[color-mix(in_srgb,var(--color-warm-ivory)_78%,transparent_22%)] sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 border-t border-[color-mix(in_srgb,var(--color-warm-ivory)_12%,transparent_88%)] pt-4 sm:mt-10 sm:pt-5">
+          <div className="flex flex-col gap-2 text-fluid-body-xsm tracking-tight text-[color-mix(in_srgb,var(--color-warm-ivory)_78%,transparent_22%)] sm:flex-row sm:items-center sm:justify-between sm:gap-3">
             <p>
               {footer.developerCreditText ?? 'Site created by'}{' '}
               {footer.developerCreditUrl ? (
