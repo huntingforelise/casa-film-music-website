@@ -19,7 +19,7 @@ const TextSection = ({ section }: Props) => {
     <SectionShell>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
-      <div className="editorial-panel__lead max-w-3xl">
+      <div className="editorial-panel__lead">
         <PortableText value={section.content} components={portableTextComponents} />
       </div>
     </SectionShell>
