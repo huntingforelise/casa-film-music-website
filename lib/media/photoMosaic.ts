@@ -1,5 +1,5 @@
-import { SlotKey } from '@/components/sections/PhotoMosaicSection';
-import { PhotoItem } from '@/types/media';
+import type { PhotoItem } from '@/types/media';
+import type { PhotoMosaicSlotKey } from '@/types/sections';
 
 type GridLayout = {
   colStart: number;
@@ -8,7 +8,7 @@ type GridLayout = {
   rowSpan: number;
 };
 
-export const GRID_SLOTS: Record<SlotKey, GridLayout> = {
+export const GRID_SLOTS: Record<PhotoMosaicSlotKey, GridLayout> = {
   slotA: { colStart: 1, rowStart: 1, colSpan: 2, rowSpan: 2 },
   slotB: { colStart: 3, rowStart: 1, colSpan: 1, rowSpan: 2 },
   slotC: { colStart: 4, rowStart: 1, colSpan: 1, rowSpan: 2 },
@@ -20,11 +20,11 @@ export const GRID_SLOTS: Record<SlotKey, GridLayout> = {
   slotI: { colStart: 3, rowStart: 5, colSpan: 2, rowSpan: 2 },
 };
 
-export const PORTRAIT_SLOTS: SlotKey[] = ['slotB', 'slotC', 'slotD', 'slotF', 'slotG', 'slotH'];
+export const PORTRAIT_SLOTS: PhotoMosaicSlotKey[] = ['slotB', 'slotC', 'slotD', 'slotF', 'slotG', 'slotH'];
 
 export const hasImage = (
-  entry: [SlotKey, PhotoItem | undefined],
-): entry is [SlotKey, PhotoItem & { image: NonNullable<PhotoItem['image']> }] =>
+  entry: [PhotoMosaicSlotKey, PhotoItem | undefined],
+): entry is [PhotoMosaicSlotKey, PhotoItem & { image: NonNullable<PhotoItem['image']> }] =>
   Boolean(entry[1]?.image);
 
 export const getVisibleCount = (imageCount: number) => {

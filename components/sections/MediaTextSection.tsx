@@ -1,16 +1,12 @@
 import { PortableText } from '@portabletext/react';
 
+import type { MediaOrientation, PhotoItem, VideoItem } from '@/types/media';
+import { MediaTextSection as MediaTextSectionType } from '@/types/sections';
+import { getLayoutClasses, getMediaTextVideoAspectClass, getMediaTextVideoZoom } from '@/lib/media/mediaText';
 import MediaCard from '../media/MediaCard';
 import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
 import { portableTextComponents } from '../portableTextComponents';
-import { MediaTextSection as MediaTextSectionType } from '@/types/sections';
-import {
-  getLayoutClasses,
-  getMediaTextVideoAspectClass,
-  getMediaTextVideoZoom,
-} from '@/lib/media/mediaText';
-import type { MediaOrientation, PhotoItem, VideoItem } from '@/types/media';
 
 interface Props {
   section: MediaTextSectionType;

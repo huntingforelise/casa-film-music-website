@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { isExternalUrl, normalizeInternalPath } from '@/lib/header/utils';
+import { resolveLink } from '@/lib/header/utils';
 import type { LogoStripSection as LogoStripSectionType } from '@/types/sections';
 
 import SanityImage from '../media/SanityImage';
@@ -33,7 +33,7 @@ const LogoStripSection = ({ section }: Props) => {
             const key = logo._key ?? `${logo.image.alt ?? 'logo'}-${index}`;
             const alt = logo.image.alt?.trim() || title || eyebrow || 'Logo';
             const tile = (
-              <div className="group flex items-center justify-center transition duration-300 hover:-translate-y-0.5">
+              <div key={key} className="group flex items-center justify-center transition duration-300 hover:-translate-y-0.5">
                 <div className="relative h-24 w-full bg-transparent sm:h-28 lg:h-28">
                   <SanityImage
                     value={logo.image}
@@ -47,11 +47,10 @@ const LogoStripSection = ({ section }: Props) => {
             );
 
             if (!logo.url) {
-              return <div key={key}>{tile}</div>;
+              return tile;
             }
 
-            const external = isExternalUrl(logo.url);
-            const href = external ? logo.url : normalizeInternalPath(logo.url);
+            const { href, external } = resolveLink(logo.url);
 
             return (
               <Link

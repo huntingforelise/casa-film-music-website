@@ -5,26 +5,17 @@ import { getMediaRowGridClass, getMediaRowSizes } from '@/lib/media/mediaRow';
 import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
 
-type MediaRowItems = PhotoItem[] | VideoItem[];
-
 interface Props {
   section: MediaRowSectionType;
 }
 
 const MediaRowSection = ({ section }: Props) => {
   const orientation: MediaOrientation = section.mediaOrientation ?? 'portrait';
-  const mediaType: MediaType = section.mediaType ?? 'photo';
+  const mediaType: MediaType = section.mediaType;
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
   const intro = section.intro;
-  const items: MediaRowItems =
-    mediaType === 'photo'
-      ? section.mediaType === 'photo'
-        ? section.photos
-        : []
-      : section.mediaType === 'video'
-        ? section.videos
-        : [];
+  const items = section.mediaType === 'photo' ? section.photos : section.videos;
 
   if (!items.length) return null;
 

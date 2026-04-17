@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { useReducer } from 'react';
 import { contactFormReducer } from '@/lib/contactForm/reducer';
 import { initialFormState } from '@/lib/contactForm/state';
@@ -195,9 +196,10 @@ const ContactForm = ({ copy }: ContactFormProps) => {
 
             {state.feedback && (
               <p
-                className={`text-fluid-body-sm tracking-tight ${
-                  state.status === 'error' ? 'text-red-700' : 'text-80'
-                }`}
+                className={clsx(
+                  'text-fluid-body-sm tracking-tight',
+                  state.status === 'error' ? 'text-red-700' : 'text-80',
+                )}
               >
                 {state.feedback}
               </p>

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import type { PortableTextBlock } from '@/types/sections';
+import type { PortableTextBlock } from '@/types/portableText';
 import {
   getLayoutClasses,
   getMediaTextContentDensity,

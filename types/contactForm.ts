@@ -1,4 +1,4 @@
-import type { PortableTextBlock } from './sections';
+import type { PortableTextBlock } from './portableText';
 
 export interface ContactFormCopy {
   eyebrow?: string;

@@ -2,7 +2,7 @@ import { PortableText } from '@portabletext/react';
 import type { PortableTextComponents } from '@portabletext/react';
 import clsx from 'clsx';
 
-import type { PortableTextBlock } from '@/types/sections';
+import type { PortableTextBlock } from '@/types/portableText';
 
 import { portableTextComponents } from '../portableTextComponents';
 

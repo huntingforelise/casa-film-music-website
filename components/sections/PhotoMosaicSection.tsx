@@ -1,22 +1,11 @@
-import { PhotoItem } from '@/types/media';
-import { PhotoMosaicSection as PhotoMosaicSectionType } from '@/types/sections';
+import type { PhotoItem } from '@/types/media';
+import { PhotoMosaicSection as PhotoMosaicSectionType, type PhotoMosaicSlotKey } from '@/types/sections';
 import SanityImage from '../media/SanityImage';
 import { getVisibleCount, GRID_SLOTS, hasImage, PORTRAIT_SLOTS } from '@/lib/media/photoMosaic';
-import { clsx } from 'clsx';
+import clsx from 'clsx';
 import { getMediaAspectClass } from '../../lib/media/mediaLayout';
 import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
-
-export type SlotKey =
-  | 'slotA'
-  | 'slotB'
-  | 'slotC'
-  | 'slotD'
-  | 'slotE'
-  | 'slotF'
-  | 'slotG'
-  | 'slotH'
-  | 'slotI';
 
 const SLOT_KEYS = [
   'slotA',
@@ -37,7 +26,7 @@ const PhotoMosaicSection = ({ section }: { section: PhotoMosaicSectionType }) =>
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
   const intro = section.intro;
-  const slotEntries: Array<[SlotKey, PhotoItem | undefined]> = SLOT_KEYS.map((key) => [
+  const slotEntries: Array<[PhotoMosaicSlotKey, PhotoItem | undefined]> = SLOT_KEYS.map((key) => [
     key,
     section[key],
   ]);

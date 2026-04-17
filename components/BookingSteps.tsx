@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { FocusEvent, useState } from 'react';
 import {
   BookingAddOn,
@@ -176,13 +177,14 @@ export const ServicesStep = ({
           const displayPrice =
             priceParts.length > 0 ? priceParts.join(PRICE_SEPARATOR) : onRequestText;
 
-          return (
-            <label
-              key={service.value}
-              className={`surface-card surface-card--ghost surface-radius booking-choice-card ${
-                checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
-              }`}
-            >
+            return (
+              <label
+                key={service.value}
+                className={clsx(
+                  'surface-card surface-card--ghost surface-radius booking-choice-card',
+                  checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50',
+                )}
+              >
               <input
                 type="checkbox"
                 className="mt-1"
@@ -251,9 +253,10 @@ export const BundleSelectionStep = ({
             return (
               <article
                 key={suggestion.bundle.code}
-                className={`surface-card surface-card--ghost surface-radius p-4 md:p-5 transition ${
-                  selected ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
-                }`}
+                className={clsx(
+                  'surface-card surface-card--ghost surface-radius p-4 md:p-5 transition',
+                  selected ? 'border-accent bg-accent/10' : 'hover:border-accent/50',
+                )}
               >
                 <div className="flex flex-wrap items-center gap-2">
                   <h3 className="text-fluid-heading-md">{suggestion.bundle.title}</h3>
@@ -297,7 +300,7 @@ export const BundleSelectionStep = ({
 
                 <button
                   type="button"
-                  className={`${selected ? 'btn-primary' : 'btn-secondary'} mt-4`}
+                  className={clsx(selected ? 'btn-primary' : 'btn-secondary', 'mt-4')}
                   onClick={() => applyBundle(suggestion)}
                 >
                   {bundleButtonLabel}
@@ -352,9 +355,10 @@ export const AddOnsStep = ({
             return (
               <label
                 key={addOn.code}
-                className={`surface-card surface-card--ghost surface-radius booking-choice-card ${
-                  checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50'
-                }`}
+                className={clsx(
+                  'surface-card surface-card--ghost surface-radius booking-choice-card',
+                  checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50',
+                )}
               >
                 <input
                   type="checkbox"

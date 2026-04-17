@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 
 import type { MediaOrientation } from '@/types/media';
-import type { PortableTextBlock } from '@/types/sections';
+import type { PortableTextBlock } from '@/types/portableText';
 
 export type MediaTextContentDensity = 'compact' | 'balanced' | 'expanded';
 

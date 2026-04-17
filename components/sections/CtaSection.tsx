@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { CtaSection as CtaSectionType } from '@/types/sections';
-import { isExternalUrl, normalizeInternalPath } from '@/lib/header/utils';
+import { resolveLink } from '@/lib/header/utils';
 import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
 
@@ -10,12 +10,9 @@ interface Props {
 
 const CtaSection = ({ section }: Props) => {
   const variant = section.variant ?? 'featured';
-  const href = section.buttonLink
-    ? isExternalUrl(section.buttonLink)
-      ? section.buttonLink
-      : normalizeInternalPath(section.buttonLink)
-    : '';
-  const isExternal = href ? isExternalUrl(href) : false;
+  const link = section.buttonLink ? resolveLink(section.buttonLink) : null;
+  const href = link?.href ?? '';
+  const isExternal = link?.external ?? false;
   const eyebrow = section.eyebrow?.trim();
   const title = section.title?.trim();
   const intro = section.intro;

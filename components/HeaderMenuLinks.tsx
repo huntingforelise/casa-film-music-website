@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { FocusEvent, MouseEvent, useCallback, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -8,8 +9,8 @@ import {
   DEFAULT_INACTIVE_LINK_CLASS,
   DEFAULT_SUB_LINK_INACTIVE_CLASS,
 } from '@/lib/header/constants';
-import { NavigationItem } from '@/types/header';
-import { isExternalUrl, normalizeInternalPath } from '@/lib/header/utils';
+import { resolveLink } from '@/lib/header/utils';
+import type { NavigationItem } from '@/types/header';
 
 type HeaderMenuLinksProps = {
   navigation?: NavigationItem[];
@@ -33,7 +34,7 @@ const HeaderMenuLinks = ({
   onLinkClick,
 }: HeaderMenuLinksProps) => {
   const pathname = usePathname();
-  const currentPath = normalizeInternalPath(pathname || '/');
+  const currentPath = resolveLink(pathname || '/').href;
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const closeTimerRef = useRef<number | undefined>(undefined);
 
@@ -65,41 +66,42 @@ const HeaderMenuLinks = ({
   return (
     <div className={containerClassName}>
       {navigation?.map((item) => {
-        const external = isExternalUrl(item.url);
-        const href = external ? item.url : normalizeInternalPath(item.url);
+        const { href, external } = resolveLink(item.url);
         const isActive = !external && currentPath === href;
         const subLinks = item.subLinks ?? [];
         const hasSubLinks = subLinks.length > 0;
         const hasActiveSubLink = subLinks.some((subLink) => {
-          if (isExternalUrl(subLink.url)) return false;
-          return currentPath === normalizeInternalPath(subLink.url);
+          const { href: subHref, external: subExternal } = resolveLink(subLink.url);
+          return !subExternal && currentPath === subHref;
         });
         const parentIsActive = isActive || hasActiveSubLink;
+        const linkClassName = clsx(
+          itemClassName,
+          'transition',
+          parentIsActive ? activeClassName : inactiveClassName,
+        );
 
         if (mobile && hasSubLinks) {
           return (
             <div key={`${keyPrefix}${item.url}`} className="flex flex-col gap-2">
-              <Link
-                href={href}
-                className={`${itemClassName} transition ${parentIsActive ? activeClassName : inactiveClassName}`}
-                onClick={handleLinkClick}
-              >
+              <Link href={href} className={linkClassName} onClick={handleLinkClick}>
                 {item.label}
               </Link>
 
               <div className="ml-3 flex flex-col gap-2 border-l border-border pl-3">
                 {subLinks.map((subLink) => {
-                  const subExternal = isExternalUrl(subLink.url);
-                  const subHref = subExternal ? subLink.url : normalizeInternalPath(subLink.url);
+                  const { href: subHref, external: subExternal } = resolveLink(subLink.url);
                   const subIsActive = !subExternal && currentPath === subHref;
+                  const subLinkClassName = clsx(
+                    'text-sm transition',
+                    subIsActive ? activeClassName : DEFAULT_SUB_LINK_INACTIVE_CLASS,
+                  );
 
                   return (
                     <Link
                       key={`${keyPrefix}${item.url}-${subLink.url}`}
                       href={subHref}
-                      className={`text-sm transition ${
-                        subIsActive ? activeClassName : DEFAULT_SUB_LINK_INACTIVE_CLASS
-                      }`}
+                      className={subLinkClassName}
                       onClick={handleLinkClick}
                     >
                       {subLink.label}
@@ -147,28 +149,25 @@ const HeaderMenuLinks = ({
               onFocus={handleMouseEnter}
               onBlur={handleBlur}
             >
-              <Link
-                href={href}
-                className={`${itemClassName} transition ${parentIsActive ? activeClassName : inactiveClassName}`}
-                onClick={handleLinkClick}
-              >
+              <Link href={href} className={linkClassName} onClick={handleLinkClick}>
                 {item.label}
               </Link>
 
               <div className={dropdownClasses}>
-                <div className="flex flex-col gap-3 ">
+                <div className="flex flex-col gap-3">
                   {subLinks.map((subLink) => {
-                    const subExternal = isExternalUrl(subLink.url);
-                    const subHref = subExternal ? subLink.url : normalizeInternalPath(subLink.url);
+                    const { href: subHref, external: subExternal } = resolveLink(subLink.url);
                     const subIsActive = !subExternal && currentPath === subHref;
+                    const subLinkClassName = clsx(
+                      'text-sm tracking-tight transition text-right',
+                      subIsActive ? activeClassName : DEFAULT_INACTIVE_LINK_CLASS,
+                    );
 
                     return (
                       <Link
                         key={`${keyPrefix}${item.url}-${subLink.url}`}
                         href={subHref}
-                        className={`text-sm tracking-tight transition text-right ${
-                          subIsActive ? activeClassName : DEFAULT_INACTIVE_LINK_CLASS
-                        }`}
+                        className={subLinkClassName}
                         onClick={handleLinkClick}
                       >
                         {subLink.label}
@@ -182,12 +181,7 @@ const HeaderMenuLinks = ({
         }
 
         return (
-          <Link
-            key={`${keyPrefix}${item.url}`}
-            href={href}
-            className={`${itemClassName} transition ${parentIsActive ? activeClassName : inactiveClassName}`}
-            onClick={handleLinkClick}
-          >
+          <Link key={`${keyPrefix}${item.url}`} href={href} className={linkClassName} onClick={handleLinkClick}>
             {item.label}
           </Link>
         );

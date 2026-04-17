@@ -8,3 +8,13 @@ export const normalizeInternalPath = (path: string) => {
 };
 
 export const isExternalUrl = (url: string) => EXTERNAL_URL_PATTERN.test(url);
+
+export const resolveLink = (url: string) => {
+  const external = isExternalUrl(url);
+  return {
+    href: external ? url : normalizeInternalPath(url),
+    external,
+  };
+};
+
+export const resolveLinkHref = (url: string) => resolveLink(url).href;

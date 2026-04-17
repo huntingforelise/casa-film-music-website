@@ -1,10 +1,10 @@
 import { PortableTextComponents } from '@portabletext/react';
 
-import { isExternalUrl, normalizeInternalPath } from '@/lib/header/utils';
+import { resolveLinkHref } from '@/lib/header/utils';
 
 const normalizeRichTextHref = (href: string) => {
   if (href.startsWith('#')) return href;
-  return isExternalUrl(href) ? href : normalizeInternalPath(href);
+  return resolveLinkHref(href);
 };
 
 export const portableTextComponents: PortableTextComponents = {

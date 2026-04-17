@@ -1,5 +1,5 @@
 import { VideoShowcaseSection as VideoShowcaseSectionType } from '@/types/sections';
-import { MediaOrientation } from '@/types/media';
+import type { MediaOrientation } from '@/types/media';
 import MediaCard from '@/components/media/MediaCard';
 import { getMediaAspectClass } from '../../lib/media/mediaLayout';
 import SectionHeader from './SectionHeader';

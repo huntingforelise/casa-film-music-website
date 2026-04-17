@@ -1,34 +1,10 @@
 import { SanityImage } from './sanity';
+import type { PortableTextBlock } from './portableText';
 import type {
   MediaOrientation,
   PhotoItem,
   VideoItem,
 } from './media';
-
-/* ---------- Portable text ---------- */
-
-export interface PortableTextSpan {
-  _key: string;
-  _type: 'span';
-  text: string;
-  marks?: string[];
-}
-
-export interface PortableTextMarkDef {
-  _key: string;
-  _type: string;
-  href?: string;
-}
-
-export interface PortableTextBlock {
-  _key: string;
-  _type: 'block';
-  style?: 'normal' | 'h1' | 'h2' | 'h3';
-  listItem?: 'bullet' | 'number';
-  level?: number;
-  children: PortableTextSpan[];
-  markDefs?: PortableTextMarkDef[];
-}
 
 /* ---------- Sections ---------- */
 
@@ -222,6 +198,17 @@ export interface PhotoMosaicSection extends SectionHeaderContent {
   slotH?: PhotoItem;
   slotI?: PhotoItem;
 }
+
+export type PhotoMosaicSlotKey =
+  | 'slotA'
+  | 'slotB'
+  | 'slotC'
+  | 'slotD'
+  | 'slotE'
+  | 'slotF'
+  | 'slotG'
+  | 'slotH'
+  | 'slotI';
 
 /* ---------- UNION ---------- */
 
