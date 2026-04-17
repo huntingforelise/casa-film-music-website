@@ -5,7 +5,6 @@ import { FocusEvent, MouseEvent, useCallback, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  DEFAULT_ACTIVE_LINK_CLASS,
   DEFAULT_INACTIVE_LINK_CLASS,
   DEFAULT_SUB_LINK_INACTIVE_CLASS,
 } from '@/lib/header/constants';
@@ -17,7 +16,6 @@ type HeaderMenuLinksProps = {
   mobile?: boolean;
   containerClassName?: string;
   itemClassName?: string;
-  activeClassName?: string;
   inactiveClassName?: string;
   keyPrefix?: string;
   onLinkClick?: () => void;
@@ -28,7 +26,6 @@ const HeaderMenuLinks = ({
   mobile = false,
   containerClassName = '',
   itemClassName = '',
-  activeClassName = DEFAULT_ACTIVE_LINK_CLASS,
   inactiveClassName = DEFAULT_INACTIVE_LINK_CLASS,
   keyPrefix = '',
   onLinkClick,
@@ -37,6 +34,7 @@ const HeaderMenuLinks = ({
   const currentPath = resolveLink(pathname || '/').href;
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const closeTimerRef = useRef<number | undefined>(undefined);
+  const selectedLinkStyle = { color: 'var(--theme-text-link-hover)' } as const;
 
   const cancelClose = useCallback(() => {
     if (closeTimerRef.current) {
@@ -74,17 +72,19 @@ const HeaderMenuLinks = ({
           const { href: subHref, external: subExternal } = resolveLink(subLink.url);
           return !subExternal && currentPath === subHref;
         });
-        const parentIsActive = isActive || hasActiveSubLink;
-        const linkClassName = clsx(
+        const parentIsActive = isActive || (!mobile && hasActiveSubLink);
+        const parentLinkClassName = clsx(
           itemClassName,
           'transition',
-          parentIsActive ? activeClassName : inactiveClassName,
+          parentIsActive && !mobile && 'font-semibold',
+          !parentIsActive && inactiveClassName,
         );
+        const parentLinkStyle = parentIsActive ? selectedLinkStyle : undefined;
 
         if (mobile && hasSubLinks) {
           return (
             <div key={`${keyPrefix}${item.url}`} className="flex flex-col gap-2">
-              <Link href={href} className={linkClassName} onClick={handleLinkClick}>
+              <Link href={href} className={parentLinkClassName} style={parentLinkStyle} onClick={handleLinkClick}>
                 {item.label}
               </Link>
 
@@ -94,17 +94,19 @@ const HeaderMenuLinks = ({
                   const subIsActive = !subExternal && currentPath === subHref;
                   const subLinkClassName = clsx(
                     'text-sm transition',
-                    subIsActive ? activeClassName : DEFAULT_SUB_LINK_INACTIVE_CLASS,
+                    subIsActive && 'font-semibold',
+                    !subIsActive && DEFAULT_SUB_LINK_INACTIVE_CLASS,
                   );
 
-                  return (
-                    <Link
-                      key={`${keyPrefix}${item.url}-${subLink.url}`}
-                      href={subHref}
-                      className={subLinkClassName}
-                      onClick={handleLinkClick}
-                    >
-                      {subLink.label}
+                    return (
+                      <Link
+                        key={`${keyPrefix}${item.url}-${subLink.url}`}
+                        href={subHref}
+                        className={subLinkClassName}
+                        style={subIsActive ? selectedLinkStyle : undefined}
+                        onClick={handleLinkClick}
+                      >
+                        {subLink.label}
                     </Link>
                   );
                 })}
@@ -134,7 +136,7 @@ const HeaderMenuLinks = ({
             setOpenDropdown((prev) => (prev === item.url ? null : prev));
           };
 
-          const dropdownClasses = `absolute right-0 z-50 mt-7 min-w-64 rounded-2xl border border-[color-mix(in_srgb,var(--color-champagne)_12%,var(--theme-border)_88%)] bg-[color-mix(in_srgb,var(--theme-bg)_94%,var(--theme-surface)_6%)] p-4 transition shadow-[0_18px_36px_rgba(18,18,18,0.12)] backdrop-blur-md ${
+          const dropdownClasses = `absolute right-0 z-50 mt-7 min-w-64 rounded-2xl border border-[color-mix(in_srgb,var(--color-champagne)_12%,var(--theme-border)_88%)] bg-[var(--theme-bg)] p-4 transition shadow-[0_18px_36px_rgba(18,18,18,0.12)] backdrop-blur-md ${
             isDropdownOpen
               ? 'visible opacity-100 pointer-events-auto'
               : 'invisible opacity-0 pointer-events-none'
@@ -149,7 +151,7 @@ const HeaderMenuLinks = ({
               onFocus={handleMouseEnter}
               onBlur={handleBlur}
             >
-              <Link href={href} className={linkClassName} onClick={handleLinkClick}>
+              <Link href={href} className={parentLinkClassName} style={parentLinkStyle} onClick={handleLinkClick}>
                 {item.label}
               </Link>
 
@@ -160,7 +162,8 @@ const HeaderMenuLinks = ({
                     const subIsActive = !subExternal && currentPath === subHref;
                     const subLinkClassName = clsx(
                       'text-sm tracking-tight transition text-right',
-                      subIsActive ? activeClassName : DEFAULT_INACTIVE_LINK_CLASS,
+                      subIsActive && 'font-semibold',
+                      !subIsActive && DEFAULT_INACTIVE_LINK_CLASS,
                     );
 
                     return (
@@ -168,6 +171,7 @@ const HeaderMenuLinks = ({
                         key={`${keyPrefix}${item.url}-${subLink.url}`}
                         href={subHref}
                         className={subLinkClassName}
+                        style={subIsActive ? selectedLinkStyle : undefined}
                         onClick={handleLinkClick}
                       >
                         {subLink.label}
@@ -181,7 +185,13 @@ const HeaderMenuLinks = ({
         }
 
         return (
-          <Link key={`${keyPrefix}${item.url}`} href={href} className={linkClassName} onClick={handleLinkClick}>
+          <Link
+            key={`${keyPrefix}${item.url}`}
+            href={href}
+            className={parentLinkClassName}
+            style={parentLinkStyle}
+            onClick={handleLinkClick}
+          >
             {item.label}
           </Link>
         );
