@@ -52,17 +52,16 @@ const FullScreenHero = ({
       className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(18,18,18,0.12)_0%,rgba(18,18,18,0.24)_38%,rgba(18,18,18,0.72)_100%)]"
       aria-hidden
     />
-    <div className="absolute inset-0 z-20 flex items-end justify-center px-4 pb-[clamp(5rem,8vh,7rem)] sm:px-8 lg:px-12">
-      <div className="hero-panel hero-panel--dark w-fit max-w-full">
-        <div className="hero-panel__inner">
-          <PageHeroHeader
-            title={pageTitle}
-            subtitle={pageSubtitle}
-            tone="inverse"
-            align="center"
-            className="page-hero-header--hero-image"
-          />
-        </div>
+    <div className="absolute inset-0 z-20 flex items-end justify-center px-4 py-6 sm:px-8 md:py-8 lg:px-12">
+      <div className="surface-radius hero-copy-box split-hero-option-card relative mb-2 w-full max-w-[32rem] px-5 py-4 text-center transition duration-300 md:mb-4 md:px-7 md:py-5 backdrop-blur-md">
+        <PageHeroHeader
+          title={pageTitle}
+          subtitle={pageSubtitle}
+          tone="inverse"
+          align="center"
+          variant="choice"
+          className="page-hero-header--hero-image page-hero-header--choice"
+        />
       </div>
     </div>
     <HeroScrollButton targetId={contentAnchorId} />
@@ -84,17 +83,16 @@ const StandardHero = ({
       className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(18,18,18,0.08)_0%,rgba(18,18,18,0.2)_40%,rgba(18,18,18,0.68)_100%)]"
       aria-hidden
     />
-    <div className="absolute inset-0 z-20 flex items-end justify-center px-4 pb-[clamp(0.75rem,1.5vw,1.25rem)] sm:px-8 lg:px-12">
-      <div className="hero-panel hero-panel--dark hero-panel--tight w-fit max-w-full">
-        <div className="hero-panel__inner">
-          <PageHeroHeader
-            title={pageTitle}
-            subtitle={pageSubtitle}
-            tone="inverse"
-            align="center"
-            className="page-hero-header--hero-image"
-          />
-        </div>
+    <div className="absolute inset-0 z-20 flex items-end justify-center px-4 py-6 sm:px-8 md:py-8 lg:px-12">
+      <div className="surface-radius hero-copy-box split-hero-option-card relative mb-2 w-full max-w-[32rem] px-5 py-4 text-center transition duration-300 md:mb-4 md:px-7 md:py-5 backdrop-blur-md">
+        <PageHeroHeader
+          title={pageTitle}
+          subtitle={pageSubtitle}
+          tone="inverse"
+          align="center"
+          variant="choice"
+          className="page-hero-header--hero-image page-hero-header--choice"
+        />
       </div>
     </div>
   </section>

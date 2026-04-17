@@ -9,6 +9,7 @@ type Props = {
   align?: 'left' | 'center';
   className?: string;
   titleStyle?: CSSProperties;
+  variant?: 'default' | 'choice';
 };
 
 const PageHeroHeader = ({
@@ -18,10 +19,12 @@ const PageHeroHeader = ({
   align = 'left',
   className,
   titleStyle,
+  variant = 'default',
 }: Props) => (
   <div
     className={clsx(
-      'page-hero-header flex flex-col gap-4',
+      'page-hero-header flex flex-col',
+      variant === 'choice' ? 'gap-0 md:gap-2' : 'gap-4',
       align === 'center' ? 'items-center text-center' : 'items-start text-left',
       align === 'center' && 'page-hero-header--center',
       tone === 'inverse' && 'page-hero-header--inverse',

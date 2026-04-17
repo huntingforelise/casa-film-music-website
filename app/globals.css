@@ -345,6 +345,35 @@ body::-webkit-scrollbar-thumb:hover {
     color: color-mix(in srgb, var(--theme-text-inverse) 74%, transparent 26%);
   }
 
+  .hero-copy-box,
+  .split-hero-option-card {
+    position: relative;
+    border-radius: var(--radius-surface);
+    border: 1px solid color-mix(in srgb, var(--color-warm-ivory) 45%, transparent 55%);
+    background-color: color-mix(in srgb, var(--color-obsidian) 45%, transparent 55%);
+    padding: var(--space-3);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 24px 55px rgba(18, 18, 18, 0.18);
+    color: var(--theme-text-inverse);
+  }
+
+  .hero-copy-box,
+  .split-hero-option-card {
+    transition:
+      transform 0.3s ease,
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .page-hero-header--choice .page-hero-header__title {
+    max-width: none;
+  }
+
+  .page-hero-header--choice .page-hero-header__subtitle {
+    max-width: none;
+    color: color-mix(in srgb, var(--color-warm-ivory) 92%, white 8%);
+  }
+
   .page-hero-header--center .page-hero-header__title {
     margin-inline: auto;
   }
@@ -644,21 +673,6 @@ body::-webkit-scrollbar-thumb:hover {
     position: relative;
     min-height: 0;
     border-color: transparent;
-  }
-
-  .split-hero-option-card {
-    position: relative;
-    border-radius: var(--radius-surface);
-    border: 1px solid color-mix(in srgb, var(--color-warm-ivory) 45%, transparent 55%);
-    background-color: color-mix(in srgb, var(--color-obsidian) 45%, transparent 55%);
-    padding: var(--space-3);
-    backdrop-filter: blur(18px);
-    transition:
-      transform 0.3s ease,
-      background-color 0.3s ease,
-      border-color 0.3s ease;
-    box-shadow: 0 24px 55px rgba(18, 18, 18, 0.18);
-    color: var(--theme-text);
   }
 
   .split-hero-option:focus-visible .split-hero-option-card,

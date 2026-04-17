@@ -1,6 +1,7 @@
 import { SplitHeroSection as SplitHeroSectionType } from '@/types/sections';
 import Link from 'next/link';
 import SanityImage from '../media/SanityImage';
+import PageHeroHeader from '../templates/PageHeroHeader';
 import clsx from 'clsx';
 
 interface Props {
@@ -37,11 +38,15 @@ const SplitHeroSection = ({ section }: Props) => {
         aria-hidden="true"
       />
 
-      <div className="surface-radius split-hero-option-card relative mb-2 w-full max-w-[32rem] px-5 py-4 text-center transition duration-300 group-hover:-translate-y-1 md:mb-4 md:px-7 md:py-5 backdrop-blur-md">
-        <div className="flex flex-col items-center gap-0 md:gap-2">
-          <span className="split-hero-option-title">{option.title}</span>
-          <span className="split-hero-option-subtitle">{option.subtitle}</span>
-        </div>
+      <div className="surface-radius hero-copy-box split-hero-option-card relative mb-2 w-full max-w-[32rem] px-5 py-4 text-center transition duration-300 group-hover:-translate-y-1 md:mb-4 md:px-7 md:py-5 backdrop-blur-md">
+        <PageHeroHeader
+          title={option.title}
+          subtitle={option.subtitle}
+          tone="inverse"
+          align="center"
+          variant="choice"
+          className="page-hero-header--hero-image page-hero-header--choice"
+        />
       </div>
     </Link>
   );
