@@ -28,9 +28,9 @@ const CtaSection = ({ section }: Props) => {
 
     return (
       <SectionShell>
-        <div className="surface-card surface-card--glass relative overflow-hidden rounded-[1.5rem] border border-black/10 bg-surface/90 px-6 py-7 shadow-[0_18px_60px_rgba(0,0,0,0.06)] ring-1 ring-black/5 sm:px-7 lg:px-8">
+        <div className="surface-card surface-card--glass relative overflow-hidden rounded-[1.5rem] border border-border-strong bg-surface-strong px-6 py-7 shadow-[0_18px_60px_rgba(0,0,0,0.06)] ring-1 ring-black/5 sm:px-7 lg:px-8">
           <div
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,154,106,0.12),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(18,18,18,0.06),transparent_36%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,149,85,0.12),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(18,18,18,0.06),transparent_36%)]"
             aria-hidden="true"
           />
 
@@ -42,10 +42,10 @@ const CtaSection = ({ section }: Props) => {
             </div>
 
             {href && section.buttonLabel && (
-              <div className="md:border-l md:border-border/60 md:pl-8">
+              <div className="md:pl-8">
                 <Link
                   href={href}
-                  className="btn-primary w-full sm:w-auto"
+                  className="btn-primary w-full px-4 py-2 sm:w-auto"
                   target={isExternal ? '_blank' : undefined}
                   rel={isExternal ? 'noopener noreferrer' : undefined}
                 >
@@ -63,7 +63,7 @@ const CtaSection = ({ section }: Props) => {
     <SectionShell>
       <div className="surface-card surface-card--glass relative overflow-hidden rounded-[2rem] px-6 py-8 shadow-[0_24px_80px_rgba(18,18,18,0.08)] transition duration-300 motion-safe:hover:-translate-y-0.5 sm:px-8 lg:px-10">
         <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,154,106,0.18),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(18,18,18,0.08),transparent_38%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,149,85,0.18),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(18,18,18,0.08),transparent_38%)]"
           aria-hidden="true"
         />
         <div
@@ -73,10 +73,10 @@ const CtaSection = ({ section }: Props) => {
         <div className="relative grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-8">
           <SectionHeader compact eyebrow={eyebrow} title={title} intro={intro} className="text-center md:text-left" />
 
-          <div className="md:justify-self-end md:border-l md:border-border/60 md:pl-8">
+          <div className="md:justify-self-end md:pl-8">
             <Link
               href={href}
-              className="btn-primary w-full sm:w-auto"
+              className="btn-primary w-full px-4 py-2 sm:w-auto"
               target={isExternal ? '_blank' : undefined}
               rel={isExternal ? 'noopener noreferrer' : undefined}
             >

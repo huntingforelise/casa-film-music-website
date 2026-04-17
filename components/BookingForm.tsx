@@ -233,7 +233,7 @@ const BookingForm = ({ settings }: Props) => {
             />
 
             <div className="flex flex-col gap-3 lg:items-end lg:text-right">
-              <p className="text-fluid-body-sm tracking-tight text-text/60 uppercase">
+              <p className="text-fluid-body-sm tracking-tight text-muted uppercase">
                 {stepLabel}
               </p>
             </div>
@@ -333,7 +333,7 @@ const BookingForm = ({ settings }: Props) => {
 
             {feedback && (
               <p
-                className={`text-fluid-body-sm ${status === 'error' ? 'text-red-700' : 'text-text/75'}`}
+                className={`text-fluid-body-sm ${status === 'error' ? 'text-red-700' : 'text-75'}`}
               >
                 {feedback}
               </p>

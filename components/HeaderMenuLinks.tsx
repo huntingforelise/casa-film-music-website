@@ -136,7 +136,7 @@ const HeaderMenuLinks = ({
             setOpenDropdown((prev) => (prev === item.url ? null : prev));
           };
 
-          const dropdownClasses = `absolute right-0 z-50 mt-7 min-w-64 rounded-2xl border border-[color-mix(in_srgb,var(--color-champagne)_12%,var(--theme-border)_88%)] bg-[var(--theme-bg)] p-4 transition shadow-[0_18px_36px_rgba(18,18,18,0.12)] backdrop-blur-md ${
+          const dropdownClasses = `absolute right-0 z-50 mt-7 min-w-64 rounded-2xl border border-border bg-surface-strong p-4 transition shadow-[0_18px_36px_rgba(18,18,18,0.12)] backdrop-blur-md ${
             isDropdownOpen
               ? 'visible opacity-100 pointer-events-auto'
               : 'invisible opacity-0 pointer-events-none'

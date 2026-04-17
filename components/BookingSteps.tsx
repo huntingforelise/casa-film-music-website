@@ -97,7 +97,7 @@ export const EventDetailsStep = ({
                   Math.max(GUEST_COUNT_MIN, values.guestCount - GUEST_COUNT_STEP),
                 )
               }
-              className="text-lg text-text/60 hover:text-text sm:text-xl"
+              className="text-lg text-muted transition hover:text-text sm:text-xl"
             >
               −
             </button>
@@ -107,7 +107,7 @@ export const EventDetailsStep = ({
             <button
               type="button"
               onClick={() => setField('guestCount', values.guestCount + GUEST_COUNT_STEP)}
-              className="text-lg text-text/60 hover:text-text sm:text-xl"
+              className="text-lg text-muted transition hover:text-text sm:text-xl"
             >
               +
             </button>
@@ -159,7 +159,7 @@ export const ServicesStep = ({
 
   return (
     <div className="grid gap-4">
-      <p className="text-fluid-body-lg text-text/85">{introText}</p>
+      <p className="text-fluid-body-lg text-80">{introText}</p>
 
       <div className="grid gap-4 md:grid-cols-2">
         {services.map((service) => {
@@ -182,7 +182,7 @@ export const ServicesStep = ({
                 key={service.value}
                 className={clsx(
                   'surface-card surface-card--ghost surface-radius booking-choice-card',
-                  checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50',
+                  checked ? 'border-accent bg-accent-soft' : 'hover:border-accent/50',
                 )}
               >
               <input
@@ -227,7 +227,7 @@ export const BundleSelectionStep = ({
 
   return (
     <div className="grid gap-4">
-      <p className="text-fluid-body-lg text-text/85">{introText}</p>
+      <p className="text-fluid-body-lg text-80">{introText}</p>
 
       {!!bundleSuggestions.length
         ? bundleSuggestions.map((suggestion) => {
@@ -255,30 +255,30 @@ export const BundleSelectionStep = ({
                 key={suggestion.bundle.code}
                 className={clsx(
                   'surface-card surface-card--ghost surface-radius p-4 md:p-5 transition',
-                  selected ? 'border-accent bg-accent/10' : 'hover:border-accent/50',
+                  selected ? 'border-accent bg-accent-soft' : 'hover:border-accent/50',
                 )}
               >
                 <div className="flex flex-wrap items-center gap-2">
                   <h3 className="text-fluid-heading-md">{suggestion.bundle.title}</h3>
                   {suggestion.bundle.highlightLabel && (
-                    <span className="surface-radius border border-accent/40 bg-accent/15 px-2 py-0.5 text-xs uppercase tracking-[0.12em] text-80">
+                    <span className="surface-radius border border-accent/40 bg-accent-soft px-2 py-0.5 text-xs uppercase tracking-[0.12em] text-80">
                       {suggestion.bundle.highlightLabel}
                     </span>
                   )}
                 </div>
 
                 {suggestion.bundle.description && (
-                  <p className="pt-2 text-fluid-body-sm text-text/75">
+                  <p className="pt-2 text-fluid-body-sm text-75">
                     {suggestion.bundle.description}
                   </p>
                 )}
 
                 {includesLine && (
-                  <p className="pt-2 text-fluid-body-sm text-text/75">{includesLine}</p>
+                  <p className="pt-2 text-fluid-body-sm text-75">{includesLine}</p>
                 )}
 
                 {hasPriceLine && (
-                  <p className="pt-2 text-fluid-body-sm font-medium text-text/85">
+                  <p className="pt-2 text-fluid-body-sm font-medium text-80">
                     {hasPrimaryPrice && priceRows.length > 0 && (
                       <span className="flex flex-wrap items-baseline gap-2">
                         {priceRows.map((row, index) => (
@@ -333,7 +333,7 @@ export const AddOnsStep = ({
 
   return (
     <div className="grid gap-4">
-      <p className="text-fluid-body-lg text-text/85">{introText}</p>
+      <p className="text-fluid-body-lg text-80">{introText}</p>
 
       <div className="grid gap-4 md:grid-cols-2">
         {availableAddOns.length ? (
@@ -357,7 +357,7 @@ export const AddOnsStep = ({
                 key={addOn.code}
                 className={clsx(
                   'surface-card surface-card--ghost surface-radius booking-choice-card',
-                  checked ? 'border-accent bg-accent/10' : 'hover:border-accent/50',
+                  checked ? 'border-accent bg-accent-soft' : 'hover:border-accent/50',
                 )}
               >
                 <input
@@ -431,13 +431,13 @@ export const SummaryStep = ({
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
       <div className="lg:col-span-2">
-        <p className="text-fluid-body-lg text-text/85">{summaryIntroText}</p>
+      <p className="text-fluid-body-lg text-80">{summaryIntroText}</p>
       </div>
 
       <div className="surface-card surface-card--ghost surface-radius p-8">
         <h3 className="text-fluid-heading-sm">{copy.summaryTitle ?? ''}</h3>
 
-        <ul className="pt-4 text-fluid-body-md text-text/75">
+        <ul className="pt-4 text-fluid-body-md text-75">
           <li>{renderListItem(copy.summaryLabelEvent, selectedEventTypeTitle)}</li>
           <li>{renderListItem(copy.summaryLabelDate, values.eventDate)}</li>
           <li>{renderListItem(copy.summaryLabelGuests, values.guestCount.toString())}</li>
@@ -448,7 +448,7 @@ export const SummaryStep = ({
           <li>{renderListItem(copy.summaryLabelAddOns, addOnsValue)}</li>
         </ul>
 
-        <div className="mt-4 rounded-2xl border border-accent/20 bg-accent/5 p-4">
+        <div className="mt-4 rounded-2xl border border-accent/20 bg-accent-soft p-4">
           <p className="text-fluid-eyebrow" style={{ color: 'var(--theme-accent)' }}>
             Estimate
           </p>
@@ -458,11 +458,11 @@ export const SummaryStep = ({
               <span className="text-fluid-heading-md">{estimateTotal}</span>
             </div>
           ) : (
-            <p className="mt-2 text-fluid-body-sm text-text/75">{estimateFallback}</p>
+            <p className="mt-2 text-fluid-body-sm text-75">{estimateFallback}</p>
           )}
 
           {hasEstimate && (
-            <ul className="mt-4 grid gap-2 text-fluid-body-sm text-text/75">
+            <ul className="mt-4 grid gap-2 text-fluid-body-sm text-75">
               {estimate.lineItems.map((item) => (
                 <li
                   key={`${item.label}-${item.formattedAmount}`}
@@ -476,7 +476,7 @@ export const SummaryStep = ({
           )}
         </div>
 
-        <p className="pt-5 text-fluid-body-xsm text-text/65">{config.disclaimer}</p>
+        <p className="pt-5 text-fluid-body-xsm text-muted">{config.disclaimer}</p>
       </div>
 
       <div className="grid gap-4">

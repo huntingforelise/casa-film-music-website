@@ -33,7 +33,7 @@ export default function FormDatePicker({
             data-open={open ? 'true' : undefined}
           >
             <span className="truncate">{value ? formatDateLabel(value) : placeholder}</span>
-            <CalendarDays className="h-5 w-5 shrink-0 text-text/50" />
+            <CalendarDays className="h-5 w-5 shrink-0 text-muted" />
           </PopoverButton>
 
           <PopoverPanel className="surface-radius absolute left-0 top-full z-20 mt-2 booking-dropdown p-3">

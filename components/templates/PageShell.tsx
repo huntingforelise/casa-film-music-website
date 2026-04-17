@@ -18,7 +18,7 @@ type Props = {
 };
 
 const getFallbackBackground = () => (
-  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,154,106,0.22),transparent_38%),linear-gradient(135deg,rgba(18,18,18,0.98)_0%,rgba(31,31,31,0.94)_52%,rgba(18,18,18,0.98)_100%)]" />
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,149,85,0.22),transparent_38%),linear-gradient(135deg,rgba(18,18,18,0.98)_0%,rgba(31,31,31,0.94)_52%,rgba(18,18,18,0.98)_100%)]" />
 );
 
 const renderBackground = (heroSection?: HeroSection, altText?: string) =>
@@ -99,7 +99,7 @@ const StandardHero = ({
 );
 
 const CompactHero = ({ pageTitle, pageSubtitle }: { pageTitle: string; pageSubtitle?: string }) => (
-  <section className="hero-shell hero-shell--compact border-b border-border/70">
+  <section className="hero-shell hero-shell--compact border-b border-border">
     <div className="layout-container pb-4 pt-[calc(7rem+env(safe-area-inset-top))] sm:pb-5 sm:pt-[calc(7.5rem+env(safe-area-inset-top))] lg:pb-6 lg:pt-[calc(8rem+env(safe-area-inset-top))]">
       <PageHeroHeader
         title={pageTitle}

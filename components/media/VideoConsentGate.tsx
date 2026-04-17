@@ -20,23 +20,23 @@ const VideoConsentGate = ({ className, onEnable }: VideoConsentGateProps) => {
         className,
       )}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(184,154,106,0.15),transparent_58%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(184,149,85,0.15),transparent_58%)]" />
       <div className="video-consent-gate__content relative z-10 flex max-w-xs flex-col items-center gap-3 px-5 py-6 text-center text-[var(--theme-text-inverse)] sm:max-w-sm sm:gap-4 sm:px-6 sm:py-8">
-        <p className="video-consent-gate__eyebrow text-fluid-eyebrow text-[color-mix(in_srgb,var(--color-warm-ivory)_72%,var(--color-champagne)_28%)]">
+        <p className="video-consent-gate__eyebrow text-fluid-eyebrow text-[color-mix(in_srgb,var(--theme-text-inverse)_72%,var(--theme-accent)_28%)]">
           {copy.videoBlockedEyebrow}
         </p>
         <div className="space-y-2">
           <h3 className="video-consent-gate__heading text-fluid-heading-sm text-[var(--theme-text-inverse)]">
             {copy.videoBlockedHeading}
           </h3>
-          <p className="video-consent-gate__body hidden text-fluid-body-sm text-[color-mix(in_srgb,var(--color-warm-ivory)_78%,transparent_22%)] sm:block">
+          <p className="video-consent-gate__body hidden text-fluid-body-sm text-[color-mix(in_srgb,var(--theme-text-inverse)_78%,transparent_22%)] sm:block">
             {copy.videoBlockedBody}
           </p>
         </div>
         <button
           type="button"
           onClick={onEnable}
-          className="video-consent-gate__button btn-primary w-full px-5 py-2.5 sm:w-auto"
+          className="video-consent-gate__button btn-primary w-full px-4 py-2 sm:w-auto"
         >
           {copy.videoBlockedButtonLabel}
         </button>

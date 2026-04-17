@@ -39,7 +39,7 @@ const MediaTextSection = ({ section }: Props) => {
   );
 
   const mediaClassName =
-    'w-full rounded-[2.5rem] border border-black/10 bg-surface shadow-[0_28px_80px_rgba(18,18,18,0.12)] ring-1 ring-black/5';
+    'w-full rounded-[2.5rem] border border-border bg-surface shadow-[0_28px_80px_rgba(18,18,18,0.12)] ring-1 ring-black/5';
 
   const renderMedia = () => {
     if (section.mediaType === 'photo') {

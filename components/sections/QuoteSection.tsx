@@ -22,7 +22,7 @@ const QuoteSection = ({ section }: Props) => {
   return (
     <SectionShell>
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,154,106,0.16),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(18,18,18,0.08),transparent_36%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,149,85,0.16),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(18,18,18,0.08),transparent_36%)]"
         aria-hidden="true"
       />
       <div className="relative flex flex-col gap-5">

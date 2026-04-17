@@ -35,7 +35,7 @@ const FormListbox = ({
               data-open={open ? 'true' : undefined}
             >
               <span className="truncate">{selectedLabel || placeholder}</span>
-              <ChevronDown className="h-5 w-5 shrink-0 text-text/50" />
+              <ChevronDown className="h-5 w-5 shrink-0 text-muted" />
             </ListboxButton>
 
             <ListboxOptions className="booking-dropdown booking-scrollbar surface-radius absolute left-0 top-full z-20 mt-2 max-h-60 w-full overflow-auto p-1 focus:outline-none">
@@ -43,7 +43,7 @@ const FormListbox = ({
                 <ListboxOption
                   key={option.value}
                   value={option.value}
-                  className="cursor-pointer rounded-md px-4 py-2 text-sm text-text/85 transition data-[focus]:bg-accent/15 data-[selected]:bg-accent/20"
+                  className="cursor-pointer rounded-md px-4 py-2 text-sm text-80 transition data-[focus]:bg-accent/15 data-[selected]:bg-accent/20"
                 >
                   {option.label}
                 </ListboxOption>

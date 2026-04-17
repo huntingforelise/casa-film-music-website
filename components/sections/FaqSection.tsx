@@ -32,7 +32,7 @@ const FaqSection = ({ section }: Props) => {
   };
 
   const content = (
-    <div className="relative overflow-hidden rounded-[2.5rem] border border-[color-mix(in_srgb,var(--color-champagne)_16%,var(--theme-border)_84%)] bg-surface/95 px-5 py-6 shadow-[0_26px_80px_rgba(18,18,18,0.08)] sm:px-7 sm:py-8 lg:px-10 lg:py-10">
+    <div className="relative overflow-hidden rounded-[2.5rem] border border-border bg-surface-strong px-5 py-6 shadow-[0_26px_80px_rgba(18,18,18,0.08)] sm:px-7 sm:py-8 lg:px-10 lg:py-10">
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
       <div className="relative grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
@@ -44,13 +44,13 @@ const FaqSection = ({ section }: Props) => {
             <article
               key={item._key}
               className={clsx(
-                'group relative overflow-hidden rounded-[2rem] border border-[color-mix(in_srgb,var(--color-champagne)_18%,var(--theme-border)_82%)] shadow-[0_18px_45px_rgba(18,18,18,0.08)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--color-champagne)_42%,var(--theme-border)_58%)] hover:shadow-[0_26px_64px_rgba(18,18,18,0.12)]',
+                'group relative overflow-hidden rounded-[2rem] border border-border shadow-[0_18px_45px_rgba(18,18,18,0.08)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_26px_64px_rgba(18,18,18,0.12)]',
                 isOpen &&
-                  'border-[color-mix(in_srgb,var(--color-champagne)_48%,var(--theme-border)_52%)] shadow-[0_26px_70px_rgba(18,18,18,0.12)]',
+                  'border-accent shadow-[0_26px_70px_rgba(18,18,18,0.12)]',
               )}
             >
               <div
-                className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-[color-mix(in_srgb,var(--color-champagne)_70%,white_30%)] to-transparent"
+                className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-[color-mix(in_srgb,var(--theme-accent)_70%,white_30%)] to-transparent"
                 aria-hidden="true"
               />
 
@@ -71,8 +71,8 @@ const FaqSection = ({ section }: Props) => {
                   className={clsx(
                     'inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-fluid-heading-sm leading-none transition duration-300',
                     isOpen
-                      ? 'border-[color-mix(in_srgb,var(--color-champagne)_48%,var(--theme-border)_52%)] bg-[color-mix(in_srgb,var(--color-champagne)_22%,white_78%)] text-text rotate-45'
-                      : 'border-black/10 bg-white/70 text-text/70 group-hover:border-[color-mix(in_srgb,var(--color-champagne)_38%,var(--theme-border)_62%)] group-hover:text-text',
+                      ? 'border-accent bg-accent-soft text-text rotate-45'
+                      : 'border-border bg-surface-strong text-muted group-hover:border-accent/40 group-hover:text-text',
                   )}
                   aria-hidden="true"
                 >
@@ -88,7 +88,7 @@ const FaqSection = ({ section }: Props) => {
                 )}
               >
                 <div className="overflow-hidden">
-                  <div className="border-t border-[color-mix(in_srgb,var(--color-champagne)_14%,var(--theme-border)_86%)] py-5 text-fluid-body-md text-muted sm:pt-6">
+                  <div className="border-t border-border-strong py-5 text-fluid-body-md text-muted sm:pt-6">
                     {item.answer?.length ? (
                       <PortableText value={item.answer} components={portableTextComponents} />
                     ) : null}

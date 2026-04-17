@@ -44,7 +44,7 @@ const FeatureCardSection = ({ section }: Props) => {
           return (
             <article
               key={cardId}
-              className="group h-full overflow-hidden rounded-[2rem] border border-black/10 bg-surface/90 shadow-[0_20px_50px_rgba(0,0,0,0.06)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_26px_70px_rgba(0,0,0,0.1)] hover:ring-accent/20"
+              className="group h-full overflow-hidden rounded-[2rem] border border-border bg-surface-strong shadow-[0_20px_50px_rgba(0,0,0,0.06)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_26px_70px_rgba(0,0,0,0.1)] hover:ring-accent/20"
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-black/5">
                 {card.image ? (
@@ -57,7 +57,7 @@ const FeatureCardSection = ({ section }: Props) => {
                   />
                 ) : (
                   <div
-                    className="absolute inset-0 bg-[linear-gradient(135deg,rgba(18,18,18,0.08),rgba(184,154,106,0.18),rgba(18,18,18,0.02))]"
+                    className="absolute inset-0 bg-[linear-gradient(135deg,rgba(18,18,18,0.08),rgba(184,149,85,0.18),rgba(18,18,18,0.02))]"
                     aria-hidden="true"
                   />
                 )}
@@ -69,7 +69,7 @@ const FeatureCardSection = ({ section }: Props) => {
 
               <div className="flex h-full flex-col gap-3 p-4 sm:p-5">
                 <h3 className="text-fluid-heading-sm leading-tight text-text">{cardTitle}</h3>
-                <p className="text-fluid-body-sm leading-6 text-text/80">{cardText}</p>
+                <p className="text-fluid-body-sm leading-6 text-80">{cardText}</p>
               </div>
             </article>
           );
@@ -84,11 +84,11 @@ const FeatureCardSection = ({ section }: Props) => {
               {calloutTitle && (
                 <h3 className="text-fluid-heading-sm leading-tight text-text">{calloutTitle}</h3>
               )}
-              {calloutText && <p className="section-copy text-text/80">{calloutText}</p>}
+              {calloutText && <p className="section-copy text-80">{calloutText}</p>}
             </div>
 
             {calloutItems.length > 0 && (
-              <ul className="grid gap-3 text-fluid-body-sm text-text/85">
+              <ul className="grid gap-3 text-fluid-body-sm text-80">
                 {calloutItems.map((item, index) => (
                   <li key={`${item}-${index}`} className="flex items-center gap-3">
                     <span
