@@ -83,8 +83,8 @@ const StandardHero = ({
       className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(18,18,18,0.08)_0%,rgba(18,18,18,0.2)_40%,rgba(18,18,18,0.68)_100%)]"
       aria-hidden
     />
-    <div className="absolute inset-0 z-20 flex items-end justify-center px-4 py-6 sm:px-8 md:py-8 lg:px-12">
-      <div className="surface-radius hero-copy-box split-hero-option-card relative mb-2 w-full max-w-[32rem] px-5 py-4 text-center transition duration-300 md:mb-4 md:px-7 md:py-5 backdrop-blur-md">
+    <div className="absolute inset-0 z-20 flex items-end justify-center px-4 py-4 sm:px-8 lg:px-12">
+      <div className="surface-radius hero-copy-box split-hero-option-card relative mb-0 w-full max-w-[32rem] px-5 py-4 text-center transition duration-300 md:mb-1 lg:mb-0 md:px-7 md:py-5 backdrop-blur-md">
         <PageHeroHeader
           title={pageTitle}
           subtitle={pageSubtitle}
