@@ -82,7 +82,7 @@ const TestimonialSection = ({ section }: Props) => {
                       onClick={() => toggleCard(cardId)}
                       aria-expanded={isExpanded}
                       aria-controls={contentId}
-                      className="shrink-0 rounded-full border border-black/10 px-3 py-1 font-semibold uppercase tracking-[0.16em] text-text/70 transition hover:border-accent/50 hover:text-text"
+                      className="shrink-0 cursor-pointer rounded-full border border-black/10 px-3 py-1 font-semibold uppercase tracking-[0.16em] text-text/70 transition hover:border-accent/50 hover:text-text"
                     >
                       {isExpanded ? '-' : '+'}
                     </button>
