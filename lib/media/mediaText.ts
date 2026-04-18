@@ -112,7 +112,7 @@ export const getMediaTextVideoAspectClass = (orientation: MediaOrientation) =>
   orientation === 'portrait' ? 'aspect-[4/5]' : 'aspect-video';
 
 export const getMediaTextVideoZoom = (orientation: MediaOrientation) =>
-  orientation === 'portrait' ? 1.48 : 1.16;
+  orientation === 'portrait' ? 1.38 : 1.22;
 
 export const getLayoutClasses = (
   orientation: MediaOrientation,

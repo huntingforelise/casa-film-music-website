@@ -61,6 +61,7 @@ const MediaCard = (props: MediaCardProps) => {
 
   return (
     <Video
+      key={`${props.item.url}-${isInteractiveVideo ? 'interactive' : 'muted'}`}
       src={props.item.url}
       title={props.item.title ?? 'Embedded video'}
       zoom={resolvedVideoZoom}

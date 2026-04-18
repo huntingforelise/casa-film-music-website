@@ -98,7 +98,7 @@ describe('getMediaTextVideoAspectClass', () => {
 
 describe('getMediaTextVideoZoom', () => {
   it('zooms portrait videos a bit more to avoid edge whitespace', () => {
-    expect(getMediaTextVideoZoom('landscape')).toBe(1.16);
-    expect(getMediaTextVideoZoom('portrait')).toBe(1.48);
+    expect(getMediaTextVideoZoom('landscape')).toBe(1.22);
+    expect(getMediaTextVideoZoom('portrait')).toBe(1.38);
   });
 });

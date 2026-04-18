@@ -35,6 +35,12 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       lang="en"
       className={`${inter.variable} ${playfairDisplay.variable} ${geistMono.variable}`}
     >
+      <head>
+        <link rel="preconnect" href="https://player.vimeo.com" />
+        <link rel="preconnect" href="https://f.vimeocdn.com" />
+        <link rel="dns-prefetch" href="https://player.vimeo.com" />
+        <link rel="dns-prefetch" href="https://f.vimeocdn.com" />
+      </head>
       <body className="font-sans bg-bg text-text">
         <Header />
         <CookieBannerProvider copy={cookieBanner}>

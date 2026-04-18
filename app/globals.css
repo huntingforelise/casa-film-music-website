@@ -919,6 +919,58 @@ ul > li::marker {
   container-type: inline-size;
 }
 
+/* Video loading state */
+.video-loading-state {
+  background: color-mix(in srgb, var(--theme-bg) 84%, var(--theme-surface) 16%);
+}
+
+.video-loading-state__copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 9999px;
+  padding: 0.4rem 0.65rem;
+  color: var(--theme-text-muted);
+  font-size: clamp(0.85rem, 0.3vw + 0.8rem, 0.95rem);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.video-loading-state__dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.12rem;
+  min-width: 1.2rem;
+  white-space: nowrap;
+}
+
+.video-loading-state__dot {
+  display: inline-block;
+  width: 0.32rem;
+  text-align: center;
+  line-height: 1;
+  font-size: 1.1rem;
+  color: currentColor;
+  opacity: 0.15;
+  transform: translateY(0);
+  animation: video-loading-dot 1.05s ease-in-out infinite;
+}
+
+.video-loading-state__dot--2 {
+  animation-delay: 0.18s;
+}
+
+.video-loading-state__dot--3 {
+  animation-delay: 0.36s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-loading-state__dot {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
 @container (max-width: 30rem) {
   .video-consent-gate__content {
     max-width: 100%;
@@ -942,5 +994,19 @@ ul > li::marker {
 
   .video-consent-gate__button {
     width: 100%;
+  }
+}
+
+@keyframes video-loading-dot {
+  0%,
+  20%,
+  100% {
+    opacity: 0.15;
+    transform: translateY(0);
+  }
+
+  45% {
+    opacity: 0.95;
+    transform: translateY(-1px);
   }
 }
