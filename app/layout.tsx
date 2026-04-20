@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist_Mono, Inter, Playfair_Display } from 'next/font/google';
+import { Suspense } from 'react';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -45,7 +46,9 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       <body className="font-sans bg-bg text-text">
         <Header />
         <CookieBannerProvider copy={cookieBanner}>
-          <GoogleAnalytics />
+          <Suspense fallback={null}>
+            <GoogleAnalytics />
+          </Suspense>
           {children}
           <Footer cookieSettingsLabel={cookieBanner?.cookieSettingsLabel} />
           <CookieBanner />
