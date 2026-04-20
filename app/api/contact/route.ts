@@ -21,8 +21,10 @@ export const POST = async (req: NextRequest) => {
       return NextResponse.json({ ok: false }, { status: 400 });
     }
 
-    const identifier = getSubmissionIdentifier(req, 'contact', email);
-    const rateLimitCheck = await enforceSubmissionLimits(contactFormLimiters, identifier);
+    const rateLimitCheck = await enforceSubmissionLimits(contactFormLimiters, {
+      ip: getSubmissionIdentifier(req, 'contact'),
+      ipEmail: getSubmissionIdentifier(req, 'contact', email),
+    });
     if (!rateLimitCheck.ok) {
       return NextResponse.json({ ok: false, error: rateLimitCheck.error }, { status: 429 });
     }

@@ -6,6 +6,11 @@ type FormLimiters = {
   hourly: Ratelimit;
 };
 
+type SubmissionLimiters = {
+  ip: FormLimiters | null;
+  ipEmail: FormLimiters | null;
+};
+
 type RateLimitResult =
   | { ok: true }
   | {
@@ -17,6 +22,12 @@ const redisUrl = process.env.UPSTASH_REDIS_REST_URL?.trim();
 const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
 
 const redis = redisUrl && redisToken ? new Redis({ url: redisUrl, token: redisToken }) : null;
+
+if (process.env.NODE_ENV === 'production' && !redis) {
+  console.warn(
+    'Upstash rate limiting is disabled because UPSTASH_REDIS_REST_URL or UPSTASH_REDIS_REST_TOKEN is missing.',
+  );
+}
 
 const createLimiters = (prefix: string): FormLimiters | null => {
   if (!redis) return null;
@@ -37,8 +48,13 @@ const createLimiters = (prefix: string): FormLimiters | null => {
   };
 };
 
-export const contactFormLimiters = createLimiters('contact-form');
-export const bookingFormLimiters = createLimiters('booking-form');
+const createSubmissionLimiters = (prefix: string): SubmissionLimiters => ({
+  ip: createLimiters(`${prefix}:ip`),
+  ipEmail: createLimiters(`${prefix}:ip-email`),
+});
+
+export const contactFormLimiters = createSubmissionLimiters('contact-form');
+export const bookingFormLimiters = createSubmissionLimiters('booking-form');
 
 export const getSubmissionIdentifier = (
   request: Pick<Request, 'headers'>,
@@ -53,20 +69,41 @@ export const getSubmissionIdentifier = (
   return normalizedEmail ? `${scope}:${ip}:${normalizedEmail}` : `${scope}:${ip}`;
 };
 
-export const enforceSubmissionLimits = async (
-  limiters: FormLimiters | null,
+const checkLimit = async (
+  limiter: FormLimiters | null,
   identifier: string,
 ): Promise<RateLimitResult> => {
-  if (!limiters) return { ok: true };
+  if (!limiter) return { ok: true };
 
-  const burst = await limiters.burst.limit(identifier);
+  const burst = await limiter.burst.limit(identifier);
   if (!burst.success) {
     return { ok: false, error: 'Please wait a moment before submitting again.' };
   }
 
-  const hourly = await limiters.hourly.limit(identifier);
+  const hourly = await limiter.hourly.limit(identifier);
   if (!hourly.success) {
     return { ok: false, error: 'Too many submissions. Please try again a bit later.' };
+  }
+
+  return { ok: true };
+};
+
+export const enforceSubmissionLimits = async (
+  limiters: SubmissionLimiters | null,
+  identifiers: { ip: string; ipEmail?: string },
+): Promise<RateLimitResult> => {
+  if (!limiters) return { ok: true };
+
+  const ipResult = await checkLimit(limiters.ip, identifiers.ip);
+  if (!ipResult.ok) {
+    return ipResult;
+  }
+
+  if (identifiers.ipEmail) {
+    const emailResult = await checkLimit(limiters.ipEmail, identifiers.ipEmail);
+    if (!emailResult.ok) {
+      return emailResult;
+    }
   }
 
   return { ok: true };

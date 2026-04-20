@@ -39,8 +39,10 @@ export const POST = async (req: NextRequest) => {
       return NextResponse.json({ ok: false }, { status: 400 });
     }
 
-    const identifier = getSubmissionIdentifier(req, 'booking', email);
-    const rateLimitCheck = await enforceSubmissionLimits(bookingFormLimiters, identifier);
+    const rateLimitCheck = await enforceSubmissionLimits(bookingFormLimiters, {
+      ip: getSubmissionIdentifier(req, 'booking'),
+      ipEmail: getSubmissionIdentifier(req, 'booking', email),
+    });
     if (!rateLimitCheck.ok) {
       return NextResponse.json({ ok: false, error: rateLimitCheck.error }, { status: 429 });
     }
