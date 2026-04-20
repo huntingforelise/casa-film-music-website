@@ -136,4 +136,6 @@ export interface BookingEnquiryPayload {
   email: string;
   phone: string;
   website: string;
+  submittedAt: number;
+  turnstileToken: string;
 }

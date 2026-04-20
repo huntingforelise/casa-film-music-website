@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { Turnstile } from 'react-turnstile';
 import { BookingBundleSuggestion, BookingEnquiryPayload } from '@/types/booking';
 import type { BookingForm } from '@/types/booking';
 import {
@@ -12,6 +13,7 @@ import { getBundleSuggestions } from '@/lib/booking/bundles';
 import { BookingFormValues, SetField, Status } from '@/lib/booking/types';
 import { getBookingEstimate, isValidEmail } from '@/lib/booking/helpers';
 import { TOTAL_STEPS } from '@/lib/booking/constants';
+import { TURNSTILE_SITE_KEY } from '@/lib/turnstile/client';
 import {
   EventDetailsStep,
   ServicesStep,
@@ -29,6 +31,9 @@ interface Props {
 const BookingForm = ({ settings }: Props) => {
   const config = useMemo(() => withBookingDefaults(settings), [settings]);
   const [step, setStep] = useState(1);
+  const [submittedAt, setSubmittedAt] = useState(0);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileWidgetKey, setTurnstileWidgetKey] = useState(0);
   const defaultValues = useMemo(() => getDefaultValues(config), [config]);
   const [overrides, setOverrides] = useState<Partial<BookingFormValues>>({});
   const values = useMemo(() => ({ ...defaultValues, ...overrides }), [defaultValues, overrides]);
@@ -37,6 +42,12 @@ const BookingForm = ({ settings }: Props) => {
   const copy = useMemo(() => withBookingCopyDefaults(settings?.copy), [settings]);
   const eyebrowLabel = config.eyebrow?.trim();
   const stepLabel = `Step ${step} of ${TOTAL_STEPS}`;
+  const isTurnstileEnabled = Boolean(TURNSTILE_SITE_KEY);
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => setSubmittedAt(Date.now()), 0);
+    return () => window.clearTimeout(timeout);
+  }, []);
 
   const bundleSuggestions = useMemo(
     () => getBundleSuggestions(config, values.services),
@@ -167,7 +178,7 @@ const BookingForm = ({ settings }: Props) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (step !== TOTAL_STEPS || !stepIsValid || status === 'submitting') return;
+    if (step !== TOTAL_STEPS || !stepIsValid || status === 'submitting' || !submittedAt) return;
 
     setStatus('submitting');
     setFeedback('');
@@ -186,6 +197,8 @@ const BookingForm = ({ settings }: Props) => {
       email: values.email.trim(),
       phone: values.phone.trim(),
       website: values.website.trim(),
+      submittedAt,
+      turnstileToken,
     };
 
     try {
@@ -214,9 +227,16 @@ const BookingForm = ({ settings }: Props) => {
       setFeedback(successMessage);
       setOverrides({});
       setStep(1);
+      setTurnstileToken('');
+      setSubmittedAt(Date.now());
     } catch {
       setStatus('error');
       setFeedback(copy.feedbackNetworkErrorText ?? '');
+    } finally {
+      setTurnstileToken('');
+      if (isTurnstileEnabled) {
+        setTurnstileWidgetKey((value) => value + 1);
+      }
     }
   };
 
@@ -298,6 +318,23 @@ const BookingForm = ({ settings }: Props) => {
               copy={copy}
             />
           )}
+
+          {step === 5 && isTurnstileEnabled && (
+            <div className="pt-2">
+              <Turnstile
+                key={turnstileWidgetKey}
+                sitekey={TURNSTILE_SITE_KEY}
+                responseField={false}
+                fixedSize
+                refreshExpired="auto"
+                theme="light"
+                onVerify={(token) => setTurnstileToken(token)}
+                onExpire={() => setTurnstileToken('')}
+                onError={() => setTurnstileToken('')}
+              />
+            </div>
+          )}
+
           <footer className="flex flex-wrap items-center justify-between gap-3 pt-2">
             <div className="flex items-center gap-2">
               <button
@@ -322,7 +359,12 @@ const BookingForm = ({ settings }: Props) => {
                 <button
                   type="submit"
                   className="btn-primary"
-                  disabled={!stepIsValid || status === 'submitting'}
+                  disabled={
+                    !stepIsValid ||
+                    status === 'submitting' ||
+                    !submittedAt ||
+                    (isTurnstileEnabled && !turnstileToken)
+                  }
                 >
                   {status === 'submitting'
                     ? (copy.buttonSubmittingText ?? '')

@@ -2,16 +2,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase/client';
 import { Resend } from 'resend';
 import ContactEmail from '@/app/emails/ContactEmail';
+import { validateSpamProtection } from '@/lib/spam-protection';
+import { verifyTurnstileToken } from '@/lib/turnstile/server';
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { name, email, message, website } = await req.json();
+    const { name, email, message, website, submittedAt, turnstileToken } = await req.json();
 
-    // Honeypot spam check
-    if (website?.trim()) {
-      return NextResponse.json({ ok: false, error: 'Bot detected' }, { status: 400 });
+    const spamCheck = validateSpamProtection({ website, submittedAt });
+    if (!spamCheck.ok) {
+      return NextResponse.json({ ok: false }, { status: 400 });
+    }
+
+    const turnstileCheck = await verifyTurnstileToken(req, turnstileToken);
+    if (!turnstileCheck.ok) {
+      return NextResponse.json({ ok: false }, { status: 400 });
     }
 
     // Trim all input once

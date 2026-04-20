@@ -1,10 +1,12 @@
 'use client';
 
 import clsx from 'clsx';
-import { useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
+import { Turnstile } from 'react-turnstile';
 import { contactFormReducer } from '@/lib/contactForm/reducer';
 import { initialFormState } from '@/lib/contactForm/state';
 import { isContactFormValid } from '@/lib/contactForm/helpers';
+import { TURNSTILE_SITE_KEY } from '@/lib/turnstile/client';
 import { ContactFormCopy } from '@/types/contactForm';
 import SectionHeader from './sections/SectionHeader';
 import SectionShell from './sections/SectionShell';
@@ -48,7 +50,11 @@ const textOrDefault = (value: string | null | undefined, fallback: string) => {
 
 const ContactForm = ({ copy }: ContactFormProps) => {
   const [state, dispatch] = useReducer(contactFormReducer, initialFormState);
+  const [submittedAt, setSubmittedAt] = useState(0);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileWidgetKey, setTurnstileWidgetKey] = useState(0);
   const isSubmitting = state.status === 'submitting';
+  const isTurnstileEnabled = Boolean(TURNSTILE_SITE_KEY);
 
   const isFormValid = isContactFormValid(state);
   const eyebrowLabel = textOrDefault(copy?.eyebrow, defaultContactFormCopy.eyebrow);
@@ -72,9 +78,14 @@ const ContactForm = ({ copy }: ContactFormProps) => {
     defaultContactFormCopy.feedbackNetworkError,
   );
 
+  useEffect(() => {
+    const timeout = window.setTimeout(() => setSubmittedAt(Date.now()), 0);
+    return () => window.clearTimeout(timeout);
+  }, []);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!isFormValid || isSubmitting) return;
+    if (!isFormValid || isSubmitting || !submittedAt) return;
 
     dispatch({ type: 'SET_STATUS', status: 'submitting', feedback: '' });
 
@@ -83,6 +94,8 @@ const ContactForm = ({ copy }: ContactFormProps) => {
       email: state.email.trim(),
       message: state.message.trim(),
       website: state.website.trim(),
+      submittedAt,
+      turnstileToken,
     };
 
     try {
@@ -104,17 +117,25 @@ const ContactForm = ({ copy }: ContactFormProps) => {
       }
 
       dispatch({ type: 'RESET' });
+      setSubmittedAt(Date.now());
+      setTurnstileToken('');
       dispatch({
         type: 'SET_STATUS',
         status: 'success',
         feedback: feedbackSuccess,
       });
     } catch {
+      setTurnstileToken('');
       dispatch({
         type: 'SET_STATUS',
         status: 'error',
         feedback: feedbackNetworkError,
       });
+    } finally {
+      setTurnstileToken('');
+      if (isTurnstileEnabled) {
+        setTurnstileWidgetKey((value) => value + 1);
+      }
     }
   };
 
@@ -189,8 +210,35 @@ const ContactForm = ({ copy }: ContactFormProps) => {
             disabled={isSubmitting}
           />
 
+          <input type="hidden" name="submittedAt" value={submittedAt || ''} />
+
+          {isTurnstileEnabled && (
+            <div className="grid gap-2">
+              <Turnstile
+                key={turnstileWidgetKey}
+                sitekey={TURNSTILE_SITE_KEY}
+                responseField={false}
+                fixedSize
+                refreshExpired="auto"
+                theme="light"
+                onVerify={(token) => setTurnstileToken(token)}
+                onExpire={() => setTurnstileToken('')}
+                onError={() => setTurnstileToken('')}
+              />
+            </div>
+          )}
+
           <div className="flex items-center gap-4">
-            <button type="submit" disabled={isSubmitting || !isFormValid} className="btn-primary">
+            <button
+              type="submit"
+              disabled={
+                isSubmitting ||
+                !isFormValid ||
+                !submittedAt ||
+                (isTurnstileEnabled && !turnstileToken)
+              }
+              className="btn-primary"
+            >
               {isSubmitting ? submittingLabel : submitLabel}
             </button>
 
