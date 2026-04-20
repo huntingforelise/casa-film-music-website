@@ -27,3 +27,10 @@ If you want Cloudflare Turnstile enabled, add:
 - `TURNSTILE_SECRET_KEY`
 
 When those are not set, the forms fall back to the existing honeypot and submission-age checks.
+
+If you want Upstash rate limiting enabled, add:
+
+- `UPSTASH_REDIS_REST_URL`
+- `UPSTASH_REDIS_REST_TOKEN`
+
+When those are not set, the app skips Redis-backed rate limiting and keeps the other spam checks active.

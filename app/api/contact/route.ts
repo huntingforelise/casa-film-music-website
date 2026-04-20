@@ -4,6 +4,11 @@ import { Resend } from 'resend';
 import ContactEmail from '@/app/emails/ContactEmail';
 import { validateSpamProtection } from '@/lib/spam-protection';
 import { verifyTurnstileToken } from '@/lib/turnstile/server';
+import {
+  contactFormLimiters,
+  enforceSubmissionLimits,
+  getSubmissionIdentifier,
+} from '@/lib/rate-limit';
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
@@ -14,6 +19,12 @@ export const POST = async (req: NextRequest) => {
     const spamCheck = validateSpamProtection({ website, submittedAt });
     if (!spamCheck.ok) {
       return NextResponse.json({ ok: false }, { status: 400 });
+    }
+
+    const identifier = getSubmissionIdentifier(req, 'contact', email);
+    const rateLimitCheck = await enforceSubmissionLimits(contactFormLimiters, identifier);
+    if (!rateLimitCheck.ok) {
+      return NextResponse.json({ ok: false, error: rateLimitCheck.error }, { status: 429 });
     }
 
     const turnstileCheck = await verifyTurnstileToken(req, turnstileToken);

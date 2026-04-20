@@ -4,6 +4,11 @@ import { Resend } from 'resend';
 import BookingEnquiryEmail from '@/app/emails/BookingEnquiryEmail';
 import { validateSpamProtection } from '@/lib/spam-protection';
 import { verifyTurnstileToken } from '@/lib/turnstile/server';
+import {
+  bookingFormLimiters,
+  enforceSubmissionLimits,
+  getSubmissionIdentifier,
+} from '@/lib/rate-limit';
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
@@ -32,6 +37,12 @@ export const POST = async (req: NextRequest) => {
     const spamCheck = validateSpamProtection({ website, submittedAt });
     if (!spamCheck.ok) {
       return NextResponse.json({ ok: false }, { status: 400 });
+    }
+
+    const identifier = getSubmissionIdentifier(req, 'booking', email);
+    const rateLimitCheck = await enforceSubmissionLimits(bookingFormLimiters, identifier);
+    if (!rateLimitCheck.ok) {
+      return NextResponse.json({ ok: false, error: rateLimitCheck.error }, { status: 429 });
     }
 
     const turnstileCheck = await verifyTurnstileToken(req, turnstileToken);
