@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Turnstile } from 'react-turnstile';
 import { BookingBundleSuggestion, BookingEnquiryPayload } from '@/types/booking';
 import type { BookingForm } from '@/types/booking';
@@ -14,6 +14,7 @@ import { BookingFormValues, SetField, Status } from '@/lib/booking/types';
 import { getBookingEstimate, isValidEmail } from '@/lib/booking/helpers';
 import { TOTAL_STEPS } from '@/lib/booking/constants';
 import { TURNSTILE_SITE_KEY } from '@/lib/turnstile/client';
+import { canTrackGoogleAnalytics, trackAnalyticsEvent } from '@/lib/analytics';
 import {
   EventDetailsStep,
   ServicesStep,
@@ -43,10 +44,94 @@ const BookingForm = ({ settings }: Props) => {
   const eyebrowLabel = config.eyebrow?.trim();
   const stepLabel = `Step ${step} of ${TOTAL_STEPS}`;
   const isTurnstileEnabled = Boolean(TURNSTILE_SITE_KEY);
+  const hasSubmittedRef = useRef(false);
+  const hasProgressedRef = useRef(false);
+  const hasTrackedAbandonmentRef = useRef(false);
+  const lastTrackedStepRef = useRef<number | null>(null);
+  const latestAnalyticsSnapshotRef = useRef({
+    step,
+    servicesCount: values.services.length,
+    addOnsCount: values.addOns.length,
+    bundleSelected: Boolean(values.bundleCode),
+  });
 
   useEffect(() => {
     const timeout = window.setTimeout(() => setSubmittedAt(Date.now()), 0);
     return () => window.clearTimeout(timeout);
+  }, []);
+
+  useEffect(() => {
+    latestAnalyticsSnapshotRef.current = {
+      step,
+      servicesCount: values.services.length,
+      addOnsCount: values.addOns.length,
+      bundleSelected: Boolean(values.bundleCode),
+    };
+  }, [step, values.services.length, values.addOns.length, values.bundleCode]);
+
+  useEffect(() => {
+    if (!canTrackGoogleAnalytics() || hasSubmittedRef.current) return;
+
+    const snapshot = latestAnalyticsSnapshotRef.current;
+
+    if (lastTrackedStepRef.current === snapshot.step) return;
+
+    lastTrackedStepRef.current = snapshot.step;
+    trackAnalyticsEvent('booking_form_step_view', {
+      form_name: 'booking',
+      step: snapshot.step,
+      total_steps: TOTAL_STEPS,
+      services_selected_count: snapshot.servicesCount,
+      add_ons_selected_count: snapshot.addOnsCount,
+      bundle_selected: snapshot.bundleSelected,
+    });
+  }, [
+    step,
+    values.services.length,
+    values.addOns.length,
+    values.bundleCode,
+  ]);
+
+  useEffect(() => {
+    const trackAbandonment = () => {
+      if (
+        !canTrackGoogleAnalytics() ||
+        hasSubmittedRef.current ||
+        !hasProgressedRef.current ||
+        hasTrackedAbandonmentRef.current
+      ) {
+        return;
+      }
+
+      hasTrackedAbandonmentRef.current = true;
+      const snapshot = latestAnalyticsSnapshotRef.current;
+
+      trackAnalyticsEvent(
+        'booking_form_abandon',
+        {
+          form_name: 'booking',
+          last_step: snapshot.step,
+          total_steps: TOTAL_STEPS,
+          services_selected_count: snapshot.servicesCount,
+          add_ons_selected_count: snapshot.addOnsCount,
+          bundle_selected: snapshot.bundleSelected,
+        },
+        {
+          transportType: 'beacon',
+        },
+      );
+    };
+
+    const handlePageHide = () => {
+      trackAbandonment();
+    };
+
+    window.addEventListener('pagehide', handlePageHide);
+
+    return () => {
+      window.removeEventListener('pagehide', handlePageHide);
+      trackAbandonment();
+    };
   }, []);
 
   const bundleSuggestions = useMemo(
@@ -117,10 +202,12 @@ const BookingForm = ({ settings }: Props) => {
   );
 
   const setField: SetField = (field, value) => {
+    hasProgressedRef.current = true;
     setOverrides((prev) => ({ ...prev, [field]: value }));
   };
 
   const toggleService = (service: string) => {
+    hasProgressedRef.current = true;
     const exists = values.services.includes(service);
     const services = exists
       ? values.services.filter((value) => value !== service)
@@ -133,6 +220,7 @@ const BookingForm = ({ settings }: Props) => {
   };
 
   const toggleAddOn = (addOn: string) => {
+    hasProgressedRef.current = true;
     const exists = values.addOns.includes(addOn);
     const addOns = exists
       ? values.addOns.filter((value) => value !== addOn)
@@ -141,6 +229,7 @@ const BookingForm = ({ settings }: Props) => {
   };
 
   const applyBundle = (suggestion: BookingBundleSuggestion) => {
+    hasProgressedRef.current = true;
     const isSameBundle = values.bundleCode === suggestion.bundle.code;
     if (isSameBundle) {
       setField('bundleCode', '');
@@ -171,17 +260,51 @@ const BookingForm = ({ settings }: Props) => {
 
   const goNext = () => {
     if (!stepIsValid || step >= TOTAL_STEPS) return;
+    hasProgressedRef.current = true;
+    trackAnalyticsEvent('booking_form_step_continue', {
+      form_name: 'booking',
+      from_step: step,
+      to_step: step + 1,
+      total_steps: TOTAL_STEPS,
+      services_selected_count: values.services.length,
+      add_ons_selected_count: values.addOns.length,
+      bundle_selected: Boolean(values.bundleCode),
+    });
     setStep((prev) => prev + 1);
   };
 
-  const goBack = () => setStep((prev) => Math.max(1, prev - 1));
+  const goBack = () => {
+    if (step === 1 || status === 'submitting') return;
+
+    hasProgressedRef.current = true;
+    trackAnalyticsEvent('booking_form_step_back', {
+      form_name: 'booking',
+      from_step: step,
+      to_step: Math.max(1, step - 1),
+      total_steps: TOTAL_STEPS,
+      services_selected_count: values.services.length,
+      add_ons_selected_count: values.addOns.length,
+      bundle_selected: Boolean(values.bundleCode),
+    });
+
+    setStep((prev) => Math.max(1, prev - 1));
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (step !== TOTAL_STEPS || !stepIsValid || status === 'submitting' || !submittedAt) return;
 
+    hasProgressedRef.current = true;
     setStatus('submitting');
     setFeedback('');
+    trackAnalyticsEvent('booking_form_submit_attempt', {
+      form_name: 'booking',
+      step,
+      total_steps: TOTAL_STEPS,
+      services_selected_count: values.services.length,
+      add_ons_selected_count: values.addOns.length,
+      bundle_selected: Boolean(values.bundleCode),
+    });
 
     const payload: BookingEnquiryPayload = {
       eventType: values.eventType,
@@ -214,10 +337,31 @@ const BookingForm = ({ settings }: Props) => {
         persisted?: boolean;
       };
       if (!response.ok || !result.ok) {
+        trackAnalyticsEvent('booking_form_submit_error', {
+          form_name: 'booking',
+          error_source: 'api',
+          status_code: response.status,
+          step,
+          total_steps: TOTAL_STEPS,
+          services_selected_count: values.services.length,
+          add_ons_selected_count: values.addOns.length,
+          bundle_selected: Boolean(values.bundleCode),
+        });
         setStatus('error');
         setFeedback(result.error ?? copy.feedbackGenericErrorText ?? '');
         return;
       }
+
+      hasSubmittedRef.current = true;
+      trackAnalyticsEvent('booking_form_submit_success', {
+        form_name: 'booking',
+        persisted: result.persisted !== false,
+        step,
+        total_steps: TOTAL_STEPS,
+        services_selected_count: values.services.length,
+        add_ons_selected_count: values.addOns.length,
+        bundle_selected: Boolean(values.bundleCode),
+      });
 
       setStatus('success');
       const successMessage =
@@ -230,6 +374,15 @@ const BookingForm = ({ settings }: Props) => {
       setTurnstileToken('');
       setSubmittedAt(Date.now());
     } catch {
+      trackAnalyticsEvent('booking_form_submit_error', {
+        form_name: 'booking',
+        error_source: 'network',
+        step,
+        total_steps: TOTAL_STEPS,
+        services_selected_count: values.services.length,
+        add_ons_selected_count: values.addOns.length,
+        bundle_selected: Boolean(values.bundleCode),
+      });
       setStatus('error');
       setFeedback(copy.feedbackNetworkErrorText ?? '');
     } finally {

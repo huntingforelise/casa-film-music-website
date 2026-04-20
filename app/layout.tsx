@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CookieBanner from '@/components/CookieBanner';
 import CookieBannerProvider from '@/components/CookieBannerContext';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 import { getCookieBanner } from '@/lib/sanity/cookieBanner';
 
 const inter = Inter({
@@ -44,6 +45,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       <body className="font-sans bg-bg text-text">
         <Header />
         <CookieBannerProvider copy={cookieBanner}>
+          <GoogleAnalytics />
           {children}
           <Footer cookieSettingsLabel={cookieBanner?.cookieSettingsLabel} />
           <CookieBanner />

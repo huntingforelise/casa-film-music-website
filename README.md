@@ -34,3 +34,9 @@ If you want Upstash rate limiting enabled, add:
 - `UPSTASH_REDIS_REST_TOKEN`
 
 When those are not set, the app skips Redis-backed rate limiting and keeps the other spam checks active.
+
+If you want Google Analytics enabled, add:
+
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+
+When this is not set, analytics stays disabled and the site runs without loading the Google tag.

@@ -7,6 +7,7 @@ import { contactFormReducer } from '@/lib/contactForm/reducer';
 import { initialFormState } from '@/lib/contactForm/state';
 import { isContactFormValid } from '@/lib/contactForm/helpers';
 import { TURNSTILE_SITE_KEY } from '@/lib/turnstile/client';
+import { canTrackGoogleAnalytics, trackAnalyticsEvent } from '@/lib/analytics';
 import { ContactFormCopy } from '@/types/contactForm';
 import SectionHeader from './sections/SectionHeader';
 import SectionShell from './sections/SectionShell';
@@ -83,10 +84,21 @@ const ContactForm = ({ copy }: ContactFormProps) => {
     return () => window.clearTimeout(timeout);
   }, []);
 
+  useEffect(() => {
+    if (!canTrackGoogleAnalytics()) return;
+
+    trackAnalyticsEvent('contact_form_view', {
+      form_name: 'contact',
+    });
+  }, []);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isFormValid || isSubmitting || !submittedAt) return;
 
+    trackAnalyticsEvent('contact_form_submit_attempt', {
+      form_name: 'contact',
+    });
     dispatch({ type: 'SET_STATUS', status: 'submitting', feedback: '' });
 
     const payload = {
@@ -108,6 +120,11 @@ const ContactForm = ({ copy }: ContactFormProps) => {
       const result = (await response.json()) as { ok?: boolean; error?: string };
 
       if (!response.ok || !result.ok) {
+        trackAnalyticsEvent('contact_form_submit_error', {
+          form_name: 'contact',
+          error_source: 'api',
+          status_code: response.status,
+        });
         dispatch({
           type: 'SET_STATUS',
           status: 'error',
@@ -115,6 +132,10 @@ const ContactForm = ({ copy }: ContactFormProps) => {
         });
         return;
       }
+
+      trackAnalyticsEvent('contact_form_submit_success', {
+        form_name: 'contact',
+      });
 
       dispatch({ type: 'RESET' });
       setSubmittedAt(Date.now());
@@ -130,6 +151,10 @@ const ContactForm = ({ copy }: ContactFormProps) => {
         type: 'SET_STATUS',
         status: 'error',
         feedback: feedbackNetworkError,
+      });
+      trackAnalyticsEvent('contact_form_submit_error', {
+        form_name: 'contact',
+        error_source: 'network',
       });
     } finally {
       setTurnstileToken('');
