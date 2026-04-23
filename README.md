@@ -40,3 +40,11 @@ If you want Google Analytics enabled, add:
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID`
 
 When this is not set, analytics stays disabled and the site runs without loading the Google tag.
+
+If you want contact and booking form emails to work through Resend, add:
+
+- `RESEND_API_KEY`
+- `RESEND_FROM`
+- `RESEND_TO`
+
+`RESEND_FROM` should be the verified sender address in Resend, and `RESEND_TO` is the inbox that receives submissions.
