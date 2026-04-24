@@ -1,5 +1,6 @@
 import { Heading, Section, Text } from '@react-email/components';
 import EmailLayout from './components/EmailLayout';
+import { formatEuro } from '@/lib/booking/helpers';
 
 interface BookingEnquiryEmailProps {
   name: string;
@@ -14,6 +15,7 @@ interface BookingEnquiryEmailProps {
   bundleCode?: string | null;
   addOns?: string[];
   notes?: string | null;
+  estimateTotal?: number | null;
 }
 
 /* ---- Small UI blocks ---- */
@@ -50,6 +52,14 @@ const value: React.CSSProperties = {
   marginBottom: 16,
 };
 
+const estimateValue: React.CSSProperties = {
+  fontSize: 16,
+  fontWeight: 700,
+  margin: '12px 0 16px',
+};
+
+const formatCurrency = (amount: number) => formatEuro(amount) ?? String(amount);
+
 const BookingEnquiryEmail: React.FC<BookingEnquiryEmailProps> = ({
   name,
   email,
@@ -63,6 +73,7 @@ const BookingEnquiryEmail: React.FC<BookingEnquiryEmailProps> = ({
   bundleCode,
   addOns,
   notes,
+  estimateTotal,
 }) => (
   <EmailLayout preview={`New booking enquiry from ${name}`}>
     <Heading style={heading}>New Booking Enquiry</Heading>
@@ -104,6 +115,15 @@ const BookingEnquiryEmail: React.FC<BookingEnquiryEmailProps> = ({
 
       <Label>Add-ons</Label>
       <Value>{addOns?.length ? addOns.join(', ') : 'None'}</Value>
+
+      <Divider />
+
+      <Label>Estimate</Label>
+      {typeof estimateTotal === 'number' ? (
+        <Text style={estimateValue}>{formatCurrency(estimateTotal)}</Text>
+      ) : (
+        <Value>Unknown</Value>
+      )}
 
       <Divider />
 

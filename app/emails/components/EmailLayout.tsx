@@ -65,7 +65,7 @@ const EmailLayout: React.FC<EmailLayoutProps> = ({ preview, children }) => (
         <Hr style={divider} />
 
         <Section style={footer}>
-          <Text style={footerText}>This enquiry was submitted via casafilmandmusic.com</Text>
+          <Text style={footerText}>This enquiry was submitted via casa-film.com</Text>
         </Section>
       </Container>
     </Body>

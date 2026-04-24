@@ -29,6 +29,7 @@ export const POST = async (req: NextRequest) => {
       bundleCode,
       addOns,
       notes,
+      estimateTotal,
       website,
       submittedAt,
       turnstileToken,
@@ -60,6 +61,7 @@ export const POST = async (req: NextRequest) => {
     const cleanedServices = Array.isArray(services) ? services : [];
     const cleanedAddOns = Array.isArray(addOns) ? addOns : [];
     const cleanedNotes = notes?.trim() ?? null;
+    const cleanedEstimateTotal = typeof estimateTotal === 'number' ? estimateTotal : null;
 
     // Validate required fields
     if (
@@ -94,6 +96,7 @@ export const POST = async (req: NextRequest) => {
         bundle_code: bundleCode || null,
         add_ons: cleanedAddOns,
         notes: cleanedNotes,
+        estimate_total: cleanedEstimateTotal,
       },
     ]);
 
@@ -121,6 +124,7 @@ export const POST = async (req: NextRequest) => {
         bundleCode: bundleCode || null,
         addOns: cleanedAddOns,
         notes: cleanedNotes,
+        estimateTotal: cleanedEstimateTotal,
       }),
     });
 

@@ -316,6 +316,7 @@ const BookingForm = ({ settings }: Props) => {
       bundleCode: values.bundleCode || undefined,
       addOns: values.addOns,
       notes: values.notes.trim(),
+      estimateTotal: estimate.total,
       name: values.name.trim(),
       email: values.email.trim(),
       phone: values.phone.trim(),

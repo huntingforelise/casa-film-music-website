@@ -132,6 +132,7 @@ export interface BookingEnquiryPayload {
   bundleCode?: string;
   addOns: string[];
   notes: string;
+  estimateTotal: number;
   name: string;
   email: string;
   phone: string;
