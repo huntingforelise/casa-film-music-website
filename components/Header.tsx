@@ -4,6 +4,7 @@ import SanityImage from './media/SanityImage';
 import Link from 'next/link';
 import HeaderHamburgerMenu from './HeaderHamburgerMenu';
 import HeaderMenuLinks from './HeaderMenuLinks';
+import NavigationProgress from './NavigationProgress';
 import { HeaderData } from '@/types/header';
 
 const getHeader = async () => {
@@ -41,6 +42,7 @@ const Header = async () => {
 
         <HeaderHamburgerMenu navigation={header.navigation} />
       </div>
+      <NavigationProgress />
     </header>
   );
 };
