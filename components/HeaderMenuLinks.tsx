@@ -33,6 +33,7 @@ const HeaderMenuLinks = ({
   const pathname = usePathname();
   const currentPath = resolveLink(pathname || '/').href;
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [selectedSubLinkParentHref, setSelectedSubLinkParentHref] = useState<string | null>(null);
   const closeTimerRef = useRef<number | undefined>(undefined);
   const selectedLinkStyle = { color: 'var(--theme-text-link-hover)' } as const;
 
@@ -51,28 +52,53 @@ const HeaderMenuLinks = ({
     }, 200);
   }, [cancelClose]);
 
-  const handleLinkClick = useCallback(() => {
-    cancelClose();
-    onLinkClick?.();
-    setOpenDropdown(null);
-  }, [cancelClose, onLinkClick]);
+  const handleLinkClick = useCallback(
+    (parentHref: string | null = null) => {
+      cancelClose();
+      setSelectedSubLinkParentHref(parentHref);
+      onLinkClick?.();
+      setOpenDropdown(null);
+    },
+    [cancelClose, onLinkClick],
+  );
 
   const isNodeTarget = (target: EventTarget | null): target is Node => {
     return target instanceof Node;
   };
 
+  const currentPathHasTopLevelMatch = navigation?.some((item) => {
+    const { href, external } = resolveLink(item.url);
+    return !external && currentPath === href;
+  });
+
+  const currentPathHasSubLinkMatch = navigation?.some((item) =>
+    item.subLinks?.some((subLink) => {
+      const { href, external } = resolveLink(subLink.url);
+      return !external && currentPath === href;
+    }),
+  );
+
+  const currentPathHasDuplicateNavigationTargets = currentPathHasTopLevelMatch && currentPathHasSubLinkMatch;
   return (
     <div className={containerClassName}>
       {navigation?.map((item) => {
         const { href, external } = resolveLink(item.url);
-        const isActive = !external && currentPath === href;
+        const isActive =
+          !external &&
+          currentPath === href &&
+          (!currentPathHasDuplicateNavigationTargets || !selectedSubLinkParentHref);
         const subLinks = item.subLinks ?? [];
         const hasSubLinks = subLinks.length > 0;
         const hasActiveSubLink = subLinks.some((subLink) => {
           const { href: subHref, external: subExternal } = resolveLink(subLink.url);
           return !subExternal && currentPath === subHref;
         });
-        const parentIsActive = isActive || (!mobile && hasActiveSubLink);
+        const parentHasSelectedSubLink =
+          !mobile &&
+          hasActiveSubLink &&
+          (!currentPathHasDuplicateNavigationTargets ||
+            selectedSubLinkParentHref === href);
+        const parentIsActive = isActive || parentHasSelectedSubLink;
         const parentLinkClassName = clsx(
           itemClassName,
           'transition',
@@ -84,7 +110,12 @@ const HeaderMenuLinks = ({
         if (mobile && hasSubLinks) {
           return (
             <div key={`${keyPrefix}${item.url}`} className="flex flex-col gap-2">
-              <Link href={href} className={parentLinkClassName} style={parentLinkStyle} onClick={handleLinkClick}>
+              <Link
+                href={href}
+                className={parentLinkClassName}
+                style={parentLinkStyle}
+                onClick={() => handleLinkClick()}
+              >
                 {item.label}
               </Link>
 
@@ -98,15 +129,15 @@ const HeaderMenuLinks = ({
                     !subIsActive && DEFAULT_SUB_LINK_INACTIVE_CLASS,
                   );
 
-                    return (
-                      <Link
-                        key={`${keyPrefix}${item.url}-${subLink.url}`}
-                        href={subHref}
-                        className={subLinkClassName}
-                        style={subIsActive ? selectedLinkStyle : undefined}
-                        onClick={handleLinkClick}
-                      >
-                        {subLink.label}
+                  return (
+                    <Link
+                      key={`${keyPrefix}${item.url}-${subLink.url}`}
+                      href={subHref}
+                      className={subLinkClassName}
+                      style={subIsActive ? selectedLinkStyle : undefined}
+                      onClick={() => handleLinkClick(href)}
+                    >
+                      {subLink.label}
                     </Link>
                   );
                 })}
@@ -151,7 +182,12 @@ const HeaderMenuLinks = ({
               onFocus={handleMouseEnter}
               onBlur={handleBlur}
             >
-              <Link href={href} className={parentLinkClassName} style={parentLinkStyle} onClick={handleLinkClick}>
+              <Link
+                href={href}
+                className={parentLinkClassName}
+                style={parentLinkStyle}
+                onClick={() => handleLinkClick()}
+              >
                 {item.label}
               </Link>
 
@@ -172,7 +208,7 @@ const HeaderMenuLinks = ({
                         href={subHref}
                         className={subLinkClassName}
                         style={subIsActive ? selectedLinkStyle : undefined}
-                        onClick={handleLinkClick}
+                        onClick={() => handleLinkClick(href)}
                       >
                         {subLink.label}
                       </Link>
@@ -190,7 +226,7 @@ const HeaderMenuLinks = ({
             href={href}
             className={parentLinkClassName}
             style={parentLinkStyle}
-            onClick={handleLinkClick}
+            onClick={() => handleLinkClick()}
           >
             {item.label}
           </Link>
