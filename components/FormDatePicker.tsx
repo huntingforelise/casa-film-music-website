@@ -12,12 +12,12 @@ type FormDatePickerProps = {
   onChange: (value: string) => void;
 };
 
-export default function FormDatePicker({
+const FormDatePicker = ({
   label,
   value,
   placeholder = 'Select a date',
   onChange,
-}: FormDatePickerProps) {
+}: FormDatePickerProps) => {
   const selectedDate = parseDateString(value);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -52,4 +52,6 @@ export default function FormDatePicker({
       )}
     </Popover>
   );
-}
+};
+
+export default FormDatePicker;

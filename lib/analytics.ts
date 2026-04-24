@@ -34,9 +34,9 @@ const getGtagWindow = (): GtagWindow | null => {
   gtagWindow.dataLayer = gtagWindow.dataLayer || [];
   gtagWindow.gtag =
     gtagWindow.gtag ||
-    function gtag(...args: unknown[]) {
+    ((...args: unknown[]) => {
       gtagWindow.dataLayer?.push(args);
-    };
+    });
 
   return gtagWindow;
 };

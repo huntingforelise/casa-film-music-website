@@ -48,3 +48,9 @@ If you want contact and booking form emails to work through Resend, add:
 - `RESEND_TO`
 
 `RESEND_FROM` should be the verified sender address in Resend, and `RESEND_TO` is the inbox that receives submissions.
+
+If you want canonical URLs and social preview metadata to point at the deployed site, add:
+
+- `NEXT_PUBLIC_SITE_URL`
+
+This should be the fully qualified public URL for the website, for example `https://casa-film.com`.

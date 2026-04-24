@@ -148,11 +148,19 @@ export const bookingSettingsQuery = `
 
 export const pageBySlugQuery = `
   *[_type == "page" && slug.current == $slug][0]{
+    _updatedAt,
     title,
     subtitle,
     slug,
     sections[],
     template
+  }
+`;
+
+export const pagesForSitemapQuery = `
+  *[_type == "page" && defined(slug.current)]{
+    "slug": slug.current,
+    _updatedAt
   }
 `;
 

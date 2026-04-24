@@ -67,7 +67,7 @@ const GoogleAnalytics = () => {
       <Script id="google-analytics-init" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
-          function gtag(){window.dataLayer.push(arguments);}
+          const gtag = (...args) => window.dataLayer.push(args);
           window.gtag = window.gtag || gtag;
           gtag('js', new Date());
           gtag('config', '${GA_MEASUREMENT_ID}', { send_page_view: false });

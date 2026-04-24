@@ -1,11 +1,10 @@
 import Link from 'next/link';
-import { client } from '@/lib/sanity/client';
-import { footerQuery } from '@/lib/sanity/queries';
 import { resolveLink } from '@/lib/header/utils';
 import type { FooterData, SocialPlatform } from '@/types/footer';
 import CookieSettingsButton from './CookieSettingsButton';
 
 type FooterProps = {
+  footer: FooterData | null;
   cookieSettingsLabel?: string;
 };
 
@@ -23,15 +22,10 @@ const socialIconAlt: Record<SocialPlatform, string> = {
   youtube: 'YouTube',
 };
 
-const getFooter = async () => {
-  return client.fetch<FooterData>(footerQuery);
-};
-
 const toTelHref = (phone: string) => `tel:${phone.replace(/[^+\d]/g, '')}`;
 const isSupportedPlatform = (value: string): value is SocialPlatform =>
   value === 'facebook' || value === 'instagram' || value === 'linkedin' || value === 'youtube';
-const Footer = async ({ cookieSettingsLabel }: FooterProps) => {
-  const footer = await getFooter();
+const Footer = ({ footer, cookieSettingsLabel }: FooterProps) => {
   if (!footer) return null;
   const otherLinks = footer.otherLinks?.map((link) => {
     if (!link.url) return null;
