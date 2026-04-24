@@ -238,19 +238,17 @@ const ContactForm = ({ copy }: ContactFormProps) => {
           <input type="hidden" name="submittedAt" value={submittedAt || ''} />
 
           {isTurnstileEnabled && (
-            <div className="grid gap-2">
-              <Turnstile
-                key={turnstileWidgetKey}
-                sitekey={TURNSTILE_SITE_KEY}
-                responseField={false}
-                fixedSize
-                refreshExpired="auto"
-                theme="light"
-                onVerify={(token) => setTurnstileToken(token)}
-                onExpire={() => setTurnstileToken('')}
-                onError={() => setTurnstileToken('')}
-              />
-            </div>
+            <Turnstile
+              key={turnstileWidgetKey}
+              sitekey={TURNSTILE_SITE_KEY}
+              responseField={false}
+              fixedSize
+              refreshExpired="auto"
+              theme="light"
+              onVerify={(token) => setTurnstileToken(token)}
+              onExpire={() => setTurnstileToken('')}
+              onError={() => setTurnstileToken('')}
+            />
           )}
 
           <div className="flex items-center gap-4">

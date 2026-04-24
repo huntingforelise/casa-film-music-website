@@ -85,12 +85,7 @@ const BookingForm = ({ settings }: Props) => {
       add_ons_selected_count: snapshot.addOnsCount,
       bundle_selected: snapshot.bundleSelected,
     });
-  }, [
-    step,
-    values.services.length,
-    values.addOns.length,
-    values.bundleCode,
-  ]);
+  }, [step, values.services.length, values.addOns.length, values.bundleCode]);
 
   useEffect(() => {
     const trackAbandonment = () => {
@@ -407,9 +402,7 @@ const BookingForm = ({ settings }: Props) => {
             />
 
             <div className="flex flex-col gap-3 lg:items-end lg:text-right">
-              <p className="text-fluid-body-sm tracking-tight text-muted uppercase">
-                {stepLabel}
-              </p>
+              <p className="text-fluid-body-sm tracking-tight text-muted uppercase">{stepLabel}</p>
             </div>
           </div>
         </header>
@@ -474,19 +467,17 @@ const BookingForm = ({ settings }: Props) => {
           )}
 
           {step === 5 && isTurnstileEnabled && (
-            <div className="pt-2">
-              <Turnstile
-                key={turnstileWidgetKey}
-                sitekey={TURNSTILE_SITE_KEY}
-                responseField={false}
-                fixedSize
-                refreshExpired="auto"
-                theme="light"
-                onVerify={(token) => setTurnstileToken(token)}
-                onExpire={() => setTurnstileToken('')}
-                onError={() => setTurnstileToken('')}
-              />
-            </div>
+            <Turnstile
+              key={turnstileWidgetKey}
+              sitekey={TURNSTILE_SITE_KEY}
+              responseField={false}
+              fixedSize
+              refreshExpired="auto"
+              theme="light"
+              onVerify={(token) => setTurnstileToken(token)}
+              onExpire={() => setTurnstileToken('')}
+              onError={() => setTurnstileToken('')}
+            />
           )}
 
           <footer className="flex flex-wrap items-center justify-between gap-3 pt-2">
