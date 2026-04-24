@@ -4,6 +4,7 @@ import clsx from 'clsx';
 
 import type { PortableTextBlock } from '@/types/portableText';
 
+import { Reveal } from '../animation/Reveal';
 import { portableTextComponents } from '../portableTextComponents';
 
 const sectionHeaderIntroComponents = {
@@ -21,11 +22,17 @@ interface SectionHeaderProps {
   compact?: boolean;
 }
 
-const SectionHeader = ({ eyebrow, title, intro, className, compact = false }: SectionHeaderProps) => {
+const SectionHeader = ({
+  eyebrow,
+  title,
+  intro,
+  className,
+  compact = false,
+}: SectionHeaderProps) => {
   if (!eyebrow && !title && !intro) return null;
 
   return (
-    <div
+    <Reveal
       className={clsx(
         compact ? 'flex max-w-2xl flex-col gap-3' : 'mb-8 flex max-w-4xl flex-col gap-3 sm:mb-10',
         className,
@@ -44,7 +51,7 @@ const SectionHeader = ({ eyebrow, title, intro, className, compact = false }: Se
           <PortableText value={intro} components={sectionHeaderIntroComponents} />
         )
       ) : null}
-    </div>
+    </Reveal>
   );
 };
 

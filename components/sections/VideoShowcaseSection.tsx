@@ -1,5 +1,6 @@
 import { VideoShowcaseSection as VideoShowcaseSectionType } from '@/types/sections';
 import type { MediaOrientation } from '@/types/media';
+import { Reveal, StaggerContainer, StaggerItem } from '../animation/Reveal';
 import MediaCard from '@/components/media/MediaCard';
 import { getMediaAspectClass } from '../../lib/media/mediaLayout';
 import SectionHeader from './SectionHeader';
@@ -29,54 +30,57 @@ const VideoShowcaseSection = ({ section }: Props) => {
   }
 
   const renderLandscapeLayout = () => (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:grid-rows-2">
-      <figure className="surface-card surface-card--muted overflow-hidden lg:row-span-2">
-        <MediaCard
-          mediaType="video"
-          item={featuredVideo}
-          orientation={orientation}
-          className="h-full"
-          videoZoom={1.08}
-        />
-      </figure>
-
-      {supportingVideos.map((video, index) => (
-        <figure
-          key={video._key ?? `${video.url ?? 'video'}-${index}`}
-          className="surface-card surface-card--muted overflow-hidden"
-        >
+    <StaggerContainer className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:grid-rows-2">
+      <StaggerItem className="lg:row-span-2">
+        <figure className="surface-card surface-card--muted h-full overflow-hidden">
           <MediaCard
             mediaType="video"
-            item={video}
+            item={featuredVideo}
             orientation={orientation}
             className="h-full"
             videoZoom={1.08}
           />
         </figure>
+      </StaggerItem>
+
+      {supportingVideos.map((video, index) => (
+        <StaggerItem key={video._key ?? `${video.url ?? 'video'}-${index}`}>
+          <figure className="surface-card surface-card--muted overflow-hidden">
+            <MediaCard
+              mediaType="video"
+              item={video}
+              orientation={orientation}
+              className="h-full"
+              videoZoom={1.08}
+            />
+          </figure>
+        </StaggerItem>
       ))}
-    </div>
+    </StaggerContainer>
   );
 
   const renderPortraitLayout = () => (
     <div className="grid gap-4 md:grid-cols-2 md:items-stretch">
-      <figure
-        className={clsx(
-          'surface-card surface-card--muted overflow-hidden',
-          getMediaAspectClass('video', orientation),
-        )}
-      >
-        <MediaCard
-          mediaType="video"
-          item={featuredVideo}
-          orientation={orientation}
-          className="h-full"
-          videoZoom={1.08}
-        />
-      </figure>
+      <Reveal>
+        <figure
+          className={clsx(
+            'surface-card surface-card--muted overflow-hidden',
+            getMediaAspectClass('video', orientation),
+          )}
+        >
+          <MediaCard
+            mediaType="video"
+            item={featuredVideo}
+            orientation={orientation}
+            className="h-full"
+            videoZoom={1.08}
+          />
+        </figure>
+      </Reveal>
 
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 md:grid-rows-2 md:h-full">
+      <StaggerContainer className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 md:grid-rows-2 md:h-full">
         {supportingVideos.map((video, index) => (
-          <figure
+          <StaggerItem
             key={video._key ?? `${video.url ?? 'video'}-${index}`}
             className={clsx(
               'surface-card surface-card--muted overflow-hidden md:h-full',
@@ -90,9 +94,9 @@ const VideoShowcaseSection = ({ section }: Props) => {
               className="h-full"
               videoZoom={1.08}
             />
-          </figure>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerContainer>
     </div>
   );
 

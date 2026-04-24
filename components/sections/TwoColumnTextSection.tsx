@@ -1,6 +1,7 @@
 import { PortableText } from '@portabletext/react';
 import type { TwoColumnTextSection as TwoColumnTextSectionType } from '@/types/sections';
 
+import { Reveal } from '../animation/Reveal';
 import SanityImage from '../media/SanityImage';
 import { portableTextComponents } from '../portableTextComponents';
 import SectionHeader from './SectionHeader';
@@ -21,13 +22,17 @@ const TwoColumnTextSection = ({ section }: Props) => {
     return null;
   }
 
-  const gridClassName = hasLeftContent && hasRightContent ? 'grid gap-6 lg:grid-cols-2 lg:gap-8' : 'grid gap-6';
+  const gridClassName =
+    hasLeftContent && hasRightContent ? 'grid gap-6 lg:grid-cols-2 lg:gap-8' : 'grid gap-6';
   const backgroundImage = section.backgroundImage;
 
   return (
     <SectionShell fullBleed className="relative isolate overflow-x-clip">
       {backgroundImage ? (
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+        <div
+          className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+          aria-hidden="true"
+        >
           <SanityImage
             value={backgroundImage}
             alt={backgroundImage.alt || 'Background image'}
@@ -45,7 +50,7 @@ const TwoColumnTextSection = ({ section }: Props) => {
 
         <div className={gridClassName}>
           {hasLeftContent && (
-            <div className="min-w-0">
+            <Reveal className="min-w-0" variant={hasRightContent ? 'left' : 'up'}>
               <div className="editorial-panel h-full">
                 <div className="editorial-panel__inner flex h-full flex-col gap-4 sm:gap-5">
                   <div className="editorial-panel__rule" aria-hidden="true" />
@@ -55,21 +60,24 @@ const TwoColumnTextSection = ({ section }: Props) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </Reveal>
           )}
 
           {hasRightContent && (
-            <div className="min-w-0">
+            <Reveal className="min-w-0" variant={hasLeftContent ? 'right' : 'up'} delay={0.08}>
               <div className="editorial-panel editorial-panel--split h-full">
                 <div className="editorial-panel__inner flex h-full flex-col gap-4 sm:gap-5">
                   <div className="editorial-panel__rule" aria-hidden="true" />
 
                   <div className="editorial-panel__lead max-w-prose">
-                    <PortableText value={section.rightContent} components={portableTextComponents} />
+                    <PortableText
+                      value={section.rightContent}
+                      components={portableTextComponents}
+                    />
                   </div>
                 </div>
               </div>
-            </div>
+            </Reveal>
           )}
         </div>
       </div>

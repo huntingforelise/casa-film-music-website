@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import SanityImage from '../media/SanityImage';
 import HeroScrollButton from '../HeroScrollButton';
 import PageHeroHeader from './PageHeroHeader';
+import { Reveal } from '../animation/Reveal';
 
 import { HeroSection } from '@/types/sections';
 import { Page, PageTemplate } from '@/types/page';
@@ -52,7 +53,10 @@ const FullScreenHero = ({
       className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(18,18,18,0.12)_0%,rgba(18,18,18,0.24)_38%,rgba(18,18,18,0.72)_100%)]"
       aria-hidden
     />
-    <div className="absolute inset-x-0 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-20 flex justify-center px-4 sm:px-8 md:bottom-[calc(5rem+env(safe-area-inset-bottom))] lg:px-12">
+    <Reveal
+      className="absolute inset-x-0 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-20 flex justify-center px-4 sm:px-8 md:bottom-[calc(5rem+env(safe-area-inset-bottom))] lg:px-12"
+      viewportAmount={0.8}
+    >
       <div className="surface-radius hero-copy-box split-hero-option-card relative w-full max-w-[32rem] px-5 py-4 text-center transition duration-300 md:px-7 md:py-5 backdrop-blur-md">
         <PageHeroHeader
           title={pageTitle}
@@ -63,7 +67,7 @@ const FullScreenHero = ({
           className="page-hero-header--hero-image page-hero-header--choice"
         />
       </div>
-    </div>
+    </Reveal>
     <HeroScrollButton targetId={contentAnchorId} />
   </section>
 );
@@ -83,7 +87,10 @@ const StandardHero = ({
       className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(18,18,18,0.08)_0%,rgba(18,18,18,0.2)_40%,rgba(18,18,18,0.68)_100%)]"
       aria-hidden
     />
-    <div className="absolute inset-0 z-20 flex items-end justify-center px-4 py-4 sm:px-8 lg:px-12">
+    <Reveal
+      className="absolute inset-0 z-20 flex items-end justify-center px-4 py-4 sm:px-8 lg:px-12"
+      viewportAmount={0.8}
+    >
       <div className="surface-radius hero-copy-box split-hero-option-card relative mb-0 w-full max-w-[32rem] px-5 py-4 text-center transition duration-300 md:mb-1 lg:mb-0 md:px-7 md:py-5 backdrop-blur-md">
         <PageHeroHeader
           title={pageTitle}
@@ -94,18 +101,20 @@ const StandardHero = ({
           className="page-hero-header--hero-image page-hero-header--choice"
         />
       </div>
-    </div>
+    </Reveal>
   </section>
 );
 
 const CompactHero = ({ pageTitle, pageSubtitle }: { pageTitle: string; pageSubtitle?: string }) => (
   <section className="hero-shell hero-shell--compact border-b border-border">
     <div className="layout-container pb-4 pt-[calc(7rem+env(safe-area-inset-top))] sm:pb-5 sm:pt-[calc(7.5rem+env(safe-area-inset-top))] lg:pb-6 lg:pt-[calc(8rem+env(safe-area-inset-top))]">
-      <PageHeroHeader
-        title={pageTitle}
-        subtitle={pageSubtitle}
-        titleStyle={{ color: '#000000', maxWidth: 'none' }}
-      />
+      <Reveal viewportAmount={0.8}>
+        <PageHeroHeader
+          title={pageTitle}
+          subtitle={pageSubtitle}
+          titleStyle={{ color: '#000000', maxWidth: 'none' }}
+        />
+      </Reveal>
     </div>
   </section>
 );

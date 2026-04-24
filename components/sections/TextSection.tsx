@@ -1,5 +1,6 @@
 import { PortableText } from '@portabletext/react';
 import { TextSection as TextSectionType } from '@/types/sections';
+import { Reveal } from '../animation/Reveal';
 import { portableTextComponents } from '../portableTextComponents';
 import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
@@ -19,9 +20,9 @@ const TextSection = ({ section }: Props) => {
     <SectionShell>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
-      <div className="editorial-panel__lead">
+      <Reveal className="editorial-panel__lead" delay={0.08}>
         <PortableText value={section.content} components={portableTextComponents} />
-      </div>
+      </Reveal>
     </SectionShell>
   );
 };

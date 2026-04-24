@@ -5,6 +5,7 @@ import { PortableText } from '@portabletext/react';
 import { useState } from 'react';
 
 import type { FaqSection as FaqSectionType } from '@/types/sections';
+import { HoverLift, Reveal, StaggerContainer, StaggerItem } from '../animation/Reveal';
 import SanityImage from '../media/SanityImage';
 import SectionShell from './SectionShell';
 import SectionHeader from './SectionHeader';
@@ -32,74 +33,76 @@ const FaqSection = ({ section }: Props) => {
   };
 
   const content = (
-    <div className="relative overflow-hidden rounded-[2.5rem] border border-border bg-surface-strong px-5 py-6 shadow-[0_26px_80px_rgba(18,18,18,0.08)] sm:px-7 sm:py-8 lg:px-10 lg:py-10">
+    <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-border bg-surface-strong px-5 py-6 shadow-[0_26px_80px_rgba(18,18,18,0.08)] sm:px-7 sm:py-8 lg:px-10 lg:py-10">
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
-      <div className="relative grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
+      <StaggerContainer className="relative grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
         {items.map((item) => {
           const answerId = `faq-answer-${item._key}`;
           const isOpen = Boolean(openItems[item._key]);
 
           return (
-            <article
-              key={item._key}
-              className={clsx(
-                'group relative overflow-hidden rounded-[2rem] border border-border shadow-[0_18px_45px_rgba(18,18,18,0.08)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_26px_64px_rgba(18,18,18,0.12)]',
-                isOpen &&
-                  'border-accent shadow-[0_26px_70px_rgba(18,18,18,0.12)]',
-              )}
-            >
-              <div
-                className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-[color-mix(in_srgb,var(--theme-accent)_70%,white_30%)] to-transparent"
-                aria-hidden="true"
-              />
-
-              <button
-                type="button"
-                aria-controls={answerId}
-                aria-expanded={isOpen}
-                onClick={() => toggleItem(item._key)}
-                className="grid w-full min-h-[5.1rem] cursor-pointer grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:min-h-[5.75rem] sm:px-5"
-              >
-                <span className="min-w-0">
-                  <span className="block text-fluid-body-lg font-semibold leading-snug text-text transition group-hover:text-accent">
-                    {item.question}
-                  </span>
-                </span>
-
-                <span
+            <StaggerItem key={item._key}>
+              <HoverLift>
+                <article
                   className={clsx(
-                    'inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-fluid-heading-sm leading-none transition duration-300',
-                    isOpen
-                      ? 'border-accent bg-accent-soft text-text rotate-45'
-                      : 'border-border bg-surface-strong text-muted group-hover:border-accent/40 group-hover:text-text',
+                    'group relative overflow-hidden rounded-[2rem] border border-border shadow-[0_18px_45px_rgba(18,18,18,0.08)] ring-1 ring-black/5 transition duration-300 hover:border-accent/40 hover:shadow-[0_26px_64px_rgba(18,18,18,0.12)]',
+                    isOpen && 'border-accent shadow-[0_26px_70px_rgba(18,18,18,0.12)]',
                   )}
-                  aria-hidden="true"
                 >
-                  +
-                </span>
-              </button>
+                  <div
+                    className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-[color-mix(in_srgb,var(--theme-accent)_70%,white_30%)] to-transparent"
+                    aria-hidden="true"
+                  />
 
-              <div
-                id={answerId}
-                className={clsx(
-                  'grid px-4 pb-1 sm:px-5 sm:pb-2 transition-[grid-template-rows] duration-300 ease-out',
-                  isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
-                )}
-              >
-                <div className="overflow-hidden">
-                  <div className="border-t border-border-strong py-5 text-fluid-body-md text-muted sm:pt-6">
-                    {item.answer?.length ? (
-                      <PortableText value={item.answer} components={portableTextComponents} />
-                    ) : null}
+                  <button
+                    type="button"
+                    aria-controls={answerId}
+                    aria-expanded={isOpen}
+                    onClick={() => toggleItem(item._key)}
+                    className="grid w-full min-h-[5.1rem] cursor-pointer grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:min-h-[5.75rem] sm:px-5"
+                  >
+                    <span className="min-w-0">
+                      <span className="block text-fluid-body-lg font-semibold leading-snug text-text transition group-hover:text-accent">
+                        {item.question}
+                      </span>
+                    </span>
+
+                    <span
+                      className={clsx(
+                        'inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-fluid-heading-sm leading-none transition duration-300',
+                        isOpen
+                          ? 'border-accent bg-accent-soft text-text rotate-45'
+                          : 'border-border bg-surface-strong text-muted group-hover:border-accent/40 group-hover:text-text',
+                      )}
+                      aria-hidden="true"
+                    >
+                      +
+                    </span>
+                  </button>
+
+                  <div
+                    id={answerId}
+                    className={clsx(
+                      'grid px-4 pb-1 sm:px-5 sm:pb-2 transition-[grid-template-rows] duration-300 ease-out',
+                      isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
+                    )}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="border-t border-border-strong py-5 text-fluid-body-md text-muted sm:pt-6">
+                        {item.answer?.length ? (
+                          <PortableText value={item.answer} components={portableTextComponents} />
+                        ) : null}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </article>
+                </article>
+              </HoverLift>
+            </StaggerItem>
           );
         })}
-      </div>
-    </div>
+      </StaggerContainer>
+    </Reveal>
   );
 
   const background = backgroundImage ? (
@@ -126,9 +129,7 @@ const FaqSection = ({ section }: Props) => {
     );
   }
 
-  return (
-    <SectionShell id="faq">{content}</SectionShell>
-  );
+  return <SectionShell id="faq">{content}</SectionShell>;
 };
 
 export default FaqSection;

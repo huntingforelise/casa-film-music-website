@@ -2,7 +2,12 @@ import { PortableText } from '@portabletext/react';
 
 import type { MediaOrientation, PhotoItem, VideoItem } from '@/types/media';
 import { MediaTextSection as MediaTextSectionType } from '@/types/sections';
-import { getLayoutClasses, getMediaTextVideoAspectClass, getMediaTextVideoZoom } from '@/lib/media/mediaText';
+import {
+  getLayoutClasses,
+  getMediaTextVideoAspectClass,
+  getMediaTextVideoZoom,
+} from '@/lib/media/mediaText';
+import { Reveal } from '../animation/Reveal';
 import MediaCard from '../media/MediaCard';
 import SectionHeader from './SectionHeader';
 import SectionShell from './SectionShell';
@@ -80,7 +85,7 @@ const MediaTextSection = ({ section }: Props) => {
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
       <div className={grid} style={style}>
-        <div className={`${textOrder} min-w-0`}>
+        <Reveal className={`${textOrder} min-w-0`} variant={mediaOnLeft ? 'right' : 'left'}>
           <div className="editorial-panel h-full">
             <div className="editorial-panel__inner flex h-full flex-col gap-4 sm:gap-5">
               <div className="editorial-panel__rule" aria-hidden="true" />
@@ -89,11 +94,15 @@ const MediaTextSection = ({ section }: Props) => {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
 
-        <div className={`${mediaOrder} min-w-0 md:sticky md:top-8`}>
+        <Reveal
+          className={`${mediaOrder} min-w-0 md:sticky md:top-8`}
+          variant={mediaOnLeft ? 'left' : 'right'}
+          delay={0.08}
+        >
           {renderMedia()}
-        </div>
+        </Reveal>
       </div>
     </SectionShell>
   );

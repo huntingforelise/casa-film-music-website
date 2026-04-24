@@ -1,5 +1,9 @@
 import type { PhotoItem } from '@/types/media';
-import { PhotoMosaicSection as PhotoMosaicSectionType, type PhotoMosaicSlotKey } from '@/types/sections';
+import {
+  PhotoMosaicSection as PhotoMosaicSectionType,
+  type PhotoMosaicSlotKey,
+} from '@/types/sections';
+import { Reveal, StaggerContainer, StaggerItem } from '../animation/Reveal';
 import SanityImage from '../media/SanityImage';
 import { getVisibleCount, GRID_SLOTS, hasImage, PORTRAIT_SLOTS } from '@/lib/media/photoMosaic';
 import clsx from 'clsx';
@@ -42,7 +46,7 @@ const PhotoMosaicSection = ({ section }: { section: PhotoMosaicSectionType }) =>
     <SectionShell>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
-      <div className="hidden md:block">
+      <Reveal className="hidden md:block" delay={0.08}>
         <div className={desktopGridClassName}>
           {visibleEntries.map(([key, item]) => {
             const layout = GRID_SLOTS[key];
@@ -65,11 +69,11 @@ const PhotoMosaicSection = ({ section }: { section: PhotoMosaicSectionType }) =>
             );
           })}
         </div>
-      </div>
+      </Reveal>
 
-      <div className="space-y-4 md:hidden">
+      <StaggerContainer className="space-y-4 md:hidden">
         {visibleEntries.map(([key, item]) => (
-          <div
+          <StaggerItem
             key={`mobile-${key}`}
             className={clsx(
               'relative overflow-hidden',
@@ -83,9 +87,9 @@ const PhotoMosaicSection = ({ section }: { section: PhotoMosaicSectionType }) =>
               alt={item.image?.alt || ''}
               className="h-full w-full object-cover"
             />
-          </div>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerContainer>
     </SectionShell>
   );
 };

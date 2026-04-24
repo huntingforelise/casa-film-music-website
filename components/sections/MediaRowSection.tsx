@@ -1,5 +1,6 @@
 import { MediaRowSection as MediaRowSectionType } from '@/types/sections';
 import type { MediaOrientation, MediaType, PhotoItem, VideoItem } from '@/types/media';
+import { StaggerContainer, StaggerItem } from '../animation/Reveal';
 import MediaCard from '../media/MediaCard';
 import { getMediaRowGridClass, getMediaRowSizes } from '@/lib/media/mediaRow';
 import SectionHeader from './SectionHeader';
@@ -27,28 +28,26 @@ const MediaRowSection = ({ section }: Props) => {
     <SectionShell>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
 
-      <div className={`grid ${gridClassName} gap-4 sm:gap-5 md:gap-6`}>
+      <StaggerContainer className={`grid ${gridClassName} gap-4 sm:gap-5 md:gap-6`}>
         {items.map((item, index) => {
           const key = item._key ?? `${mediaType}-${index}`;
 
           return mediaType === 'photo' ? (
-            <MediaCard
-              key={key}
-              mediaType="photo"
-              item={item as PhotoItem}
-              orientation={orientation}
-              sizes={sizes}
-            />
+            <StaggerItem key={key}>
+              <MediaCard
+                mediaType="photo"
+                item={item as PhotoItem}
+                orientation={orientation}
+                sizes={sizes}
+              />
+            </StaggerItem>
           ) : (
-            <MediaCard
-              key={key}
-              mediaType="video"
-              item={item as VideoItem}
-              orientation={orientation}
-            />
+            <StaggerItem key={key}>
+              <MediaCard mediaType="video" item={item as VideoItem} orientation={orientation} />
+            </StaggerItem>
           );
         })}
-      </div>
+      </StaggerContainer>
     </SectionShell>
   );
 };
