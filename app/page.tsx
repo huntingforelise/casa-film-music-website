@@ -5,6 +5,8 @@ import { client } from '@/lib/sanity/client';
 import { SITE_DESCRIPTION, SITE_NAME, defaultOpenGraphImagePath } from '@/lib/site';
 import { Section, SplitHeroSection } from '@/types/sections';
 
+export const revalidate = 60;
+
 type HomePageData = {
   sections?: Section[];
 };

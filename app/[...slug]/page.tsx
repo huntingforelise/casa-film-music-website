@@ -12,6 +12,8 @@ import {
   SITE_NAME,
 } from '@/lib/site';
 
+export const revalidate = 60;
+
 interface PageProps {
   params: Promise<{ slug: string[] }>;
 }
