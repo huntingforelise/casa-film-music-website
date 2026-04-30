@@ -23,7 +23,7 @@ const getHomepageDescription = (homepage?: HomePageData | null) => {
     return SITE_DESCRIPTION;
   }
 
-  const description = [splitHero.introLine, splitHero.optionOne.subtitle, splitHero.optionTwo.subtitle]
+  const description = [splitHero.optionOne.subtitle, splitHero.optionTwo.subtitle]
     .filter((value): value is string => Boolean(value?.trim()))
     .join(' ')
     .replace(/\s+/g, ' ')

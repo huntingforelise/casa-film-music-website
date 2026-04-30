@@ -49,21 +49,7 @@ export const cookieBannerQuery = `
 `;
 
 export const homepageQuery = `
-  *[_id == "homepage"][0]{
-  _id,
-  _type,
-  introLine,
-  optionOne{
-    title,
-    subtitle,
-    image
-  },
-  optionTwo{
-    title,
-    subtitle,
-    image
-  }
-}
+  *[_id == "homepage"][0]
 `;
 
 export const bookingSettingsQuery = `

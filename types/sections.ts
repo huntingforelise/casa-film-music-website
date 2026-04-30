@@ -1,10 +1,6 @@
 import { SanityImage } from './sanity';
 import type { PortableTextBlock } from './portableText';
-import type {
-  MediaOrientation,
-  PhotoItem,
-  VideoItem,
-} from './media';
+import type { MediaOrientation, PhotoItem, VideoItem } from './media';
 
 /* ---------- Sections ---------- */
 
@@ -168,7 +164,6 @@ export interface HeroSection {
 export interface SplitHeroSection extends SectionHeaderContent {
   _key: string;
   _type: 'splitHeroSection';
-  introLine: string;
 
   optionOne: {
     title: string;
