@@ -619,7 +619,7 @@ body::-webkit-scrollbar-thumb:hover {
 
   .split-hero-option-header .split-hero-option-title,
   .split-hero-option-header .split-hero-option-subtitle {
-    color: var(--color-obsidian);
+    color: var(--theme-text-inverse);
   }
 }
 
