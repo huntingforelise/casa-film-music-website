@@ -37,7 +37,7 @@
   --theme-surface-strong: color-mix(in srgb, var(--theme-bg) 78%, var(--theme-surface) 22%);
 
   /* Fonts */
-  --theme-font-sans: 'Suisse Intl', var(--font-inter), system-ui, -apple-system, sans-serif;
+  --theme-font-sans: var(--font-montserrat), system-ui, -apple-system, sans-serif;
   --theme-font-display: 'Canela', var(--font-playfair), serif;
   --theme-font-mono: var(--font-geist-mono);
 
@@ -294,11 +294,10 @@ body::-webkit-scrollbar-thumb:hover {
     position: relative;
     border-radius: var(--radius-surface);
     border: 1px solid color-mix(in srgb, var(--color-warm-ivory) 45%, transparent 55%);
-    background-color: color-mix(in srgb, var(--color-obsidian) 45%, transparent 55%);
+    background-color: color-mix(in srgb, white 28%, transparent 72%);
     padding: var(--space-3);
     backdrop-filter: blur(18px);
     box-shadow: 0 24px 55px rgba(18, 18, 18, 0.18);
-    color: var(--theme-text-inverse);
   }
 
   .hero-copy-box,
@@ -496,12 +495,11 @@ body::-webkit-scrollbar-thumb:hover {
   .split-hero-option-title {
     font-family: var(--theme-font-sans);
     font-size: clamp(1rem, 2.2vw + 0.85rem, 2.1rem);
-    font-weight: 600;
     letter-spacing: 0.12em;
     line-height: 1.05;
     text-transform: uppercase;
     text-wrap: balance;
-    color: var(--theme-text-inverse);
+    color: var(--color-obsidian);
   }
 
   .form-field {
@@ -600,9 +598,13 @@ body::-webkit-scrollbar-thumb:hover {
     border-color: transparent;
   }
 
+  .split-hero-option .split-hero-option-card {
+    background-color: color-mix(in srgb, var(--color-obsidian) 55%, transparent 45%);
+  }
+
   .split-hero-option:focus-visible .split-hero-option-card,
   .split-hero-option:hover .split-hero-option-card {
-    background-color: color-mix(in srgb, var(--color-obsidian) 55%, transparent 45%);
+    background-color: color-mix(in srgb, white 28%, transparent 72%);
     border-color: color-mix(in srgb, var(--color-warm-ivory) 55%, transparent 45%);
   }
 
@@ -612,7 +614,12 @@ body::-webkit-scrollbar-thumb:hover {
     font-family: var(--theme-font-display);
     font-weight: 400;
     line-height: 1.6;
-    color: var(--theme-text-inverse);
+    color: var(--color-obsidian);
+  }
+
+  .split-hero-option-header .split-hero-option-title,
+  .split-hero-option-header .split-hero-option-subtitle {
+    color: var(--color-obsidian);
   }
 }
 

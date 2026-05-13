@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import { Geist_Mono, Inter, Playfair_Display } from 'next/font/google';
+import { Geist_Mono, Montserrat, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -22,8 +22,8 @@ import {
 
 const getFooter = async () => client.fetch<FooterData | null>(footerQuery);
 
-const inter = Inter({
-  variable: '--font-inter',
+const montserrat = Montserrat({
+  variable: '--font-montserrat',
   subsets: ['latin'],
 });
 
@@ -77,7 +77,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playfairDisplay.variable} ${geistMono.variable}`}
+      className={`${montserrat.variable} ${playfairDisplay.variable} ${geistMono.variable}`}
     >
       <head>
         <link rel="preconnect" href="https://player.vimeo.com" />

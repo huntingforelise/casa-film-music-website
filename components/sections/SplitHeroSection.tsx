@@ -50,7 +50,7 @@ const SplitHeroSection = ({ section }: Props) => {
             tone="inverse"
             align="center"
             variant="choice"
-            className="page-hero-header--hero-image page-hero-header--choice"
+            className="page-hero-header--hero-image page-hero-header--choice split-hero-option-header"
           />
         </ParentHoverLift>
       </Reveal>
