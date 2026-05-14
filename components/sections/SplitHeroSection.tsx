@@ -2,7 +2,7 @@ import { SplitHeroSection as SplitHeroSectionType } from '@/types/sections';
 import SanityImage from '../media/SanityImage';
 import PageHeroHeader from '../templates/PageHeroHeader';
 import clsx from 'clsx';
-import { HoverMotionLink, ParentHoverLift, Reveal } from '../animation/Reveal';
+import { HoverMotionLink, ParentHoverLift } from '../animation/Reveal';
 
 interface Props {
   section: SplitHeroSectionType;
@@ -38,11 +38,7 @@ const SplitHeroSection = ({ section }: Props) => {
         aria-hidden="true"
       />
 
-      <Reveal
-        className="relative mb-2 w-full max-w-[32rem] md:mb-4"
-        variant={index === 0 ? 'left' : 'right'}
-        viewportAmount={0.8}
-      >
+      <div className="relative mb-2 w-full max-w-[32rem] md:mb-4">
         <ParentHoverLift className="surface-radius hero-copy-box split-hero-option-card px-5 py-4 text-center md:px-7 md:py-5 backdrop-blur-md">
           <PageHeroHeader
             title={option.title}
@@ -53,7 +49,7 @@ const SplitHeroSection = ({ section }: Props) => {
             className="page-hero-header--hero-image page-hero-header--choice split-hero-option-header"
           />
         </ParentHoverLift>
-      </Reveal>
+      </div>
     </HoverMotionLink>
   );
 
