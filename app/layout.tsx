@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 import { Geist_Mono, Montserrat, Playfair_Display } from 'next/font/google';
 import './globals.css';
@@ -96,6 +97,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
           <Footer footer={footer} cookieSettingsLabel={cookieBanner?.cookieSettingsLabel} />
           <CookieBanner />
         </CookieBannerProvider>
+        <Analytics />
       </body>
     </html>
   );
